@@ -7,22 +7,15 @@ const urlDB = 'mongodb://localhost:27017/tto'
 
 const io = require('socket.io')(http)
 
+let quizz = require('../documents/quizz.json')
+
 MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
   if (err) throw  err
   console.log('database created')
   const database = db.db('tto')
-  const quiz = {
-    name: 'quiz 1'
-  }
-  // database.createCollection('quizz', function (err, res) {
-  //   if (err) throw err;
-  //   console.log('collection created')
-  //   db.close();
-  // })
-
-  database.collection('quizz').insertOne(quiz, function (err, res) {
+  database.collection('quizz').insertMany(quizz, function (err, res) {
     if (err) throw err
-    console.log('inserted quiz')
+    console.log('inserted quiz:' + res.insertedCount);
     db.close()
   })
 
