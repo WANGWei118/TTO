@@ -5,6 +5,7 @@
 import http from 'http'
 import express from 'express'
 import sio from 'socket.io'
+
 const database = require('./database/database')
 
 /**
@@ -18,7 +19,7 @@ class SocketIOServer {
    *
    * @constructor
    */
-  constructor() {
+  constructor () {
     this._socketIOClients = {}
     this._onNewClientCallback = null
     this._onClientDisconnectionCallback = null
@@ -31,7 +32,7 @@ class SocketIOServer {
    * @method start
    * @param {number} socketIOPort - Socket IO Server's port. Default : 10000
    */
-  start(socketIOPort = 10000) {
+  start (socketIOPort = 10000) {
     this._app = express()
     this._httpServer = http.createServer(this._app)
     this._ioServer = sio(this._httpServer)
@@ -43,7 +44,7 @@ class SocketIOServer {
     })
   }
 
-  closeDatabase(){
+  closeDatabase () {
     database.closeDatabases()
   }
 
@@ -53,7 +54,7 @@ class SocketIOServer {
    * @method onNewClient
    * @param {Function} newClientCallback - new client callback function.
    */
-  onNewClient(newClientCallback) {
+  onNewClient (newClientCallback) {
     this._onNewClientCallback = newClientCallback
   }
 
@@ -63,11 +64,11 @@ class SocketIOServer {
    * @method onClientDisconnection
    * @param {Function} clientDisconnectionCallback - client disconnection callback function.
    */
-  onClientDisconnection(clientDisconnectionCallback) {
+  onClientDisconnection (clientDisconnectionCallback) {
     this._onClientDisconnectionCallback = clientDisconnectionCallback
   }
 
-  onClientMessage(clientMessageCallBack) {
+  onClientMessage (clientMessageCallBack) {
     this._onClientMessageCallback = clientMessageCallBack
   }
 
@@ -77,7 +78,7 @@ class SocketIOServer {
    * @method newClient
    * @param {Object} socket - client socket.
    */
-  newClient(socket) {
+  newClient (socket) {
     this._socketIOClients[socket.id] = true
     if (this._onNewClientCallback !== null) {
       this._onNewClientCallback(socket)
@@ -90,7 +91,7 @@ class SocketIOServer {
    * @method disconnectClient
    * @param {Object} socket - client socket.
    */
-  disconnectClient(socket) {
+  disconnectClient (socket) {
     if (this._onClientDisconnectionCallback !== null) {
       this._onClientDisconnectionCallback(socket)
     }
@@ -102,7 +103,7 @@ class SocketIOServer {
    *
    * @method handleSocketIOClient
    */
-  handleSocketIOClient() {
+  handleSocketIOClient () {
     this._ioServer.on('connection', (socket) => {
       console.info('New Socket.IO Client Connection : ', socket.id)
       this.newClient(socket)
@@ -115,6 +116,11 @@ class SocketIOServer {
       socket.on('get quizz', () => {
         console.log('Client wants quizz')
         database.sendAllQuizz(socket)
+      })
+
+      socket.on('valided action', () => {
+        console.log('Received valided action from client')
+        socket.emit('validation', {valid: true})
       })
 
       socket.on('disconnect', () => {
