@@ -1,0 +1,15 @@
+.quizCard {
+    display: inline-block;
+    width: 30%;
+    margin: 10px;
+}
+
+img {
+    width: 100%;
+}
+
+.pageTitle {
+    text-align: center;
+    padding: 20px;
+}
+

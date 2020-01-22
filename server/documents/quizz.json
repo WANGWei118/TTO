@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "quiz1",
+    "name": "Premier Quiz",
     "topic": "Fruit",
     "questions": [
       {
@@ -30,12 +30,39 @@
           "text": "Pomme"
         },
         "explains": "Pomme est rouge, banane est jeune......"
+      },
+      {
+        "id": 2,
+        "description": "Quel fruit est Jaune?",
+        "answers": [
+          {
+            "id": "A",
+            "text": "Pomme"
+          },
+          {
+            "id": "B",
+            "text": "Banana"
+          },
+          {
+            "id": "C",
+            "text": "Bean"
+          },
+          {
+            "id": "D",
+            "text": "Basketball"
+          }
+        ],
+        "rightAnwer": {
+          "id": "B",
+          "text": "Banana"
+        },
+        "explains": "Oui ! La banane est jaune"
       }
     ]
   },
   {
     "id": 2,
-    "name": "quiz2",
+    "name": "Deuxieme Quiz",
     "topic": "Fruit",
     "questions": [
       {
@@ -69,7 +96,7 @@
   },
   {
     "id": 3,
-    "name": "quiz3",
+    "name": "Troisieme Quiz",
     "topic": "Fruit",
     "questions": [
       {

@@ -1,0 +1,24 @@
+.navigation {
+    width: 100%;
+    display: inline-block;
+}
+
+.navigation>div {
+    width: 50%;
+    display: inline-block;
+}
+
+.nextQuestionDiv {
+    text-align: right;
+}
+
+Button {
+    margin: 20px 10px 0px 10px;
+}
+
+.descriptionDiv,
+.explanationDiv {
+    width: 100%;
+    text-align: center;
+
+}
