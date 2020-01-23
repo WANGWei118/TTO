@@ -113,14 +113,24 @@ class SocketIOServer {
         socket.emit('test', 'hellollllll')
       })
 
-      socket.on('get quizz', () => {
-        console.log('Client wants quizz')
-        database.sendAllQuizz(socket)
+      socket.on('get quizz', (data) => {
+        if (data.type === 'table') {
+          console.log('Client wants quizz of table')
+          database.sendTableQuiz(socket)
+        } else {
+          console.log('Client wants quizz')
+          database.sendAllQuizz(socket)
+        }
       })
 
       socket.on('valided action', () => {
         console.log('Received valided action from client')
         socket.emit('validation', {valid: true})
+      })
+
+      socket.on('add quiz', (data) => {
+        console.log(data)
+        database.addQuiz(data)
       })
 
       socket.on('disconnect', () => {

@@ -5,7 +5,13 @@
     "pictures": [
       {
         "description": "pomme",
-        "src": ""
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
       }
     ]
   }

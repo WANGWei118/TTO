@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "description": "Quel fruit est rouge?",
+    "answers": [
+      {
+        "id": "A",
+        "text": "Pomme",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
+      },
+      {
+        "id": "B",
+        "text": "Banana",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
+      },
+      {
+        "id": "C",
+        "text": "Bean",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
+      },
+      {
+        "id": "D",
+        "text": "Orange",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
+      }
+    ],
+    "rightAnwer": {
+      "id": "A",
+      "text": "Pomme",
+      "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
+    },
+    "explains": "Pomme est rouge, banane est jeune......"
+  },
+  {
+    "id": 2,
+    "description": "Quel fruit est Jaune?",
+    "answers": [
+      {
+        "id": "A",
+        "text": "Pomme",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
+      },
+      {
+        "id": "B",
+        "text": "Banana",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
+      },
+      {
+        "id": "C",
+        "text": "Bean",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
+      },
+      {
+        "id": "D",
+        "text": "Orange",
+        "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
+      }
+    ],
+    "rightAnwer": {
+      "id": "B",
+      "text": "Banana",
+      "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
+    },
+    "explains": "Oui ! La banane est jaune"
+  }
+]
