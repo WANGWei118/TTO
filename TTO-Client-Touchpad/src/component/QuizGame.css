@@ -12,8 +12,11 @@
     text-align: right;
 }
 
-Button {
+button {
     margin: 20px 10px 0px 10px;
+}
+.quitDiv {
+    
 }
 
 .descriptionDiv,

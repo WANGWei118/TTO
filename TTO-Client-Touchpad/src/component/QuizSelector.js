@@ -32,7 +32,7 @@ class QuizSelector extends Component {
     }
 
     componentDidMount() {
-        this.socket.emit('get quizz');
+        this.socket.emit('get quizz', { type: "tablet" });
     }
 
     render() {

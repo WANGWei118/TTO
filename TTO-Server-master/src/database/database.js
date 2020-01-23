@@ -3,12 +3,12 @@ const urlDB = 'mongodb://localhost:27017/tto'
 var quizs
 
 class Database {
-  init () {
+  init() {
     console.log('Initializing database...')
     const quizz = require('../../document/quizz')
     const questions = require('../../document/questions')
     const tableQuiz = require('../../document/tableQuiz')
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       console.log('database created')
       const database = db.db('tto')
@@ -30,44 +30,44 @@ class Database {
     })
   }
 
-  sendAllQuizz (socket) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw  err
+  sendAllQuizz(socket) {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('quizz').find({}).toArray(function (err, result) {
-        if (err) throw  err
+        if (err) throw err
         socket.emit('all quizz', result)
         db.close()
       })
     })
   }
 
-  sendAllQustions (socket) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw  err
+  sendAllQustions(socket) {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('questions').find({}).toArray(function (err, result) {
-        if (err) throw  err
+        if (err) throw err
         socket.emit('all questions', result)
         db.close()
       })
     })
   }
 
-  sendTableQuiz (socket) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw  err
+  sendTableQuiz(socket) {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
-        if (err) throw  err
+        if (err) throw err
         socket.emit('all tableQuiz', result)
         db.close()
       })
     })
   }
 
-  addQuiz (newQuiz) {
-    MongoClient.connect(url, {useNewUrlParser: true}, function (err, db) {
+  addQuiz(newQuiz) {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
       dbo.collection('quizz').insertOne(newQuiz, function (err, res) {
@@ -78,9 +78,9 @@ class Database {
     })
   }
 
-  closeDatabases () {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw  err
+  closeDatabases() {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err
       const dbo = db.db('tto')
       dbo.dropDatabase()
       dbo.close()

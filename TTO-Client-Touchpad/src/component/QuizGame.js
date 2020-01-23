@@ -36,7 +36,7 @@ const QuizGame = (props) => {
                                         if (item.id === currentQuestion.rightAnwer.id) {
                                             correctAnswer = item;
                                         }
-                                        return <AnswerCard key={item.id} answer={item} onClick={(answer) => checkAnswer(answer)} />
+                                        return <AnswerCard key={item.id} answer={item} onClick={(answer) => checkAnswer(answer)} canHide={true} />
                                     })}
                                 </section>}
                         </div>
@@ -53,7 +53,7 @@ const QuizGame = (props) => {
                     <h1>Oui ! Bonne réponse !</h1>
                 </div>
                 <div className="explanationDiv">
-                    <AnswerCard answer={correctAnswer} onClick={() => { }} />
+                    <AnswerCard answer={correctAnswer} onClick={() => { }} canHide={false} />
                     <p>{currentQuestion.explains}</p>
                     <Button type="primary" onClick={() => nextQuestion()}>Question suivante</Button>
                 </div>
