@@ -16,7 +16,7 @@ export const socket = openSocket('http://localhost:10000');
 const App = () => {
     return (
         <Router>
-            <div>
+            <>
                 {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
                 <Switch>
@@ -30,7 +30,7 @@ const App = () => {
                         <Menu />
                     </Route>
                 </Switch>
-            </div>
+            </>
         </Router>
     );
 }
