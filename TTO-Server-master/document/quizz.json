@@ -10,24 +10,29 @@
         "answers": [
           {
             "id": "A",
-            "text": "Pomme"
+            "text": "Pomme",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
           },
           {
             "id": "B",
-            "text": "Banana"
+            "text": "Banana",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
           },
           {
             "id": "C",
-            "text": "Bean"
+            "text": "Bean",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
           },
           {
             "id": "D",
-            "text": "Basketball"
+            "text": "Orange",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
-          "text": "Pomme"
+          "text": "Pomme",
+          "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       },
@@ -37,24 +42,29 @@
         "answers": [
           {
             "id": "A",
-            "text": "Pomme"
+            "text": "Pomme",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
           },
           {
             "id": "B",
-            "text": "Banana"
+            "text": "Banana",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
           },
           {
             "id": "C",
-            "text": "Bean"
+            "text": "Bean",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
           },
           {
             "id": "D",
-            "text": "Basketball"
+            "text": "Orange",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "B",
-          "text": "Banana"
+          "text": "Banana",
+          "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
         },
         "explains": "Oui ! La banane est jaune"
       }
@@ -71,24 +81,29 @@
         "answers": [
           {
             "id": "A",
-            "text": "Pomme"
+            "text": "Pomme",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
           },
           {
             "id": "B",
-            "text": "Banana"
+            "text": "Banana",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
           },
           {
             "id": "C",
-            "text": "Bean"
+            "text": "Bean",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
           },
           {
             "id": "D",
-            "text": "Basketball"
+            "text": "Orange",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
-          "text": "Pomme"
+          "text": "Pomme",
+          "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
@@ -105,24 +120,29 @@
         "answers": [
           {
             "id": "A",
-            "text": "Pomme"
+            "text": "Pomme",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
           },
           {
             "id": "B",
-            "text": "Banana"
+            "text": "Banana",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
           },
           {
             "id": "C",
-            "text": "Bean"
+            "text": "Bean",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
           },
           {
             "id": "D",
-            "text": "Basketball"
+            "text": "Orange",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
-          "text": "Pomme"
+          "text": "Pomme",
+          "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
@@ -139,24 +159,29 @@
         "answers": [
           {
             "id": "A",
-            "text": "Pomme"
+            "text": "Pomme",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
           },
           {
             "id": "B",
-            "text": "Banana"
+            "text": "Banana",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bananes.jpg"
           },
           {
             "id": "C",
-            "text": "Bean"
+            "text": "Bean",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/bean.jpg"
           },
           {
             "id": "D",
-            "text": "Basketball"
+            "text": "Orange",
+            "src": "https://github.com/WANGWei118/TTO/blob/master/images/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
-          "text": "Pomme"
+          "text": "Pomme",
+          "src": "https://github.com/WANGWei118/TTO/blob/master/images/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
