@@ -32,11 +32,12 @@ class ImageWidget extends TUIOWidget {
    * @param socket
    */
 
-  constructor(x, y, width, height, imgSrc, socket) {
+  constructor(x, y, width, height, imgSrc, socket, isRight) {
     super(x, y, width, height)
     this._lastTouchesValues = {}
     this._lastTagsValues = {}
     this.socket = socket
+    this.isRight = isRight
     this._domElem = $('<img>')
     this._domElem.attr('src', `${imgSrc}`)
     this._domElem.css('width', `${width}px`)
@@ -45,7 +46,7 @@ class ImageWidget extends TUIOWidget {
     this._domElem.css('left', `${x}px`)
     this._domElem.css('top', `${y}px`)
 
-    this.socket._client.on('all quizz', () => {
+    this.socket._client.on('all tableQuiz', () => {
       console.log('asdfjlasjdflkjasdlkfjlas')
     })
   }
@@ -196,8 +197,16 @@ class ImageWidget extends TUIOWidget {
       this._domElem.css('transform', `rotate(${angle}deg)`)
     }
 
-    if (this._x >= 500 && this._x <= 1500 && this._y >= 200 && this._y <= 700) {
-      this.socket.sendValidedAction()
+    if (this._x >= 500 && this._x <= 1500
+      && this._y >= 200 && this._y <= 700 && this.isRight === true) {
+      this.socket.sendValidedAction(true)
+    }
+    if(this._x >= 500 && this._x <= 1500
+      && this._y >= 200 && this._y <= 700 && this.isRight === false){
+      this.socket.sendValidedAction(false)
+      setTimeout(()=>{
+        this._domElem.css('display', `none`)
+      }, 3500)
     }
   }
 }

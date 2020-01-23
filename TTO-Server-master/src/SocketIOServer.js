@@ -123,9 +123,13 @@ class SocketIOServer {
         }
       })
 
-      socket.on('valided action', () => {
+      socket.on('valided action', (data) => {
         console.log('Received valided action from client')
-        socket.emit('validation', {valid: true})
+        if(data.type === true) {
+          socket.emit('validation', {valid: true})
+        }else{
+          socket.emit('validation', {valid: false})
+        }
       })
 
       socket.on('add quiz', (data) => {

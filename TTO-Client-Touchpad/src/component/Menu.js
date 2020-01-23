@@ -103,8 +103,6 @@ function Menu() {
     return (
 
         <div className="divMenu">
-
-
             <h1>Titre de l'application</h1>
             <div className="menuButton">
                 <Button type="primary" className="startQuiz" onClick={() => selectQuiz()}>Lancer un quiz</Button>
