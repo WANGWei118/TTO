@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "description": "Lequel est un fruit?",
+    "answers": [
+      {
+        "id": "A",
+        "text": "Oeuf"
+      },
+      {
+        "id": "B",
+        "text": "Banane"
+      },
+      {
+        "id": "C",
+        "text": "Pomme de terre"
+      },
+      {
+        "id": "D",
+        "text": "Nuage"
+      }
+    ],
+    "rightAnwer": {
+      "id": "B",
+      "text": "Pomme"
+    },
+    "explains": "Banane est un fruit."
+  },
+  {
+    "id": 2,
+    "description": "Quel fruit est rond?",
+    "answers": [
+      {
+        "id": "A",
+        "text": "Pomme"
+      },
+      {
+        "id": "B",
+        "text": "Banana"
+      },
+      {
+        "id": "C",
+        "text": "Aubergine"
+      },
+      {
+        "id": "D",
+        "text": "Chou-fleur"
+      }
+    ],
+    "rightAnwer": {
+      "id": "A",
+      "text": "Pomme"
+    },
+    "explains": "Oui ! Pomme est rond."
+  }
+]
