@@ -5,7 +5,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
 import { radToDeg } from 'tuiomanager/core/helpers'
 
 class ButtonWidget extends TUIOWidget {
-  constructor(x, y, width, height, text, socket) {
+  constructor (x, y, width, height, text, socket) {
     super(x, y, width, height)
     this._domElem = $('<button></button>')
     this._domElem[0].innerText = text
@@ -15,18 +15,24 @@ class ButtonWidget extends TUIOWidget {
     this._domElem.css('position', 'absolute')
     this._domElem.css('left', `${x}px`)
     this._domElem.css('top', `${y}px`)
+
+    // socket._client.on('all tableQuiz', (data) => {
+    //   console.log(data)
+    //   this._domElem.css('display', `none`)
+    // })
   }
 
-  onClick() {
+  onClick () {
     this._domElem[0].addEventListener('click', () => {
       console.log(this._domElem[0].innerText)
       this.socket.sendBntMessage()
+      this._domElem.css('display', `none`)
     })
   }
 
-  get domElem() { return this._domElem }
+  get domElem () { return this._domElem }
 
-  onTouchCreation(tuioTouch) {
+  onTouchCreation (tuioTouch) {
     super.onTouchCreation(tuioTouch)
     if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
       this._lastTouchesValues = {
@@ -46,7 +52,7 @@ class ButtonWidget extends TUIOWidget {
    * @method onTouchUpdate
    * @param {TUIOTouch} tuioTouch - A TUIOTouch instance.
    */
-  onTouchUpdate(tuioTouch) {
+  onTouchUpdate (tuioTouch) {
     if (typeof (this._lastTouchesValues[tuioTouch.id]) !== 'undefined') {
       const lastTouchValue = this._lastTouchesValues[tuioTouch.id]
       const diffX = tuioTouch.x - lastTouchValue.x
@@ -88,7 +94,7 @@ class ButtonWidget extends TUIOWidget {
    * @method onTagCreation
    * @param {TUIOTag} tuioTag - A TUIOTag instance.
    */
-  onTagCreation(tuioTag) {
+  onTagCreation (tuioTag) {
     super.onTagCreation(tuioTag)
     if (this.isTouched(tuioTag.x, tuioTag.y)) {
       this._lastTagsValues = {
@@ -107,7 +113,7 @@ class ButtonWidget extends TUIOWidget {
    * @method onTagUpdate
    * @param {TUIOTag} tuioTag - A TUIOTag instance.
    */
-  onTagUpdate(tuioTag) {
+  onTagUpdate (tuioTag) {
     if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
       const lastTagValue = this._lastTagsValues[tuioTag.id]
       const diffX = tuioTag.x - lastTagValue.x
@@ -151,7 +157,7 @@ class ButtonWidget extends TUIOWidget {
    * @param {string/number} y - New ImageWidget's ordinate.
    * @param {number} angle - New ImageWidget's angle.
    */
-  moveTo(x, y, angle = null) {
+  moveTo (x, y, angle = null) {
     this._x = x
     this._y = y
     this._domElem.css('left', `${x}px`)

@@ -72,7 +72,7 @@ class SocketIOClient {
   }
 
   sendBntMessage() {
-    this._client.emit('get quizz')
+    this._client.emit('get quizz', {type: 'table'})
   }
 
   getMessage(data) {
@@ -99,9 +99,9 @@ class SocketIOClient {
     return this.isValided
   }
 
-  sendValidedAction() {
+  sendValidedAction(type) {
     console.log('Send valided action to server')
-    this._client.emit('valided action')
+    this._client.emit('valided action', {type: type})
   }
 }
 
