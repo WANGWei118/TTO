@@ -66,13 +66,14 @@ class Database {
     })
   }
 
-  addQuiz(newQuiz) {
+  addQuiz(newQuiz, socket) {
     MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
       dbo.collection('quizz').insertOne(newQuiz, function (err, res) {
         if (err) throw err
         console.log('quiz inserted success')
+        socket.emit('quiz added', {type: true})
         db.close()
       })
     })

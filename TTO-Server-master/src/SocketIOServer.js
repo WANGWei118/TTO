@@ -134,7 +134,7 @@ class SocketIOServer {
 
       socket.on('add quiz', (data) => {
         console.log(data)
-        database.addQuiz(data)
+        database.addQuiz(data, socket)
       })
 
       socket.on('disconnect', () => {
