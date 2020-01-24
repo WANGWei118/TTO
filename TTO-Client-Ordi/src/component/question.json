@@ -28,7 +28,7 @@
   },
   {
     "id": 2,
-    "description": "Quel fruit est rond?",
+    "description": "Lequel est rond?",
     "answers": [
       {
         "id": "A",

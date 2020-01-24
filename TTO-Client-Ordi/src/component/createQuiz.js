@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import './app.css';
 import openSocket from 'socket.io-client';
-import { Select,Layout, Menu, Icon, Tabs, Button, Breadcrumb, Modal, Checkbox, Input, Dropdown} from 'antd';
+import { List, Select,Layout, Menu, Icon, Tabs, Button, Breadcrumb, Modal, Checkbox, Input, Dropdown} from 'antd';
 
 const { Header, Content, Footer, Sider} = Layout;const Menu1 = 'Liste de quiz';
 const CheckboxGroup = Checkbox.Group;
@@ -127,6 +127,10 @@ class CreateQuiz extends React.Component {
         this.setState({ collapsed });
     };
 
+    renderQuestion = () => {
+      return this.state.checkedQuestion.map((q) => q.description);
+    };
+
 
     render() {
         return (
@@ -162,12 +166,12 @@ class CreateQuiz extends React.Component {
                                    addonBefore= 'Nom '
                                    onChange = {e=>this.onChangeName(e)}
                             />
-                            <div style = {{ marginBottom:20}}> Thème
+                            <div style = {{ marginBottom:20, fontSize:16}}> <b>Thème</b>
                                 <Select defaultValue="" style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
                                     <Option value="fruit">Fruit</Option>
                                 </Select>
                             </div>
-                            <div style = {{ marginBottom:20}}> Les questions
+                            <div style = {{ marginBottom:20,fontSize:16}}> <b>Les questions</b>
                                 <Button style={{marginLeft:130}} type='primary' onClick={this.showModal}><Icon type="plus"/> Ajouter des questions</Button>
                             </div>
                             <Modal
@@ -182,6 +186,14 @@ class CreateQuiz extends React.Component {
                                     onChange={this.onChange}
                                 />
                             </Modal>
+                            <List
+                                bordered
+                                dataSource={this.state.checkedQuestion}
+                                renderItem={item => <List.Item><List.Item.Meta
+                                    title={item.description}
+                                    description={"Reponse: " + item.answers.map((a)=>a.text)+ "; Bonne reponse: " + item.rightAnwer.text}
+                                /></List.Item>}
+                            />
                         </div>
                     </Content>
                     <Footer style={{display:'flex', justifyContent:'center'}}>
