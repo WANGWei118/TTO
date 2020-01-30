@@ -3,12 +3,15 @@ const urlDB = 'mongodb://localhost:27017/tto'
 var quizs
 
 class Database {
-  init() {
+  init () {
     console.log('Initializing database...')
     const quizz = require('../../document/quizz')
     const questions = require('../../document/questions')
     const tableQuiz = require('../../document/tableQuiz')
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+    const images = require('../../document/images')
+    const quizTangible = require('../../document/quizTangible')
+    const quizNontangible = require('../../document/quizNontangible')
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       console.log('database created')
       const database = db.db('tto')
@@ -22,6 +25,21 @@ class Database {
         console.log(`inserted table quiz:${res.insertedCount}`)
       })
 
+      database.collection('images').insertMany(images, function (err, res) {
+        if (err) throw err
+        console.log(`inserted images:${res.insertedCount}`)
+      })
+
+      database.collection('quizTangible').insertMany(quizTangible, function (err, res) {
+        if (err) throw err
+        console.log(`inserted quizTangible:${res.insertedCount}`)
+      })
+
+      database.collection('quizNontangible').insertMany(quizNontangible, function (err, res) {
+        if (err) throw err
+        console.log(`inserted quizNontangible:${res.insertedCount}`)
+      })
+
       database.collection('questions').insertMany(questions, function (err, res) {
         if (err) throw err
         console.log(`inserted questions:${res.insertedCount}`)
@@ -30,8 +48,8 @@ class Database {
     })
   }
 
-  sendPadQuizz(socket) {
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  sendPadQuizz (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('quizz').find({}).toArray(function (err, result) {
@@ -42,26 +60,65 @@ class Database {
     })
   }
 
-  sendAllQuizz(socket){
-    let results = [];
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  sendImages (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
-      dbo.collection('quizz').find({}).toArray(function (err, result) {
+      dbo.collection('images').find({}).toArray(function (err, result) {
         if (err) throw err
-        results = result
-      })
-      dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
-        if (err) throw err
-        results = results.concat(result)
-        socket.emit('all the quizz', results)
+        socket.emit('images', result)
         db.close()
       })
     })
   }
 
-  sendAllQustions(socket) {
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  sendQuizTangible (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('quizTangible').find({}).toArray(function (err, result) {
+        if (err) throw err
+        socket.emit('quiz tangible', result)
+        db.close()
+      })
+    })
+  }
+
+  sendQuizNonTangible (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('quizNontangible').find({}).toArray(function (err, result) {
+        if (err) throw err
+        socket.emit('quiz non tangible', result)
+        db.close()
+      })
+    })
+  }
+
+  sendAllQuizz (socket) {
+    let results = {
+      individuel: [],
+      collaborative: []
+    }
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('quizz').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.individuel = result
+      })
+      dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.collaborative = result
+        socket.emit('all types quiz', results)
+        db.close()
+      })
+    })
+  }
+
+  sendAllQustions (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('questions').find({}).toArray(function (err, result) {
@@ -72,8 +129,8 @@ class Database {
     })
   }
 
-  sendTableQuiz(socket) {
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  sendTableQuiz (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
@@ -84,8 +141,8 @@ class Database {
     })
   }
 
-  addQuiz(newQuiz, socket) {
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  addQuiz (newQuiz, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
       dbo.collection('quizz').insertOne(newQuiz, function (err, res) {
@@ -97,8 +154,8 @@ class Database {
     })
   }
 
-  addQuizCollaborative(newQuiz, socket) {
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  addQuizCollaborative (newQuiz, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
       dbo.collection('tableQuiz').insertOne(newQuiz, function (err, res) {
@@ -110,8 +167,8 @@ class Database {
     })
   }
 
-  closeDatabases() {
-    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+  closeDatabases () {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
       dbo.dropDatabase()

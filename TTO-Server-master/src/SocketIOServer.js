@@ -125,16 +125,60 @@ class SocketIOServer {
 
       socket.on('valided action', (data) => {
         console.log('Received valided action from client')
-        if(data.type === true) {
+        if (data.type === true) {
           socket.emit('validation', {valid: true})
-        }else{
+        } else {
           socket.emit('validation', {valid: false})
         }
+      })
+
+      socket.on('get all types quiz', () => {
+        console.log('get all types quiz')
+        database.sendAllQuizz(socket)
+      })
+
+      socket.on('get images', () => {
+        console.log('Client want images')
+        database.sendImages(socket)
+      })
+
+      socket.on('add quiz collaborative', (data) => {
+        console.log('add quiz collaborative')
+        database.addQuizCollaborative(data, socket)
+      })
+
+      socket.on('nextQuestion', (data) => {
+        console.log('next question collaborative')
+        socket.emit('next question', data)
+      })
+
+      socket.on('lancer quiz collaborative', (data) => {
+        console.log('lancer quiz collaborative')
+        console.log(data)
+        socket.broadcast.emit('start quiz collaborative', data)
+      })
+
+      socket.on('lancer quiz tangible', (data) => {
+        console.log('lancer quiz tangible')
+        console.log(data)
       })
 
       socket.on('add quiz', (data) => {
         console.log(data)
         database.addQuiz(data, socket)
+      })
+
+      /**
+       * Send quiz
+       */
+      socket.on('get quiz tangible', () => {
+        console.log('get quiz tangible')
+        database.sendQuizTangible(socket)
+      })
+
+      socket.on('get quiz non tangible', () => {
+        console.log('get quiz non tangible')
+        database.sendQuizNonTangible(socket)
       })
 
       socket.on('disconnect', () => {
