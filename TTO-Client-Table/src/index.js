@@ -24,24 +24,23 @@ let quizLancez = false
 const imageWidgets = []
 let quiz = null
 const positions = []
+let rightAnswer = 0;
 
 /* App Code */
 const buildApp = () => {
-  const divWidget = new DivWidget(500, 200, 1000, 500, socketIOClient, quiz)
+  wait()
 
   socketIOClient._client.on('start quiz collaborative', (data) => {
     quizLancez = true
     quiz = data
+    rightAnswer = 0
     console.log(data)
     $('#app').empty()
-      .append(nonTangibleDiv(data.pictures.length, data.pictures, data.description))
-    // for (let i = 0; i < data.pictures.length; i++) {
-    //   const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, data.pictures[i].src, socketIOClient, data.pictures[i].isAnswer)
-    //   $('#app').append(imageWidget1.domElem)
-    // }
+    nonTangibleDiv(data.pictures.length, data.pictures, data.description)
   })
 
   socketIOClient._client.on('quiz tangible', (data) => {
+    rightAnswer = 0
     console.log(data)
     $('#app').empty()
       .append(imageDiv(data.pictures.length, data.pictures, data.description))
@@ -117,10 +116,25 @@ function imageDiv (picNum, pics, title) {
     image.addEventListener('click', () => {
       console.log(pics[i])
       if (pics[i].isAnswer === true) {
-        console.log('Bravo!')
+        rightAnswer ++
+        image.style.display = 'none'
+        var bravo = document.createElement('h1')
+        bravo.setAttribute('class', 'information')
+        bravo.innerText = 'Bravo'
+        imageDiv.append(bravo)
+        setTimeout(() => {
+          imageDiv.removeChild(bravo)
+        }, 2000)
       } else {
         console.log('Essayez encore!')
         image.style.display = 'none'
+        var again = document.createElement('h1')
+        again.setAttribute('class', 'information')
+        again.innerText = 'Essayez encore'
+        imageDiv.append(again)
+        setTimeout(() => {
+          imageDiv.removeChild(again)
+        }, 2000)
       }
     })
     imageDiv.append(image)
@@ -149,16 +163,26 @@ function nonTangibleDiv (picNum, pic, title) {
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
     const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, pic[i].src, socketIOClient, pic[i].isAnswer)
-    imageWidget1.domElem[0].setAttribute('class', 'image')
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    $('#app').append(imageWidget1.domElem)
+    $('#app').append(imageWidget1.domElem, titleTop, titleBottom, titleLeft, titleRight, answerBox)
   }
-  nonTangibleDiv.append(titleTop, titleBottom, titleLeft, titleRight, answerBox)
-  return nonTangibleDiv
 }
 
 function random (min, max) {
   return Math.floor(Math.random() * (max - min)) + min
+}
+
+function wait () {
+  var waitDiv = document.createElement('div')
+  var waitImage = document.createElement('img')
+  var waitTitle = document.createElement('h1')
+  waitImage.setAttribute('id', 'waitImage')
+  waitDiv.setAttribute('id', 'waitDiv')
+  waitTitle.setAttribute('id', 'waitTitle')
+  waitTitle.innerText = 'Notre moment arrive...'
+  waitImage.src = 'assets/quiz.png'
+  waitDiv.append(waitImage, waitTitle)
+  $('#app').append(waitDiv)
 }
 
 
