@@ -15,13 +15,32 @@
 button {
     margin: 20px 10px 0px 10px;
 }
-.quitDiv {
-    
+
+.rightArrow,
+.restart,
+.homeMenu {
+    width: 10%;
+    margin: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    padding: 20px;
 }
+
+.quitDivEnd {
+    text-align: right;
+}
+
+
+.restart {}
+
+
 
 .descriptionDiv,
 .explanationDiv {
     width: 100%;
     text-align: center;
 
+}
+
+.divResponses {
+    height: 100%;
 }

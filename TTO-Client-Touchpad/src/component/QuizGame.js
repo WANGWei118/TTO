@@ -4,6 +4,9 @@ import AnswerCard from './AnswerCard';
 import { Button } from 'antd';
 import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
+const nextArrow = require('./../assets/right_arrow.png')
+const home_menu = require('./../assets/home_menu.png')
+const restarto = require('./../assets/reload_icon.jpg')
 
 let questions;
 let correctAnswer;
@@ -18,6 +21,7 @@ const QuizGame = (props) => {
     const [currentQuestion, setCurrentQuestion] = useState({});
     const [loaded, setLoaded] = useState(false);
     const [index, setIndex] = useState(0);
+    const [numberOfPlay, setNumberOfPlay] = useState(1);
 
     const renderQuestion = () => {
 
@@ -25,7 +29,6 @@ const QuizGame = (props) => {
             <>
                 {!loaded ? <></> :
                     <div>
-
                         <div className="descriptionDiv">
                             <h1>{currentQuestion.description}</h1>
                         </div>
@@ -55,7 +58,8 @@ const QuizGame = (props) => {
                 <div className="explanationDiv">
                     <AnswerCard answer={correctAnswer} onClick={() => { }} canHide={false} />
                     <p>{currentQuestion.explains}</p>
-                    <Button type="primary" onClick={() => nextQuestion()}>Question suivante</Button>
+                    <img src={nextArrow} className="rightArrow" onClick={() => nextQuestion()} />
+                    {/* <Button type="primary" onClick={() => nextQuestion()}>Question suivante</Button> */}
                 </div>
             </div>
         )
@@ -69,11 +73,13 @@ const QuizGame = (props) => {
                     <p>Tu peux revenir au menu ou recommencer</p>
                 </div>
                 <div className="navigation">
-                    <div className="quitDiv">
-                        <Button type="primary" onClick={() => navigateToMenu()}> Quitter</Button>
+                    <div className="quitDivEnd">
+                        <img src={home_menu} className="homeMenu" onClick={() => navigateToMenu()} />
+                        {/* <Button type="primary" onClick={() => navigateToMenu()}> Quitter</Button> */}
                     </div>
-                    <div className="nextQuestionDiv">
-                        <Button type="primary" onClick={() => restart()}>Recommencer</Button>
+                    <div className="restartDivEnd">
+                        <img src={restarto} className="restart" onClick={() => restart()} />
+                        {/* <Button type="primary" onClick={() => restart()}>Recommencer</Button> */}
                     </div>
                 </div>
             </div>
@@ -118,6 +124,7 @@ const QuizGame = (props) => {
         setCurrentQuestion(questions[0]);
         setQuizOver(false);
         setShowExplaination(false);
+        setNumberOfPlay(numberOfPlay + 1);
     }
 
 

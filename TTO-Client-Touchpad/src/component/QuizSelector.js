@@ -3,6 +3,13 @@ import QuizCard from './QuizCard';
 import './QuizSelector.css';
 import openSocket from 'socket.io-client';
 
+import { Tabs, Spin } from 'antd';
+
+const { TabPane } = Tabs;
+const INDIVIDUAL_TYPE = 'individual';
+const COLLAB_TYPE = 'collaborative';
+
+
 class QuizSelector extends Component {
     socket = openSocket;
     quizList = [];
@@ -10,21 +17,29 @@ class QuizSelector extends Component {
     constructor(props) {
         super(props);
         this.socket = props.socket
-        this.state = { loading: true, data: null };
+        this.state = { loadingIndividual: true, loadingCollab: true, individualQuiz: null, collabQuiz: null };
 
         this.socket.on('all quizz', (result) => {
             this.quizList = result;
-            this.setState({ loading: false, data: result })
+            this.setState({ loadingIndividual: false, individualQuiz: result })
         })
+
+        this.socket.on('all tableQuiz', (result) => {
+            console.log('all tableQuiz');
+            this.setState({ loadingCollab: false, collabQuiz: result })
+        });
+
+        this.socket.on('get all types quiz', (result) => {
+            console.log(result);
+        });
     }
 
-    renderList = data => {
-        console.log(data);
+    renderList = (data, type) => {
         return (
             <>
                 {data.map((item) => {
                     return (
-                        <QuizCard key={item._id} quiz={item} />
+                        <QuizCard key={item._id} quiz={item} type={type} />
                     )
                 })}
             </>
@@ -33,19 +48,30 @@ class QuizSelector extends Component {
 
     componentDidMount() {
         this.socket.emit('get quizz', { type: "tablet" });
+        this.socket.emit('get quizz', { type: 'table' });
+        this.socket.emit('get all types quiz');
     }
 
+
+
     render() {
-        const { loading, data } = this.state;
+        const { loadingIndividual, loadingCollab, individualQuiz, collabQuiz } = this.state;
         return (
             <div>
                 <h1 className="pageTitle">Selectionner un Quiz</h1>
                 <div className="randomQuiz"></div>
-                {loading ? 'Classic loading placeholder' : this.renderList(data)}
+                <Tabs defaultActiveKey="1" type="card">
+                    <TabPane tab="Selectionner une réponse" key="1">
+                        {loadingIndividual ? <Spin tip="Chargement" ></Spin> : this.renderList(individualQuiz, INDIVIDUAL_TYPE)}
+
+                    </TabPane>
+                    <TabPane tab="Mettre les réponses au centre" key="2">
+                        {loadingCollab ? <Spin tip="Chargement" ></Spin> : this.renderList(collabQuiz, COLLAB_TYPE)}
+                    </TabPane>
+                </Tabs>
             </div>
         )
     }
 }
-
 
 export default QuizSelector;

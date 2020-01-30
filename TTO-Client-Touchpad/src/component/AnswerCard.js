@@ -24,8 +24,8 @@ const AnswerCard = (props) => {
         <>
             {hide ? <></> :
                 <div className="answerCard" onClick={() => { props.onClick(answer); hideComponent(); }}>
-                    <img src={imageToDisplay} />
-                    <h2 className="answerName">{answer.text}</h2>
+                    <img className="answerCardImage" src={imageToDisplay} />
+                    {/* <h2 className="answerName">{answer.text}</h2> */}
                 </div>
             }
         </>

@@ -2,19 +2,29 @@ import React from 'react';
 import './QuizCard.css';
 import { useHistory } from "react-router-dom";
 
-
+const INDIVIDUAL_TYPE = 'individual';
+const COLLAB_TYPE = 'collaborative';
 let history;
-const handleClick = (item) => {
-    // console.log(item);
-    history.push({
-        pathname: '/quizGame',
-        state: { quiz: { item } }
-    });
-}
+
 const QuizCard = (props) => {
     history = useHistory();
     const quiz = props.quiz
     const quizName = quiz.name
+
+    const handleClick = (item) => {
+        console.log(item);
+        if (props.type === INDIVIDUAL_TYPE) {
+            history.push({
+                pathname: '/quizGame',
+                state: { quiz: { item } }
+            });
+        } else {
+            history.push({
+                pathname: '/quizGameCollab',
+                state: { quiz: { item } }
+            });
+        }
+    }
 
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
@@ -23,6 +33,9 @@ const QuizCard = (props) => {
             <h2 className="quizName">{quizName}</h2>
         </div>
     )
+
+
+
 }
 
 export default QuizCard;

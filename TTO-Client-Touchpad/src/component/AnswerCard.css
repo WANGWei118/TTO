@@ -4,6 +4,7 @@
     width: 20%;
     display: inline-block;
     margin: 20px;
+    vertical-align: top;
 }
 
 .answerCard:hover {
@@ -12,4 +13,8 @@
 
 .answerName {
     text-align: center;
+}
+
+.answerCardImage {
+    width: 100%;
 }

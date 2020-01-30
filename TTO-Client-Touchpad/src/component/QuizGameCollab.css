@@ -1,0 +1,26 @@
+.centralDiv {
+    width: 40em;
+    height: 20em;
+    margin: 0 auto;
+    border: 1px solid black;
+    line-height: 500px;
+    position: absolute;
+    left: 30%;
+    top: 30%;
+}
+
+.centralDiv:hover {
+    background-color: tomato;
+}
+
+.quizGameCollab {
+    height: 100%;
+    position: relative;
+
+}
+
+.collabQuizDescription {
+    height: 100%;
+    text-align: center;
+    line-height: 17em;
+}
