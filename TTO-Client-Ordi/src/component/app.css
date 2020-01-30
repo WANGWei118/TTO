@@ -25,3 +25,9 @@
     margin-top: 10px;
     width: 120px;
 }
+
+.responseInput {
+    width:250px;
+    margin-bottom:20px;
+    margin-right:10px;
+}
