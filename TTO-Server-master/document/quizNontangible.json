@@ -1,0 +1,45 @@
+[
+  {
+    "id": 1,
+    "name": "Choisir les fruits",
+    "topic": "fruit",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Mettez les pommes au milieu",
+        "type": "notangible",
+        "rightAnswers": 1,
+        "pictures": [
+          {
+            "description": "pomme",
+            "src": "assets/apple.jpg",
+            "isAnswer": true
+          },
+          {
+            "description": "banana",
+            "src": "assets/bananes.png",
+            "isAnswer": false
+          }
+        ]
+      },
+      {
+        "id": 1,
+        "description": "Mettez les bananes au milieu",
+        "type": "notangible",
+        "rightAnswers": 1,
+        "pictures": [
+          {
+            "description": "pomme",
+            "src": "assets/apple.jpg",
+            "isAnswer": true
+          },
+          {
+            "description": "banana",
+            "src": "assets/bananes.png",
+            "isAnswer": false
+          }
+        ]
+      }
+    ]
+  }
+]

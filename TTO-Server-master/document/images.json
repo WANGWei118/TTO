@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "src": "./../assets/apple.jpg"
+  },
+  {
+    "id": 2,
+    "src": "./../assets/bananes.png"
+  },
+  {
+    "id": 3,
+    "src": "./../assets/basket.jpg"
+  },
+  {
+    "id": 4,
+    "src": "./../assets/bean.jpg"
+  },
+  {
+    "id": 5,
+    "src": "./../assets/fraise.jpg"
+  },
+  {
+    "id": 6,
+    "src": "./../assets/kiwi.jpg"
+  },
+  {
+    "id": 7,
+    "src": "./../assets/orange.jpg"
+  },
+  {
+    "id": 8,
+    "src": "./../assets/piapple.jpg"
+  },
+  {
+    "id": 9,
+    "src": "./../assets/raisin.jpg"
+  },
+  {
+    "id": 10,
+    "src": "./../assets/watermelon.jpg"
+  }
+]

@@ -1,0 +1,27 @@
+@import '~antd/dist/antd.css';
+
+.header {
+    font-size: 40px;
+}
+#components-layout-demo-side .logo {
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    margin: 16px;
+}
+
+.buttonContainer {
+    margin:20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    width: 120px;
+    height: 100px;
+    font-size: 16px;
+}
+
+.input {
+    margin-top: 10px;
+    width: 120px;
+}

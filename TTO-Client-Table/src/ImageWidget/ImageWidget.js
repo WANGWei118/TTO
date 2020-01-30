@@ -200,6 +200,9 @@ class ImageWidget extends TUIOWidget {
     if (this._x >= 500 && this._x <= 1500
       && this._y >= 200 && this._y <= 700 && this.isRight === true) {
       this.socket.sendValidedAction(true)
+      setTimeout(()=>{
+        this._domElem.css('display', `none`)
+      }, 3000)
     }
     if(this._x >= 500 && this._x <= 1500
       && this._y >= 200 && this._y <= 700 && this.isRight === false){
