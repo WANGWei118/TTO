@@ -8,38 +8,7 @@ import { useHistory } from "react-router-dom";
 
 function Menu(props) {
     const socket = props.socket
-    const testTableQuiz = [{
-        "id": 1,
-        "description": "Mettez les pommes au milieu",
-        "pictures": [
-            {
-                "description": "pomme",
-                "src": "assets/apple.jpg",
-                "isAnswer": true
-            },
-            {
-                "description": "banana",
-                "src": "assets/bananes.png",
-                "isAnswer": false
-            }
-        ]
-    },
-    {
-        "id": 2,
-        "description": "Mettez les Bananes au milieu",
-        "pictures": [
-            {
-                "description": "pomme",
-                "src": "assets/apple.jpg",
-                "isAnswer": false
-            },
-            {
-                "description": "banana",
-                "src": "assets/bananes.png",
-                "isAnswer": true
-            }
-        ]
-    }];
+
     let history = useHistory();
 
     function selectQuiz() {
@@ -57,24 +26,9 @@ function Menu(props) {
         console.log(data);
     })
 
-    const launchTableGame = () => {
-        socket.emit('lancer quiz collaborative', testTableQuiz[0]);
-
-        let path = 'quizCollab';
-        history.push({
-            pathname: '/quizCollab',
-            state: { quiz: { testTableQuiz } }
-        });
-    }
-
-    const launchTableGameTangible = () => {
-        socket.emit('lancer quiz tangible', testTableQuiz[0]);
-
-        let path = 'quizCollab';
-        history.push({
-            pathname: '/quizCollab',
-            state: { quiz: { testTableQuiz } }
-        });
+    const selectQuizCollaboratif = () => {
+        const path = '/quizSelectorCollab'
+        history.push(path)
     }
 
     return (
@@ -84,10 +38,7 @@ function Menu(props) {
                 <Button type="primary" className="startQuiz" onClick={() => selectQuiz()}>Lancer un quiz individuel</Button>
             </div>
             <div className="menuButton" >
-                <Button type="primary" onClick={launchTableGame}>Lancer un quiz collaboratif</Button>
-            </div>
-            <div className="menuButton" >
-                <Button type="primary" onClick={launchTableGameTangible}>Lancer un quiz collaboratif</Button>
+                <Button type="primary" onClick={selectQuizCollaboratif}>Liste quiz collaboratif</Button>
             </div>
         </div>
     );

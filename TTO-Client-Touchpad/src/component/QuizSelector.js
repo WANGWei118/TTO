@@ -19,18 +19,21 @@ class QuizSelector extends Component {
         this.socket = props.socket
         this.state = { loadingIndividual: true, loadingCollab: true, individualQuiz: null, collabQuiz: null };
 
-        this.socket.on('all quizz', (result) => {
-            this.quizList = result;
-            this.setState({ loadingIndividual: false, individualQuiz: result })
-        })
+        // this.socket.on('all quizz', (result) => {
+        //     this.quizList = result;
+        //     this.setState({ loadingIndividual: false, individualQuiz: result })
+        // })
 
-        this.socket.on('all tableQuiz', (result) => {
-            console.log('all tableQuiz');
-            this.setState({ loadingCollab: false, collabQuiz: result })
-        });
+        // this.socket.on('all tableQuiz', (result) => {
+        //     console.log('all tableQuiz');
+        //     this.setState({ loadingCollab: false, collabQuiz: result })
+        // });
 
-        this.socket.on('get all types quiz', (result) => {
+        this.socket.on('all types quiz', (result) => {
             console.log(result);
+            this.setState({ loadingCollab: false, collabQuiz: result.nonTangible })
+            this.setState({ loadingIndividual: false, individualQuiz: result.individuel })
+
         });
     }
 
@@ -47,8 +50,8 @@ class QuizSelector extends Component {
     }
 
     componentDidMount() {
-        this.socket.emit('get quizz', { type: "tablet" });
-        this.socket.emit('get quizz', { type: 'table' });
+        // this.socket.emit('get quizz', { type: "tablet" });
+        // this.socket.emit('get quizz', { type: 'table' });
         this.socket.emit('get all types quiz');
     }
 

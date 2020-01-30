@@ -11,6 +11,7 @@ import {
     Route,
 } from "react-router-dom";
 import TableSupervisor from './component/collaborative/TableSupervisor';
+import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 
 export const socket = openSocket('http://10.212.107.151:10000');
 
@@ -24,7 +25,10 @@ const App = () => {
                     <Route path="/quiz">
                         <QuizSelector socket={socket} />
                     </Route>
-                    <Route path="/quizCollab" render={(props) => <TableSupervisor {...props} socket={socket} />}>
+                    <Route path="/quizSelectorCollab">
+                        <QuizSelectorCollab socket={socket} />
+                    </Route>
+                    <Route path="/quizCollabSupervisor" render={(props) => <TableSupervisor {...props} socket={socket} />}>
                         {/* <TableSupervisor socket={socket} /> */}
                     </Route>
                     <Route

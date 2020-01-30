@@ -7,7 +7,7 @@ const QuizGameCollab = props => {
 
 
     const [dragging, setDragging] = useState(false);
-
+    const quiz = props.location.state.quiz.item;
     const currentQuiz =
     {
         "id": 1,

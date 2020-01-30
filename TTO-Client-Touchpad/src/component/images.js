@@ -5,6 +5,8 @@ const bean = require('./../assets/bean.jpeg');
 const kiwi = require('./../assets/kiwi.jpg');
 const orange = require('./../assets/orange.jpg');
 const watermelon = require('./../assets/watermelon.jpg');
+const left_arrow = require('./../assets/left_arrow.jpg');
+
 
 const images = [
     { id: 1, src: './../assets/apple.jpg', title: apple, description: 'bar' },
@@ -14,6 +16,8 @@ const images = [
     { id: 5, src: './../assets/kiwi.jpg', title: kiwi, description: 'bar' },
     { id: 6, src: './../assets/orange.jpg', title: orange, description: 'bar' },
     { id: 7, src: './../assets/watermelon.jpg', title: watermelon, description: 'bar' },
+    { id: 8, src: './../assets/left_arrow.jpg', title: left_arrow, description: 'bar' },
+
 ];
 
 export default images;
