@@ -30,13 +30,31 @@ class Database {
     })
   }
 
-  sendAllQuizz(socket) {
+  sendPadQuizz(socket) {
     MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('quizz').find({}).toArray(function (err, result) {
         if (err) throw err
         socket.emit('all quizz', result)
+        db.close()
+      })
+    })
+  }
+
+  sendAllQuizz(socket){
+    let results = [];
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('quizz').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results = result
+      })
+      dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results = results.concat(result)
+        socket.emit('all the quizz', results)
         db.close()
       })
     })
@@ -74,6 +92,19 @@ class Database {
         if (err) throw err
         console.log('quiz inserted success')
         socket.emit('quiz added', {type: true})
+        db.close()
+      })
+    })
+  }
+
+  addQuizCollaborative(newQuiz, socket) {
+    MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      dbo.collection('tableQuiz').insertOne(newQuiz, function (err, res) {
+        if (err) throw err
+        console.log('quiz collaborative inserted success')
+        socket.emit('quiz collaborative added', {type: true})
         db.close()
       })
     })

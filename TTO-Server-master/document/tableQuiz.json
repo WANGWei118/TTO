@@ -2,7 +2,85 @@
   {
     "id": 1,
     "description": "Mettez les pommes au milieu",
+    "type": "notangile",
+    "rightAnswers": 1,
     "pictures": [
+      {
+        "description": "pomme",
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "description": "Trouvez toutes les pommes",
+    "type": "tangile",
+    "rightAnswers": 3,
+    "pictures": [
+      {
+        "description": "pomme",
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
+      },
+      {
+        "description": "pomme",
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
+      },
+      {
+        "description": "pomme",
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "description": "Trouvez tous les bananes",
+    "type": "tangile",
+    "rightAnswers": 3,
+    "pictures": [
+      {
+        "description": "pomme",
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
+      },
+      {
+        "description": "pomme",
+        "src": "assets/apple.jpg",
+        "isAnswer": true
+      },
+      {
+        "description": "banana",
+        "src": "assets/bananes.png",
+        "isAnswer": false
+      },
       {
         "description": "pomme",
         "src": "assets/apple.jpg",

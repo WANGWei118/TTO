@@ -119,7 +119,7 @@ class SocketIOServer {
           database.sendTableQuiz(socket)
         } else {
           console.log('Client wants quizz')
-          database.sendAllQuizz(socket)
+          database.sendPadQuizz(socket)
         }
       })
 
