@@ -99,7 +99,9 @@ class Database {
   sendAllQuizz (socket) {
     let results = {
       individuel: [],
-      collaborative: []
+      collaborative: [],
+      tangible: [],
+      nonTangible: []
     }
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
@@ -108,6 +110,17 @@ class Database {
         if (err) throw err
         results.individuel = result
       })
+
+      dbo.collection('quizTangible').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.tangible = result
+      })
+
+      dbo.collection('quizNontangible').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.nonTangible = result
+      })
+
       dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
         if (err) throw err
         results.collaborative = result
