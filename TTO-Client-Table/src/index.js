@@ -24,7 +24,8 @@ let quizLancez = false
 const imageWidgets = []
 let quiz = null
 const positions = []
-let rightAnswer = 0;
+let rightAnswer = 0
+let rightAnswersNum = 0
 
 /* App Code */
 const buildApp = () => {
@@ -34,6 +35,7 @@ const buildApp = () => {
     quizLancez = true
     quiz = data
     rightAnswer = 0
+    rightAnswersNum = data.rightAnswers
     console.log(data)
     $('#app').empty()
     nonTangibleDiv(data.pictures.length, data.pictures, data.description)
@@ -41,6 +43,7 @@ const buildApp = () => {
 
   socketIOClient._client.on('quiz tangible', (data) => {
     rightAnswer = 0
+    rightAnswersNum = data.rightAnswers
     console.log(data)
     $('#app').empty()
       .append(imageDiv(data.pictures.length, data.pictures, data.description))
@@ -55,26 +58,22 @@ const buildApp = () => {
     }
   })
 
+  socketIOClient._client.on('validation', (data) => {
+    if (data.valid === true) {
+      rightAnswer++
+      if (rightAnswersNum === rightAnswer) {
+        setTimeout(() => {
+          finished()
+        }, 1000)
+      }
+    }
+  })
+
 }
 $(window)
   .ready(() => {
     buildApp()
   })
-
-function addWidget (data) {
-  console.log(data)
-  if (data.type === 'tangible') {
-    console.log('Tangible')
-  } else {
-    console.log('Non tangible')
-    for (let i = 0; i < data.pictures.length; i++) {
-      // for (let j = 0; j < 3; j++) {
-      const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, data.pictures[i].src, socketIOClient, data.pictures[i].isAnswer)
-      $('#app').append(imageWidget1.domElem)
-      // }
-    }
-  }
-}
 
 /**
  * 左右间隔50px
@@ -116,7 +115,10 @@ function imageDiv (picNum, pics, title) {
     image.addEventListener('click', () => {
       console.log(pics[i])
       if (pics[i].isAnswer === true) {
-        rightAnswer ++
+        rightAnswer++
+        if (rightAnswer === rightAnswersNum) {
+          finished()
+        }
         image.style.display = 'none'
         var bravo = document.createElement('h1')
         bravo.setAttribute('class', 'information')
@@ -162,7 +164,7 @@ function nonTangibleDiv (picNum, pic, title) {
   titleRight.innerText = title
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, pic[i].src, socketIOClient, pic[i].isAnswer)
+    const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem, titleTop, titleBottom, titleLeft, titleRight, answerBox)
   }
@@ -183,6 +185,20 @@ function wait () {
   waitImage.src = 'assets/quiz.png'
   waitDiv.append(waitImage, waitTitle)
   $('#app').append(waitDiv)
+}
+
+function finished () {
+  var finishDiv = document.createElement('div')
+  var finishImage = document.createElement('img')
+  var finishTitle = document.createElement('h1')
+  finishImage.setAttribute('id', 'finishImage')
+  finishDiv.setAttribute('id', 'finishDiv')
+  finishTitle.setAttribute('id', 'finishTitle')
+  finishTitle.innerText = 'Bravo!'
+  finishImage.src = 'assets/rate.png'
+  finishDiv.append(finishImage, finishTitle)
+  $('#app').empty()
+    .append(finishDiv)
 }
 
 

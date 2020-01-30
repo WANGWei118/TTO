@@ -32,12 +32,13 @@ class ImageWidget extends TUIOWidget {
    * @param socket
    */
 
-  constructor(x, y, width, height, imgSrc, socket, isRight) {
+  constructor(x, y, width, height, imgSrc, socket, isRight, rightNum) {
     super(x, y, width, height)
     this._lastTouchesValues = {}
     this._lastTagsValues = {}
     this.socket = socket
     this.isRight = isRight
+    this.rightNums = rightNum
     this._domElem = $('<img>')
     this._domElem.attr('src', `${imgSrc}`)
     this._domElem.css('width', `${width}px`)
