@@ -5,6 +5,7 @@
 import http from 'http'
 import express from 'express'
 import sio from 'socket.io'
+import { ALL_TYPES_QUIZZ, INDIVIDUEL_QUIZZ, NO_TANGIBLE_QUIZZ, QUIZ_FINISHED, TANGIBLE_QUIZZ } from './constants'
 
 const database = require('./database/database')
 
@@ -132,6 +133,15 @@ class SocketIOServer {
         }
       })
 
+      socket.on(QUIZ_FINISHED, (data) => {
+        if (data.type === 'tangible') {
+          console.log('quiz tangible finished')
+        } else if (data.type === 'no tangible') {
+          console.log('quiz no tangible finished')
+        }
+        socket.emit(QUIZ_FINISHED, data)
+      })
+
       socket.on('get all types quiz', () => {
         console.log('get all types quiz')
         database.sendAllQuizz(socket)
@@ -224,11 +234,47 @@ class SocketIOServer {
 
 /**
  * add quiz
- * @param data
+ * @param data: {type: 'collaborative', quiz: {}}
+ * @param socket
  */
 
-function addQuiz (data) {
+function addQuiz (data, socket) {
+  if (data.type === 'collaborative') {
+    database.addQuizCollaborative(data.quiz, socket)
+  } else {
+    database.addQuiz(data.quiz, socket)
+  }
+}
 
+function getQuiz (data, socket) {
+  switch (data.type) {
+    case ALL_TYPES_QUIZZ:
+      database.sendAllQuizz(socket)
+      break
+    case INDIVIDUEL_QUIZZ:
+      break
+    case COLLABORATIVE_QUIZZ:
+      database.sendTableQuiz(socket)
+      break
+    case TANGIBLE_QUIZZ:
+      database.sendQuizTangible(socket)
+      break
+    case NO_TANGIBLE_QUIZZ:
+      database.sendQuizNonTangible(socket)
+      break
+
+  }
+}
+
+function startQuiz (data, socket) {
+  switch (data.type) {
+    case TANGIBLE_QUIZZ:
+      socket.emit(TANGIBLE_QUIZZ, data.quiz);
+      break;
+    case NO_TANGIBLE_QUIZZ:
+      socket.emit(NO_TANGIBLE_QUIZZ, data.quiz);
+      break;
+  }
 }
 
 export default SocketIOServer

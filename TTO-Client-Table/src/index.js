@@ -10,6 +10,7 @@ import ImageWidget from './ImageWidget/ImageWidget'
 import SocketIOClient from './SocketIOClient/SocketIOClient'
 import ButtonWidget from './ButtonWidget/ButtonWidget'
 import DivWidget from './DivWidget/DivWidget'
+import { QUIZ_FINISHED } from './SocketIOClient/constants'
 
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
@@ -38,7 +39,7 @@ const buildApp = () => {
     rightAnswersNum = data.rightAnswers
     console.log(data)
     $('#app').empty()
-    nonTangibleDiv(data.pictures.length, data.pictures, data.description)
+      .append(nonTangibleDiv(data.pictures.length, data.pictures, data.description))
   })
 
   socketIOClient._client.on('quiz tangible', (data) => {
@@ -64,6 +65,7 @@ const buildApp = () => {
       if (rightAnswersNum === rightAnswer) {
         setTimeout(() => {
           finished()
+          socketIOClient._client.emit(QUIZ_FINISHED, {type: 'no tangible'})
         }, 1000)
       }
     }
@@ -117,6 +119,7 @@ function imageDiv (picNum, pics, title) {
       if (pics[i].isAnswer === true) {
         rightAnswer++
         if (rightAnswer === rightAnswersNum) {
+          socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
           finished()
         }
         image.style.display = 'none'
@@ -166,8 +169,10 @@ function nonTangibleDiv (picNum, pic, title) {
   for (let i = 0; i < picNum; i++) {
     const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    $('#app').append(imageWidget1.domElem, titleTop, titleBottom, titleLeft, titleRight, answerBox)
+    $('#app').append(imageWidget1.domElem)
   }
+  nonTangibleDiv.append(titleTop, titleBottom, titleLeft, titleRight, answerBox)
+  return nonTangibleDiv
 }
 
 function random (min, max) {
