@@ -144,6 +144,7 @@ class SocketIOServer {
 
       socket.on('add quiz collaborative', (data) => {
         console.log('add quiz collaborative')
+        console.log(data)
         database.addQuizCollaborative(data, socket)
       })
 
@@ -161,6 +162,7 @@ class SocketIOServer {
       socket.on('lancer quiz tangible', (data) => {
         console.log('lancer quiz tangible')
         console.log(data)
+        socket.broadcast.emit('quiz tangible', data)
       })
 
       socket.on('add quiz', (data) => {
@@ -218,6 +220,15 @@ class SocketIOServer {
       })
     })
   }
+}
+
+/**
+ * add quiz
+ * @param data
+ */
+
+function addQuiz (data) {
+
 }
 
 export default SocketIOServer
