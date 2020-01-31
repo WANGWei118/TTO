@@ -32,12 +32,12 @@
           {
             "description": "pomme",
             "src": "assets/apple.jpg",
-            "isAnswer": true
+            "isAnswer": false
           },
           {
             "description": "banana",
             "src": "assets/bananes.png",
-            "isAnswer": false
+            "isAnswer": true
           }
         ]
       }

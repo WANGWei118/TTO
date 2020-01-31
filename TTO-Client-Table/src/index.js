@@ -10,7 +10,8 @@ import ImageWidget from './ImageWidget/ImageWidget'
 import SocketIOClient from './SocketIOClient/SocketIOClient'
 import ButtonWidget from './ButtonWidget/ButtonWidget'
 import DivWidget from './DivWidget/DivWidget'
-import { QUIZ_FINISHED } from './SocketIOClient/constants'
+import { NEXT_QUESTION, QUIZ_FINISHED } from './SocketIOClient/constants'
+import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
@@ -51,11 +52,18 @@ const buildApp = () => {
   })
 
   socketIOClient._client.on('next question', (data) => {
-    $('#app').empty()
     if (data.type === 'tangible') {
+      rightAnswer = 0
+      rightAnswersNum = data.rightAnswers
       console.log('Tangible')
+      $('#app').empty()
+        .append(imageDiv(data.pictures.length, data.pictures, data.description))
     } else {
+      rightAnswer = 0
+      rightAnswersNum = data.rightAnswers
       console.log('Non tangible')
+      $('#app').empty()
+        .append(nonTangibleDiv(data.pictures.length, data.pictures, data.description))
     }
   })
 
@@ -65,7 +73,7 @@ const buildApp = () => {
       if (rightAnswersNum === rightAnswer) {
         setTimeout(() => {
           finished()
-          socketIOClient._client.emit(QUIZ_FINISHED, {type: 'no tangible'})
+          // socketIOClient._client.emit(QUIZ_FINISHED, {type: 'no tangible'})
         }, 1000)
       }
     }
@@ -107,42 +115,52 @@ function imageDiv (picNum, pics, title) {
   titleBottom.innerText = title
   titleLeft.innerText = title
   titleRight.innerText = title
+  var acount = 1
   for (let i = 0; i < picNum; i++) {
-    const image = document.createElement('img')
-    image.setAttribute('class', 'image')
-    image.src = pics[i].src
-    image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    image.style.width = '200px'
-    image.style.height = '200px'
-    image.addEventListener('click', () => {
-      console.log(pics[i])
-      if (pics[i].isAnswer === true) {
-        rightAnswer++
-        if (rightAnswer === rightAnswersNum) {
-          socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
-          finished()
-        }
-        image.style.display = 'none'
-        var bravo = document.createElement('h1')
-        bravo.setAttribute('class', 'information')
-        bravo.innerText = 'Bravo'
-        imageDiv.append(bravo)
-        setTimeout(() => {
-          imageDiv.removeChild(bravo)
-        }, 2000)
-      } else {
-        console.log('Essayez encore!')
-        image.style.display = 'none'
-        var again = document.createElement('h1')
-        again.setAttribute('class', 'information')
-        again.innerText = 'Essayez encore'
-        imageDiv.append(again)
-        setTimeout(() => {
-          imageDiv.removeChild(again)
-        }, 2000)
-      }
-    })
-    imageDiv.append(image)
+    if (acount <= 3) {
+      const imageWidget1 = new ImageTouchWidget(acount * 300, 150, 200, 200, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+      imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
+      acount++
+      $('#app').append(imageWidget1.domElem)
+    } else {
+      const imageWidget2 = new ImageTouchWidget((acount - 3) * 300, 450, 200, 200, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+      imageWidget2.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
+      acount++
+      $('#app').append(imageWidget2.domElem)
+    }
+    // const image = document.createElement('img')
+    // image.addEventListener('click', () => {
+    //   console.log(pics[i])
+    //   if (pics[i].isAnswer === true) {
+    //     rightAnswer++
+    //     if (rightAnswer === rightAnswersNum) {
+    //       // socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
+    //       finished()
+    //       rightAnswersNum = 0
+    //       rightAnswer = 0
+    //       // socketIOClient._client.emit(NEXT_QUESTION, {type: 'tangible'})
+    //     }
+    //     image.style.display = 'none'
+    //     var bravo = document.createElement('h1')
+    //     bravo.setAttribute('class', 'information')
+    //     bravo.innerText = 'Bravo'
+    //     imageDiv.append(bravo)
+    //     setTimeout(() => {
+    //       imageDiv.removeChild(bravo)
+    //     }, 2000)
+    //   } else {
+    //     console.log('Essayez encore!')
+    //     image.style.display = 'none'
+    //     var again = document.createElement('h1')
+    //     again.setAttribute('class', 'information')
+    //     again.innerText = 'Essayez encore'
+    //     imageDiv.append(again)
+    //     setTimeout(() => {
+    //       imageDiv.removeChild(again)
+    //     }, 2000)
+    //   }
+    // })
+    // imageDiv.append(image)
   }
   imageDiv.append(titleTop, titleBottom, titleLeft, titleRight)
   return imageDiv

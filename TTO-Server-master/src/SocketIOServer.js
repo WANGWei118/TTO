@@ -5,7 +5,14 @@
 import http from 'http'
 import express from 'express'
 import sio from 'socket.io'
-import { ALL_TYPES_QUIZZ, INDIVIDUEL_QUIZZ, NO_TANGIBLE_QUIZZ, QUIZ_FINISHED, TANGIBLE_QUIZZ } from './constants'
+import {
+  ALL_TYPES_QUIZZ,
+  INDIVIDUEL_QUIZZ,
+  NEXT_QUESTION,
+  NO_TANGIBLE_QUIZZ, PASS_TO_NEXT,
+  QUIZ_FINISHED,
+  TANGIBLE_QUIZZ
+} from './constants'
 
 const database = require('./database/database')
 
@@ -39,10 +46,13 @@ class SocketIOServer {
     this._ioServer = sio(this._httpServer)
     this.handleSocketIOClient()
 
+
     this._httpServer.listen(socketIOPort, () => {
       console.info('SocketIOServer is ready.')
       console.info('Socket.IO\'s port is ', socketIOPort)
     })
+
+
   }
 
   closeDatabase () {
@@ -106,6 +116,7 @@ class SocketIOServer {
    */
   handleSocketIOClient () {
     this._ioServer.on('connection', (socket) => {
+      // console.log(database.getImage('dog3'))
       console.info('New Socket.IO Client Connection : ', socket.id)
       this.newClient(socket)
 
@@ -133,6 +144,11 @@ class SocketIOServer {
         }
       })
 
+      socket.on(NEXT_QUESTION, (data)=>{
+        console.log(data)
+        socket.broadcast.emit(PASS_TO_NEXT)
+      })
+
       socket.on(QUIZ_FINISHED, (data) => {
         if (data.type === 'tangible') {
           console.log('quiz tangible finished')
@@ -158,9 +174,9 @@ class SocketIOServer {
         database.addQuizCollaborative(data, socket)
       })
 
-      socket.on('nextQuestion', (data) => {
+      socket.on('next question', (data) => {
         console.log('next question collaborative')
-        socket.emit('next question', data)
+        socket.broadcast.emit('next question', data)
       })
 
       socket.on('lancer quiz collaborative', (data) => {
@@ -171,7 +187,6 @@ class SocketIOServer {
 
       socket.on('lancer quiz tangible', (data) => {
         console.log('lancer quiz tangible')
-        console.log(data)
         socket.broadcast.emit('quiz tangible', data)
       })
 

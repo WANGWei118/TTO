@@ -45,39 +45,39 @@
       },
       {
         "id": 2,
-        "description": "Trouvez tous les bananes",
+        "description": "Où sont les chiens?",
         "type": "tangible",
         "rightAnswers": 3,
         "pictures": [
           {
-            "description": "pomme",
-            "src": "assets/apple.jpg",
+            "description": "dog",
+            "src": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/friendliest-dog-breeds-golden-1578596627.jpg?crop=0.668xw:1.00xh;0.188xw,0&resize=640:*",
             "isAnswer": true
           },
           {
-            "description": "banana",
-            "src": "assets/bananes.png",
+            "description": "cat",
+            "src": "assets/cat.jpg",
             "isAnswer": false
           },
           {
-            "description": "pomme",
-            "src": "assets/apple.jpg",
+            "description": "bird",
+            "src": "assets/bird.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "dog",
+            "src": "assets/dog2.jpg",
             "isAnswer": true
           },
           {
-            "description": "banana",
-            "src": "assets/bananes.png",
+            "description": "tiger",
+            "src": "assets/tiger.JPG",
             "isAnswer": false
           },
           {
-            "description": "pomme",
-            "src": "assets/apple.jpg",
+            "description": "dog",
+            "src": "assets/dog3.jpg",
             "isAnswer": true
-          },
-          {
-            "description": "banana",
-            "src": "assets/bananes.png",
-            "isAnswer": false
           }
         ]
       }
