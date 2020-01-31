@@ -14,11 +14,20 @@ const TableSupervisor = props => {
     const [index, setIndex] = useState(0);
     const [currentQuestion, setCurrentQuestion] = useState(questions[index]);
 
-
+    // Tells if the current question is over in the table
+    const [isQuestionOver, setIsQuestionOver] = useState(false);
+    console.log('new Index')
+    console.log(index)
     const handleNextQuestion = () => {
-        setIndex(index + 1);
-        setCurrentQuestion(questions[index]);
-        socket.emit('next question', currentQuestion);
+        if (questions.length > index) {
+            socket.emit('next question', questions[index + 1], { type: quiz.type });
+            setCurrentQuestion(questions[index + 1]);
+            setIndex(index + 1);
+        } else {
+            // The quizz is over
+        }
+
+
     }
 
     useEffect(() => {

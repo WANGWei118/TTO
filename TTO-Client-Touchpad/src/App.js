@@ -13,7 +13,7 @@ import {
 import TableSupervisor from './component/collaborative/TableSupervisor';
 import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 
-export const socket = openSocket('http://10.212.107.151:10000');
+export const socket = openSocket('http://192.168.1.11:10000');
 
 const App = () => {
     return (

@@ -6,8 +6,12 @@ const imageTest = "https://previews.123rf.com/images/addtodsaporn/addtodsaporn15
 const QuizGameCollab = props => {
 
 
-    const [dragging, setDragging] = useState(false);
     const quiz = props.location.state.quiz.item;
+    const questions = quiz.questions;
+
+    const [dragging, setDragging] = useState(false);
+    const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+
     const currentQuiz =
     {
         "id": 1,
@@ -26,10 +30,19 @@ const QuizGameCollab = props => {
         ]
     };
 
+    const renderImage = (item) => {
+        console.log(item)
+
+    }
+
     return (
         <div className="quizGameCollab">
             <div className="centralDiv"> <p className='collabQuizDescription'>{currentQuiz.description}</p></div>
-            <DraggableContainer src={imageTest}></DraggableContainer>
+            {currentQuestion.pictures.map((item) => {
+                return (
+                    <DraggableContainer key={item} src={imageTest} />
+                )
+            })}
         </div>
     );
 };
