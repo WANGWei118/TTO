@@ -118,12 +118,12 @@ function imageDiv (picNum, pics, title) {
   var acount = 1
   for (let i = 0; i < picNum; i++) {
     if (acount <= 3) {
-      const imageWidget1 = new ImageTouchWidget(acount * 300, 150, 200, 200, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+      const imageWidget1 = new ImageTouchWidget(acount * 300, 150, 150, 150, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
       imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
       acount++
       $('#app').append(imageWidget1.domElem)
     } else {
-      const imageWidget2 = new ImageTouchWidget((acount - 3) * 300, 450, 200, 200, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+      const imageWidget2 = new ImageTouchWidget((acount - 3) * 300, 450, 150, 150, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
       imageWidget2.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
       acount++
       $('#app').append(imageWidget2.domElem)
@@ -185,10 +185,11 @@ function nonTangibleDiv (picNum, pic, title) {
   titleRight.innerText = title
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
+    const imageWidget1 = new ImageWidget(0, i * 300, 150, 150, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
   }
+  console.log($(window).width(), $(window).height())
   nonTangibleDiv.append(titleTop, titleBottom, titleLeft, titleRight, answerBox)
   return nonTangibleDiv
 }
