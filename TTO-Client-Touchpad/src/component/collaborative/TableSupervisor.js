@@ -6,7 +6,6 @@ const TableSupervisor = props => {
     const NORMAL = 'normal';
 
     const socket = props.socket;
-    console.log(props)
 
     const quiz = props.location.state.quiz.item;
     const questions = quiz.questions;
@@ -16,8 +15,7 @@ const TableSupervisor = props => {
 
     // Tells if the current question is over in the table
     const [isQuestionOver, setIsQuestionOver] = useState(false);
-    console.log('new Index')
-    console.log(index)
+
     const handleNextQuestion = () => {
         if (questions.length > index) {
             socket.emit('next question', questions[index + 1], { type: quiz.type });

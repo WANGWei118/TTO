@@ -206,20 +206,20 @@ class ImageWidget extends TUIOWidget {
       bravo.innerText = 'Bravo'
       console.log('bravo')
       $('.answerBox').append(bravo)
-      setTimeout(()=>{
+      setTimeout(() => {
         this._domElem.css('display', `none`)
         $('.information').css('display', `none`)
       }, 3000)
     }
-    if(this._x >= 500 && this._x <= 1500
-      && this._y >= 200 && this._y <= 700 && this.isRight === false){
+    if (this._x >= 500 && this._x <= 1500
+      && this._y >= 200 && this._y <= 700 && this.isRight === false) {
       this.socket.sendValidedAction(false)
       var again = document.createElement('h1')
       again.setAttribute('class', 'information')
       again.innerText = 'Essayez encore'
       $('.answerBox').append(again)
       console.log('essayez-encore')
-      setTimeout(()=>{
+      setTimeout(() => {
         this._domElem.css('display', `none`)
         $('.information').css('display', `none`)
       }, 3000)

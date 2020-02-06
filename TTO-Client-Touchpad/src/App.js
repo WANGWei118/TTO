@@ -29,7 +29,6 @@ const App = () => {
                         <QuizSelectorCollab socket={socket} />
                     </Route>
                     <Route path="/quizCollabSupervisor" render={(props) => <TableSupervisor {...props} socket={socket} />}>
-                        {/* <TableSupervisor socket={socket} /> */}
                     </Route>
                     <Route
                         path="/quizGame"
