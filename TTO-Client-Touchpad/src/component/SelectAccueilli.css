@@ -1,0 +1,30 @@
+.accueilliSelectionDiv {
+    display: inline-block;
+    width: 100%;
+}
+
+.SelectAccueilliTitle {
+    text-align: center;
+    margin: 5%;
+}
+
+.accueilliCard {
+    display: inline-block;
+    width: 30%;
+    line-height: 50%;
+}
+
+.selectAccueilliConfirmButton {
+    position: absolute;
+    bottom: 5%;
+    left: 45%;
+
+}
+
+.metaCard {
+    text-align: center;
+}
+
+.littleCard {
+    width: 10%;
+}

@@ -4,7 +4,6 @@ import openSocket from 'socket.io-client';
 import { Button } from 'antd';
 import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
-// const socket = openSocket('http://192.168.1.209:10000');
 
 function Menu(props) {
     const socket = props.socket
@@ -12,7 +11,8 @@ function Menu(props) {
     let history = useHistory();
 
     function selectQuiz() {
-        let path = 'quiz'
+        // let path = 'quiz'
+        let path = 'selectAccueilli'
         history.push(path);
     }
     socket.on('welcome', (data) => {
@@ -33,7 +33,7 @@ function Menu(props) {
 
     return (
         <div className="divMenu">
-            <h1>Titre de l'application</h1>
+            <h1>TTO</h1>
             <div className="menuButton">
                 <Button type="primary" className="startQuiz" onClick={() => selectQuiz()}>Lancer un quiz individuel</Button>
             </div>

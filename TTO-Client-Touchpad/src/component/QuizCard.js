@@ -2,8 +2,8 @@ import React from 'react';
 import './QuizCard.css';
 import { useHistory } from "react-router-dom";
 
-const INDIVIDUAL_TYPE = 'individual';
-const COLLAB_TYPE = 'collaborative';
+const INDIVIDUAL_TYPE = 'quizIndividuel';
+const COLLAB_TYPE = 'quizNonTangible';
 let history;
 
 const QuizCard = (props) => {
