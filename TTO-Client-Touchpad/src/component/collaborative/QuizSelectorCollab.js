@@ -20,14 +20,19 @@ const QuizSelectorCollab = props => {
     const [collabQuizNormal, setCollabQuizNormal] = useState([]);
     const [collabQuizTangible, setCollabQuizTangible] = useState([]);
 
-    socket.on('all types quiz', (result) => {
-        setCollabQuizNormal(result.nonTangible)
-        setCollabQuizTangible(result.tangible)
-        setLoading(false)
-    });
+
 
     useEffect(() => {
+        socket.on('all types quiz', (result) => {
+            setCollabQuizNormal(result.nonTangible)
+            setCollabQuizTangible(result.tangible)
+            setLoading(false)
+        });
         socket.emit('get all types quiz');
+
+        return () => {
+            socket.off('all types quiz');
+        }
     }, [])
 
     const renderList = (data, type) => {

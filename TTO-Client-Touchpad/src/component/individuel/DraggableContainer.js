@@ -3,8 +3,11 @@ import './DraggableContainer.css';
 
 
 const DraggableContainer = props => {
-    const [x, setX] = useState(200);
-    const [y, setY] = useState(200);
+
+    const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80));
+    const [y, setY] = useState(window.innerHeight * 0.80);
+
+
     const [previousCursorPosX, setPreviousCursorPosX] = useState(0);
     const [previousCursorPosY, setPreviousCursorPosY] = useState(0);
     const [dragging, setDragging] = useState(false);
@@ -51,7 +54,7 @@ const DraggableContainer = props => {
 
     return (
         <div>
-            <img className='draggableImage' draggable src={props.src} style={{ position: "absolute", left: x, top: y }}
+            <img className='draggableImage' draggable src={"https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg"} style={{ position: "absolute", left: x, top: y }}
                 onMouseMove={(e) => handleMouseMove(e)}
                 onTouchMove={(e) => handleTouchMove(e)}
                 onMouseDown={(e) => handleMouseDown(e)}

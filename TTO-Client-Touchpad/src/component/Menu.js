@@ -15,16 +15,6 @@ function Menu(props) {
         let path = 'selectAccueilli'
         history.push(path);
     }
-    socket.on('welcome', (data) => {
-        console.log(data);
-    })
-    socket.on('message received', (data) => {
-        console.log(data);
-    })
-
-    socket.on('quizz', (data) => {
-        console.log(data);
-    })
 
     const selectQuizCollaboratif = () => {
         const path = '/quizSelectorCollab'
