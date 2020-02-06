@@ -1,12 +1,11 @@
 .centralDiv {
-    width: 50em;
-    height: 30em;
+    width: 50%;
+    height: 50%;
     margin: 0 auto;
     border: 1px solid black;
-    line-height: 700px;
     position: absolute;
-    left: 30%;
-    top: 30%;
+    left: 25%;
+    top: 25%;
 }
 
 /* .centralDiv:hover {

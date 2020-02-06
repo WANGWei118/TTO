@@ -6,6 +6,7 @@ import images from '../images';
 
 import './QuizSelectorCollab.css';
 import { useHistory } from 'react-router-dom';
+import HeaderComponent from '../HeaderComponent';
 const { TabPane } = Tabs;
 const QuizSelectorCollab = props => {
 
@@ -47,10 +48,7 @@ const QuizSelectorCollab = props => {
 
     return (
         <div>
-            <div className="quizSelectorHeader">
-                <img src={images[7].title} className='backButton' onClick={() => goBack()} />
-                <h1 className="pageTitle">Selectionner un Quiz collaboratif</h1>
-            </div>
+            <HeaderComponent title="Selectionner un Quiz collaboratif" />
             <Tabs defaultActiveKey="1" type="card">
                 <TabPane tab="Quiz non tangible" key="1">
                     {loading ? <Spin tip="Chargement" ></Spin> : renderList(collabQuizNormal, NORMAL)}
