@@ -13,6 +13,10 @@ import {
   QUIZ_FINISHED,
   TANGIBLE_QUIZZ
 } from './constants'
+import imageUpload from '../controller/img-uploader'
+
+const MongoClient = require('mongodb').MongoClient
+const urlDB = 'mongodb://localhost:27017/tto'
 
 const database = require('./database/database')
 
@@ -45,13 +49,28 @@ class SocketIOServer {
     this._httpServer = http.createServer(this._app)
     this._ioServer = sio(this._httpServer)
     this.handleSocketIOClient()
+    this._app.use(express.static('public'))
 
+    this._app.use(imageUpload)
 
+    this._app.get('/hello/:ok', function (req, res) {
+      var ok = req.params.ok
+      MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+        const dbo = db.db('tto')
+        dbo.collection('pictures').find({name: ok}).toArray(function (err, result) {
+          if (err) throw err
+          console.log(result[0])
+          res.send(result[0].img.buffer)
+          db.close()
+        })
+      })
+    })
+
+    this._app.listen(10001)
     this._httpServer.listen(socketIOPort, () => {
       console.info('SocketIOServer is ready.')
       console.info('Socket.IO\'s port is ', socketIOPort)
     })
-
 
   }
 
@@ -144,7 +163,7 @@ class SocketIOServer {
         }
       })
 
-      socket.on(NEXT_QUESTION, (data)=>{
+      socket.on(NEXT_QUESTION, (data) => {
         console.log(data)
         socket.broadcast.emit(PASS_TO_NEXT)
       })
@@ -206,6 +225,15 @@ class SocketIOServer {
       socket.on('get quiz non tangible', () => {
         console.log('get quiz non tangible')
         database.sendQuizNonTangible(socket)
+      })
+
+      socket.on('get profiles', () => {
+        console.log('get profiles')
+        database.sendProfiles(socket)
+      })
+
+      socket.on('add profile', (data) => {
+        database.addProfile(data, socket)
       })
 
       socket.on('disconnect', () => {
@@ -284,11 +312,11 @@ function getQuiz (data, socket) {
 function startQuiz (data, socket) {
   switch (data.type) {
     case TANGIBLE_QUIZZ:
-      socket.emit(TANGIBLE_QUIZZ, data.quiz);
-      break;
+      socket.emit(TANGIBLE_QUIZZ, data.quiz)
+      break
     case NO_TANGIBLE_QUIZZ:
-      socket.emit(NO_TANGIBLE_QUIZZ, data.quiz);
-      break;
+      socket.emit(NO_TANGIBLE_QUIZZ, data.quiz)
+      break
   }
 }
 

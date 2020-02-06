@@ -71,7 +71,7 @@ class ImageTouchWidget extends TUIOWidget {
         },
       }
       console.log('sdfsdf')
-      if(this.isRight) {
+      if(this.isRight === true) {
         this._domElem.css('display', `none`)
         this.socket.sendValidedAction(true)
         var bravo = document.createElement('h1')
@@ -134,7 +134,7 @@ class ImageTouchWidget extends TUIOWidget {
           y: tuioTag.y,
         },
       }
-      if(this.isRight) {
+      if(this.isRight === true) {
         this.socket.sendValidedAction(true)
         this._domElem.css('display', `none`)
         var bravo = document.createElement('h1')

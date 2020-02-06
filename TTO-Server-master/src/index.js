@@ -1,7 +1,6 @@
 /**
  * @author Christian Brel <ch.brel@gmail.com>
  */
-var http = require('http')
 
 import SocketIOServer from './SocketIOServer'
 import ClientManager from './ClientManager'

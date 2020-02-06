@@ -11,28 +11,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "./../assets/apple.jpg"
+            "src": "http://10.212.107.151:10000/assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "./../assets/bananes.png"
+            "src": "http://10.212.107.151:10000/assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "./../assets/bean.jpeg"
+            "src": "http://10.212.107.151:10000/assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "./../assets/orange.jpg"
+            "src": "http://10.212.107.151:10000/assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Pomme",
-          "src": "./../assets/apple.jpg"
+          "src": "http://10.212.107.151:10000/assets/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       },
@@ -43,28 +43,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "./../assets/apple.jpg"
+            "src": "http://10.212.107.151:10000/assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "./../assets/bananes.png"
+            "src": "http://10.212.107.151:10000/assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "./../assets/bean.jpeg"
+            "src": "http://10.212.107.151:10000/assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "./../assets/orange.jpg"
+            "src": "http://10.212.107.151:10000/assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "B",
           "text": "Banana",
-          "src": "./../assets/bananes.png"
+          "src": "http://10.212.107.151:10000/assets/bananes.png"
         },
         "explains": "Oui ! La banane est jaune"
       }
@@ -82,28 +82,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "./../assets/apple.jpg"
+            "src": "http://10.212.107.151:10000/assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "./../assets/bananes.png"
+            "src": "http://10.212.107.151:10000/assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "./../assets/bean.jpeg"
+            "src": "http://10.212.107.151:10000/assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "./../assets/orange.jpg"
+            "src": "http://10.212.107.151:10000/assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Pomme",
-          "src": "./../assets/bananes.jpg"
+          "src": "http://10.212.107.151:10000/assets/bananes.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
@@ -121,28 +121,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "./../assets/apple.jpg"
+            "src": "http://10.212.107.151:10000/assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "./../assets/bananes.png"
+            "src": "http://10.212.107.151:10000/assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "./../assets/bean.jpeg"
+            "src": "http://10.212.107.151:10000/assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "./../assets/orange.jpg"
+            "src": "http://10.212.107.151:10000/assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Pomme",
-          "src": "./../assets/apple.jpg"
+          "src": "http://10.212.107.151:10000/assets/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
@@ -160,28 +160,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "./../assets/apple.jpg"
+            "src": "http://10.212.107.151:10000/assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "./../assets/bananes.png"
+            "src": "http://10.212.107.151:10000/assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "./../assets/bean.jpeg"
+            "src": "http://10.212.107.151:10000/assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "./../assets/orange.jpg"
+            "src": "http://10.212.107.151:10000/assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Pomme",
-          "src": "./../assets/apple.jpg"
+          "src": "http://10.212.107.151:10000/assets/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
