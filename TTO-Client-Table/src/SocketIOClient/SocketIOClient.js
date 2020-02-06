@@ -54,9 +54,9 @@ class SocketIOClient {
    * Init and start SocketIOClient.
    *
    * @method start
-   * @param {string} socketIOUrl - Socket IO Server's url. Default : 'http://localhost:10000/'
+   * @param {string} socketIOUrl - Socket IO Server's url. Default : 'http://192.168.1.209:10000/'
    */
-  start(socketIOUrl = 'http://10.212.107.151:10000/') {
+  start(socketIOUrl = 'http://192.168.1.209:10000/') {
     this._client = io(socketIOUrl)
     this._client.on(PING_SOCKETIO_TYPE, (data) => {
       this.handlePing(data)

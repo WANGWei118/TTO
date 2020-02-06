@@ -35,7 +35,7 @@
     font-size: 40px;
     color: #3893d4;
     position: absolute;
-    left: -15vw;
+    left: -5vw;
     transform: rotate(90deg)
 }
 
@@ -52,7 +52,7 @@
     font-size: 40px;
     color: #3893d4;
     position: absolute;
-    right: -15vw;
+    right: -5vw;
     transform: rotate(-90deg)
 }
 
@@ -63,7 +63,7 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-items: center;
 }
 
@@ -85,20 +85,24 @@
     align-items: center;
 }
 
-#waitDiv, #finishDiv{
+#waitDiv, #finishDiv {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-#waitTitle, #finishTitle{
+#waitTitle, #finishTitle {
     font-size: 70px;
     color: #f59010;
 }
 
-#waitImage, #finishImage{
+#waitImage, #finishImage {
     width: 400px;
     height: 400px;
 }
 
+.images {
+    width: 150px;
+    height: 150px;
+}

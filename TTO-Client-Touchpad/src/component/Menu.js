@@ -4,7 +4,7 @@ import openSocket from 'socket.io-client';
 import { Button } from 'antd';
 import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
-// const socket = openSocket('http://10.212.107.151:10000');
+// const socket = openSocket('http://192.168.1.209:10000');
 
 function Menu(props) {
     const socket = props.socket
