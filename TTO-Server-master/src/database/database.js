@@ -1,16 +1,19 @@
 const MongoClient = require('mongodb').MongoClient
+const fs = require('fs-extra')
 const urlDB = 'mongodb://localhost:27017/tto'
 var quizs
-
+const ObjectId = require('mongodb').ObjectId
 class Database {
   init () {
     console.log('Initializing database...')
     const quizz = require('../../document/quizz')
     const questions = require('../../document/questions')
     const tableQuiz = require('../../document/tableQuiz')
-    const images = require('../../document/images')
     const quizTangible = require('../../document/quizTangible')
     const quizNontangible = require('../../document/quizNontangible')
+    const images = require('../../document/images')
+    const imagesTemp = require('../../document/pictures')
+    const profiles = require('../../document/profiles')
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       console.log('database created')
@@ -20,12 +23,17 @@ class Database {
         console.log(`inserted quiz:${res.insertedCount}`)
       })
 
+      database.collection('profiles').insertMany(profiles, function (err, res) {
+        if (err) throw err
+        console.log(`inserted profiles:${res.insertedCount}`)
+      })
+
       database.collection('tableQuiz').insertMany(tableQuiz, function (err, res) {
         if (err) throw err
         console.log(`inserted table quiz:${res.insertedCount}`)
       })
 
-      database.collection('images').insertMany(images, function (err, res) {
+      database.collection('images').insertMany(imagesTemp, function (err, res) {
         if (err) throw err
         console.log(`inserted images:${res.insertedCount}`)
       })
@@ -34,6 +42,26 @@ class Database {
         if (err) throw err
         console.log(`inserted quizTangible:${res.insertedCount}`)
       })
+
+      // for(let image of images){
+      //   var newImg = fs.readFileSync(image.src)
+      //   var encImg = newImg.toString('base64')
+      //   var newItem = {
+      //     id: image.id,
+      //     name: image.description,
+      //     img: Buffer(encImg, 'base64')
+      //   }
+      //
+      //   database.collection('pictures').insert(newItem, function (err, result) {
+      //     if (err) {console.log(err)}
+      //     var newid = new ObjectId(result.ops[0]._id)
+      //     fs.remove(image.src, function (err) {
+      //       if(err) {console.log(err)}
+      //       console.log(result)
+      //       console.log('Picture inserted')
+      //     })
+      //   })
+      // }
 
       database.collection('quizNontangible').insertMany(quizNontangible, function (err, res) {
         if (err) throw err
@@ -83,6 +111,19 @@ class Database {
       })
     })
   }
+
+  sendProfiles(socket){
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('profiles').find({}).toArray(function (err, result) {
+        if (err) throw err
+        socket.emit('all profiles', result)
+        db.close()
+      })
+    })
+  }
+
 
   sendQuizNonTangible (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -167,10 +208,28 @@ class Database {
     })
   }
 
+  addProfile(newProfile, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      dbo.collection('profiles').insertOne(newProfile, function (err, res) {
+        if (err) throw err
+        console.log('new profile inserted success')
+        socket.emit('profile added', {type: true})
+        db.close()
+      })
+    })
+  }
+
   addQuizCollaborative (newQuiz, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
+      dbo.collection('quizNontangible').insertOne(newQuiz, function (err, res) {
+        if (err) throw err
+        console.log('quiz collaborative inserted success')
+        socket.emit('quiz collaborative added', {type: true})
+      })
       dbo.collection('tableQuiz').insertOne(newQuiz, function (err, res) {
         if (err) throw err
         console.log('quiz collaborative inserted success')
@@ -190,6 +249,33 @@ class Database {
       process.exit(0)
     })
   }
+
+  getImage (imageName, res) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      const dbo = db.db('tto')
+      dbo.collection('pictures').find({name: imageName}).toArray(function (err, result) {
+        if (err) throw err
+        console.log(result[0])
+        res.send(result[0].img.buffer)
+        db.close()
+      })
+    })
+
+  }
+}
+
+function uploadImages (image, database) {
+  var newImg = fs.readFileSync(image.src)
+  var encImg = newImg.toString('base64')
+  var newItem = {
+    name: image.description,
+    img: Buffer(encImg, 'base64')
+  }
+
+  database.collection('pictures').insert(newItem, function (err, result) {
+    if (err) {console.log(err)}
+    console.log('inserted image')
+  })
 }
 
 module.exports = new Database()

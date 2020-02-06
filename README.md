@@ -2,5 +2,11 @@
 Table Tablette Ordinateur
 
 # Lancer le server
-cd server/src
-node server.js
+
+# Socket 
+## get quiz
+
+
+## Profile
+'get profiles' => tous les profiles 
+'add profile' => ajouter un profile

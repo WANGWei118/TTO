@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "firstName": "Lucas",
+    "src": "http://10.212.107.151:10000/assets/1.jpg",
+    "lastName": "Pierre",
+    "quizAccessible": {
+      "quizIndividuel": [
+        1,
+        2
+      ],
+      "quizTangible": [
+        1
+      ],
+      "quizNonTangible": []
+    }
+  },
+  {
+    "id": 2,
+    "firstName": "Jean",
+    "src": "http://10.212.107.151:10000/assets/2.jpg",
+    "lastName": "Dupont",
+    "quizAccessible": {
+      "quizIndividuel": [
+        2
+      ],
+      "quizTangible": [
+        2
+      ],
+      "quizNonTangible": []
+    }
+  },
+  {
+    "id": 3,
+    "firstName": "Sophia",
+    "lastName": "Moment",
+    "src": "http://10.212.107.151:10000/assets/4.jpg",
+    "quizAccessible": {
+      "quizIndividuel": [
+        1,
+        2
+      ],
+      "quizTangible": [
+        1,
+        2
+      ],
+      "quizNonTangible": [
+        2
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "firstName": "Louis",
+    "src": "http://10.212.107.151:10000/assets/3.jpg",
+    "lastName": "Lima",
+    "quizAccessible": {
+      "quizIndividuel": [
+        1,
+        2
+      ],
+      "quizTangible": [
+        1,
+        2
+      ],
+      "quizNonTangible": [
+        1,
+        2
+      ]
+    }
+  }
+]

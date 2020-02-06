@@ -2,17 +2,83 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="336d97ab-e9d4-4d31-8189-86366c54d5c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TTO-Client-Table/assets/quiz.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/images/quiz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/controller/img-uploader.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/document/profiles.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/model/uploadfile.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/apple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/bananes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/basket.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/bean.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/bird.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/cat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/dog1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/dog2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/dog3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/fraise.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/kiwi.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/orange.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/piapple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/quiz.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/raisin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/rate.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/tiger.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/watermelon.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/apple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/bananes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/basket.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/bean.jpeg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/bird.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/cat.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/dog1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/dog2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/dog3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/fraise.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/home_menu.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/kiwi.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/left_arrow.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/orange.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/piapple.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/raisin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/reload_icon.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/right_arrow.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/tiger.JPG" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/watermelon.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/ImageWidget/ImageWidget.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/ImageWidget/ImageWidget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/styles/main.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/ImageWidget/ImageTouchWidget.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/ImageWidget/ImageTouchWidget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/SocketIOClient/SocketIOClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/SocketIOClient/SocketIOClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/webpack.common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/public/favicon.ico" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/public/index.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/public/manifest.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/images.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/images.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/pictures.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/pictures.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/questions.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/questions.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizNontangible.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizNontangible.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizTangible.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizTangible.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizz.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/tableQuiz.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/tableQuiz.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/SocketIOServer.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/SocketIOServer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/database/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/database/database.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -30,7 +96,8 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1579789337438" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/TTO-Client-Table/assets" />
+    <property name="javascript.nodejs.core.library.configured.version" value="12.14.1" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/TTO-Server-master/public/assets" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -38,14 +105,19 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/TTO-Client-Table/assets" />
+      <recent name="$PROJECT_DIR$/TTO-Server-master/public/assets" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/TTO-Server-master/public" />
+      <recent name="$PROJECT_DIR$/assets" />
       <recent name="$PROJECT_DIR$/images" />
-      <recent name="$PROJECT_DIR$/TTO-Client-Touchpad/src" />
-      <recent name="$PROJECT_DIR$/TTO-Client-Ordi/src/assets" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TTO-Server-master" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -77,7 +149,9 @@
       <workItem from="1580372387191" duration="10000" />
       <workItem from="1580372504928" duration="56000" />
       <workItem from="1580376764520" duration="659000" />
-      <workItem from="1580388060955" duration="17084000" />
+      <workItem from="1580388060955" duration="22371000" />
+      <workItem from="1580454010828" duration="23796000" />
+      <workItem from="1580994442435" duration="2035000" />
     </task>
     <task id="LOCAL-00001" summary="update maquette">
       <created>1579872352714</created>
@@ -107,7 +181,35 @@
       <option name="project" value="LOCAL" />
       <updated>1580403080074</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="all types of quiz worked">
+      <created>1580405571162</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1580405571162</updated>
+    </task>
+    <task id="LOCAL-00006" summary="add finish page">
+      <created>1580414950407</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1580414950407</updated>
+    </task>
+    <task id="LOCAL-00007" summary="manage socket message">
+      <created>1580416456448</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1580416456448</updated>
+    </task>
+    <task id="LOCAL-00008" summary="touch tangible">
+      <created>1580466590012</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1580466590012</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,25 +220,37 @@
     <MESSAGE value="add images" />
     <MESSAGE value="reformed quiz, add quiz tangile/non tangile" />
     <MESSAGE value="start two types of quiz in table" />
-    <option name="LAST_COMMIT_MESSAGE" value="start two types of quiz in table" />
+    <MESSAGE value="all types of quiz worked" />
+    <MESSAGE value="add finish page" />
+    <MESSAGE value="manage socket message" />
+    <MESSAGE value="touch tangible" />
+    <option name="LAST_COMMIT_MESSAGE" value="touch tangible" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="267" y="23" key="CommitChangelistDialog2" timestamp="1580403079853">
-      <screen x="0" y="23" width="1440" height="808" />
+    <state x="267" y="23" key="CommitChangelistDialog2" timestamp="1580466589611">
+      <screen x="0" y="23" width="1440" height="795" />
     </state>
+    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.795@0.23.1440.795" timestamp="1580466589611" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.798@0.23.1440.798" timestamp="1580388670414" />
-    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.806@0.23.1440.806" timestamp="1580398702192" />
+    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.804@0.23.1440.804" timestamp="1580416456251" />
+    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.806@0.23.1440.806" timestamp="1580405570993" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.808@0.23.1440.808" timestamp="1580403079853" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.811@0.23.1440.811" timestamp="1579872352443" />
+    <state x="100" y="123" width="1240" height="595" key="DiffContextDialog" timestamp="1580414274806">
+      <screen x="0" y="23" width="1440" height="804" />
+    </state>
+    <state x="100" y="123" width="1240" height="595" key="DiffContextDialog/0.23.1440.804@0.23.1440.804" timestamp="1580414274806" />
     <state x="120" y="23" key="SettingsEditor" timestamp="1580388744059">
       <screen x="0" y="23" width="1440" height="798" />
     </state>
     <state x="120" y="23" key="SettingsEditor/0.23.1440.798@0.23.1440.798" timestamp="1580388744059" />
-    <state x="220" y="101" key="Vcs.Push.Dialog.v2" timestamp="1580403085326">
-      <screen x="0" y="23" width="1440" height="808" />
+    <state x="220" y="100" key="Vcs.Push.Dialog.v2" timestamp="1580466594592">
+      <screen x="0" y="23" width="1440" height="795" />
     </state>
+    <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.795@0.23.1440.795" timestamp="1580466594592" />
     <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.798@0.23.1440.798" timestamp="1580388679297" />
-    <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.806@0.23.1440.806" timestamp="1580398708483" />
+    <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.804@0.23.1440.804" timestamp="1580416463431" />
+    <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.806@0.23.1440.806" timestamp="1580405576781" />
     <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.808@0.23.1440.808" timestamp="1580403085326" />
     <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.811@0.23.1440.811" timestamp="1579872374933" />
     <state x="440" y="106" key="com.intellij.openapi.vcs.changes.SpecificFilesViewDialog" timestamp="1580398667299">
@@ -148,14 +262,19 @@
       <screen x="0" y="23" width="1440" height="795" />
     </state>
     <state x="486" y="327" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.795@0.23.1440.795" timestamp="1580298609868" />
-    <state x="254" y="88" width="932" height="664" key="find.popup" timestamp="1580308973836">
+    <state x="254" y="88" width="932" height="664" key="find.popup" timestamp="1580994721707">
       <screen x="0" y="23" width="1440" height="795" />
     </state>
-    <state x="254" y="88" width="932" height="664" key="find.popup/0.23.1440.795@0.23.1440.795" timestamp="1580308973836" />
-    <state x="408" y="178" key="git4idea.merge.GitPullDialog" timestamp="1580298632318">
-      <screen x="0" y="23" width="1440" height="795" />
+    <state x="254" y="88" width="932" height="664" key="find.popup/0.23.1440.795@0.23.1440.795" timestamp="1580994721707" />
+    <state x="408" y="180" key="git4idea.merge.GitPullDialog" timestamp="1580406334867">
+      <screen x="0" y="23" width="1440" height="806" />
     </state>
     <state x="408" y="178" key="git4idea.merge.GitPullDialog/0.23.1440.795@0.23.1440.795" timestamp="1580298632318" />
+    <state x="408" y="180" key="git4idea.merge.GitPullDialog/0.23.1440.806@0.23.1440.806" timestamp="1580406334867" />
+    <state x="301" y="23" width="838" height="1032" key="search.everywhere.popup" timestamp="1580458583742">
+      <screen x="0" y="23" width="1440" height="795" />
+    </state>
+    <state x="301" y="23" width="838" height="1032" key="search.everywhere.popup/0.23.1440.795@0.23.1440.795" timestamp="1580458583742" />
   </component>
   <component name="masterDetails">
     <states>

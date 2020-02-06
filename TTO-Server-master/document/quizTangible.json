@@ -13,71 +13,71 @@
         "pictures": [
           {
             "description": "pomme",
-            "src": "assets/apple.jpg",
+            "src": "http://10.212.107.151:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "assets/bananes.png",
+            "src": "http://10.212.107.151:10000/assets/bananes.png",
             "isAnswer": false
           },
           {
             "description": "pomme",
-            "src": "assets/apple.jpg",
+            "src": "http://10.212.107.151:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "assets/bananes.png",
+            "src": "http://10.212.107.151:10000/assets/bananes.png",
             "isAnswer": false
           },
           {
             "description": "pomme",
-            "src": "assets/apple.jpg",
+            "src": "http://10.212.107.151:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "assets/bananes.png",
+            "src": "http://10.212.107.151:10000/assets/bananes.png",
             "isAnswer": false
           }
         ]
       },
       {
         "id": 2,
-        "description": "Trouvez tous les bananes",
+        "description": "Où sont les chiens?",
         "type": "tangible",
         "rightAnswers": 3,
         "pictures": [
           {
-            "description": "pomme",
-            "src": "assets/apple.jpg",
+            "description": "dog",
+            "src": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/friendliest-dog-breeds-golden-1578596627.jpg?crop=0.668xw:1.00xh;0.188xw,0&resize=640:*",
             "isAnswer": true
           },
           {
-            "description": "banana",
-            "src": "assets/bananes.png",
+            "description": "cat",
+            "src": "http://10.212.107.151:10000/assets/cat.jpg",
             "isAnswer": false
           },
           {
-            "description": "pomme",
-            "src": "assets/apple.jpg",
+            "description": "bird",
+            "src": "http://10.212.107.151:10000/assets/bird.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "dog",
+            "src": "http://10.212.107.151:10000/assets/dog2.jpg",
             "isAnswer": true
           },
           {
-            "description": "banana",
-            "src": "assets/bananes.png",
+            "description": "tiger",
+            "src": "http://10.212.107.151:10000/assets/tiger.JPG",
             "isAnswer": false
           },
           {
-            "description": "pomme",
-            "src": "assets/apple.jpg",
+            "description": "dog",
+            "src": "http://10.212.107.151:10000/assets/dog3.jpg",
             "isAnswer": true
-          },
-          {
-            "description": "banana",
-            "src": "assets/bananes.png",
-            "isAnswer": false
           }
         ]
       }

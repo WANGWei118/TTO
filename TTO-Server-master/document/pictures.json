@@ -61,17 +61,17 @@
   },
   {
     "id": 13,
-    "description": "dog1",
+    "description": "dog",
     "src": "http://10.212.107.151:10000/assets/dog1.jpg"
   },
   {
     "id": 14,
-    "description": "dog2",
+    "description": "dog",
     "src": "http://10.212.107.151:10000/assets/dog2.jpg"
   },
   {
     "id": 15,
-    "description": "dog3",
+    "description": "cat",
     "src": "http://10.212.107.151:10000/assets/dog3.jpg"
   },
   {
