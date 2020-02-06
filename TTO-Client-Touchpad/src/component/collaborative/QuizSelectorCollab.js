@@ -20,7 +20,6 @@ const QuizSelectorCollab = props => {
     const [collabQuizTangible, setCollabQuizTangible] = useState([]);
 
     socket.on('all types quiz', (result) => {
-        console.log(result)
         setCollabQuizNormal(result.nonTangible)
         setCollabQuizTangible(result.tangible)
         setLoading(false)

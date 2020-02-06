@@ -13,7 +13,7 @@ import {
 import TableSupervisor from './component/collaborative/TableSupervisor';
 import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 
-export const socket = openSocket('http://localhost:10000');
+export const socket = openSocket('http://192.168.1.11:10000');
 
 const App = () => {
     return (
@@ -29,7 +29,6 @@ const App = () => {
                         <QuizSelectorCollab socket={socket} />
                     </Route>
                     <Route path="/quizCollabSupervisor" render={(props) => <TableSupervisor {...props} socket={socket} />}>
-                        {/* <TableSupervisor socket={socket} /> */}
                     </Route>
                     <Route
                         path="/quizGame"

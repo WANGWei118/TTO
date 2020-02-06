@@ -51,12 +51,13 @@ const DraggableContainer = props => {
 
     return (
         <div>
-            <img className='draggableImage' draggable src={props.src} style={{ position: "absolute", left: x, top: y }} onMouseMove={(e) => handleMouseMove(e)}
+            <img className='draggableImage' draggable src={props.src} style={{ position: "absolute", left: x, top: y }}
+                onMouseMove={(e) => handleMouseMove(e)}
                 onTouchMove={(e) => handleTouchMove(e)}
                 onMouseDown={(e) => handleMouseDown(e)}
                 onTouchStart={(e) => handleMouseDown(e)}
-                onMouseUp={(e) => handleMouseUp(e)}
-                onTouchEnd={(e) => handleMouseUp(e)}></img>
+                onMouseUp={(e) => { props.onValidate(e, props.isAnswer); handleMouseUp(e) }}
+                onTouchEnd={(e) => { props.onValidate(e, props.isAnswer); handleMouseUp(e) }}></img>
         </div>
     );
 };
