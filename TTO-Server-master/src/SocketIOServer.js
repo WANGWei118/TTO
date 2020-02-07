@@ -237,7 +237,9 @@ class SocketIOServer {
       })
 
       socket.on('update profile', (data) => {
-        database.updateProfiles(data)
+        for (let i = 0; i < data.length; i++) {
+          database.updateProfiles(data[i])
+        }
       })
 
       socket.on('disconnect', () => {
