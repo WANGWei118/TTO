@@ -29,17 +29,17 @@ const QuizCard = (props) => {
     const defaultImage = () => {
         if (topic === 'animal') {
             return (
-                <img src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
+                <img className="quizImage" src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
         }
         else {
-            return (<img src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
+            return (<img className="quizImage" src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
         }
     }
 
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
         <div className="quizCard" onClick={() => handleClick(quiz)}>
-            {quiz.src ? <img src={quiz.src} /> :
+            {quiz.src ? <img className="quizImage"  src={quiz.src} /> :
                 defaultImage()
             }
 

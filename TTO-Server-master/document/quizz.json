@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Quiz fruits",
-    "topic": "Fruit",
+    "topic": "fruit",
     "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "questions": [
       {
@@ -75,7 +75,7 @@
     "id": 2,
     "name": "Quiz fruits",
     "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
-    "topic": "Fruit",
+    "topic": "fruit",
     "questions": [
       {
         "id": 1,
@@ -115,7 +115,7 @@
     "id": 3,
     "name": "Quiz animaux",
     "src": "http://192.168.1.11:10000/assets/animals.jpg",
-    "topic": "Animaux",
+    "topic": "animal",
     "questions": [
       {
         "id": 1,
@@ -154,7 +154,7 @@
   {
     "id": 4,
     "name": "Quiz animaux",
-    "topic": "Animaux",
+    "topic": "animal",
     "src": "http://192.168.1.11:10000/assets/animals.jpg",
     "questions": [
       {
