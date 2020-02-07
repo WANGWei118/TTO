@@ -11,6 +11,7 @@ const style = {
     overflow: 'hidden'
 }
 
+let nbRightAnswers = 0;
 
 const QuizGameCollab = props => {
 
@@ -20,16 +21,18 @@ const QuizGameCollab = props => {
     const history = useHistory();
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [centralDiv, setCentralDiv] = useState(undefined);
-    const [nbRightAnswers, setNbRightAnswers] = useState(0);
+    // const [nbRightAnswers, setNbRightAnswers] = useState(0);
     const [index, setIndex] = useState(0);
     const [isOver, setIsOver] = useState(false);
+
 
     const nextQuestion = () => {
 
         if (index < questions.length - 1) {
             setCurrentQuestion(questions[index + 1]);
             setIndex(index + 1)
-            setNbRightAnswers(0);
+            // setNbRightAnswers(0);
+            nbRightAnswers = 0;
         } else {
             setIsOver(true);
         }
@@ -44,14 +47,20 @@ const QuizGameCollab = props => {
 
         if (checkXAxis(elementCentralX, centralDivBounding) && checkYAxis(elementCentralY, centralDivBounding)) {
             if (isAnswer) {
+
                 element.target.style.display = 'none';
                 document.getElementsByClassName('sa-success')[0].classList.toggle('hide');
                 setTimeout(() => {
                     document.getElementsByClassName('sa-success')[0].classList.toggle('hide');
+                    console.log(currentQuestion.rightAnswers);
+                    console.log(nbRightAnswers)
+                    console.log(nbRightAnswers + 1)
+
                     if (currentQuestion.rightAnswers <= nbRightAnswers + 1) {
                         nextQuestion();
                     }
-                    setNbRightAnswers(nbRightAnswers + 1);
+                    nbRightAnswers += 1;
+                    // setNbRightAnswers(nbRightAnswers + 1);
 
                 }, 2000)
 
@@ -79,6 +88,7 @@ const QuizGameCollab = props => {
 
     useEffect(() => {
         setCentralDiv(document.getElementsByClassName('centralDiv')[0]);
+        nbRightAnswers = 0;
     }, [])
 
     const navigateToMenu = () => {

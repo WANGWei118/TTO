@@ -3,7 +3,6 @@ import './QuizCard.css';
 import { useHistory } from "react-router-dom";
 
 const INDIVIDUAL_TYPE = 'quizIndividuel';
-const COLLAB_TYPE = 'quizNonTangible';
 let history;
 
 const QuizCard = (props) => {
@@ -29,10 +28,10 @@ const QuizCard = (props) => {
     const defaultImage = () => {
         if (topic === 'animal') {
             return (
-                <img className="quizImage" src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
+                <img className="quizImage" alt="Quiz sur le theme des Animaux" src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
         }
         else {
-            return (<img className="quizImage" src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
+            return (<img className="quizImage" alt="Quiz sur le theme des Fruits" src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
         }
     }
 
