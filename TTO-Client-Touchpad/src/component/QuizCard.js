@@ -29,10 +29,10 @@ const QuizCard = (props) => {
     const defaultImage = () => {
         if (topic === 'animal') {
             return (
-                <img src={"http://192.168.1.11:1000/assets/animals.jpg"} />)
+                <img src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
         }
         else {
-            return (<img src={"http://192.168.1.11:1000/assets/Fruits.jpg"} />)
+            return (<img src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
         }
     }
 
