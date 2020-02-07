@@ -236,6 +236,10 @@ class SocketIOServer {
         database.addProfile(data, socket)
       })
 
+      socket.on('update profile', (data) => {
+        database.updateProfiles(data)
+      })
+
       socket.on('disconnect', () => {
         console.info('Socket.IO Client disconnected : ', socket.id)
         this.disconnectClient(socket)
