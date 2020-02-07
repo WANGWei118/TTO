@@ -26,13 +26,30 @@
 }
 
 .littleCard {
-    min-width: 100%;
-    display: inline-block;
-    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    overflow: hidden;
 }
 
 .profileImage{
     width: 100%;
-    height: 150px;
+    max-height: 150px;
     object-fit: contain;
+}
+
+.radioBtn{
+    border: 5px solid white;
+    width: 33%;
+    text-decoration: none;
+    height: 200px;
+}
+
+.radioGroup{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: none;
 }

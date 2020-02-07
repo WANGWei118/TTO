@@ -7,6 +7,10 @@ const nextArrow = require('./../assets/right_arrow.png')
 const home_menu = require('./../assets/home_menu.png')
 const restarto = require('./../assets/reload_icon.jpg')
 
+const style = {
+    overflow: 'hidden'
+}
+
 
 const QuizGameCollab = props => {
 
@@ -107,10 +111,9 @@ const QuizGameCollab = props => {
             </div>
                 :
                 <div className="quizGameCollab">
-
                     <div className="centralDiv">
                         <div className="check_mark">
-                            <div className="sa-icon sa-success animate hide">
+                            <div className="sa-icon sa-success animate hide" style={style}>
                                 <span className="sa-line sa-tip animateSuccessTip"></span>
                                 <span className="sa-line sa-long animateSuccessLong"></span>
                                 <div className="sa-placeholder"></div>

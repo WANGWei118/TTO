@@ -6,9 +6,10 @@
     position: absolute;
     left: 25%;
     top: 25%;
+    overflow-y: hidden;
 }
 
-/* .centralDiv:hover {
+/* .centralDiv:hover {q w
     background-color: tomato;
 }
 */
@@ -16,6 +17,7 @@
 .quizGameCollab {
     height: 100%;
     position: relative;
+    overflow-y: hidden;
 
 }
 
@@ -27,21 +29,11 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
 .check_mark {
     width: 80px;
     height: 130px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 button {
@@ -138,7 +130,7 @@ button {
 }
 
 .sa-icon.sa-success {
-    border-color: transparent\9;
+    border-color: transparent \9;
 }
 
 .sa-icon.sa-success .sa-line.sa-tip {
