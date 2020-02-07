@@ -52,7 +52,7 @@ const SelectAccueilli = props => {
     const fullCard = () => {
         return (
             <Card hoverable
-                cover={<img src="https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg" />}
+                cover={<img src={selectedAccueilli.tempSelectedAccueilli.src} />}
                 onClick={() => showModal()}>
                 <Meta className="metaCard" title={selectedAccueilli.tempSelectedAccueilli.firstName} />
             </Card>
@@ -112,7 +112,7 @@ const SelectAccueilli = props => {
                     ]}>
                     <RadioGroup onChange={(e) => onSelectionChange(e)}>
                         {accueilliList.item.map((item) => {
-                            return <RadioButton style={radioStyle} value={item}><Card className="littleCard" cover={<img src="https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg" />} ><Meta className="metaCard" title={item.firstName} /> </Card></RadioButton>
+                            return <RadioButton style={radioStyle} value={item}><Card className="littleCard" cover={<img src={item.src} />} ><Meta className="metaCard" title={item.firstName} /> </Card></RadioButton>
                             // return <Radio value={item}>{item.firstName}</Radio>
                         })}
 
