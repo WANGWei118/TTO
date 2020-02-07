@@ -1,6 +1,14 @@
+.finishDiv{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .navigation {
     width: 100%;
-    display: inline-block;
+    display: flex;
 }
 
 .navigation>div {

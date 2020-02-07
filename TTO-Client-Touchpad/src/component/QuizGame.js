@@ -67,7 +67,7 @@ const QuizGame = (props) => {
 
     const renderEnd = () => {
         return (
-            <div>
+            <div className='finishDiv'>
                 <div className="descriptionDiv">
                     <h1>Bravo ! Tu as terminé !</h1>
                     <p>Tu peux revenir au menu ou recommencer</p>
