@@ -10,6 +10,8 @@ const QuizCardCollaborative = props => {
     const history = useHistory();
     const quiz = props.quiz
     const quizName = quiz.name
+    const topic = quiz.topic;
+
 
     const handleClick = (item) => {
         console.log(item);
@@ -26,10 +28,22 @@ const QuizCardCollaborative = props => {
         }
     }
 
+    const defaultImage = () => {
+        if (topic === 'animal') {
+            return (
+                <img src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
+        }
+        else {
+            return (<img src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
+        }
+    }
+
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
         <div className="quizCard" onClick={() => handleClick(quiz)}>
-            <img src="https://image.shutterstock.com/image-photo/colorful-flower-on-dark-tropical-260nw-721703848.jpg" />
+            {quiz.src ? <img src={quiz.src} /> :
+                defaultImage()
+            }
             <h2 className="quizName">{quizName}</h2>
         </div>
     )
