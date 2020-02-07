@@ -21,7 +21,6 @@ const SelectAccueilli = props => {
     const [visible, setVisible] = useState(false)
 
     const handleCancel = () => {
-        console.log('cancel')
         setVisible(false)
     }
 
@@ -82,7 +81,7 @@ const SelectAccueilli = props => {
                     {selectedAccueilli === null || selectedAccueilli === undefined ? defaultCard() : fullCard()}
                 </div>
                 {accueilliList === null || accueilliList === undefined ?
-                    <div>ok</div> :
+                    <></> :
                     <Modal visible={visible}
                         title="Selectionner un accueilli"
                         onOk={handleOk}
@@ -114,7 +113,7 @@ const SelectAccueilli = props => {
 
             </div>
             <div className="selectAccueilliConfirmButton">
-                <Button type="primary"><Link to="quiz">Confirmer</Link></Button>
+                <Button className="confirmAccueilliButton" type="primary"><Link className="confirmAccueilliLink" to="quiz">Confirmer</Link></Button>
             </div>
         </>
     )

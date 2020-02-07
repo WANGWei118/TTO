@@ -118,7 +118,6 @@ const QuizGameCollab = props => {
                                 <span className="sa-line sa-long animateSuccessLong"></span>
                                 <div className="sa-placeholder"></div>
                                 <div className="sa-fix"></div>
-                                <div> BRAVO !</div>
                             </div>
                         </div>
                         <p className='collabQuizDescription'>

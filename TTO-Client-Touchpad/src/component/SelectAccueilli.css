@@ -14,10 +14,22 @@
 }
 
 .selectAccueilliConfirmButton {
-    position: absolute;
-    bottom: 5%;
-    left: 45%;
 
+
+    position: absolute;
+    width: fit-content;
+    bottom: 5%;
+    margin-right: auto;
+    margin-left: auto;
+    left: 0;
+    right: 0;
+
+}
+
+.confirmAccueilliButton {
+    vertical-align: middle;
+    font-size: 4em;
+    height: auto;
 }
 
 .metaCard {
@@ -33,20 +45,20 @@
     overflow: hidden;
 }
 
-.profileImage{
+.profileImage {
     width: 100%;
     max-height: 150px;
     object-fit: contain;
 }
 
-.radioBtn{
+.radioBtn {
     border: 5px solid white;
     width: 33%;
     text-decoration: none;
     height: 200px;
 }
 
-.radioGroup{
+.radioGroup {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
