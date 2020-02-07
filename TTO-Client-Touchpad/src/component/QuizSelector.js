@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import QuizCard from './QuizCard';
 import './QuizSelector.css';
-import openSocket from 'socket.io-client';
 import { useSelector } from 'react-redux';
 import { Tabs, Spin } from 'antd';
 import HeaderComponent from './HeaderComponent';
@@ -11,7 +10,6 @@ const INDIVIDUAL_TYPE = 'quizIndividuel';
 const COLLAB_TYPE = 'quizNonTangible';
 
 const QuizSelector = (props) => {
-    let quizList = [];
 
     const socket = props.socket
 
@@ -30,7 +28,10 @@ const QuizSelector = (props) => {
 
             setLoadingCollab(false);
             setLoadingIndividual(false);
+
         });
+        socket.emit('get all types quiz');
+
         return () => {
             socket.off('all types quiz');
         }
@@ -65,9 +66,6 @@ const QuizSelector = (props) => {
             )
     }
 
-    useEffect(() => {
-        socket.emit('get all types quiz');
-    }, [])
 
     return (
         <div>
