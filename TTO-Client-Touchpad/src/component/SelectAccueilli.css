@@ -1,6 +1,7 @@
 .accueilliSelectionDiv {
     display: inline-block;
     width: 100%;
+
 }
 
 .SelectAccueilliTitle {
@@ -11,11 +12,10 @@
 .accueilliCard {
     display: inline-block;
     width: 30%;
+    vertical-align: top;
 }
 
 .selectAccueilliConfirmButton {
-
-
     position: absolute;
     width: fit-content;
     bottom: 5%;

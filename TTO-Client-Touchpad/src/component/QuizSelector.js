@@ -43,12 +43,18 @@ const QuizSelector = (props) => {
             return (
                 <>
                     {data.map((item) => {
-                        if (selectedAccueilli.tempSelectedAccueilli.quizAccessible[type].includes(item.id)) {
+                        if (type === 'quizIndividuel') {
+                            if (selectedAccueilli.tempSelectedAccueilli.quizAccessible[type].includes(item.id)) {
+                                return (
+                                    <QuizCard key={item._id} quiz={item} type={type} />
+                                )
+                            } else {
+                                return (null);
+                            }
+                        } else {
                             return (
                                 <QuizCard key={item._id} quiz={item} type={type} />
                             )
-                        } else {
-                            return (null);
                         }
                     })}
                 </>

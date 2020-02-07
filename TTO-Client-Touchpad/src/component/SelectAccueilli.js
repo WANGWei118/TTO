@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { Card, Button, Modal, Radio } from 'antd'
+import { Card, Button, Modal, Radio, Icon } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import './SelectAccueilli.css'
@@ -60,6 +60,11 @@ const SelectAccueilli = props => {
         setTempSelectedAccueilli(event.target.value)
     }
 
+    const removeSelectedAccueilli = () => {
+        dispatch({ type: 'select_accueilli', accueilli: null })
+        setTempSelectedAccueilli(null);
+    }
+
     useEffect(() => {
         socket.on('all profiles', (item) => {
             console.log(item)
@@ -78,6 +83,7 @@ const SelectAccueilli = props => {
             <div className="accueilliSelectionDiv">
                 <div className="accueilliCard">
                     {selectedAccueilli === null || selectedAccueilli === undefined ? defaultCard() : fullCard()}
+
                 </div>
                 {accueilliList === null || accueilliList === undefined ?
                     <></> :
@@ -109,7 +115,7 @@ const SelectAccueilli = props => {
 
                         </Radio.Group>
                     </Modal>}
-
+                <div className="accueilliCard"><Icon type="close-square" theme="twoTone" twoToneColor="red" style={{ fontSize: '50px' }} onClick={removeSelectedAccueilli} /></div>
             </div>
             <div className="selectAccueilliConfirmButton">
                 <Button className="confirmAccueilliButton" type="primary"><Link className="confirmAccueilliLink" to="quiz">Confirmer</Link></Button>
