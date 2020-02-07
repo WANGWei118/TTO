@@ -1,14 +1,19 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import './app.css';
+import '../app.css';
 import {Layout, Menu, Icon, Tabs, Button, Breadcrumb, Modal, Checkbox} from 'antd';
-import Theme from "./theme";
+import Theme from "../homepage/theme";
+import '../model';
+import {Link} from "react-router-dom";
+import openSocket from 'socket.io-client';
+import Sidebar from '../sidebar';
 
-const { Header, Content, Footer, Sider} = Layout;const Menu1 = 'Liste de quiz';
+const { Header, Content, Footer, Sider} = Layout;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['Quiz 1', 'Quiz2'];
 
-class DetailTheme extends React.Component {
+class NewTheme extends React.Component {
+    socket = openSocket;
     state = {
         collapsed: false,
         visible: false,
@@ -48,23 +53,7 @@ class DetailTheme extends React.Component {
     render() {
         return (
             <Layout style={{ minHeight: '100vh' }}>
-                <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-                    <div className="logo" />
-                    <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-                        <Menu.Item key="1">
-                            <Icon type="desktop" />
-                            <span>{Menu1}</span>
-                        </Menu.Item>
-                        {/*<Menu.Item key="2">*/}
-                        {/*<Icon type="pie-chart" />*/}
-                        {/*<span>{Menu2}</span>*/}
-                        {/*</Menu.Item>*/}
-                        {/*<Menu.Item key="3">*/}
-                        {/*<Icon type="file" />*/}
-                        {/*<span>Information par acceuil</span>*/}
-                        {/*</Menu.Item>*/}
-                    </Menu>
-                </Sider>
+                <Sidebar default = "1"/>
                 <Layout>
                     <Header style={{ background: '#fff' }}>
                         <h2>Nouveau Theme</h2>
@@ -96,4 +85,4 @@ class DetailTheme extends React.Component {
         );
     }
 }
-export default DetailTheme;
+export default NewTheme;
