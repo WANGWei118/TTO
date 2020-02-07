@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Choisir les fruits",
+    "name": "Choisir les fruits ou les animaux",
     "topic": "fruit",
     "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "type": "tangible",
@@ -49,6 +49,7 @@
         "description": "Où sont les chiens?",
         "src": "http://192.168.1.11:10000/assets/animals.jpg",
         "type": "tangible",
+        "topic": "animal",
         "rightAnswers": 3,
         "pictures": [
           {
