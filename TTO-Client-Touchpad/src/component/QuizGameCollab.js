@@ -89,10 +89,10 @@ const QuizGameCollab = props => {
 
     return (
         <>
-            {isOver ? <div>
+            {isOver ? <>
                 <div className="descriptionDiv">
-                    <h1>Bravo ! Tu as terminé !</h1>
-                    <p>Tu peux revenir au menu ou recommencer</p>
+                    <h1 className="bravoTitle">Bravo ! Tu as terminé !</h1>
+                    <p className="bravoMessage">Tu peux revenir au menu ou recommencer</p>
                 </div>
                 <div className="navigation">
                     <div className="quitDivEnd">
@@ -104,7 +104,7 @@ const QuizGameCollab = props => {
                         {/* <Button type="primary" onClick={() => restart()}>Recommencer</Button> */}
                     </div>
                 </div>
-            </div>
+            </>
                 :
                 <div className="quizGameCollab">
 

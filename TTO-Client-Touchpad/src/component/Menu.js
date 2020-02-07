@@ -23,12 +23,12 @@ function Menu(props) {
 
     return (
         <div className="divMenu">
-            <h1>TTO</h1>
+            <h1 className="mainTitle">TTO</h1>
             <div className="menuButton">
                 <Button type="primary" className="startQuiz" onClick={() => selectQuiz()}>Lancer un quiz individuel</Button>
             </div>
             <div className="menuButton" >
-                <Button type="primary" onClick={selectQuizCollaboratif}>Liste quiz collaboratif</Button>
+                <Button type="primary" className="startQuiz" onClick={selectQuizCollaboratif}>Lancer un quiz collaboratif</Button>
             </div>
         </div>
     );

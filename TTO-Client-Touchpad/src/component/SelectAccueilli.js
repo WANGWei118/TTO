@@ -44,7 +44,7 @@ const SelectAccueilli = props => {
             <Card hoverable
                 onClick={() => showModal()}
                 cover={<img src="https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg" />}>
-                <Meta className="metaCard" title="Selectionner un joueur !" />
+                <Meta className="metaCard" description="Appuyer pour selectionner un joueur !" />
             </Card>
         )
     }
@@ -78,6 +78,7 @@ const SelectAccueilli = props => {
 
     const radioStyle = {
         display: 'inline-block',
+        height: '100%',
         width: '30%',
         textDecoration: 'none',
         height: '100%',
@@ -94,9 +95,9 @@ const SelectAccueilli = props => {
                 <div className="accueilliCard">
                     {selectedAccueilli === null || selectedAccueilli === undefined ? defaultCard() : fullCard()}
                 </div>
-                <div className="accueilliCard">
+                {/* <div className="accueilliCard">
                     <Button onClick={showModal} type="primary">Choisir un accueilli</Button>
-                </div>
+                </div> */}
                 {accueilliList === null || accueilliList === undefined ? <div>ok</div> : <Modal visible={visible}
                     title="Selectionner un accueilli"
                     onOk={handleOk}
@@ -121,7 +122,7 @@ const SelectAccueilli = props => {
 
             </div>
             <div className="selectAccueilliConfirmButton">
-                <Button type="primary"><Link to="quiz">Confirmer</Link></Button>
+                <Button className='confirmButtonAccueilli' type="primary"><Link to="quiz">Confirmer</Link></Button>
             </div>
         </>
     );
