@@ -15,7 +15,6 @@ let nbRightAnswers = 0;
 
 const QuizGameCollab = props => {
 
-
     const quiz = props.location.state.quiz.item;
     const questions = quiz.questions;
     const history = useHistory();
@@ -24,7 +23,6 @@ const QuizGameCollab = props => {
     // const [nbRightAnswers, setNbRightAnswers] = useState(0);
     const [index, setIndex] = useState(0);
     const [isOver, setIsOver] = useState(false);
-
 
     const nextQuestion = () => {
 
@@ -46,15 +44,13 @@ const QuizGameCollab = props => {
         const elementCentralY = (elementBounding.y + (elementBounding.y + elementBounding.height)) / 2
 
         if (checkXAxis(elementCentralX, centralDivBounding) && checkYAxis(elementCentralY, centralDivBounding)) {
+
             if (isAnswer) {
 
                 element.target.style.display = 'none';
                 document.getElementsByClassName('sa-success')[0].classList.toggle('hide');
                 setTimeout(() => {
                     document.getElementsByClassName('sa-success')[0].classList.toggle('hide');
-                    console.log(currentQuestion.rightAnswers);
-                    console.log(nbRightAnswers)
-                    console.log(nbRightAnswers + 1)
 
                     if (currentQuestion.rightAnswers <= nbRightAnswers + 1) {
                         nextQuestion();
@@ -89,7 +85,7 @@ const QuizGameCollab = props => {
     useEffect(() => {
         setCentralDiv(document.getElementsByClassName('centralDiv')[0]);
         nbRightAnswers = 0;
-    }, [])
+    }, [isOver])
 
     const navigateToMenu = () => {
         history.push('/')

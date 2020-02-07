@@ -62,7 +62,6 @@ const SelectAccueilli = props => {
 
     useEffect(() => {
         socket.on('all profiles', (item) => {
-            console.log('All profiles')
             console.log(item)
             dispatch({ type: 'list_accueilli', accueilliList: { item } })
         })
