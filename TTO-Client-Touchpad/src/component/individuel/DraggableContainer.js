@@ -54,7 +54,7 @@ const DraggableContainer = props => {
 
     return (
         <div>
-            <img className='draggableImage' draggable src={"https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg"} style={{ position: "absolute", left: x, top: y }}
+            <img className='draggableImage' draggable src={props.src} style={{ position: "absolute", left: x, top: y }}
                 onMouseMove={(e) => handleMouseMove(e)}
                 onTouchMove={(e) => handleTouchMove(e)}
                 onMouseDown={(e) => handleMouseDown(e)}
