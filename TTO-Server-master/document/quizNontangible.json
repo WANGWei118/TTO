@@ -26,6 +26,7 @@
       },
       {
         "id": 1,
+        "topic": "fruit",
         "description": "Mettez les bananes au milieu",
         "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
         "type": "notangible",
