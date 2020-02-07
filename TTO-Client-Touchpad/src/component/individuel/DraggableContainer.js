@@ -3,8 +3,11 @@ import './DraggableContainer.css';
 
 
 const DraggableContainer = props => {
-    const [x, setX] = useState(200);
-    const [y, setY] = useState(200);
+
+    const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80));
+    const [y, setY] = useState(window.innerHeight * 0.80);
+
+
     const [previousCursorPosX, setPreviousCursorPosX] = useState(0);
     const [previousCursorPosY, setPreviousCursorPosY] = useState(0);
     const [dragging, setDragging] = useState(false);

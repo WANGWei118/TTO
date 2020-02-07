@@ -21,13 +21,20 @@ const QuizSelector = (props) => {
     const [collabQuiz, setCollabQuiz] = useState(null);
     const selectedAccueilli = useSelector((state) => state.selected)
 
-    socket.on('all types quiz', (result) => {
-        setCollabQuiz(result.nonTangible);
-        setIndividualQuiz(result.individuel)
 
-        setLoadingCollab(false);
-        setLoadingIndividual(false);
-    });
+
+    useEffect(() => {
+        socket.on('all types quiz', (result) => {
+            setCollabQuiz(result.nonTangible);
+            setIndividualQuiz(result.individuel)
+
+            setLoadingCollab(false);
+            setLoadingIndividual(false);
+        });
+        return () => {
+            socket.off('all types quiz');
+        }
+    }, [])
 
     const renderList = (data, type) => {
 

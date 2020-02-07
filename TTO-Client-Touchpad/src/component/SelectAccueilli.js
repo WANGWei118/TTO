@@ -7,6 +7,7 @@ import './SelectAccueilli.css';
 import HeaderComponent from './HeaderComponent';
 import RadioGroup from 'antd/lib/radio/group';
 import RadioButton from 'antd/lib/radio/radioButton';
+import Radio from 'antd/lib/radio/radio'
 
 const { Meta } = Card;
 
@@ -20,21 +21,17 @@ const SelectAccueilli = props => {
     const [tempSelectedAccueilli, setTempSelectedAccueilli] = useState(undefined);
     const [visible, setVisible] = useState(false);
 
-    socket.on('all profiles', (item) => {
-        console.log(item)
-        dispatch({ type: "list_accueilli", accueilliList: { item } })
-    })
-
 
     const handleCancel = () => {
         console.log("cancel")
         setVisible(false)
-        console.log(selectedAccueilli.tempSelectedAccueilli);
     }
 
     const handleOk = () => {
         console.log(tempSelectedAccueilli);
-        dispatch({ type: "select_accueilli", accueilli: { tempSelectedAccueilli } })
+        if (tempSelectedAccueilli) {
+            dispatch({ type: "select_accueilli", accueilli: { tempSelectedAccueilli } })
+        }
         setVisible(false)
     }
 
@@ -67,10 +64,30 @@ const SelectAccueilli = props => {
     }
 
     useEffect(() => {
+        socket.on('all profiles', (item) => {
+            console.log("All profiles")
+            console.log(item)
+            dispatch({ type: "list_accueilli", accueilliList: { item } })
+        })
         socket.emit('get profiles');
+
+        return () => {
+            socket.off('all profiles');
+        }
     }, [])
 
+    const radioStyle = {
+        display: 'inline-block',
+        width: '30%',
+        textDecoration: 'none',
+        height: '100%',
+        marginRight: '3%',
+        marginBottom: '5%'
+
+    };
+
     return (
+
         <>
             <HeaderComponent title="Selectionner l'accueilli qui va jouer" />
             <div className="accueilliSelectionDiv">
@@ -84,6 +101,7 @@ const SelectAccueilli = props => {
                     title="Selectionner un accueilli"
                     onOk={handleOk}
                     onCancel={handleCancel}
+                    width="70%"
                     footer={[
                         <Button key="back" onClick={handleCancel}>
                             Annuler
@@ -94,12 +112,11 @@ const SelectAccueilli = props => {
                     ]}>
                     <RadioGroup onChange={(e) => onSelectionChange(e)}>
                         {accueilliList.item.map((item) => {
-                            return <RadioButton value={item}>{item.firstName}</RadioButton>
+                            return <RadioButton style={radioStyle} value={item}><Card className="littleCard" cover={<img src="https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg" />} ><Meta className="metaCard" title={item.firstName} /> </Card></RadioButton>
+                            // return <Radio value={item}>{item.firstName}</Radio>
                         })}
 
                     </RadioGroup>
-
-
                 </Modal>}
 
             </div>
