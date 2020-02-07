@@ -1,8 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Premier Quiz",
+    "name": "Quiz fruits",
     "topic": "Fruit",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "questions": [
       {
         "id": 1,
@@ -72,7 +73,8 @@
   },
   {
     "id": 2,
-    "name": "Deuxieme Quiz",
+    "name": "Quiz fruits",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "topic": "Fruit",
     "questions": [
       {
@@ -111,17 +113,18 @@
   },
   {
     "id": 3,
-    "name": "Troisieme Quiz",
-    "topic": "Fruit",
+    "name": "Quiz animaux",
+    "src": "http://192.168.1.11:10000/assets/animals.jpg",
+    "topic": "Animaux",
     "questions": [
       {
         "id": 1,
-        "description": "Quel fruit est rouge?",
+        "description": "Où est le chat?",
         "answers": [
           {
             "id": "A",
-            "text": "Pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg"
+            "text": "Chat",
+            "src": "http://192.168.1.11:10000/assets/cat.jpg"
           },
           {
             "id": "B",
@@ -135,27 +138,28 @@
           },
           {
             "id": "D",
-            "text": "Orange",
-            "src": "http://192.168.1.11:10000/assets/orange.jpg"
+            "text": "Tiger",
+            "src": "http://192.168.1.11:10000/assets/TIGER.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
-          "text": "Pomme",
-          "src": "http://192.168.1.11:10000/assets/apple.jpg"
+          "text": "Chat",
+          "src": "http://192.168.1.11:10000/assets/cat.jpg"
         },
-        "explains": "Pomme est rouge, banane est jeune......"
+        "explains": "Le chat un très mignion"
       }
     ]
   },
   {
     "id": 4,
-    "name": "quiz4",
-    "topic": "Fruit",
+    "name": "Quiz animaux",
+    "topic": "Animaux",
+    "src": "http://192.168.1.11:10000/assets/animals.jpg",
     "questions": [
       {
         "id": 1,
-        "description": "Quel fruit est rouge?",
+        "description": "Quel est le chien?",
         "answers": [
           {
             "id": "A",
@@ -164,8 +168,8 @@
           },
           {
             "id": "B",
-            "text": "Banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png"
+            "text": "Chien",
+            "src": "http://192.168.1.11:10000/assets/dog1.jpg"
           },
           {
             "id": "C",
@@ -179,11 +183,11 @@
           }
         ],
         "rightAnwer": {
-          "id": "A",
-          "text": "Pomme",
-          "src": "http://192.168.1.11:10000/assets/apple.jpg"
+          "id": "B",
+          "text": "Chien",
+          "src": "http://192.168.1.11:10000/assets/dog1.jpg"
         },
-        "explains": "Pomme est rouge, banane est jeune......"
+        "explains": "Les chiens sont notre amis!"
       }
     ]
   }

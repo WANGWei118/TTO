@@ -2,6 +2,7 @@
   {
     "id": 1,
     "description": "Quel fruit est rouge?",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "answers": [
       {
         "id": "A",
@@ -34,6 +35,7 @@
   {
     "id": 2,
     "description": "Quel fruit est Jaune?",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "answers": [
       {
         "id": "A",

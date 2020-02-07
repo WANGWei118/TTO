@@ -7,7 +7,8 @@
     "quizAccessible": {
       "quizIndividuel": [
         1,
-        2
+        2,
+        3
       ],
       "quizTangible": [
         1
@@ -22,7 +23,8 @@
     "lastName": "Dupont",
     "quizAccessible": {
       "quizIndividuel": [
-        2
+        2,
+        3
       ],
       "quizTangible": [
         2
@@ -38,7 +40,8 @@
     "quizAccessible": {
       "quizIndividuel": [
         1,
-        2
+        2,
+        4
       ],
       "quizTangible": [
         1,

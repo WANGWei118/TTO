@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Choisir les fruits",
     "topic": "fruit",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "type": "notangible",
     "questions": [
       {
@@ -26,6 +27,7 @@
       {
         "id": 1,
         "description": "Mettez les bananes au milieu",
+        "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
         "type": "notangible",
         "rightAnswers": 1,
         "pictures": [
