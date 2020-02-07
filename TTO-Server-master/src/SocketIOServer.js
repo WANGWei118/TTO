@@ -16,7 +16,7 @@ import {
 import imageUpload from '../controller/img-uploader'
 
 const MongoClient = require('mongodb').MongoClient
-const urlDB = 'mongodb://localhost:27017/tto'
+const urlDB = 'mongodb://192.168.1.11:27017/tto'
 
 const database = require('./database/database')
 

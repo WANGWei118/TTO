@@ -19,6 +19,9 @@ import { radToDeg } from 'tuiomanager/core/helpers'
  * @class ImageWidget
  * @extends TUIOWidget
  */
+const windowsWidth = $(window).width()
+const windowsHeight = $(window).height()
+
 class ImageWidget extends TUIOWidget {
   /**
    * ImageWidget constructor.
@@ -32,7 +35,7 @@ class ImageWidget extends TUIOWidget {
    * @param socket
    */
 
-  constructor(x, y, width, height, imgSrc, socket, isRight, rightNum) {
+  constructor (x, y, width, height, imgSrc, socket, isRight, rightNum) {
     super(x, y, width, height)
     this._lastTouchesValues = {}
     this._lastTagsValues = {}
@@ -57,7 +60,7 @@ class ImageWidget extends TUIOWidget {
    *
    * @returns {JQuery Object} ImageWidget's domElem.
    */
-  get domElem() { return this._domElem }
+  get domElem () { return this._domElem }
 
   /**
    * Call after a TUIOTouch creation.
@@ -65,7 +68,7 @@ class ImageWidget extends TUIOWidget {
    * @method onTouchCreation
    * @param {TUIOTouch} tuioTouch - A TUIOTouch instance.
    */
-  onTouchCreation(tuioTouch) {
+  onTouchCreation (tuioTouch) {
     super.onTouchCreation(tuioTouch)
     if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
       this._lastTouchesValues = {
@@ -84,7 +87,7 @@ class ImageWidget extends TUIOWidget {
    * @method onTouchUpdate
    * @param {TUIOTouch} tuioTouch - A TUIOTouch instance.
    */
-  onTouchUpdate(tuioTouch) {
+  onTouchUpdate (tuioTouch) {
     if (typeof (this._lastTouchesValues[tuioTouch.id]) !== 'undefined') {
       const lastTouchValue = this._lastTouchesValues[tuioTouch.id]
       const diffX = tuioTouch.x - lastTouchValue.x
@@ -126,7 +129,7 @@ class ImageWidget extends TUIOWidget {
    * @method onTagCreation
    * @param {TUIOTag} tuioTag - A TUIOTag instance.
    */
-  onTagCreation(tuioTag) {
+  onTagCreation (tuioTag) {
     super.onTagCreation(tuioTag)
     if (this.isTouched(tuioTag.x, tuioTag.y)) {
       this._lastTagsValues = {
@@ -145,7 +148,7 @@ class ImageWidget extends TUIOWidget {
    * @method onTagUpdate
    * @param {TUIOTag} tuioTag - A TUIOTag instance.
    */
-  onTagUpdate(tuioTag) {
+  onTagUpdate (tuioTag) {
     if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
       const lastTagValue = this._lastTagsValues[tuioTag.id]
       const diffX = tuioTag.x - lastTagValue.x
@@ -189,7 +192,7 @@ class ImageWidget extends TUIOWidget {
    * @param {string/number} y - New ImageWidget's ordinate.
    * @param {number} angle - New ImageWidget's angle.
    */
-  moveTo(x, y, angle = null) {
+  moveTo (x, y, angle = null) {
     this._x = x
     this._y = y
     this._domElem.css('left', `${x}px`)
@@ -198,8 +201,8 @@ class ImageWidget extends TUIOWidget {
       this._domElem.css('transform', `rotate(${angle}deg)`)
     }
 
-    if (this._x >= 500 && this._x <= 1500
-      && this._y >= 200 && this._y <= 700 && this.isRight === true) {
+    if (this._x >= (windowsWidth * 0.25) && this._x <= (windowsWidth * 0.25 + windowsWidth * 0.5)
+      && this._y >= (windowsHeight * 0.25) && this._y <= (windowsHeight * 0.25 + windowsHeight * 0.5) && this.isRight === true) {
       this.socket.sendValidedAction(true)
       var bravo = document.createElement('h1')
       bravo.setAttribute('class', 'information')
@@ -211,18 +214,18 @@ class ImageWidget extends TUIOWidget {
         $('.information').css('display', `none`)
       }, 3000)
     }
-    if (this._x >= 500 && this._x <= 1500
-      && this._y >= 200 && this._y <= 700 && this.isRight === false) {
+    if (this._x >= (windowsWidth * 0.25) && this._x <= (windowsWidth * 0.25 + windowsWidth * 0.5)
+      && this._y >= (windowsHeight * 0.25) && this._y <= (windowsHeight * 0.25 + windowsHeight * 0.5) && this.isRight === false) {
       this.socket.sendValidedAction(false)
       var again = document.createElement('h1')
       again.setAttribute('class', 'information')
       again.innerText = 'Essayez encore'
       $('.answerBox').append(again)
       console.log('essayez-encore')
-      setTimeout(() => {
-        this._domElem.css('display', `none`)
-        $('.information').css('display', `none`)
-      }, 3000)
+      setTimeout(()=>{
+      this._domElem.css('display', `none`)
+      $('.information').css('display', `none`)
+       }, 3000)
     }
   }
 }

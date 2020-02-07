@@ -117,50 +117,53 @@ function imageDiv (picNum, pics, title) {
   titleRight.innerText = title
   var acount = 1
   for (let i = 0; i < picNum; i++) {
-    if (acount <= 3) {
-      const imageWidget1 = new ImageTouchWidget(acount * 300, 150, 200, 200, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
-      imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
-      acount++
-      $('#app').append(imageWidget1.domElem)
-    } else {
-      const imageWidget2 = new ImageTouchWidget((acount - 3) * 300, 450, 200, 200, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
-      imageWidget2.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
-      acount++
-      $('#app').append(imageWidget2.domElem)
-    }
-    // const image = document.createElement('img')
-    // image.addEventListener('click', () => {
-    //   console.log(pics[i])
-    //   if (pics[i].isAnswer === true) {
-    //     rightAnswer++
-    //     if (rightAnswer === rightAnswersNum) {
-    //       // socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
-    //       finished()
-    //       rightAnswersNum = 0
-    //       rightAnswer = 0
-    //       // socketIOClient._client.emit(NEXT_QUESTION, {type: 'tangible'})
-    //     }
-    //     image.style.display = 'none'
-    //     var bravo = document.createElement('h1')
-    //     bravo.setAttribute('class', 'information')
-    //     bravo.innerText = 'Bravo'
-    //     imageDiv.append(bravo)
-    //     setTimeout(() => {
-    //       imageDiv.removeChild(bravo)
-    //     }, 2000)
+    //   if (acount <= 3) {
+    //     const imageWidget1 = new ImageTouchWidget(acount * 300, 150, 150, 150, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+    //     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    //     acount++
+    //     $('#app').append(imageWidget1.domElem)
     //   } else {
-    //     console.log('Essayez encore!')
-    //     image.style.display = 'none'
-    //     var again = document.createElement('h1')
-    //     again.setAttribute('class', 'information')
-    //     again.innerText = 'Essayez encore'
-    //     imageDiv.append(again)
-    //     setTimeout(() => {
-    //       imageDiv.removeChild(again)
-    //     }, 2000)
+    //     const imageWidget2 = new ImageTouchWidget((acount - 3) * 300, 450, 150, 150, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+    //     imageWidget2.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    //     acount++
+    //     $('#app').append(imageWidget2.domElem)
     //   }
-    // })
-    // imageDiv.append(image)
+    const image = document.createElement('img')
+    image.src = pics[i].src
+    image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    image.setAttribute('class', 'images')
+    image.addEventListener('click', () => {
+      console.log(pics[i])
+      if (pics[i].isAnswer === true) {
+        rightAnswer++
+        if (rightAnswer === rightAnswersNum) {
+          // socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
+          finished()
+          rightAnswersNum = 0
+          rightAnswer = 0
+          // socketIOClient._client.emit(NEXT_QUESTION, {type: 'tangible'})
+        }
+        image.style.display = 'none'
+        var bravo = document.createElement('h1')
+        bravo.setAttribute('class', 'information')
+        bravo.innerText = 'Bravo'
+        imageDiv.append(bravo)
+        setTimeout(() => {
+          imageDiv.removeChild(bravo)
+        }, 2000)
+      } else {
+        console.log('Essayez encore!')
+        image.style.display = 'none'
+        var again = document.createElement('h1')
+        again.setAttribute('class', 'information')
+        again.innerText = 'Essayez encore'
+        imageDiv.append(again)
+        setTimeout(() => {
+          imageDiv.removeChild(again)
+        }, 2000)
+      }
+    })
+    imageDiv.append(image)
   }
   imageDiv.append(titleTop, titleBottom, titleLeft, titleRight)
   return imageDiv
@@ -185,10 +188,11 @@ function nonTangibleDiv (picNum, pic, title) {
   titleRight.innerText = title
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageWidget(0, i * 300, 200, 200, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
+    const imageWidget1 = new ImageWidget(0, i * 300, 150, 150, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
   }
+  console.log($(window).width(), $(window).height())
   nonTangibleDiv.append(titleTop, titleBottom, titleLeft, titleRight, answerBox)
   return nonTangibleDiv
 }
