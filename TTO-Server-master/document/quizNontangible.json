@@ -13,12 +13,12 @@
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://192.168.1.209:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.209:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": false
           }
         ]
@@ -31,12 +31,12 @@
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://192.168.1.209:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": false
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.209:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": true
           }
         ]

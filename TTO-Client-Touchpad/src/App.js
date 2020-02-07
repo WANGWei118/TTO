@@ -16,7 +16,7 @@ import TableSupervisor from './component/collaborative/TableSupervisor';
 import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 import SelectAccueilli from './component/SelectAccueilli';
 
-export const socket = openSocket('http://localhost:10000');
+export const socket = openSocket('http://192.168.1.11:10000');
 
 const App = () => {
     return (

@@ -6,28 +6,28 @@
       {
         "id": "A",
         "text": "Pomme",
-        "src": "http://192.168.1.209:10000/assets/apple.jpg"
+        "src": "http://192.168.1.11:10000/assets/apple.jpg"
       },
       {
         "id": "B",
         "text": "Banana",
-        "src": "http://192.168.1.209:10000/assets/bananes.png"
+        "src": "http://192.168.1.11:10000/assets/bananes.png"
       },
       {
         "id": "C",
         "text": "Bean",
-        "src": "http://192.168.1.209:10000/assets/bean.jpeg"
+        "src": "http://192.168.1.11:10000/assets/bean.jpeg"
       },
       {
         "id": "D",
         "text": "Orange",
-        "src": "http://192.168.1.209:10000/assets/orange.jpg"
+        "src": "http://192.168.1.11:10000/assets/orange.jpg"
       }
     ],
     "rightAnwer": {
       "id": "A",
       "text": "Pomme",
-      "src": "http://192.168.1.209:10000/assets/apple.jpg"
+      "src": "http://192.168.1.11:10000/assets/apple.jpg"
     },
     "explains": "Pomme est rouge, banane est jeune......"
   },
@@ -38,28 +38,28 @@
       {
         "id": "A",
         "text": "Pomme",
-        "src": "http://192.168.1.209:10000/assets/apple.jpg"
+        "src": "http://192.168.1.11:10000/assets/apple.jpg"
       },
       {
         "id": "B",
         "text": "Banana",
-        "src": "http://192.168.1.209:10000/assets/bananes.png"
+        "src": "http://192.168.1.11:10000/assets/bananes.png"
       },
       {
         "id": "C",
         "text": "Bean",
-        "src": "http://192.168.1.209:10000/assets/bean.jpeg"
+        "src": "http://192.168.1.11:10000/assets/bean.jpeg"
       },
       {
         "id": "D",
         "text": "Orange",
-        "src": "http://192.168.1.209:10000/assets/orange.jpg"
+        "src": "http://192.168.1.11:10000/assets/orange.jpg"
       }
     ],
     "rightAnwer": {
       "id": "B",
       "text": "Banana",
-      "src": "http://192.168.1.209:10000/assets/bananes.png"
+      "src": "http://192.168.1.11:10000/assets/bananes.png"
     },
     "explains": "Oui ! La banane est jaune"
   }
