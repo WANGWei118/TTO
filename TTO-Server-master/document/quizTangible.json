@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Choisir les fruits",
     "topic": "fruit",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "type": "tangible",
     "questions": [
       {
@@ -46,6 +47,7 @@
       {
         "id": 2,
         "description": "Où sont les chiens?",
+        "src": "http://192.168.1.11:10000/assets/animals.jpg",
         "type": "tangible",
         "rightAnswers": 3,
         "pictures": [
