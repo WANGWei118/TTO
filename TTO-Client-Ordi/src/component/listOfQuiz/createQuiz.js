@@ -1106,7 +1106,7 @@ class CreateQuiz extends React.Component {
                                                onChange = {e=>this.onChangeRes2(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
+                                        <Bu  tton icon="picture"
                                                 style={{marginRight:30}}
                                                 onClick={this.addPic2} />
                                         Bonne Résponse

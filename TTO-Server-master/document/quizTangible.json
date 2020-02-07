@@ -1,8 +1,9 @@
 [
   {
     "id": 1,
-    "name": "Choisir les fruits",
+    "name": "Choisir les fruits ou les animaux",
     "topic": "fruit",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "type": "tangible",
     "questions": [
       {
@@ -13,32 +14,32 @@
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://10.212.107.151:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://10.212.107.151:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": false
           },
           {
             "description": "pomme",
-            "src": "http://10.212.107.151:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://10.212.107.151:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": false
           },
           {
             "description": "pomme",
-            "src": "http://10.212.107.151:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://10.212.107.151:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": false
           }
         ]
@@ -46,7 +47,9 @@
       {
         "id": 2,
         "description": "Où sont les chiens?",
+        "src": "http://192.168.1.11:10000/assets/animals.jpg",
         "type": "tangible",
+        "topic": "animal",
         "rightAnswers": 3,
         "pictures": [
           {
@@ -56,27 +59,27 @@
           },
           {
             "description": "cat",
-            "src": "http://10.212.107.151:10000/assets/cat.jpg",
+            "src": "http://192.168.1.11:10000/assets/cat.jpg",
             "isAnswer": false
           },
           {
             "description": "bird",
-            "src": "http://10.212.107.151:10000/assets/bird.jpg",
+            "src": "http://192.168.1.11:10000/assets/bird.jpg",
             "isAnswer": false
           },
           {
             "description": "dog",
-            "src": "http://10.212.107.151:10000/assets/dog2.jpg",
+            "src": "http://192.168.1.11:10000/assets/dog2.jpg",
             "isAnswer": true
           },
           {
             "description": "tiger",
-            "src": "http://10.212.107.151:10000/assets/tiger.JPG",
+            "src": "http://192.168.1.11:10000/assets/tiger.JPG",
             "isAnswer": false
           },
           {
             "description": "dog",
-            "src": "http://10.212.107.151:10000/assets/dog3.jpg",
+            "src": "http://192.168.1.11:10000/assets/dog3.jpg",
             "isAnswer": true
           }
         ]

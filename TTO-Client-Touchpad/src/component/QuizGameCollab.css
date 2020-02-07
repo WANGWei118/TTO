@@ -6,9 +6,10 @@
     position: absolute;
     left: 25%;
     top: 25%;
+    overflow-y: hidden;
 }
 
-/* .centralDiv:hover {
+/* .centralDiv:hover {q w
     background-color: tomato;
 }
 */
@@ -16,19 +17,22 @@
 .quizGameCollab {
     height: 100%;
     position: relative;
+    overflow-y: hidden;
 
 }
 
 .collabQuizDescription {
+    position: absolute;
+    top: 45%;
+    width: 100%;
     height: 100%;
     text-align: center;
-    line-height: 10em;
-    font-size: 20px;
 }
 
-
-
-
+.quitDivEnd>img,
+.restartDivEnd>img {
+    width: 30%;
+}
 
 
 
@@ -39,9 +43,11 @@
 
 
 .check_mark {
-    width: 80px;
+    position: absolute;
+    width: 100%;
     height: 130px;
     margin: 0 auto;
+    /* overflow: hidden; */
 }
 
 button {
@@ -138,7 +144,7 @@ button {
 }
 
 .sa-icon.sa-success {
-    border-color: transparent\9;
+    border-color: transparent \9;
 }
 
 .sa-icon.sa-success .sa-line.sa-tip {

@@ -7,16 +7,20 @@ const nextArrow = require('./../assets/right_arrow.png')
 const home_menu = require('./../assets/home_menu.png')
 const restarto = require('./../assets/reload_icon.jpg')
 
+const style = {
+    overflow: 'hidden'
+}
+
+let nbRightAnswers = 0;
 
 const QuizGameCollab = props => {
-
 
     const quiz = props.location.state.quiz.item;
     const questions = quiz.questions;
     const history = useHistory();
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [centralDiv, setCentralDiv] = useState(undefined);
-    const [nbRightAnswers, setNbRightAnswers] = useState(0);
+    // const [nbRightAnswers, setNbRightAnswers] = useState(0);
     const [index, setIndex] = useState(0);
     const [isOver, setIsOver] = useState(false);
 
@@ -25,7 +29,8 @@ const QuizGameCollab = props => {
         if (index < questions.length - 1) {
             setCurrentQuestion(questions[index + 1]);
             setIndex(index + 1)
-            setNbRightAnswers(0);
+            // setNbRightAnswers(0);
+            nbRightAnswers = 0;
         } else {
             setIsOver(true);
         }
@@ -39,15 +44,19 @@ const QuizGameCollab = props => {
         const elementCentralY = (elementBounding.y + (elementBounding.y + elementBounding.height)) / 2
 
         if (checkXAxis(elementCentralX, centralDivBounding) && checkYAxis(elementCentralY, centralDivBounding)) {
+
             if (isAnswer) {
+
                 element.target.style.display = 'none';
                 document.getElementsByClassName('sa-success')[0].classList.toggle('hide');
                 setTimeout(() => {
                     document.getElementsByClassName('sa-success')[0].classList.toggle('hide');
+
                     if (currentQuestion.rightAnswers <= nbRightAnswers + 1) {
                         nextQuestion();
                     }
-                    setNbRightAnswers(nbRightAnswers + 1);
+                    nbRightAnswers += 1;
+                    // setNbRightAnswers(nbRightAnswers + 1);
 
                 }, 2000)
 
@@ -75,7 +84,8 @@ const QuizGameCollab = props => {
 
     useEffect(() => {
         setCentralDiv(document.getElementsByClassName('centralDiv')[0]);
-    }, [])
+        nbRightAnswers = 0;
+    }, [isOver])
 
     const navigateToMenu = () => {
         history.push('/')
@@ -89,10 +99,10 @@ const QuizGameCollab = props => {
 
     return (
         <>
-            {isOver ? <div>
+            {isOver ? <>
                 <div className="descriptionDiv">
-                    <h1>Bravo ! Tu as terminé !</h1>
-                    <p>Tu peux revenir au menu ou recommencer</p>
+                    <h1 className="bravoTitle">Bravo ! Tu as terminé !</h1>
+                    <p className="bravoMessage">Tu peux revenir au menu ou recommencer</p>
                 </div>
                 <div className="navigation">
                     <div className="quitDivEnd">
@@ -104,18 +114,16 @@ const QuizGameCollab = props => {
                         {/* <Button type="primary" onClick={() => restart()}>Recommencer</Button> */}
                     </div>
                 </div>
-            </div>
+            </>
                 :
                 <div className="quizGameCollab">
-
                     <div className="centralDiv">
                         <div className="check_mark">
-                            <div className="sa-icon sa-success animate hide">
+                            <div className="sa-icon sa-success animate hide" style={style}>
                                 <span className="sa-line sa-tip animateSuccessTip"></span>
                                 <span className="sa-line sa-long animateSuccessLong"></span>
                                 <div className="sa-placeholder"></div>
                                 <div className="sa-fix"></div>
-                                <div> BRAVO !</div>
                             </div>
                         </div>
                         <p className='collabQuizDescription'>

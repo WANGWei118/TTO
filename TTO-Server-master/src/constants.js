@@ -1,5 +1,5 @@
 /* SOCKET.IO message Types */
-export const url = '10.212.107.151'
+export const url = '192.168.1.11'
 export const PING_SOCKETIO_TYPE = 'PING'
 export const PONG_SOCKETIO_TYPE = 'PONG'
 export const MESSAGE = 'MESSAGE'

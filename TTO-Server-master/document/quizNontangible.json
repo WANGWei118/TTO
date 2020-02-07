@@ -3,6 +3,7 @@
     "id": 1,
     "name": "Choisir les fruits",
     "topic": "fruit",
+    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
     "type": "notangible",
     "questions": [
       {
@@ -13,30 +14,32 @@
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://10.212.107.151:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://10.212.107.151:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": false
           }
         ]
       },
       {
         "id": 1,
+        "topic": "fruit",
         "description": "Mettez les bananes au milieu",
+        "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
         "type": "notangible",
         "rightAnswers": 1,
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://10.212.107.151:10000/assets/apple.jpg",
+            "src": "http://192.168.1.11:10000/assets/apple.jpg",
             "isAnswer": false
           },
           {
             "description": "banana",
-            "src": "http://10.212.107.151:10000/assets/bananes.png",
+            "src": "http://192.168.1.11:10000/assets/bananes.png",
             "isAnswer": true
           }
         ]

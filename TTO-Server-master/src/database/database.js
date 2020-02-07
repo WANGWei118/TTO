@@ -3,6 +3,7 @@ const fs = require('fs-extra')
 const urlDB = 'mongodb://localhost:27017/tto'
 var quizs
 const ObjectId = require('mongodb').ObjectId
+
 class Database {
   init () {
     console.log('Initializing database...')
@@ -112,7 +113,7 @@ class Database {
     })
   }
 
-  sendProfiles(socket){
+  sendProfiles (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
@@ -123,7 +124,6 @@ class Database {
       })
     })
   }
-
 
   sendQuizNonTangible (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -208,7 +208,7 @@ class Database {
     })
   }
 
-  addProfile(newProfile, socket) {
+  addProfile (newProfile, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
@@ -247,6 +247,20 @@ class Database {
       dbo.close()
       console.log('dfsdf')
       process.exit(0)
+    })
+  }
+
+  updateProfiles (newProfile) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: newProfile.id}
+      var updateQuiz = {$set: {quizAccessible: newProfile.quizAccessible}}
+      dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
+        if(err) throw err;
+        console.log('Update profiles success')
+        db.close()
+      })
     })
   }
 

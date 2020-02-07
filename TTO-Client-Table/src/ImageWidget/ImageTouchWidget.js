@@ -19,6 +19,9 @@ import { radToDeg } from 'tuiomanager/core/helpers'
  * @class ImageWidget
  * @extends TUIOWidget
  */
+
+const windowsWidth = $(window).width()
+const windowsHeight = $(window).height()
 class ImageTouchWidget extends TUIOWidget {
   /**
    * ImageWidget constructor.
@@ -46,6 +49,8 @@ class ImageTouchWidget extends TUIOWidget {
     this._domElem.css('position', 'absolute')
     this._domElem.css('left', `${x}px`)
     this._domElem.css('top', `${y}px`)
+
+    this._domElem[0].className = 'testImage'
 
     this.socket._client.on('all tableQuiz', () => {
       console.log('asdfjlasjdflkjasdlkfjlas')

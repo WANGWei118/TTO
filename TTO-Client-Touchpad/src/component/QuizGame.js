@@ -58,7 +58,7 @@ const QuizGame = (props) => {
                 <div className="explanationDiv">
                     <AnswerCard answer={correctAnswer} onClick={() => { }} canHide={false} />
                     <p>{currentQuestion.explains}</p>
-                    <img src={nextArrow} className="rightArrow" onClick={() => nextQuestion()} />
+                    <img src={nextArrow} alt="Prochaine question" className="rightArrow" onClick={() => nextQuestion()} />
                     {/* <Button type="primary" onClick={() => nextQuestion()}>Question suivante</Button> */}
                 </div>
             </div>
@@ -67,18 +67,18 @@ const QuizGame = (props) => {
 
     const renderEnd = () => {
         return (
-            <div>
+            <div className='finishDiv'>
                 <div className="descriptionDiv">
-                    <h1>Bravo ! Tu as terminé !</h1>
-                    <p>Tu peux revenir au menu ou recommencer</p>
+                    <h1 className="bravoTitle">Bravo ! Tu as terminé !</h1>
+                    <p className="bravoMessage">Tu peux revenir au menu ou recommencer</p>
                 </div>
                 <div className="navigation">
                     <div className="quitDivEnd">
-                        <img src={home_menu} className="homeMenu" onClick={() => navigateToMenu()} />
+                        <img src={home_menu} alt="Retourner au menu" className="homeMenu" onClick={() => navigateToMenu()} />
                         {/* <Button type="primary" onClick={() => navigateToMenu()}> Quitter</Button> */}
                     </div>
                     <div className="restartDivEnd">
-                        <img src={restarto} className="restart" onClick={() => restart()} />
+                        <img src={restarto} alt="Recommencer le quiz" onClick={() => restart()} />
                         {/* <Button type="primary" onClick={() => restart()}>Recommencer</Button> */}
                     </div>
                 </div>
