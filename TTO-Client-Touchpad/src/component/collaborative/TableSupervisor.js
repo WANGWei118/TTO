@@ -20,7 +20,7 @@ const TableSupervisor = props => {
 
   const handleNextQuestion = () => {
     if (questions.length > index) {
-      socket.emit('next question', questions[index + 1], {type: quiz.type})
+      socket.emit('next question', questions[index + 1], { type: quiz.type })
       setCurrentQuestion(questions[index + 1])
       setIndex(index + 1)
     } else {
@@ -40,11 +40,11 @@ const TableSupervisor = props => {
   return (
     <div>
       {/*<button onClick={() => handleNextQuestion()}>Question suivante</button>*/}
-        <Result
-          icon={<Icon type="smile" theme="twoTone" />}
-          title="C'est leur bon moment!"
-          extra={<Button type="primary" onClick={() => handleNextQuestion()}>Question suivante</Button>}
-        />
+      <Result
+        icon={<Icon type="smile" theme="twoTone" />}
+        title="C'est leur bon moment!"
+        extra={<Button type="primary" onClick={() => handleNextQuestion()}>Question suivante</Button>}
+      />
     </div>
   )
 }

@@ -1,8 +1,14 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import { BrowserRouter as Router, Route } from "react-router-dom";import './app.css';
+import openSocket from 'socket.io-client';
+import { BrowserRouter as Router,
+    Switch,
+    Route,
+    Link } from "react-router-dom";
+import '../app.css';
 import { Layout, Breadcrumb, Menu, Icon, Tabs, Button, Input} from 'antd';
-import DetailTheme from './detailTheme'
+import NewTheme from '../listOfQuiz/newTheme'
+import DetailQuiz from '../listOfQuiz/detailQuiz'
 const { Header, Content, Footer, } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
@@ -12,6 +18,7 @@ function callback(key) {
 }
 
 class Theme extends React.Component {
+    socket = openSocket;
     state = {
         current: 'theme',
         visible1: false,
@@ -19,6 +26,7 @@ class Theme extends React.Component {
     };
     constructor(props) {
         super(props);
+        this.socket = props.socket;
         this.renderInput1 = this.renderInput1.bind(this);
         this.addList1 = this.addList1.bind(this);
     }
@@ -33,10 +41,9 @@ class Theme extends React.Component {
                     enterButton="Ok"
                     onSearch={value => {
                         console.log(value);
-                        this.props.history.push('/detailTheme');
-                    }}
-                />
-            );
+                        // this.props.history.push('/detailTheme');
+                    }}/>
+                    );
         }
     }
     renderInput2() {
@@ -49,24 +56,22 @@ class Theme extends React.Component {
                     enterButton="Ok"
                     onSearch={value => {
                         console.log(value);
-                        this.goto();
                     }}
                 />
             );
         }
     }
 
-    addList1() {
+    gotoCreateQuiz = () => {
+
+    };
+
+    addList1 =() => {
         this.setState({
             visible1: !this.state.visible1,
         });
-    }
+    };
 
-    addList2() {
-        this.setState({
-            visible2: !this.state.visible2,
-        });
-    }
 
     render() {
         return(
@@ -89,12 +94,21 @@ class Theme extends React.Component {
                                 key="1">
                                 <Layout style={{ background: '#fff', minHeight: 360, flexDirection: 'row', }}>
                                     <div className = "buttonContainer">
-                                        <Button className = "button">Fruit</Button>
+                                        <Button className = "button"><Link to="/detailThemeIndividuel">Individuel</Link></Button>
                                     </div>
                                     <div className = "buttonContainer">
-                                        <Button className = "button" onClick={this.addList1}>+</Button>
-                                        {this.renderInput1()}
+                                        <Button className = "button"><Link to="/detailThemeCollaboratif">Collaboratif</Link></Button>
                                     </div>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button"><Link to="/detailThemeTangible">Tangible</Link></Button>
+                                    </div>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button"><Link to="/detailThemeNonTangible">Non tangible</Link></Button>
+                                    </div>
+                                    {/*<div className = "buttonContainer">*/}
+                                        {/*<Button className = "button"><Link to="/newTheme">+</Link></Button>*/}
+                                        {/*{this.renderInput1()}*/}
+                                    {/*</div>*/}
                                 </Layout>
                             </TabPane>
                             <TabPane
@@ -104,17 +118,10 @@ class Theme extends React.Component {
                                     </span>
                                 }
                                 key="2">
-                                <Layout style={{ background: '#fff', minHeight: 360, flexDirection: 'row', }}>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button">Quiz 1</Button>
-                                    </div>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button">Quiz 2</Button>
-                                    </div>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button" onClick={this.addList2}>+</Button>
+                                <Layout style={{ background: '#fff', minHeight: 360, }}>
+                                        <Button type='primary' style = {{fontSize:20,marginBottom:10}} size='large'><Link to="/createQuiz">+ Créer nouveau quiz</Link></Button>
                                         {this.renderInput2()}
-                                    </div>
+                                    <DetailQuiz socket={this.socket}/>
                                 </Layout>
                             </TabPane>
                         </Tabs>,
