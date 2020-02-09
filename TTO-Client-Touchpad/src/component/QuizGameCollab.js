@@ -89,7 +89,7 @@ const QuizGameCollab = props => {
     useEffect(() => {
         setCentralDiv(document.getElementsByClassName('centralDiv')[0]);
         nbRightAnswers = 0;
-    }, [])
+    }, [isOver])
 
     const navigateToMenu = () => {
         history.push('/')

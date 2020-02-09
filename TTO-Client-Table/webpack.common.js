@@ -36,7 +36,7 @@ module.exports = () => (
       inline: true,
       historyApiFallback: true,
       port: 3000,
-      host: '192.168.1.11',
+      host: '192.168.182.253',
     },
     entry: './src/index.js',
     output: {

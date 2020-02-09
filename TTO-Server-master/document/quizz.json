@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Quiz fruits",
     "topic": "fruit",
-    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
+    "src": "topics/Fruits.jpg",
     "questions": [
       {
         "id": 1,
@@ -12,28 +12,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg"
+            "src": "assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png"
+            "src": "assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+            "src": "assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "http://192.168.1.11:10000/assets/orange.jpg"
+            "src": "assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Pomme",
-          "src": "http://192.168.1.11:10000/assets/apple.jpg"
+          "src": "assets/apple.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       },
@@ -44,28 +44,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg"
+            "src": "assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png"
+            "src": "assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+            "src": "assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "http://192.168.1.11:10000/assets/orange.jpg"
+            "src": "assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "B",
           "text": "Banana",
-          "src": "http://192.168.1.11:10000/assets/bananes.png"
+          "src": "assets/bananes.png"
         },
         "explains": "Oui ! La banane est jaune"
       }
@@ -74,7 +74,7 @@
   {
     "id": 2,
     "name": "Quiz fruits",
-    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
+    "src": "topics/Fruits.jpg",
     "topic": "fruit",
     "questions": [
       {
@@ -84,28 +84,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg"
+            "src": "assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png"
+            "src": "assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+            "src": "assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "http://192.168.1.11:10000/assets/orange.jpg"
+            "src": "assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Pomme",
-          "src": "http://192.168.1.11:10000/assets/bananes.jpg"
+          "src": "assets/bananes.jpg"
         },
         "explains": "Pomme est rouge, banane est jeune......"
       }
@@ -114,7 +114,7 @@
   {
     "id": 3,
     "name": "Quiz animaux",
-    "src": "http://192.168.1.11:10000/assets/animals.jpg",
+    "src": "topics/animals.jpg",
     "topic": "animal",
     "questions": [
       {
@@ -124,28 +124,28 @@
           {
             "id": "A",
             "text": "Chat",
-            "src": "http://192.168.1.11:10000/assets/cat.jpg"
+            "src": "assets/cat.jpg"
           },
           {
             "id": "B",
             "text": "Banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png"
+            "src": "assets/bananes.png"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+            "src": "assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Tiger",
-            "src": "http://192.168.1.11:10000/assets/TIGER.jpg"
+            "src": "assets/TIGER.jpg"
           }
         ],
         "rightAnwer": {
           "id": "A",
           "text": "Chat",
-          "src": "http://192.168.1.11:10000/assets/cat.jpg"
+          "src": "assets/cat.jpg"
         },
         "explains": "Le chat un très mignion"
       }
@@ -155,7 +155,7 @@
     "id": 4,
     "name": "Quiz animaux",
     "topic": "animal",
-    "src": "http://192.168.1.11:10000/assets/animals.jpg",
+    "src": "topics/animals.jpg",
     "questions": [
       {
         "id": 1,
@@ -164,28 +164,28 @@
           {
             "id": "A",
             "text": "Pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg"
+            "src": "assets/apple.jpg"
           },
           {
             "id": "B",
             "text": "Chien",
-            "src": "http://192.168.1.11:10000/assets/dog1.jpg"
+            "src": "assets/dog1.jpg"
           },
           {
             "id": "C",
             "text": "Bean",
-            "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+            "src": "assets/bean.jpeg"
           },
           {
             "id": "D",
             "text": "Orange",
-            "src": "http://192.168.1.11:10000/assets/orange.jpg"
+            "src": "assets/orange.jpg"
           }
         ],
         "rightAnwer": {
           "id": "B",
           "text": "Chien",
-          "src": "http://192.168.1.11:10000/assets/dog1.jpg"
+          "src": "assets/dog1.jpg"
         },
         "explains": "Les chiens sont notre amis!"
       }

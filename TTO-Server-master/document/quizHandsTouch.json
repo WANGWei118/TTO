@@ -3,8 +3,8 @@
     "id": 1,
     "name": "Choisir les fruits ou les animaux",
     "topic": "fruit",
-    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
-    "type": "tangible",
+    "src": "topics/Fruits.jpg",
+    "type": "handsTouch",
     "questions": [
       {
         "id": 1,
@@ -14,32 +14,32 @@
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg",
+            "src": "assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png",
+            "src": "assets/bananes.png",
             "isAnswer": false
           },
           {
             "description": "pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg",
+            "src": "assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png",
+            "src": "assets/bananes.png",
             "isAnswer": false
           },
           {
             "description": "pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg",
+            "src": "assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png",
+            "src": "assets/bananes.png",
             "isAnswer": false
           }
         ]
@@ -47,39 +47,39 @@
       {
         "id": 2,
         "description": "Où sont les chiens?",
-        "src": "http://192.168.1.11:10000/assets/animals.jpg",
+        "src": "topics/animals.jpg",
         "type": "tangible",
         "topic": "animal",
         "rightAnswers": 3,
         "pictures": [
           {
             "description": "dog",
-            "src": "https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/friendliest-dog-breeds-golden-1578596627.jpg?crop=0.668xw:1.00xh;0.188xw,0&resize=640:*",
+            "src": "assets/dog2.jpg",
             "isAnswer": true
           },
           {
             "description": "cat",
-            "src": "http://192.168.1.11:10000/assets/cat.jpg",
+            "src": "assets/cat.jpg",
             "isAnswer": false
           },
           {
             "description": "bird",
-            "src": "http://192.168.1.11:10000/assets/bird.jpg",
+            "src": "assets/bird.jpg",
             "isAnswer": false
           },
           {
             "description": "dog",
-            "src": "http://192.168.1.11:10000/assets/dog2.jpg",
+            "src": "assets/dog2.jpg",
             "isAnswer": true
           },
           {
             "description": "tiger",
-            "src": "http://192.168.1.11:10000/assets/tiger.JPG",
+            "src": "assets/tiger.JPG",
             "isAnswer": false
           },
           {
             "description": "dog",
-            "src": "http://192.168.1.11:10000/assets/dog3.jpg",
+            "src": "assets/dog3.jpg",
             "isAnswer": true
           }
         ]

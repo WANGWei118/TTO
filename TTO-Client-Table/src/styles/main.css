@@ -106,3 +106,76 @@
     width: 150px;
     height: 150px;
 }
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-evenly;*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+}
+
+.rand {
+    position: absolute;
+    width: 100px;
+    height: 200px;
+    top: 0;
+}
+
+/*.rand {*/
+/*    !*position: absolute;*!*/
+/*    background-color: #3893d4;*/
+/*    !*top: 0;*!*/
+/*    !*bottom: 0;*!*/
+/*    flex: 1;*/
+/*    width: 10%;*/
+/*    min-width: 10%;*/
+/*    max-width: 10%;*/
+/*    margin: 10px;*/
+/*    height: 25%;*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*}*/
+
+.flower {
+    position: absolute;
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+/*.flower {*/
+/*    object-fit: contain;*/
+/*    width: 100px;*/
+/*    height: 200px;*/
+/*    left: 0;*/
+/*    top: 0;*/
+/*    !*position: absolute;*!*/
+/*}*/
+
+.rand {
+    animation: animate 10s infinite ease-out;
+    overflow: hidden;
+}
+
+@keyframes animate {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(90vh);
+    }
+}
+
+
+@keyframes crescendo {
+    0% {
+        transform: scale(.4);
+    }
+    100% {
+        transform: scale(1.2);
+    }
+}
+

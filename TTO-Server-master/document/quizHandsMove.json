@@ -2,44 +2,52 @@
   {
     "id": 1,
     "name": "Choisir les fruits",
-    "topic": "fruit",
-    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
-    "type": "notangible",
+    "src": "topics/Fruits.jpg",
+    "type": "handsMove",
     "questions": [
       {
         "id": 1,
         "description": "Mettez les pommes au milieu",
-        "type": "notangible",
         "rightAnswers": 1,
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg",
+            "src": "assets/apple.jpg",
             "isAnswer": true
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png",
+            "src": "assets/bananes.png",
             "isAnswer": false
           }
         ]
       },
       {
-        "id": 1,
+        "id": 2,
         "topic": "fruit",
         "description": "Mettez les bananes au milieu",
-        "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
-        "type": "notangible",
-        "rightAnswers": 1,
+        "src": "topics/Fruits.jpg",
+        "type": "handsMove",
+        "rightAnswers": 2,
         "pictures": [
           {
             "description": "pomme",
-            "src": "http://192.168.1.11:10000/assets/apple.jpg",
+            "src": "assets/apple.jpg",
             "isAnswer": false
           },
           {
             "description": "banana",
-            "src": "http://192.168.1.11:10000/assets/bananes.png",
+            "src": "assets/bananes.png",
+            "isAnswer": true
+          },
+          {
+            "description": "pomme",
+            "src": "assets/apple.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "banana",
+            "src": "assets/bananes.png",
             "isAnswer": true
           }
         ]

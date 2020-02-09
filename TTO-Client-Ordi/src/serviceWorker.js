@@ -10,11 +10,11 @@
 // To learn more about the benefits of this model and instructions on how to
 // opt-in, read https://bit.ly/CRA-PWA
 
-const is192.168.1.11 = Boolean(
-  window.location.hostname === '192.168.1.11' ||
-    // [::1] is the IPv6 192.168.1.11 address.
+const is192.168.182.253 = Boolean(
+  window.location.hostname === '192.168.182.253' ||
+    // [::1] is the IPv6 192.168.182.253 address.
     window.location.hostname === '[::1]' ||
-    // 127.0.0.0/8 are considered 192.168.1.11 for IPv4.
+    // 127.0.0.0/8 are considered 192.168.182.253 for IPv4.
     window.location.hostname.match(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
     )
@@ -34,11 +34,11 @@ export function register(config) {
     window.addEventListener('load', () => {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
-      if (is192.168.1.11) {
-        // This is running on 192.168.1.11. Let's check if a service worker still exists or not.
+      if (is192.168.182.253) {
+        // This is running on 192.168.182.253. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
 
-        // Add some additional logging to 192.168.1.11, pointing developers to the
+        // Add some additional logging to 192.168.182.253, pointing developers to the
         // service worker/PWA documentation.
         navigator.serviceWorker.ready.then(() => {
           console.log(
@@ -47,7 +47,7 @@ export function register(config) {
           );
         });
       } else {
-        // Is not 192.168.1.11. Just register service worker
+        // Is not 192.168.182.253. Just register service worker
         registerValidSW(swUrl, config);
       }
     });

@@ -13,6 +13,9 @@ import DivWidget from './DivWidget/DivWidget'
 import { NEXT_QUESTION, QUIZ_FINISHED } from './SocketIOClient/constants'
 import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 
+const windowsWidth = $(window).width()
+const windowsHeight = $(window).height()
+
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
 tuioManager.start()
@@ -31,7 +34,8 @@ let rightAnswersNum = 0
 
 /* App Code */
 const buildApp = () => {
-  wait()
+  // wait()
+  contretration()
 
   socketIOClient._client.on('start quiz collaborative', (data) => {
     quizLancez = true
@@ -226,6 +230,50 @@ function finished () {
   finishDiv.append(finishImage, finishTitle)
   $('#app').empty()
     .append(finishDiv)
+}
+
+// from {
+//   height: 0;
+//   top: 400px;
+// }
+// to {
+//   height: 400px;
+//   top: 0;
+// }
+function contretration () {
+  var container = document.createElement('div')
+  container.setAttribute('class', 'container')
+  // while (true) {
+  var timer = random(500, 2000)
+  // setTimeout(() => {
+  var leftPostion = random(100, windowsWidth - 100)
+  var note = random(1, 8)
+  var rand = document.createElement('p')
+  rand.setAttribute('class', 'rand')
+  var flower = document.createElement('img')
+  flower.setAttribute('class', 'flower')
+  flower.src = 'assets/' + note + '.svg'
+  rand.append(flower)
+  // rand.animate(keyframe.from, keyframe.to)
+  rand.style.left = leftPostion + 'px'
+  container.append(rand)
+  $('#app').empty()
+    .append(container)
+  // }, timer)
+  // }
+
+  // for (let i = 0; i < 24; i++) {
+  //   // var zone = document.createElement('p')
+  //   // zone.setAttribute('class', 'zone')
+  //   var rand = document.createElement('p')
+  //   rand.setAttribute('class', 'rand')
+  //   var flower = document.createElement('img')
+  //   flower.setAttribute('class', 'flower')
+  //   flower.src = 'assets/flower3.jpg'
+  //   rand.append(flower)
+  //   container.append(rand)
+  //   // container.append(zone)
+  // }
 }
 
 

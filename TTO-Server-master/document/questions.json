@@ -2,66 +2,66 @@
   {
     "id": 1,
     "description": "Quel fruit est rouge?",
-    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
+    "src": "topics/Fruits.jpg",
     "answers": [
       {
         "id": "A",
         "text": "Pomme",
-        "src": "http://192.168.1.11:10000/assets/apple.jpg"
+        "src": "assets/apple.jpg"
       },
       {
         "id": "B",
         "text": "Banana",
-        "src": "http://192.168.1.11:10000/assets/bananes.png"
+        "src": "assets/bananes.png"
       },
       {
         "id": "C",
         "text": "Bean",
-        "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+        "src": "assets/bean.jpeg"
       },
       {
         "id": "D",
         "text": "Orange",
-        "src": "http://192.168.1.11:10000/assets/orange.jpg"
+        "src": "assets/orange.jpg"
       }
     ],
     "rightAnwer": {
       "id": "A",
       "text": "Pomme",
-      "src": "http://192.168.1.11:10000/assets/apple.jpg"
+      "src": "assets/apple.jpg"
     },
     "explains": "Pomme est rouge, banane est jeune......"
   },
   {
     "id": 2,
     "description": "Quel fruit est Jaune?",
-    "src": "http://192.168.1.11:10000/assets/Fruits.jpg",
+    "src": "topics/Fruits.jpg",
     "answers": [
       {
         "id": "A",
         "text": "Pomme",
-        "src": "http://192.168.1.11:10000/assets/apple.jpg"
+        "src": "assets/apple.jpg"
       },
       {
         "id": "B",
         "text": "Banana",
-        "src": "http://192.168.1.11:10000/assets/bananes.png"
+        "src": "assets/bananes.png"
       },
       {
         "id": "C",
         "text": "Bean",
-        "src": "http://192.168.1.11:10000/assets/bean.jpeg"
+        "src": "assets/bean.jpeg"
       },
       {
         "id": "D",
         "text": "Orange",
-        "src": "http://192.168.1.11:10000/assets/orange.jpg"
+        "src": "assets/orange.jpg"
       }
     ],
     "rightAnwer": {
       "id": "B",
       "text": "Banana",
-      "src": "http://192.168.1.11:10000/assets/bananes.png"
+      "src": "assets/bananes.png"
     },
     "explains": "Oui ! La banane est jaune"
   }
