@@ -24,25 +24,31 @@
 .titleT {
     z-index: 4;
     font-size: 40px;
-    color: #3893d4;
     position: absolute;
     top: 0;
-    transform: rotate(180deg)
+    transform: rotate(180deg);
+    background-color: #3893d4;
+    color: white;
+    font-weight: bold;
 }
 
 .titleL {
     z-index: 4;
     font-size: 40px;
-    color: #3893d4;
     position: absolute;
     left: -5vw;
-    transform: rotate(90deg)
+    transform: rotate(90deg);
+    background-color: #3893d4;
+    color: white;
+    font-weight: bold;
 }
 
 .titleB {
     z-index: 4;
     font-size: 40px;
-    color: #3893d4;
+    background-color: #3893d4;
+    color: white;
+    font-weight: bold;
     position: absolute;
     bottom: 0;
 }
@@ -50,7 +56,9 @@
 .titleR {
     z-index: 4;
     font-size: 40px;
-    color: #3893d4;
+    background-color: #3893d4;
+    color: white;
+    font-weight: bold;
     position: absolute;
     right: -5vw;
     transform: rotate(-90deg)
@@ -160,6 +168,15 @@
     overflow: hidden;
 }
 
+
+.noteClass {
+    animation: crescendo 4s ease-out;
+}
+
+.vanishedNote{
+    animation: shrink 3s ease-out;
+}
+
 @keyframes animate {
     from {
         transform: translateY(0);
@@ -172,10 +189,19 @@
 
 @keyframes crescendo {
     0% {
-        transform: scale(.4);
+        transform: scale(.2);
     }
     100% {
-        transform: scale(1.2);
+        transform: scale(0.6);
     }
 }
 
+
+@keyframes shrink {
+    0% {
+        transform: scale(0.6);
+    }
+    100% {
+        transform: scale(0);
+    }
+}

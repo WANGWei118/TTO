@@ -15,6 +15,7 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
+var played = false
 
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
@@ -241,39 +242,55 @@ function finished () {
 //   top: 0;
 // }
 function contretration () {
-  var container = document.createElement('div')
-  container.setAttribute('class', 'container')
-  // while (true) {
-  var timer = random(500, 2000)
-  // setTimeout(() => {
-  var leftPostion = random(100, windowsWidth - 100)
-  var note = random(1, 8)
-  var rand = document.createElement('p')
-  rand.setAttribute('class', 'rand')
-  var flower = document.createElement('img')
-  flower.setAttribute('class', 'flower')
-  flower.src = 'assets/' + note + '.svg'
-  rand.append(flower)
-  // rand.animate(keyframe.from, keyframe.to)
-  rand.style.left = leftPostion + 'px'
-  container.append(rand)
-  $('#app').empty()
-    .append(container)
-  // }, timer)
-  // }
-
-  // for (let i = 0; i < 24; i++) {
-  //   // var zone = document.createElement('p')
-  //   // zone.setAttribute('class', 'zone')
-  //   var rand = document.createElement('p')
-  //   rand.setAttribute('class', 'rand')
-  //   var flower = document.createElement('img')
-  //   flower.setAttribute('class', 'flower')
-  //   flower.src = 'assets/flower3.jpg'
-  //   rand.append(flower)
-  //   container.append(rand)
-  //   // container.append(zone)
-  // }
+  var titleTop = document.createElement('h1')
+  var titleBottom = document.createElement('h1')
+  var titleLeft = document.createElement('h1')
+  var titleRight = document.createElement('h1')
+  titleTop.setAttribute('class', 'titleT')
+  titleBottom.setAttribute('class', 'titleB')
+  titleLeft.setAttribute('class', 'titleL')
+  titleRight.setAttribute('class', 'titleR')
+  titleTop.innerText = 'Jouez avec les notes'
+  titleBottom.innerText = 'Jouez avec les notes'
+  titleLeft.innerText = 'Jouez avec les notes'
+  titleRight.innerText = 'Jouez avec les notes'
+  var audio = new Audio('assets/lemon.mp3')
+  $('#app').append(titleTop, titleBottom, titleLeft, titleRight)
+  setInterval(() => {
+    var top = random(400, windowsHeight - 400)
+    var left = random(400, windowsWidth - 400)
+    const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient)
+    imageWidget.domElem[0].setAttribute('class', 'noteClass')
+    var image = document.createElement('img')
+    image.setAttribute('class', 'note')
+    image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    var pictureId = random(1, 8)
+    image.src = 'assets/' + pictureId + '.svg'
+    image.addEventListener('click', () => {
+      console.log('hello')
+      played = true
+      setTimeout(() => {
+        imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+        setTimeout(() => {
+          imageWidget.domElem[0].style.display = 'none'
+        }, 1000)
+      }, 500)
+    })
+    if (played) {
+      audio.play()
+    } else {
+      audio.pause()
+    }
+    imageWidget.domElem[0].append(image)
+    $('#app').append(imageWidget.domElem)
+    setTimeout(() => {
+      imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+      setTimeout(() => {
+        imageWidget.domElem[0].style.display = 'none'
+      }, 3000)
+    }, 3000)
+    played = false
+  }, 3000)
 }
 
 

@@ -2,6 +2,7 @@
   {
     "id": 1,
     "topic": "fruit",
+    "icon": "topics/Fruits.jpg",
     "quiz": {
       "personalQuiz": [
         1,
@@ -13,6 +14,7 @@
   {
     "id": 2,
     "topic": "animal",
+    "icon": "topics/animals.jpg",
     "quiz": {
       "personalQuiz": [
         3,
@@ -24,6 +26,7 @@
   {
     "id": 3,
     "topic": "la vie quotidienne",
+    "icon": "topics/dailyLife.jpg",
     "quiz": {
       "personalQuiz": [],
       "tableQuiz": []
@@ -32,6 +35,7 @@
   {
     "id": 4,
     "topic": "couleur",
+    "icon": "topics/color.png",
     "quiz": {
       "personalQuiz": [
         6
@@ -42,6 +46,7 @@
   {
     "id": 5,
     "topic": "musique",
+    "icon": "topics/instruments.jpg",
     "quiz": {
       "personalQuiz": [
         5

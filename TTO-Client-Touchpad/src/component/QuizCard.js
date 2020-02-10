@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 const INDIVIDUAL_TYPE = 'quizIndividuel';
 let history;
+const url = 'http://localhost:10000/'
 
 const QuizCard = (props) => {
     history = useHistory();
@@ -38,7 +39,7 @@ const QuizCard = (props) => {
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
         <div className="quizCard" onClick={() => handleClick(quiz)}>
-            {quiz.src ? <img className="quizImage"  src={quiz.src} /> :
+            {quiz.src ? <img className="quizImage"  src={url + quiz.src} /> :
                 defaultImage()
             }
 

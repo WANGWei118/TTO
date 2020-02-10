@@ -27,7 +27,6 @@
         "topic": "fruit",
         "description": "Mettez les bananes au milieu",
         "src": "topics/Fruits.jpg",
-        "type": "handsMove",
         "rightAnswers": 2,
         "pictures": [
           {

@@ -299,7 +299,7 @@
     "id": 6,
     "name": "Quiz couleur",
     "topic": "couleur",
-    "src": "topics/color.jpg",
+    "src": "topics/color.png",
     "questions": [
       {
         "id": 1,

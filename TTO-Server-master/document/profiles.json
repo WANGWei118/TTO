@@ -8,19 +8,22 @@
       "quizIndividuel": [
         1,
         2,
-        3
+        3,
+        6
       ]
     }
   },
   {
     "id": 2,
     "firstName": "Jean",
-    "src": "profiles/2.jpg",
+    "src": "profiles/3.jpg",
     "lastName": "Dupont",
     "quizAccessible": {
       "quizIndividuel": [
         2,
-        3
+        3,
+        5,
+        6
       ]
     }
   },
@@ -28,24 +31,27 @@
     "id": 3,
     "firstName": "Sophia",
     "lastName": "Moment",
-    "src": "profiles/4.jpg",
+    "src": "profiles/2.jpg",
     "quizAccessible": {
       "quizIndividuel": [
         1,
         2,
-        4
+        4,
+        6
       ]
     }
   },
   {
     "id": 4,
     "firstName": "Louis",
-    "src": "profiles/3.jpg",
+    "src": "profiles/4.jpg",
     "lastName": "Lima",
     "quizAccessible": {
       "quizIndividuel": [
         1,
-        2
+        2,
+        5,
+        6
       ]
     }
   }

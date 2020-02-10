@@ -9,7 +9,6 @@
       {
         "id": 1,
         "description": "Trouvez toutes les pommes",
-        "type": "tangible",
         "rightAnswers": 3,
         "pictures": [
           {
@@ -48,7 +47,6 @@
         "id": 2,
         "description": "Où sont les chiens?",
         "src": "topics/animals.jpg",
-        "type": "tangible",
         "topic": "animal",
         "rightAnswers": 3,
         "pictures": [
