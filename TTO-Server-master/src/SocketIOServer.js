@@ -243,6 +243,14 @@ class SocketIOServer {
         }
       })
 
+      socket.on('get topics', () => {
+        database.sendTopics(socket)
+      })
+
+      socket.on('add topic', (data) => {
+        database.addTopic(data, socket)
+      })
+
       socket.on('disconnect', () => {
         console.info('Socket.IO Client disconnected : ', socket.id)
         this.disconnectClient(socket)

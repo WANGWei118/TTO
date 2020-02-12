@@ -100,18 +100,6 @@ class Database {
     })
   }
 
-  sendQuizTangible (socket) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw err
-      const dbo = db.db('tto')
-      dbo.collection('quizTangible').find({}).toArray(function (err, result) {
-        if (err) throw err
-        socket.emit('quiz tangible', result)
-        db.close()
-      })
-    })
-  }
-
   /**
    * send profiles
    * @param socket
@@ -163,6 +151,22 @@ class Database {
   }
 
   /**
+   * send topics
+   * @param socket
+   */
+  sendTopics(socket){
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('topic').find({}).toArray(function (err, result) {
+        if (err) throw err
+        socket.emit('all topics', result)
+        db.close()
+      })
+    })
+  }
+
+  /**
    * send quiz to table
    * @param socket
    */
@@ -200,6 +204,25 @@ class Database {
       })
     })
   }
+
+  addTopic (newTopic, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      dbo.collection('topic').insertOne(newTopic, function (err, res) {
+        if (err) throw err
+        console.log('topic inserted success')
+        socket.emit('topic added', {type: true})
+        db.close()
+      })
+    })
+  }
+
+  /**
+   *
+   * @param newProfile
+   * @param socket
+   */
 
   addProfile (newProfile, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
