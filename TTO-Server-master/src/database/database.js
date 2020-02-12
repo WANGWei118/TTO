@@ -7,88 +7,87 @@ const ObjectId = require('mongodb').ObjectId
 class Database {
   init () {
     console.log('Initializing database...')
-    const quizz = require('../../document/quizz')
-    const questions = require('../../document/questions')
-    const tableQuiz = require('../../document/tableQuiz')
-    const quizTangible = require('../../document/quizTangible')
-    const quizNontangible = require('../../document/quizNontangible')
     const images = require('../../document/images')
-    const imagesTemp = require('../../document/pictures')
     const profiles = require('../../document/profiles')
+    const personalQuiz = require('../../document/quizPersonal')
+    const topics = require('../../document/topics')
+    const quizHandsMove = require('../../document/quizHandsMove')
+    const quizHandsTouch = require('../../document/quizHandsTouch')
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       console.log('database created')
       const database = db.db('tto')
-      database.collection('quizz').insertMany(quizz, function (err, res) {
+      /**
+       * insert personal quiz
+       */
+      database.collection('personalQuiz').insertMany(personalQuiz, function (err, res) {
         if (err) throw err
-        console.log(`inserted quiz:${res.insertedCount}`)
+        console.log(`Inserted personal quiz:${res.insertedCount}`)
       })
 
+      /**
+       * insert topics
+       */
+      database.collection('topic').insertMany(topics, function (err, res) {
+        if (err) throw err
+        console.log(`Inserted topics:${res.insertedCount}`)
+      })
+
+      /**
+       * insert quiz - HandsMove
+       */
+      database.collection('quizHandsMove').insertMany(quizHandsMove, function (err, res) {
+        if (err) throw err
+        console.log(`Inserted quiz hands move:${res.insertedCount}`)
+      })
+
+      /**
+       * insert quiz - HandsTouch
+       */
+      database.collection('quizHandsTouch').insertMany(quizHandsTouch, function (err, res) {
+        if (err) throw err
+        console.log(`Inserted quiz hands touch:${res.insertedCount}`)
+      })
+
+      /**
+       * insert images
+       */
+      database.collection('images').insertMany(images, function (err, res) {
+        if (err) throw err
+        console.log(`inserted images:${res.insertedCount}`)
+      })
+
+      /**
+       * insert profiles
+       */
       database.collection('profiles').insertMany(profiles, function (err, res) {
         if (err) throw err
         console.log(`inserted profiles:${res.insertedCount}`)
       })
 
-      database.collection('tableQuiz').insertMany(tableQuiz, function (err, res) {
-        if (err) throw err
-        console.log(`inserted table quiz:${res.insertedCount}`)
-      })
-
-      database.collection('images').insertMany(imagesTemp, function (err, res) {
-        if (err) throw err
-        console.log(`inserted images:${res.insertedCount}`)
-      })
-
-      database.collection('quizTangible').insertMany(quizTangible, function (err, res) {
-        if (err) throw err
-        console.log(`inserted quizTangible:${res.insertedCount}`)
-      })
-
-      // for(let image of images){
-      //   var newImg = fs.readFileSync(image.src)
-      //   var encImg = newImg.toString('base64')
-      //   var newItem = {
-      //     id: image.id,
-      //     name: image.description,
-      //     img: Buffer(encImg, 'base64')
-      //   }
-      //
-      //   database.collection('pictures').insert(newItem, function (err, result) {
-      //     if (err) {console.log(err)}
-      //     var newid = new ObjectId(result.ops[0]._id)
-      //     fs.remove(image.src, function (err) {
-      //       if(err) {console.log(err)}
-      //       console.log(result)
-      //       console.log('Picture inserted')
-      //     })
-      //   })
-      // }
-
-      database.collection('quizNontangible').insertMany(quizNontangible, function (err, res) {
-        if (err) throw err
-        console.log(`inserted quizNontangible:${res.insertedCount}`)
-      })
-
-      database.collection('questions').insertMany(questions, function (err, res) {
-        if (err) throw err
-        console.log(`inserted questions:${res.insertedCount}`)
-        db.close()
-      })
     })
   }
 
-  sendPadQuizz (socket) {
+  /**
+   * quiz on touch pad only
+   * @param socket
+   */
+  sendQuizToPad (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
-      dbo.collection('quizz').find({}).toArray(function (err, result) {
+      dbo.collection('personalQuiz').find({}).toArray(function (err, result) {
         if (err) throw err
-        socket.emit('all quizz', result)
+        socket.emit('personal quiz', result)
         db.close()
       })
     })
   }
 
+  /**
+   * send images
+   * @param socket
+   */
   sendImages (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
@@ -101,18 +100,10 @@ class Database {
     })
   }
 
-  sendQuizTangible (socket) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw err
-      const dbo = db.db('tto')
-      dbo.collection('quizTangible').find({}).toArray(function (err, result) {
-        if (err) throw err
-        socket.emit('quiz tangible', result)
-        db.close()
-      })
-    })
-  }
-
+  /**
+   * send profiles
+   * @param socket
+   */
   sendProfiles (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
@@ -125,71 +116,77 @@ class Database {
     })
   }
 
-  sendQuizNonTangible (socket) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw err
-      const dbo = db.db('tto')
-      dbo.collection('quizNontangible').find({}).toArray(function (err, result) {
-        if (err) throw err
-        socket.emit('quiz non tangible', result)
-        db.close()
-      })
-    })
-  }
-
+  /**
+   * send all the quiz
+   * @param socket
+   */
   sendAllQuizz (socket) {
     let results = {
-      individuel: [],
-      collaborative: [],
-      tangible: [],
-      nonTangible: []
+      personal: [],
+      collaborative: {
+        handsMove: [],
+        handsTouch: []
+      }
     }
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
-      dbo.collection('quizz').find({}).toArray(function (err, result) {
+      dbo.collection('personalQuiz').find({}).toArray(function (err, result) {
         if (err) throw err
-        results.individuel = result
+        results.personal = result
       })
 
-      dbo.collection('quizTangible').find({}).toArray(function (err, result) {
+      dbo.collection('quizHandsTouch').find({}).toArray(function (err, result) {
         if (err) throw err
-        results.tangible = result
+        results.collaborative.handsTouch = result
       })
 
-      dbo.collection('quizNontangible').find({}).toArray(function (err, result) {
+      dbo.collection('quizHandsMove').find({}).toArray(function (err, result) {
         if (err) throw err
-        results.nonTangible = result
-      })
-
-      dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
-        if (err) throw err
-        results.collaborative = result
+        results.collaborative.handsMove = result
         socket.emit('all types quiz', results)
         db.close()
       })
     })
   }
 
-  sendAllQustions (socket) {
+  /**
+   * send topics
+   * @param socket
+   */
+  sendTopics(socket){
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
-      dbo.collection('questions').find({}).toArray(function (err, result) {
+      dbo.collection('topic').find({}).toArray(function (err, result) {
         if (err) throw err
-        socket.emit('all questions', result)
+        socket.emit('all topics', result)
         db.close()
       })
     })
   }
 
-  sendTableQuiz (socket) {
+  /**
+   * send quiz to table
+   * @param socket
+   */
+  sendQuizToTable (socket) {
+    let results = {
+      handsMove: [],
+      handsTouch: []
+    }
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
-      dbo.collection('tableQuiz').find({}).toArray(function (err, result) {
+      dbo.collection('quizHandsTouch').find({}).toArray(function (err, result) {
         if (err) throw err
-        socket.emit('all tableQuiz', result)
+        results.handsTouch = result
+      })
+
+      dbo.collection('quizHandsMove').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.handsMove = result
+        socket.emit('quiz for table', results)
         db.close()
       })
     })
@@ -199,7 +196,7 @@ class Database {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
-      dbo.collection('quizz').insertOne(newQuiz, function (err, res) {
+      dbo.collection('personalQuiz').insertOne(newQuiz, function (err, res) {
         if (err) throw err
         console.log('quiz inserted success')
         socket.emit('quiz added', {type: true})
@@ -207,6 +204,25 @@ class Database {
       })
     })
   }
+
+  addTopic (newTopic, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      dbo.collection('topic').insertOne(newTopic, function (err, res) {
+        if (err) throw err
+        console.log('topic inserted success')
+        socket.emit('topic added', {type: true})
+        db.close()
+      })
+    })
+  }
+
+  /**
+   *
+   * @param newProfile
+   * @param socket
+   */
 
   addProfile (newProfile, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -221,24 +237,54 @@ class Database {
     })
   }
 
-  addQuizCollaborative (newQuiz, socket) {
+  /**
+   * add quiz collaborative
+   * @param data
+   * @param socket
+   */
+  addQuizCollaborative (data, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
-      dbo.collection('quizNontangible').insertOne(newQuiz, function (err, res) {
+      if(data.type ==="handsMove"){
+        dbo.collection('quizHandsMove').insertOne(data.quiz, function (err, res) {
+          if (err) throw err
+          console.log('quiz quizHandsMove inserted success')
+          socket.emit('quiz hands move added', {type: true})
+          db.close()
+        })
+      }else if(data.type === "handsTouch"){
+        dbo.collection('quizHandsTouch').insertOne(data.quiz, function (err, res) {
+          if (err) throw err
+          console.log('quiz quizHandsTouch inserted success')
+          socket.emit('quiz hands touch added', {type: true})
+          db.close()
+        })
+      }
+    })
+  }
+
+  /**
+   * update profile
+   * @param newProfile
+   */
+  updateProfiles (newProfile) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: newProfile.id}
+      var updateQuiz = {$set: {quizAccessible: newProfile.quizAccessible}}
+      dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
-        console.log('quiz collaborative inserted success')
-        socket.emit('quiz collaborative added', {type: true})
-      })
-      dbo.collection('tableQuiz').insertOne(newQuiz, function (err, res) {
-        if (err) throw err
-        console.log('quiz collaborative inserted success')
-        socket.emit('quiz collaborative added', {type: true})
+        console.log('Update profiles success')
         db.close()
       })
     })
   }
 
+  /**
+   *
+   */
   closeDatabases () {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
@@ -249,47 +295,5 @@ class Database {
       process.exit(0)
     })
   }
-
-  updateProfiles (newProfile) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      if (err) throw err
-      var dbo = db.db('tto')
-      var searchId = {id: newProfile.id}
-      var updateQuiz = {$set: {quizAccessible: newProfile.quizAccessible}}
-      dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
-        if(err) throw err;
-        console.log('Update profiles success')
-        db.close()
-      })
-    })
-  }
-
-  getImage (imageName, res) {
-    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
-      const dbo = db.db('tto')
-      dbo.collection('pictures').find({name: imageName}).toArray(function (err, result) {
-        if (err) throw err
-        console.log(result[0])
-        res.send(result[0].img.buffer)
-        db.close()
-      })
-    })
-
-  }
 }
-
-function uploadImages (image, database) {
-  var newImg = fs.readFileSync(image.src)
-  var encImg = newImg.toString('base64')
-  var newItem = {
-    name: image.description,
-    img: Buffer(encImg, 'base64')
-  }
-
-  database.collection('pictures').insert(newItem, function (err, result) {
-    if (err) {console.log(err)}
-    console.log('inserted image')
-  })
-}
-
 module.exports = new Database()

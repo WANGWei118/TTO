@@ -1,72 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="336d97ab-e9d4-4d31-8189-86366c54d5c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/controller/img-uploader.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/document/profiles.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/model/uploadfile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/apple.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/bananes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/basket.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/bean.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/bird.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/cat.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/dog1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/dog2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/dog3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/fraise.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/kiwi.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/orange.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/piapple.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/quiz.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/raisin.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/rate.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/tiger.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/assets/watermelon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/apple.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/bananes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/basket.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/bean.jpeg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/bird.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/cat.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/dog1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/dog2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/dog3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/fraise.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/home_menu.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/kiwi.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/left_arrow.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/orange.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/piapple.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/raisin.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/reload_icon.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/right_arrow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/tiger.JPG" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/watermelon.jpg" afterDir="false" />
+    <list default="true" id="336d97ab-e9d4-4d31-8189-86366c54d5c0" name="Default Changelist" comment="touch tangible">
+      <change afterPath="$PROJECT_DIR$/TTO-Client-Table/assets/lemon.mp3" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TTO-Server-master/public/topics/dailyLife.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/ImageWidget/ImageTouchWidget.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/ImageWidget/ImageTouchWidget.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/SocketIOClient/SocketIOClient.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/SocketIOClient/SocketIOClient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/DivWidget/DivWidget.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/DivWidget/DivWidget.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Table/src/styles/main.css" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/src/styles/main.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTO-Client-Table/webpack.common.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Table/webpack.common.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/public/favicon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/public/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/public/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/images.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/images.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/pictures.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/pictures.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/questions.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/questions.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizNontangible.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizNontangible.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizTangible.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizTangible.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizz.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizz.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/tableQuiz.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/tableQuiz.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/SocketIOServer.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/SocketIOServer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/constants.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/AnswerCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/AnswerCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/QuizCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/QuizCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/QuizSelector.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/QuizSelector.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/SelectAccueilli.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/SelectAccueilli.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/collaborative/QuizCardCollaborative.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/collaborative/QuizCardCollaborative.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/collaborative/QuizSelectorCollab.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/collaborative/QuizSelectorCollab.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/individuel/DraggableContainer.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Client-Touchpad/src/component/individuel/DraggableContainer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/profiles.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/profiles.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizHandsMove.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizHandsMove.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizHandsTouch.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizHandsTouch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/quizPersonal.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/quizPersonal.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/document/topics.json" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/document/topics.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/public/profiles/2.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/public/profiles/2.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TTO-Server-master/public/profiles/4.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/public/profiles/4.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/database/database.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/database/database.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TTO-Server-master/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/TTO-Server-master/src/index.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,7 +56,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1579789337438" />
     <property name="javascript.nodejs.core.library.configured.version" value="12.14.1" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/TTO-Server-master/public/assets" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/TTO-Server-master/public/profiles" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.path.for.package.tslint" value="project" />
@@ -107,17 +66,18 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/TTO-Server-master/public/assets" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/TTO-Server-master/public" />
-      <recent name="$PROJECT_DIR$/assets" />
-      <recent name="$PROJECT_DIR$/images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/TTO-Server-master" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/TTO-Server-master/public/profiles" />
+      <recent name="$PROJECT_DIR$/TTO-Client-Table/assets" />
+      <recent name="$PROJECT_DIR$/TTO-Server-master/public/topics" />
+      <recent name="$PROJECT_DIR$/TTO-Server-master/public/assets" />
+      <recent name="$PROJECT_DIR$/TTO-Client-Touchpad" />
     </key>
   </component>
   <component name="ServiceViewManager">
@@ -152,6 +112,10 @@
       <workItem from="1580388060955" duration="22371000" />
       <workItem from="1580454010828" duration="23796000" />
       <workItem from="1580994442435" duration="2035000" />
+      <workItem from="1581168808437" duration="179000" />
+      <workItem from="1581169324966" duration="461000" />
+      <workItem from="1581262443097" duration="3000" />
+      <workItem from="1581280212205" duration="20121000" />
     </task>
     <task id="LOCAL-00001" summary="update maquette">
       <created>1579872352714</created>
@@ -209,7 +173,98 @@
       <option name="project" value="LOCAL" />
       <updated>1580466590012</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="css sur la table">
+      <created>1581002787740</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1581002787740</updated>
+    </task>
+    <task id="LOCAL-00010" summary="version for Ipad">
+      <created>1581019398116</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1581019398117</updated>
+    </task>
+    <task id="LOCAL-00011" summary="ip adress changed">
+      <created>1581059486796</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1581059486796</updated>
+    </task>
+    <task id="LOCAL-00012" summary="image display">
+      <created>1581061183267</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1581061183267</updated>
+    </task>
+    <task id="LOCAL-00013" summary="css">
+      <created>1581064575861</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1581064575861</updated>
+    </task>
+    <task id="LOCAL-00014" summary="display finished page in center">
+      <created>1581065147850</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1581065147851</updated>
+    </task>
+    <task id="LOCAL-00015" summary="question suivante">
+      <created>1581067908367</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1581067908367</updated>
+    </task>
+    <task id="LOCAL-00016" summary="changed quiz">
+      <created>1581068681562</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1581068681562</updated>
+    </task>
+    <task id="LOCAL-00017" summary="images quiz">
+      <created>1581070217421</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1581070217421</updated>
+    </task>
+    <task id="LOCAL-00018" summary="image quiz">
+      <created>1581070462161</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1581070462161</updated>
+    </task>
+    <task id="LOCAL-00019" summary="update profile">
+      <created>1581072641087</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1581072641087</updated>
+    </task>
+    <task id="LOCAL-00020" summary="update profiles">
+      <created>1581078547576</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1581078547576</updated>
+    </task>
+    <task id="LOCAL-00021" summary="database update">
+      <created>1581284744166</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1581284744166</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -224,31 +279,83 @@
     <MESSAGE value="add finish page" />
     <MESSAGE value="manage socket message" />
     <MESSAGE value="touch tangible" />
-    <option name="LAST_COMMIT_MESSAGE" value="touch tangible" />
+    <MESSAGE value="css sur la table" />
+    <MESSAGE value="version for Ipad" />
+    <MESSAGE value="ip adress changed" />
+    <MESSAGE value="image display" />
+    <MESSAGE value="css" />
+    <MESSAGE value="display finished page in center" />
+    <MESSAGE value="question suivante" />
+    <MESSAGE value="changed quiz" />
+    <MESSAGE value="images quiz" />
+    <MESSAGE value="image quiz" />
+    <MESSAGE value="update profile" />
+    <MESSAGE value="update profiles" />
+    <MESSAGE value="database update" />
+    <option name="LAST_COMMIT_MESSAGE" value="database update" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="267" y="23" key="CommitChangelistDialog2" timestamp="1580466589611">
-      <screen x="0" y="23" width="1440" height="795" />
+    <state x="429" y="213" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1581284393178">
+      <screen x="0" y="23" width="1440" height="792" />
     </state>
-    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.795@0.23.1440.795" timestamp="1580466589611" />
-    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.798@0.23.1440.798" timestamp="1580388670414" />
+    <state x="429" y="213" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1440.792@0.23.1440.792" timestamp="1581284393178" />
+    <state x="267" y="23" width="906" height="792" key="CommitChangelistDialog2" timestamp="1581284743100">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state x="267" y="23" width="906" height="792" key="CommitChangelistDialog2/0.23.1440.792@0.23.1440.792" timestamp="1581284743100" />
+    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.795@0.23.1440.795" timestamp="1581070461988" />
+    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.798@0.23.1440.798" timestamp="1580999111850" />
+    <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.799@0.23.1440.799" timestamp="1581078547336" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.804@0.23.1440.804" timestamp="1580416456251" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.806@0.23.1440.806" timestamp="1580405570993" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.808@0.23.1440.808" timestamp="1580403079853" />
     <state x="267" y="23" key="CommitChangelistDialog2/0.23.1440.811@0.23.1440.811" timestamp="1579872352443" />
-    <state x="100" y="123" width="1240" height="595" key="DiffContextDialog" timestamp="1580414274806">
-      <screen x="0" y="23" width="1440" height="804" />
+    <state x="100" y="122" width="1240" height="595" key="DiffContextDialog" timestamp="1581070146943">
+      <screen x="0" y="23" width="1440" height="795" />
     </state>
+    <state x="100" y="122" key="DiffContextDialog/0.23.1440.795@0.23.1440.795" timestamp="1581070146943" />
     <state x="100" y="123" width="1240" height="595" key="DiffContextDialog/0.23.1440.804@0.23.1440.804" timestamp="1580414274806" />
+    <state width="1412" height="189" key="GridCell.Tab.0.bottom" timestamp="1581168707422">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state width="1412" height="189" key="GridCell.Tab.0.bottom/0.23.1440.792@0.23.1440.792" timestamp="1581168707422" />
+    <state width="1412" height="189" key="GridCell.Tab.0.bottom/0.23.1440.795@0.23.1440.795" timestamp="1581019434861" />
+    <state width="1412" height="189" key="GridCell.Tab.0.center" timestamp="1581168707408">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state width="1412" height="189" key="GridCell.Tab.0.center/0.23.1440.792@0.23.1440.792" timestamp="1581168707408" />
+    <state width="1412" height="189" key="GridCell.Tab.0.center/0.23.1440.795@0.23.1440.795" timestamp="1581019434858" />
+    <state width="1412" height="189" key="GridCell.Tab.0.left" timestamp="1581168707396">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state width="1412" height="189" key="GridCell.Tab.0.left/0.23.1440.792@0.23.1440.792" timestamp="1581168707396" />
+    <state width="1412" height="189" key="GridCell.Tab.0.left/0.23.1440.795@0.23.1440.795" timestamp="1581019434858" />
+    <state width="1412" height="189" key="GridCell.Tab.0.right" timestamp="1581168707414">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state width="1412" height="189" key="GridCell.Tab.0.right/0.23.1440.792@0.23.1440.792" timestamp="1581168707414" />
+    <state width="1412" height="189" key="GridCell.Tab.0.right/0.23.1440.795@0.23.1440.795" timestamp="1581019434859" />
+    <state x="144" y="93" key="MergeDialog" timestamp="1581070236008">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state x="144" y="93" key="MergeDialog/0.23.1440.792@0.23.1440.792" timestamp="1581070236008" />
+    <state x="144" y="93" key="MergeDialog/0.23.1440.795@0.23.1440.795" timestamp="1581019418870" />
+    <state x="371" y="79" key="MultipleFileMergeDialog" timestamp="1581070238101">
+      <screen x="0" y="23" width="1440" height="792" />
+    </state>
+    <state x="371" y="79" key="MultipleFileMergeDialog/0.23.1440.792@0.23.1440.792" timestamp="1581070238100" />
+    <state x="371" y="79" key="MultipleFileMergeDialog/0.23.1440.795@0.23.1440.795" timestamp="1581019421716" />
     <state x="120" y="23" key="SettingsEditor" timestamp="1580388744059">
       <screen x="0" y="23" width="1440" height="798" />
     </state>
     <state x="120" y="23" key="SettingsEditor/0.23.1440.798@0.23.1440.798" timestamp="1580388744059" />
-    <state x="220" y="100" key="Vcs.Push.Dialog.v2" timestamp="1580466594592">
-      <screen x="0" y="23" width="1440" height="795" />
+    <state x="220" y="100" key="Vcs.Push.Dialog.v2" timestamp="1581284761084">
+      <screen x="0" y="23" width="1440" height="792" />
     </state>
-    <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.795@0.23.1440.795" timestamp="1580466594592" />
+    <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.792@0.23.1440.792" timestamp="1581284761084" />
+    <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.795@0.23.1440.795" timestamp="1581070468048" />
     <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.798@0.23.1440.798" timestamp="1580388679297" />
+    <state x="220" y="100" key="Vcs.Push.Dialog.v2/0.23.1440.799@0.23.1440.799" timestamp="1581078565082" />
     <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.804@0.23.1440.804" timestamp="1580416463431" />
     <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.806@0.23.1440.806" timestamp="1580405576781" />
     <state x="220" y="101" key="Vcs.Push.Dialog.v2/0.23.1440.808@0.23.1440.808" timestamp="1580403085326" />
@@ -262,14 +369,20 @@
       <screen x="0" y="23" width="1440" height="795" />
     </state>
     <state x="486" y="327" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1440.795@0.23.1440.795" timestamp="1580298609868" />
-    <state x="254" y="88" width="932" height="664" key="find.popup" timestamp="1580994721707">
-      <screen x="0" y="23" width="1440" height="795" />
+    <state x="254" y="88" width="932" height="664" key="find.popup" timestamp="1581282277639">
+      <screen x="0" y="23" width="1440" height="792" />
     </state>
-    <state x="254" y="88" width="932" height="664" key="find.popup/0.23.1440.795@0.23.1440.795" timestamp="1580994721707" />
-    <state x="408" y="180" key="git4idea.merge.GitPullDialog" timestamp="1580406334867">
-      <screen x="0" y="23" width="1440" height="806" />
+    <state x="254" y="88" width="932" height="664" key="find.popup/0.23.1440.792@0.23.1440.792" timestamp="1581282277639" />
+    <state x="254" y="88" width="932" height="664" key="find.popup/0.23.1440.795@0.23.1440.795" timestamp="1581080052036" />
+    <state x="254" y="88" width="932" height="667" key="find.popup/0.23.1440.798@0.23.1440.798" timestamp="1581157769523" />
+    <state x="254" y="88" width="932" height="668" key="find.popup/0.23.1440.799@0.23.1440.799" timestamp="1581006209845" />
+    <state x="408" y="177" key="git4idea.merge.GitPullDialog" timestamp="1581284749777">
+      <screen x="0" y="23" width="1440" height="792" />
     </state>
-    <state x="408" y="178" key="git4idea.merge.GitPullDialog/0.23.1440.795@0.23.1440.795" timestamp="1580298632318" />
+    <state x="408" y="177" key="git4idea.merge.GitPullDialog/0.23.1440.792@0.23.1440.792" timestamp="1581284749777" />
+    <state x="408" y="178" key="git4idea.merge.GitPullDialog/0.23.1440.795@0.23.1440.795" timestamp="1581069204353" />
+    <state x="408" y="179" key="git4idea.merge.GitPullDialog/0.23.1440.799@0.23.1440.799" timestamp="1581078623534" />
+    <state x="408" y="179" key="git4idea.merge.GitPullDialog/0.23.1440.801@0.23.1440.801" timestamp="1580999274438" />
     <state x="408" y="180" key="git4idea.merge.GitPullDialog/0.23.1440.806@0.23.1440.806" timestamp="1580406334867" />
     <state x="301" y="23" width="838" height="1032" key="search.everywhere.popup" timestamp="1580458583742">
       <screen x="0" y="23" width="1440" height="795" />

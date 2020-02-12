@@ -7,7 +7,7 @@ import HeaderComponent from './HeaderComponent';
 
 const { TabPane } = Tabs;
 const INDIVIDUAL_TYPE = 'quizIndividuel';
-const COLLAB_TYPE = 'quizNonTangible';
+const COLLAB_TYPE = 'quizHandsMove';
 
 const QuizSelector = (props) => {
 
@@ -23,8 +23,8 @@ const QuizSelector = (props) => {
 
     useEffect(() => {
         socket.on('all types quiz', (result) => {
-            setCollabQuiz(result.nonTangible);
-            setIndividualQuiz(result.individuel)
+            setCollabQuiz(result.collaborative.handsMove);
+            setIndividualQuiz(result.personal)
 
             setLoadingCollab(false);
             setLoadingIndividual(false);
@@ -38,17 +38,24 @@ const QuizSelector = (props) => {
     }, [])
 
     const renderList = (data, type) => {
+        console.log(data, type)
 
         if (selectedAccueilli !== null && selectedAccueilli !== undefined) {
             return (
                 <>
                     {data.map((item) => {
-                        if (selectedAccueilli.tempSelectedAccueilli.quizAccessible[type].includes(item.id)) {
+                        if (type === 'quizIndividuel') {
+                            if (selectedAccueilli.tempSelectedAccueilli.quizAccessible[type].includes(item.id)) {
+                                return (
+                                    <QuizCard key={item._id} quiz={item} type={type} />
+                                )
+                            } else {
+                                return (null);
+                            }
+                        } else {
                             return (
                                 <QuizCard key={item._id} quiz={item} type={type} />
                             )
-                        } else {
-                            return (null);
                         }
                     })}
                 </>
