@@ -6,6 +6,8 @@ import {Descriptions,Card, Layout, Menu, Icon, Tabs, Button, Breadcrumb, Checkbo
 import '../model';
 import {Link,useParams} from "react-router-dom";
 import Sidebar from '../sidebar';
+import '../config/config'
+
 import openSocket from 'socket.io-client';
 
 
@@ -13,12 +15,16 @@ const { Header, Content} = Layout;
 const { Meta } = Card;
 
 export default function DetailProfile(props){
-    let { id } = useParams();
+    let id = global.constants.profileId;
     let info = null;
     let infoList = [];
+    console.log(id);
 
     let socket = props.socket;
     console.log(id);
+    socket.on('profile by id',(data)=>{
+        console.log(data);
+    });
     socket.emit('get profiles');
     socket.on('all profiles',(data)=>{
         infoList = data;
