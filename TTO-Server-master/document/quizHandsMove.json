@@ -10,6 +10,7 @@
         "id": 1,
         "description": "Mettez les pommes au milieu",
         "topic": "fruit",
+        "type": "handsMove",
         "rightAnswers": 1,
         "pictures": [
           {
@@ -30,6 +31,7 @@
         "description": "Mettez les bananes au milieu",
         "src": "topics/Fruits.jpg",
         "rightAnswers": 2,
+        "type": "handsMove",
         "pictures": [
           {
             "description": "pomme",

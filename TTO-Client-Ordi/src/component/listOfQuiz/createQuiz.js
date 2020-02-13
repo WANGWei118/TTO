@@ -19,6 +19,7 @@ const { TextArea } = Input;
 const { Option } = Select;
 const questions = require('../question');
 const plainOptions = questions.map((question) => question.description);
+const url = "http://10.212.107.151:10000/";
 
 const menu = (
     <Menu>
@@ -57,6 +58,7 @@ class CreateQuiz extends React.Component {
     cheminPic = [];
     prefix = null;
     state = {
+        id : 0,
         loading: false,
         collapsed: false,
         visible: false,
@@ -107,6 +109,10 @@ class CreateQuiz extends React.Component {
         idList: [],
         checkedAcc: [],
         checkedAccId: [],
+        themePic: null,
+        quizList: null,
+        topicList: [],
+        topicId:0,
     };
     constructor(props) {
         super(props);
@@ -120,8 +126,9 @@ class CreateQuiz extends React.Component {
         this.socket.emit('get all types quiz');
         this.socket.on('all types quiz',(data) => {
             this.quizList = data;
+            this.state.quizList = data;
             console.log(this.quizList);
-            console.log(this.quizList.individuel.length);
+            console.log(this.quizList.personal.length);
         });
         this.socket.on('quiz added',(type) =>{
             if (type.type === true){
@@ -149,26 +156,74 @@ class CreateQuiz extends React.Component {
             console.log(this.state.idList);
         });
 
+        this.socket.emit('get topics');
+        this.socket.on('all topics',(data)=>{
+            this.setState({
+                topicList:data,
+            });
+            console.log(this.state.topicList);
+        });
+
         this.socket.emit('get images');
         this.socket.on('images',(data) => {
-            this.prefix = data[0].src.split("assets")[0].concat('assets/');
-            console.log(this.prefix);
-            this.cheminPic = data.map((e) => e.src);
+            this.cheminPic = data[0].src.map((e) => e);
+            console.log(data);
             console.log(this.cheminPic);
             this.cheminPic.map((i)=>{
                 this.state.images.push(
                     <Button className="buttonImage"
                             onClick={e => this.onChangePic(e, i)}>
-                        <img src = {i} className='image'/>
+                        <img src = {url+i} className='image'/>
                     </Button>
                 );
             });
         });
     }
 
+    getTopicId = name =>{
+        this.state.topicList.map((e)=>{
+            if (e.topic.toString() === name.toString()) {
+                console.log(e.id);
+                this.state.topicId = e.id;
+                return e.id;
+            }
+        });
+
+    };
+
+    getTopicPersonalQuiz = name => {
+        let personal = [];
+        this.quizList.personal.map((e)=>{
+            if(e.topic === name) {
+                personal.push(e.id);
+            }
+        });
+        return personal;
+    };
+
+    getTopicHandsMoveQuiz = name => {
+        let handsmove = [];
+        this.quizList.collaborative.handsMove.map((e)=>{
+            if(e.topic === name) {
+                handsmove.push(e.id);
+            }
+        });
+        return handsmove;
+    };
+
+    getTopicHandsTouchQuiz = name => {
+        let handstouch = [];
+        this.quizList.collaborative.handsTouch.map((e)=>{
+            if(e.topic === name) {
+                handstouch.push(e.id);
+            }
+        });
+        return handstouch;
+    };
+
     getId = () => {
         let id = 0;
-        for(let i = 0; i < this.quizList.individuel.length; i++) {
+        for(let i = 0; i < this.quizList.personal.length; i++) {
             if (this.quizList[i].id > id) {
                 id = this.quizList[i].id;
             }
@@ -267,7 +322,7 @@ class CreateQuiz extends React.Component {
     showPic1 = () => {
         this.cheminPic.map((i)=> {
             if(this.state.pic1 === i) {
-                return <img src={i} className='littleImage'/>;
+                return <img src={url+i} className='littleImage'/>;
             }
         });
     };
@@ -726,17 +781,25 @@ class CreateQuiz extends React.Component {
     };
 
     sendNewQuiz = () => {
+        let themePic = '';
+        this.getTopicId(this.state.theme);
+        switch (this.state.theme) {
+            case 'fruit': themePic = 'topics/Fruits.jpg'; break;
+            case 'animal': themePic = 'topics/animals.jpg'; break;
+            case 'la vie quotidienne': themePic = 'topics/dailyLife.jpg'; break;
+            case 'musique': themePic = 'topics/instruments.jpg'; break;
+        }
         if (this.state.type === 'individuel') {
             let sendAcc = [];
+            console.log(this.state.accList)
             this.state.checkedAccId.map((e)=>{
                 this.state.accList.map((acc)=>{
+                    console.log(acc)
                     if (e.toString() === acc.id.toString()) {
                         sendAcc.push({
                             id: acc.id,
                             quizAccessible: {
-                                quizIndividuel: acc.quizAccessible.quizIndividuel.concat(this.quizList.individuel.length+1),
-                                quizTangible:acc.quizAccessible.quizTangible,
-                                quizNonTangible:acc.quizAccessible.quizNonTangible,
+                                quizIndividuel: acc.quizAccessible.quizIndividuel.concat(this.state.quizList.personal.length+1),
                             }
                         })
                     }
@@ -759,12 +822,25 @@ class CreateQuiz extends React.Component {
 
             });
             const newQuiz = {
-                id: this.quizList.individuel.length+1,
+                id: this.state.quizList.personal.length+1,
                 name: this.state.name,
                 topic: this.state.theme,
+                src: themePic,
                 questions: this.state.checkedQuestion,
             };
             console.log(newQuiz);
+
+
+            const updateTopic = {
+                id: this.state.topicId,
+                quiz: {
+                    personalQuiz: this.getTopicPersonalQuiz(this.state.theme).concat(newQuiz.id),
+                    tableQuiz: {
+                        handsMove: this.getTopicHandsMoveQuiz(this.state.theme),
+                        handsTouch: this.getTopicHandsTouchQuiz(this.state.theme),
+                    }
+                }
+            };
             if (newQuiz.name === null || newQuiz.name === ''){
                 notification['warning']({
                     message: 'Entrer le nom ',
@@ -783,12 +859,45 @@ class CreateQuiz extends React.Component {
                 console.log(newQuiz);
                 this.socket.emit('update profile',sendAcc);
                 console.log(sendAcc);
+                this.socket.emit('update topic',updateTopic);
+                console.log(updateTopic);
             }
         } else if (this.state.type === 'collaboratif') {
+            let id = 0;
+            let updateTopicCol = null;
+            if (this.state.tangible === 'handsTouch') {
+
+                    id = this.state.quizList.collaborative.handsTouch.length + 1;
+                updateTopicCol = {
+                    id: this.state.topicId,
+                    quiz: {
+                        personalQuiz: this.getTopicPersonalQuiz(this.state.theme),
+                        tableQuiz: {
+                            handsMove: this.getTopicHandsMoveQuiz(this.state.theme),
+                            handsTouch: this.getTopicHandsTouchQuiz(this.state.theme).concat(id),
+                        }
+                    }
+                };
+            } else if (this.state.tangible === 'handsMove') {
+                id = this.state.quizList.collaborative.handsMove.length + 1;
+                updateTopicCol = {
+                    id: this.state.topicId,
+                    quiz: {
+                        personalQuiz: this.getTopicPersonalQuiz(this.state.theme),
+                        tableQuiz: {
+                            handsMove: this.getTopicHandsMoveQuiz(this.state.theme).concat(id),
+                            handsTouch: this.getTopicHandsTouchQuiz(this.state.theme),
+                        }
+                    }
+                };
+            }
+            console.log(this.state.quizList.collaborative);
+            console.log(id);
             const newColla = {
-                id: this.getId(),
+                id: id,
                 name: this.state.name,
                 topic:this.state.theme,
+                src:themePic,
                 type: this.state.tangible,
                 questions: this.state.questionCol,
             };
@@ -807,8 +916,9 @@ class CreateQuiz extends React.Component {
                     message: 'Ajouter les questions ',
                 });
             }else{
-                this.socket.emit('add quiz collaborative', newColla);
-
+                this.socket.emit('add quiz collaborative', {type:this.state.tangible,quiz:newColla});
+                this.socket.emit('update topic',updateTopicCol);
+                console.log(updateTopicCol);
             }
         }
     };
@@ -838,7 +948,7 @@ class CreateQuiz extends React.Component {
                     images: this.state.images.concat(
                         <Button className="buttonImage"
                                 onClick={e => this.onChangePic(e, image)}>
-                            <img src = {imageUrl} className='image'/>
+                            <img src = {url+imageUrl} className='image'/>
                         </Button>
                     ),
                 });
@@ -864,7 +974,7 @@ class CreateQuiz extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: 'http://192.168.1.11:10001/imgUpload',
+            url: 'http://10.212.107.151:10001/imgUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
@@ -914,8 +1024,8 @@ class CreateQuiz extends React.Component {
                                                  onChange={this.onChangeTangible}
                                                  value={this.state.tangible}
                                                  style = {{marginBottom:20,marginLeft:10}}>
-                                        <Radio value={'tangible'}>Tangible</Radio>
-                                        <Radio value={'nonTangible'}>Drag and Drop</Radio>
+                                        <Radio value={'handsTouch'}>Cliquer avec un objet</Radio>
+                                        <Radio value={'handsMove'}>Drag and Drop</Radio>
                                     </Radio.Group>
                                 </div>
                             : null}
@@ -966,6 +1076,7 @@ class CreateQuiz extends React.Component {
                                 onOk={this.handleOk}
                                 onCancel={this.handleCancel}
                                 width={800}
+                                style={{zIndex:10}}
                             >
                                 {/*<CheckboxGroup*/}
                                     {/*options={plainOptions}*/}
@@ -1078,6 +1189,7 @@ class CreateQuiz extends React.Component {
                                 onOk={this.handleOkCol}
                                 onCancel={this.handleCancelCol}
                                 width={800}
+                                style={{zIndex:10}}
                             >
                                 <Input style = {{marginBottom:20}}
                                        addonBefore= 'Question collaboraitve '
@@ -1190,9 +1302,10 @@ class CreateQuiz extends React.Component {
                                 visible={this.state.visiblePic}
                                 onOk={this.handleOkPic}
                                 onCancel={this.handleCancelPic}
+                                style={{zIndex:20}}
                             >
                                 <p>Response {this.state.currentRes}</p>
-                                {this.state.images}
+                                <div style={{maxHeight:450,overflowY:"auto",}}>{this.state.images}</div>
                                 <Upload
                                     name="avatar"
                                     listType="picture-card"
