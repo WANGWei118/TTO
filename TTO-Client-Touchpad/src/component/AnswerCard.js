@@ -2,35 +2,38 @@ import React, { useState } from 'react'
 import './AnswerCard.css'
 import images from './images'
 
-const url = 'http://10.212.107.151:10000/'
+const url = 'http://192.168.182.29:10000/'
 
 const AnswerCard = (props) => {
-    const [hide, setHide] = useState(false);
-    const [hideClass, setHideClass] = useState('answerCard');
-    const answer = props.answer
+  const [hide, setHide] = useState(false)
+  const [hideClass, setHideClass] = useState('answerCard')
+  const answer = props.answer
 
-    const hideComponent = () => {
-        if (props.canHide) {
+  const hideComponent = () => {
+    if (props.canHide) {
 
-            setHideClass(hideClass + ' hidden');
-        }
+      setHideClass(hideClass + ' hidden')
     }
+  }
 
-    let imageToDisplay
-    images.forEach((item) => {
-        if (answer.src === item.src) {
-            imageToDisplay = item.title
-        }
+  let imageToDisplay
+  images.forEach((item) => {
+      if (answer.src === item.src) {
+        imageToDisplay = item.title
+      }
     }
-    )
-    return (
-        <>
-            <div className={hideClass} onClick={() => { props.onClick(answer); hideComponent(); }}>
-                <img className="answerCardImage" src={answer.src} />
-                <h2 className="answerName">{answer.text}</h2>
-            </div>
-        </>
-    )
+  )
+  return (
+    <>
+      <div className={hideClass} onClick={() => {
+        props.onClick(answer)
+        hideComponent()
+      }}>
+        <img className="answerCardImage" src={url + answer.src}/>
+        <h2 className="answerName">{answer.text}</h2>
+      </div>
+    </>
+  )
 
 }
 export default AnswerCard
