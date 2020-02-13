@@ -112,7 +112,6 @@ const SelectAccueilli = props => {
                 </Radio.Button>
                 // return <Radio value={item}>{item.firstName}</Radio>
               })}
-
             </Radio.Group>
           </Modal>}
         <div className="accueilliCard"><Icon type="close-square" theme="twoTone" twoToneColor="red"

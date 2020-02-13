@@ -5,6 +5,8 @@
 import http from 'http'
 import express from 'express'
 import sio from 'socket.io'
+
+var bodyParser = require('body-parser')
 import {
   ALL_TYPES_QUIZZ,
   INDIVIDUEL_QUIZZ,
@@ -14,6 +16,8 @@ import {
   TANGIBLE_QUIZZ
 } from './constants'
 import imageUpload from '../controller/img-uploader'
+import profileUpload from '../controller/profile-uploader'
+import topicUpload from '../controller/topic-uploader'
 
 const MongoClient = require('mongodb').MongoClient
 const urlDB = 'mongodb://localhost:27017/tto'
@@ -49,9 +53,12 @@ class SocketIOServer {
     this._httpServer = http.createServer(this._app)
     this._ioServer = sio(this._httpServer)
     this.handleSocketIOClient()
+    this._app.use(bodyParser.urlencoded({extended: false}))
     this._app.use(express.static('public'))
 
     this._app.use(imageUpload)
+    this._app.use(profileUpload)
+    this._app.use(topicUpload)
 
     this._app.get('/hello/:ok', function (req, res) {
       var ok = req.params.ok
@@ -147,10 +154,10 @@ class SocketIOServer {
       socket.on('get quizz', (data) => {
         if (data.type === 'table') {
           console.log('Client wants quizz of table')
-          database.sendTableQuiz(socket)
+          database.sendQuizToTable(socket)
         } else {
           console.log('Client wants quizz')
-          database.sendPadQuizz(socket)
+          database.sendQuizToPad(socket)
         }
       })
 
@@ -249,6 +256,18 @@ class SocketIOServer {
 
       socket.on('add topic', (data) => {
         database.addTopic(data, socket)
+      })
+
+      socket.on('start fun quiz', (data) => {
+        socket.broadcast.emit('fun quiz start', data)
+      })
+
+      socket.on('get musics', () => {
+        database.sendMusics(socket)
+      })
+
+      socket.on('update topic', (data) => {
+        database.updateTopics(data.quiz, data.id, socket)
       })
 
       socket.on('disconnect', () => {

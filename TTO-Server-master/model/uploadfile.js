@@ -46,6 +46,7 @@ module.exports = {
       //files.userfile.path代表的是formidable为我们上传文件后绝对路径，通过path的extname来获取图片后缀
       var extName = path.extname(files.userfile.path)
       var newName = files.userfile.name    //使用dateFormat+随机数+文件后缀生成新文件名
+      console.log('testtesttest' + files.path)
 
       var oldPath = files.userfile.path
       var newPath = path.join(__dirname, '../public', dirName, newName)

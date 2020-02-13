@@ -6,11 +6,11 @@ var app = express()
 
 // router.use(bodyParser.urlencoded({extended: false}))
 
-router.post('/imgUpload', function (req, res) {
+router.post('/topicUpload', function (req, res) {
   /**设置响应头允许ajax跨域访问**/
   console.log(req.body)
   res.setHeader('Access-Control-Allow-Origin', '*')
-  uploadModel.uploadPhoto(req, 'assets', function (err, fields, uploadPath) {
+  uploadModel.uploadPhoto(req, 'topics', function (err, fields, uploadPath) {
     if (err) {
       return res.json({
         errCode: 0,

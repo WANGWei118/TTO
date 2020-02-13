@@ -13,6 +13,7 @@ class Database {
     const topics = require('../../document/topics')
     const quizHandsMove = require('../../document/quizHandsMove')
     const quizHandsTouch = require('../../document/quizHandsTouch')
+    const musics = require('../../document/music')
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       console.log('database created')
@@ -63,6 +64,14 @@ class Database {
       database.collection('profiles').insertMany(profiles, function (err, res) {
         if (err) throw err
         console.log(`inserted profiles:${res.insertedCount}`)
+      })
+
+      /**
+       * insert profiles
+       */
+      database.collection('music').insertMany(musics, function (err, res) {
+        if (err) throw err
+        console.log(`inserted musics:${res.insertedCount}`)
       })
 
     })
@@ -125,7 +134,8 @@ class Database {
       personal: [],
       collaborative: {
         handsMove: [],
-        handsTouch: []
+        handsTouch: [],
+        music: []
       }
     }
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -139,6 +149,11 @@ class Database {
       dbo.collection('quizHandsTouch').find({}).toArray(function (err, result) {
         if (err) throw err
         results.collaborative.handsTouch = result
+      })
+
+      dbo.collection('music').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.collaborative.music = result
       })
 
       dbo.collection('quizHandsMove').find({}).toArray(function (err, result) {
@@ -161,6 +176,22 @@ class Database {
       dbo.collection('topic').find({}).toArray(function (err, result) {
         if (err) throw err
         socket.emit('all topics', result)
+        db.close()
+      })
+    })
+  }
+
+  /**
+   * send music
+   * @param socket
+   */
+  sendMusics(socket){
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('music').find({}).toArray(function (err, result) {
+        if (err) throw err
+        socket.emit('all music', result)
         db.close()
       })
     })
@@ -241,6 +272,7 @@ class Database {
    * add quiz collaborative
    * @param data
    * @param socket
+   * {type: , quiz: nre colla}
    */
   addQuizCollaborative (data, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -277,6 +309,23 @@ class Database {
       dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
         console.log('Update profiles success')
+        db.close()
+      })
+    })
+  }
+
+  /**
+   * update topic
+   */
+  updateTopics (quiz, topicId, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: topicId}
+      var updateQuiz = {$set: {quiz: quiz}}
+      dbo.collection('topic').updateOne(searchId, updateQuiz, function (err, res) {
+        if (err) throw err
+        console.log('Update topic success')
         db.close()
       })
     })
