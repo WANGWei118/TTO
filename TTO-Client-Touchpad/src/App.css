@@ -1,5 +1,6 @@
 body {
   -webkit-overflow-scrolling: auto;
+  overscroll-behavior: none;
 }
 
 .App {

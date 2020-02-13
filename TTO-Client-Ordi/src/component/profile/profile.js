@@ -7,6 +7,7 @@ import '../model';
 import {Link} from "react-router-dom";
 import Sidebar from '../sidebar';
 import openSocket from 'socket.io-client';
+import '../config/config'
 
 const { Header, Content} = Layout;
 const { Meta } = Card;
@@ -63,6 +64,13 @@ class Profile extends React.Component {
         })
     };
 
+    showDetail = (i,e) =>{
+        console.log(e);
+        this.socket.emit("get profile by id",e.id);
+        global.constants.profileId = e.id;
+        console.log(global.constants.profileId);
+    };
+
     render() {
         return (
             <Layout style={{ minHeight: '100vh' }}>
@@ -88,6 +96,14 @@ class Profile extends React.Component {
                                             {/*<Link to={`/profile/${e.id}`}>*/}
                                             <Card className="card"
                                                   hoverable
+                                                  actions={[
+                                                      <Button onClick={(i)=>this.showDetail(i,e)}>
+
+                                                          <Link to="/detailProfile"><Icon type="ellipsis" key="ellipsis" /></Link>
+                                                      </Button>
+                                                  ,
+                                                      <Button><Icon type="delete" key="ellipsis" /></Button>,
+                                                  ]}
                                                   cover={<img alt="photo" src={url+e.src} height={200}/>}
                                             >
                                                 <Meta title={e.firstName+' '+e.lastName}

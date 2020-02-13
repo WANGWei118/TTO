@@ -9,6 +9,7 @@ import DetailQuiz from './component/listOfQuiz/detailQuiz'
 import Profile from './component/profile/profile'
 import DetailProfile from './component/profile/detailProfile'
 import CreateProfile from './component/profile/createProfile'
+import QuizByTopic from './component/listOfQuiz/quizByTopic'
 
 import {
     BrowserRouter as Router,
@@ -18,7 +19,13 @@ import {
 import openSocket from 'socket.io-client';
 export const socket = openSocket('http://192.168.182.29:10000');
 
+let profileId = null;
+
+function handleId(val) {
+    profileId = val;
+}
 function App() {
+
   return (
       <Router>
           <div>
@@ -49,14 +56,17 @@ function App() {
                   <Route path="/createQuiz">
                       <CreateQuiz socket = {socket}/>
                   </Route>
-                  <Route path={`/profile/:id`}>
+                  <Route path="/detailProfile">
                       <DetailProfile socket = {socket}/>
                   </Route>
                   <Route path="/profile">
-                      <Profile socket = {socket}/>
+                      <Profile socket = {socket} handleId ={handleId.bind(this)}/>
                   </Route>
                   <Route path="/createProfile">
                       <CreateProfile socket = {socket}/>
+                  </Route>
+                  <Route path="/quizByTopic">
+                      <QuizByTopic socket = {socket}/>
                   </Route>
 
                   <Route path="/">
