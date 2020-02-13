@@ -17,7 +17,7 @@ import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 import SelectAccueilli from './component/SelectAccueilli';
 import ThemeSelector from './component/ThemeSelector';
 
-export const socket = openSocket('http://10.212.107.151:10000');
+export const socket = openSocket('http://192.168.182.29:10000');
 
 const App = () => {
     return (

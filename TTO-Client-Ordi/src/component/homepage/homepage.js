@@ -11,7 +11,7 @@ import DetailQuiz from "../listOfQuiz/detailQuiz";
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://10.212.107.151:10000/";
+const url = "http://192.168.182.29:10000/";
 const { Meta } = Card;
 
 
