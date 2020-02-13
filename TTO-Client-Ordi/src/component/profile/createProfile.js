@@ -1,18 +1,19 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
-import {Layout, Menu, Icon, Tabs, Button, Breadcrumb, Modal, Checkbox, Upload, message, Input} from 'antd';
-import Theme from "../homepage/theme";
+import './profile.css'
+import {Card, Layout, Menu, Icon, Tabs, Button, Tooltip,
+    Breadcrumb, Checkbox, List, Upload, Modal, Input, message} from 'antd';
 import '../model';
 import {Link} from "react-router-dom";
-import openSocket from 'socket.io-client';
 import Sidebar from '../sidebar';
-import $ from "jquery";
+import openSocket from 'socket.io-client';
+import $ from 'jquery';
 
-const { Header, Content, Footer, Sider} = Layout;
-const CheckboxGroup = Checkbox.Group;
-const plainOptions = ['Quiz 1', 'Quiz2'];
+const { Header, Content, Footer} = Layout;
+const { Meta } = Card;
 const url = 'http://10.212.107.151:10001/';
+const CheckboxGroup = Checkbox.Group;
 
 function getBase64 (img, callback) {
     const reader = new FileReader()
@@ -30,68 +31,73 @@ function beforeUpload (file) {
     // }
     return isJpgOrPng
 }
-class NewTheme extends React.Component {
+
+class CreateProfile extends React.Component {
     socket = openSocket;
+
     state = {
-        collapsed: false,
         visible: false,
-        checkedList: [],
-        name: null,
+        lastName: null,
+        firstName: null,
+        infoList: [],
+        id: 0,
         image: null,
-        id:0,
+        quizList: [],
         loading: false,
+        checkedQuiz: [],
     };
 
     constructor(props) {
         super(props);
         this.socket = props.socket;
 
-        this.socket.emit('get topics');
-        this.socket.on('all topics',(data) => {
-            this.setState({
-                topicList:data,
-                id: data.length + 1,
-            });
+        this.socket.emit('get profiles');
+        this.socket.on('all profiles',(data) => {
+            this.state.infoList = data;
+            this.state.id = data.length + 1;
+            console.log(this.state.infoList);
             console.log(this.state.id);
+        });
 
+        this.socket.emit('get quizz','pad');
+        this.socket.on('personal quiz',(data) => {
+            this.setState({
+                quizList: data,
+            });
+            console.log(this.state.quizList);
         });
     };
-    onChange = checkedList => {
-        this.setState({
-            checkedList,
-        });
-    };
-
     showModal = () => {
         this.setState({
             visible: true,
-        });
+        })
     };
 
-    handleOk = e => {
-        console.log(e);
+    handleOk = () => {
         this.setState({
-            visible: false,
-        });
+            visible:false,
+        })
     };
 
-    handleCancel = e => {
-        console.log(e);
+    onChange = e => {
         this.setState({
-            visible: false,
-        });
+            checkedQuiz: e,
+        })
+        console.log(this.state.checkedQuiz);
     };
 
-    onCollapse = collapsed => {
-        console.log(collapsed);
-        this.setState({ collapsed });
-    };
-
-    onChangeName = e => {
+    onChangeLastName = e => {
         this.setState({
-            name:e.target.value,
+            lastName:e.target.value,
         });
     };
+
+    onChangeFirstName = e => {
+        this.setState({
+            firstName:e.target.value,
+        });
+    };
+
     handleChange = info => {
         if (info.file.status === 'uploading') {
             this.setState({loading: true});
@@ -126,7 +132,7 @@ class NewTheme extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: url+'topicUpload',
+            url: url+'profileUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
@@ -139,19 +145,20 @@ class NewTheme extends React.Component {
         })
     };
 
-    sendNewTopic = () => {
-        let newTopic = {
+    sendNewProfile = () => {
+        let newProfile = {
             id: this.state.id,
-            topic: this.state.name,
-            icon: this.state.image,
-            quiz: {
-                personalQuiz: [],
-                tableQuiz:[],
-            },
-        };
-        this.socket.emit("add topic", newTopic);
-        console.log(newTopic);
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            src: this.state.image,
+            quizAccessible: {
+                quizIndividuel: this.state.checkedQuiz,
+            }
+        }
+        this.socket.emit("add profile",newProfile);
+        console.log(newProfile);
     };
+
 
     render() {
         const uploadButton = (
@@ -163,16 +170,17 @@ class NewTheme extends React.Component {
         const {imageUrl} = this.state;
         return (
             <Layout style={{ minHeight: '100vh' }}>
-                <Sidebar default = "1"/>
+                <Sidebar default = "3"/>
                 <Layout>
-                    <Header style={{ background: '#fff' }}>
-                        <h2>Nouveau Theme</h2>
+                    <Header style={{ background: '#fff' , display:'flex', flexDirection: 'row'}}>
+                        <h2>Create un Profile</h2>
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
                             <Breadcrumb.Item> </Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                            <div style={{display:'flex', flexDirection:'row'}}><div style={{ marginRight:20}}>Image:</div>
                             <Upload
                                 name="avatar"
                                 listType="picture-card"
@@ -183,33 +191,44 @@ class NewTheme extends React.Component {
                                 onChange={this.handleChange}>
                                 {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
                             </Upload>
+                            </div>
                             <Input style = {{width:400, marginBottom:20,marginRight:20}}
                                    addonBefore= 'Nom '
                                    prefix={<p style={{color:'red'}}>*</p>}
                                    allowClear = 'true'
-                                   value={this.state.name}
-                                   onChange = {e=>this.onChangeName(e)}
+                                   value={this.state.lastName}
+                                   onChange = {e=>this.onChangeLastName(e)}
                             />
-                            {/*<Modal*/}
-                                {/*title="Choisir le quiz"*/}
-                                {/*visible={this.state.visible}*/}
-                                {/*onOk={this.handleOk}*/}
-                                {/*onCancel={this.handleCancel}*/}
-                            {/*>*/}
-                                {/*<CheckboxGroup*/}
-                                    {/*options={plainOptions}*/}
-                                    {/*value={this.state.checkedList}*/}
-                                    {/*onChange={this.onChange}*/}
-                                {/*/>*/}
-                            {/*</Modal>*/}
+                            <Input style = {{width:400, marginBottom:20}}
+                                   addonBefore= 'Prénom '
+                                   prefix={<p style={{color:'red'}}>*</p>}
+                                   allowClear = 'true'
+                                   value={this.state.firstName}
+                                   onChange = {e=>this.onChangeFirstName(e)}
+                            />
+                            <h2>Ajouter des quiz disponibles pour l'acceuilli</h2>
+                            <div className="cardContainer">
+                            <Checkbox.Group style={{ width: '100%', display:'flex',flexDirection:'row',flexWrap:'wrap'}} onChange={this.onChange}>
+                                {this.state.quizList.map((item)=>{
+                                    return <div  className="selectQuizCard">
+                                        <Tooltip title={item.questions[0].description}>
+                                        <img src={url+item.src} className="quizIcon"/>
+                                        <p>{item.name}</p>
+                                        <Checkbox value={item.id}/>
+                                        </Tooltip>
+                                    </div>
+                                        })}
+                            </Checkbox.Group>
+                            </div>
+
                         </div>
                     </Content>
                     <Footer style={{display:'flex', justifyContent:'center'}}>
-                        <Button style={{marginBottom:100}} type='primary' onClick={this.sendNewTopic}>Terminer</Button>
+                        <Button style={{marginBottom:100}} type='primary' onClick={this.sendNewProfile}>Terminer</Button>
                     </Footer>
                 </Layout>
             </Layout>
         );
     }
 }
-export default NewTheme;
+export default CreateProfile;

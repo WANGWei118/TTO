@@ -22,8 +22,8 @@ class DetailQuiz extends React.Component {
         checkedList: [],
         questionList: [],
         individuel: [],
-        tangible: [],
-        nonTangible:[],
+        handsTouch: [],
+        handsMove:[],
     };
 
     constructor(props) {
@@ -33,15 +33,15 @@ class DetailQuiz extends React.Component {
 
         this.socket.emit('get all types quiz');
         this.socket.on('all types quiz',(data) => {
-            this.state.individuel= data.individuel;
-            this.state.tangible =data.tangible;
-            this.state.nontangible =data.nonTangible;
+            this.state.individuel= data.personal;
+            this.state.handsTouch =data.collaborative.handsTouch;
+            this.state.handsMove =data.collaborative.handsMove;
             console.log(data);
             console.log(this.state.individuel);
-            console.log(this.state.tangible);
-            console.log(this.state.nonTangible);
+            console.log(this.state.handsTouch);
+            console.log(this.state.handsMove);
             this.setState({
-                questionList: this.state.questionList.concat(this.state.individuel,this.state.tangible,this.state.nonTangible),
+                questionList: this.state.questionList.concat(this.state.individuel,this.state.handsTouch,this.state.handsMove),
             });
             console.log(this.state.questionList);
         });

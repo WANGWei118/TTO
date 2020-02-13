@@ -10,6 +10,7 @@ import openSocket from 'socket.io-client';
 
 const { Header, Content} = Layout;
 const { Meta } = Card;
+const url = "http://10.212.107.151:10000/";
 
 class Profile extends React.Component {
     socket = openSocket;
@@ -34,7 +35,7 @@ class Profile extends React.Component {
                         <Card className="card"
                             hoverable
                             style={{ width: 240 }}
-                            cover={<img alt="photp" src={e.src} />}
+                            cover={<img alt="ph" src={url+e.src} />}
                             actions={[
                                 <Button><Icon type="ellipsis" key="ellipsis" /></Button>,
                             ]}
@@ -43,8 +44,11 @@ class Profile extends React.Component {
                         </Card>,
                     ),
                 });
+                console.log(url+e.src);
 
-            });
+            }
+            );
+
         });
     };
     showModal = () => {
@@ -64,8 +68,11 @@ class Profile extends React.Component {
             <Layout style={{ minHeight: '100vh' }}>
                 <Sidebar default = "3"/>
                 <Layout>
-                    <Header style={{ background: '#fff' }}>
+                    <Header style={{ background: '#fff' , display:'flex', flexDirection: 'row'}}>
                         <h2>Profile</h2>
+                        <Button type="primary" style={{marginTop:15,marginLeft:20}}>
+                            <Link to="/createProfile">+ Créer nouveau profile</Link>
+                        </Button>
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>
@@ -81,12 +88,10 @@ class Profile extends React.Component {
                                             {/*<Link to={`/profile/${e.id}`}>*/}
                                             <Card className="card"
                                                   hoverable
-                                                  cover={<img alt="photo" src={e.src} height={200}/>}
+                                                  cover={<img alt="photo" src={url+e.src} height={200}/>}
                                             >
                                                 <Meta title={e.firstName+' '+e.lastName}
-                                                      description={"Quiz Individuel: "+e.quizAccessible.quizIndividuel
-                                                      + "Quiz Tangible: "+e.quizAccessible.quizTangible
-                                                      + "Quiz Non Tangible: "+e.quizAccessible.quizNonTangible}>
+                                                      description={"Quiz Individuel: "+e.quizAccessible.quizIndividuel}>
                                                 </Meta>
                                             </Card>
                                             {/*</Link>*/}

@@ -147,10 +147,10 @@ class SocketIOServer {
       socket.on('get quizz', (data) => {
         if (data.type === 'table') {
           console.log('Client wants quizz of table')
-          database.sendTableQuiz(socket)
+          database.sendQuizToTable(socket)
         } else {
           console.log('Client wants quizz')
-          database.sendPadQuizz(socket)
+          database.sendQuizToPad(socket)
         }
       })
 

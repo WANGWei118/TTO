@@ -6,12 +6,14 @@ import { BrowserRouter as Router,
     Route,
     Link } from "react-router-dom";
 import '../app.css';
-import { Layout, Breadcrumb, Menu, Icon, Tabs, Button, Input} from 'antd';
+import {List, Layout, Breadcrumb, Menu, Icon, Tabs, Button, Input, Card} from 'antd';
 import NewTheme from '../listOfQuiz/newTheme'
 import DetailQuiz from '../listOfQuiz/detailQuiz'
 const { Header, Content, Footer, } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
+const url = "http://10.212.107.151:10000/";
+const { Meta } = Card;
 
 function callback(key) {
     console.log(key);
@@ -19,14 +21,31 @@ function callback(key) {
 
 class Theme extends React.Component {
     socket = openSocket;
+
     state = {
         current: 'theme',
         visible1: false,
         visible2 :false,
+        topicList: [],
+        test: null,
     };
     constructor(props) {
         super(props);
         this.socket = props.socket;
+
+        this.socket.emit("get topics");
+        this.socket.on("all topics",(data)=>{
+            // let topic = data;
+            // topic.map((e)=>{
+            //     this.setState({
+            //         topicList: this.state.topicList.concat(e.topic),
+            //     });
+            // });
+            this.state.topicList=this.state.topicList.concat(data);
+
+
+            console.log(this.state.topicList);
+        });
         this.renderInput1 = this.renderInput1.bind(this);
         this.addList1 = this.addList1.bind(this);
     }
@@ -62,10 +81,6 @@ class Theme extends React.Component {
         }
     }
 
-    gotoCreateQuiz = () => {
-
-    };
-
     addList1 =() => {
         this.setState({
             visible1: !this.state.visible1,
@@ -92,29 +107,28 @@ class Theme extends React.Component {
                                     </span>
                                 }
                                 key="1">
-                                <Layout style={{ background: '#fff', minHeight: 360, flexDirection: 'row', }}>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button"><Link to="/detailThemeIndividuel">Individuel</Link></Button>
-                                    </div>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button"><Link to="/detailThemeCollaboratif">Collaboratif</Link></Button>
-                                    </div>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button"><Link to="/detailThemeTangible">Tangible</Link></Button>
-                                    </div>
-                                    <div className = "buttonContainer">
-                                        <Button className = "button"><Link to="/detailThemeNonTangible">Non tangible</Link></Button>
-                                    </div>
-                                    {/*<div className = "buttonContainer">*/}
-                                        {/*<Button className = "button"><Link to="/newTheme">+</Link></Button>*/}
-                                        {/*{this.renderInput1()}*/}
-                                    {/*</div>*/}
+                                <Layout style={{ background: '#fff', minHeight: 450, flexDirection: 'row', }}>
+                                    <p>{this.state.topicList.length}</p>
+                                    <List grid={{ gutter: 16, column: 4 }}
+                                          style = {{background: '#aaafff'}}
+                                          dataSource = {this.state.topicList}
+                                          renderItem = {item => (
+
+                                              <List.item>
+                                                  <Card cover={<img alt="photo" src={url+item.icon} />}
+                                                  >
+                                                      <Meta title={item.topic} />
+
+                                                  </Card>
+
+                                              </List.item>
+                                          )}/>
                                 </Layout>
                             </TabPane>
                             <TabPane
                                 tab={
                                     <span>
-                                            <Icon type="ordered-list" />Quiz
+                                            <Icon type="ordered-list" />Tous les quiz
                                     </span>
                                 }
                                 key="2">
