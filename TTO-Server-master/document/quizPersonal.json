@@ -1,0 +1,370 @@
+[
+  {
+    "id": 1,
+    "name": "Quiz fruits",
+    "topic": "fruit",
+    "src": "topics/Fruits.jpg",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Quel fruit est rouge?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Banana",
+            "src": "assets/bananes.png"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 1,
+          "text": "Pomme",
+          "src": "assets/apple.jpg"
+        },
+        "explains": "Pomme est rouge, banane est jeune......"
+      },
+      {
+        "id": 2,
+        "description": "Quel fruit est Jaune?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Banana",
+            "src": "assets/bananes.png"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Banana",
+          "src": "assets/bananes.png"
+        },
+        "explains": "Oui ! La banane est jaune"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Quiz fruits",
+    "src": "topics/Fruits.jpg",
+    "topic": "fruit",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Quel fruit est rouge?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Banana",
+            "src": "assets/bananes.png"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 1,
+          "text": "Pomme",
+          "src": "assets/bananes.jpg"
+        },
+        "explains": "Pomme est rouge, banane est jeune......"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Quiz animaux",
+    "src": "topics/animals.jpg",
+    "topic": "animal",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Où est le chat?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Chat",
+            "src": "assets/cat.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Banana",
+            "src": "assets/bananes.png"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Tiger",
+            "src": "assets/TIGER.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 1,
+          "text": "Chat",
+          "src": "assets/cat.jpg"
+        },
+        "explains": "Le chat un très mignion"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Quiz animaux",
+    "topic": "animal",
+    "src": "topics/animals.jpg",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Quel est le chien?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Chien",
+            "src": "assets/dog1.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Chien",
+          "src": "assets/dog1.jpg"
+        },
+        "explains": "Les chiens sont notre amis!"
+      },
+      {
+        "id": 2,
+        "description": "Quel est le chat?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Chat",
+            "src": "assets/cat.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Chat",
+          "src": "assets/cat.jpg"
+        },
+        "explains": "Les chats sont mignion!"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Quiz musique",
+    "topic": "musique",
+    "src": "topics/animals.jpg",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Quel est le piano?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Piano",
+            "src": "assets/piano.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Violin",
+            "src": "assets/violin.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Piano",
+          "src": "assets/piano.jpg"
+        },
+        "explains": ""
+      },
+      {
+        "id": 2,
+        "description": "Quelle est la guitar?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Pomme",
+            "src": "assets/apple.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Guitar",
+            "src": "assets/guitar.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Bean",
+            "src": "assets/bean.jpeg"
+          },
+          {
+            "id": 4,
+            "text": "Orange",
+            "src": "assets/orange.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Guitar",
+          "src": "assets/guitar.jpg"
+        },
+        "explains": ""
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Quiz couleur",
+    "topic": "couleur",
+    "src": "topics/color.png",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Choisissez Rouge?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Bleu",
+            "src": "assets/bleu.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Rouge",
+            "src": "assets/red.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Vert",
+            "src": "assets/green.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Noir",
+            "src": "assets/black.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Rouge",
+          "src": "assets/red.jpg"
+        },
+        "explains": ""
+      },
+      {
+        "id": 2,
+        "description": "Choisissez Vert?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Bleu",
+            "src": "assets/bleu.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Rouge",
+            "src": "assets/red.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Vert",
+            "src": "assets/green.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Noir",
+            "src": "assets/black.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 3,
+          "text": "Vert",
+          "src": "assets/green.jpg"
+        },
+        "explains": ""
+      }
+    ]
+  }
+]

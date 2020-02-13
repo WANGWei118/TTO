@@ -7,7 +7,7 @@ import HeaderComponent from './HeaderComponent';
 
 const { TabPane } = Tabs;
 const INDIVIDUAL_TYPE = 'quizIndividuel';
-const COLLAB_TYPE = 'quizNonTangible';
+const COLLAB_TYPE = 'quizHandsMove';
 
 const QuizSelector = (props) => {
 
@@ -23,8 +23,8 @@ const QuizSelector = (props) => {
 
     useEffect(() => {
         socket.on('all types quiz', (result) => {
-            setCollabQuiz(result.nonTangible);
-            setIndividualQuiz(result.individuel)
+            setCollabQuiz(result.collaborative.handsMove);
+            setIndividualQuiz(result.personal)
 
             setLoadingCollab(false);
             setLoadingIndividual(false);
@@ -38,6 +38,7 @@ const QuizSelector = (props) => {
     }, [])
 
     const renderList = (data, type) => {
+        console.log(data, type)
 
         if (selectedAccueilli !== null && selectedAccueilli !== undefined) {
             return (

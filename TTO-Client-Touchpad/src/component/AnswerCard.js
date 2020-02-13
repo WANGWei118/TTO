@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import './AnswerCard.css';
-import images from './images';
+import React, { useState } from 'react'
+import './AnswerCard.css'
+import images from './images'
 
-
+const url = 'http://localhost:10000/'
 
 const AnswerCard = (props) => {
     const [hide, setHide] = useState(false);
@@ -15,10 +15,11 @@ const AnswerCard = (props) => {
             setHideClass(hideClass + ' hidden');
         }
     }
-    let imageToDisplay;
+
+    let imageToDisplay
     images.forEach((item) => {
         if (answer.src === item.src) {
-            imageToDisplay = item.title;
+            imageToDisplay = item.title
         }
     }
     )
@@ -30,8 +31,6 @@ const AnswerCard = (props) => {
             </div>
         </>
     )
+
 }
-
-
-
-export default AnswerCard;
+export default AnswerCard

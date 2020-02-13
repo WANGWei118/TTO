@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 
 const INDIVIDUAL_TYPE = 'quizIndividuel';
 let history;
+const url = 'http://localhost:10000/'
 
 const QuizCard = (props) => {
     history = useHistory();
@@ -28,17 +29,17 @@ const QuizCard = (props) => {
     const defaultImage = () => {
         if (topic === 'animal') {
             return (
-                <img className="quizImage" alt="Quiz sur le theme des Animaux" src={"http://192.168.1.11:10000/assets/animals.jpg"} />)
+                <img className="quizImage" alt="Quiz sur le theme des Animaux" src={"http://192.168.182.253:10000/assets/animals.jpg"} />)
         }
         else {
-            return (<img className="quizImage" alt="Quiz sur le theme des Fruits" src={"http://192.168.1.11:10000/assets/Fruits.jpg"} />)
+            return (<img className="quizImage" alt="Quiz sur le theme des Fruits" src={"http://192.168.182.253:10000/assets/Fruits.jpg"} />)
         }
     }
 
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
         <div className="quizCard" onClick={() => handleClick(quiz)}>
-            {quiz.src ? <img className="quizImage"  src={quiz.src} /> :
+            {quiz.src ? <img className="quizImage"  src={url + quiz.src} /> :
                 defaultImage()
             }
 

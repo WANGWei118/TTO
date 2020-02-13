@@ -15,7 +15,7 @@ import {
     Route,
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
-export const socket = openSocket('http://192.168.1.11:10000');
+export const socket = openSocket('http://192.168.182.253:10000');
 
 function App() {
   return (

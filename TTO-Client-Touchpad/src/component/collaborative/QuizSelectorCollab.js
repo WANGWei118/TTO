@@ -12,6 +12,7 @@ const QuizSelectorCollab = props => {
 
     const TANGIBLE = 'tangible';
     const NORMAL = 'normal';
+    const url = 'http://localhost:10000/'
 
     const history = useHistory();
     const socket = props.socket;
@@ -24,8 +25,8 @@ const QuizSelectorCollab = props => {
 
     useEffect(() => {
         socket.on('all types quiz', (result) => {
-            setCollabQuizNormal(result.nonTangible)
-            setCollabQuizTangible(result.tangible)
+            setCollabQuizNormal(result.collaborative.handsMove)
+            setCollabQuizTangible(result.collaborative.handsTouch)
             setLoading(false)
         });
         socket.emit('get all types quiz');
@@ -55,11 +56,11 @@ const QuizSelectorCollab = props => {
         <div>
             <HeaderComponent title="Selectionner un Quiz collaboratif" />
             <Tabs defaultActiveKey="1" type="card">
-                <TabPane tab="Quiz non tangible" key="1">
+                <TabPane tab="Quiz - Les mains bougent" key="1">
                     {loading ? <Spin tip="Chargement" ></Spin> : renderList(collabQuizNormal, NORMAL)}
 
                 </TabPane>
-                <TabPane tab="Quiz tangible" key="2">
+                <TabPane tab="Quiz - les mains touchent" key="2">
                     {loading ? <Spin tip="Chargement" ></Spin> : renderList(collabQuizTangible, TANGIBLE)}
                 </TabPane>
             </Tabs>
