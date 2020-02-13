@@ -48,22 +48,22 @@ const DraggableContainer = props => {
   const handleMouseUp = (e) => {
     setDragging(false)
   }
-
   return (
     <div>
-      <img className='draggableImage' draggable src={url + props.src} style={{position: 'absolute', left: x, top: y}}
-           onMouseMove={(e) => handleMouseMove(e)}
-           onTouchMove={(e) => handleTouchMove(e)}
-           onMouseDown={(e) => handleMouseDown(e)}
-           onTouchStart={(e) => handleMouseDown(e)}
-           onMouseUp={(e) => {
-             props.onValidate(e, props.isAnswer)
-             handleMouseUp(e)
-           }}
-           onTouchEnd={(e) => {
-             props.onValidate(e, props.isAnswer)
-             handleMouseUp(e)
-           }}></img>
+      <img className='draggableImage' draggable src={url + props.src} style={{ position: 'absolute', left: x, top: y }}
+        onMouseMove={(e) => handleMouseMove(e)}
+        onTouchMove={(e) => handleTouchMove(e)}
+        onMouseDown={(e) => handleMouseDown(e)}
+        onTouchStart={(e) => handleMouseDown(e)}
+        onMouseUp={(e) => {
+          props.onValidate(e, props.isAnswer)
+          handleMouseUp(e)
+        }}
+        onTouchEnd={(e) => {
+          props.onValidate(e, props.isAnswer)
+          handleMouseUp(e)
+        }}></img>
+      {/* <h2>{props.name}</h2> */}
     </div>
   )
 }
