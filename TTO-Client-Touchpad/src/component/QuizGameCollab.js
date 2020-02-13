@@ -54,10 +54,9 @@ const QuizGameCollab = props => {
 
                     if (currentQuestion.rightAnswers <= nbRightAnswers + 1) {
                         nextQuestion();
+                    } else {
+                        nbRightAnswers += 1;
                     }
-                    nbRightAnswers += 1;
-                    // setNbRightAnswers(nbRightAnswers + 1);
-
                 }, 2000)
 
             } else {

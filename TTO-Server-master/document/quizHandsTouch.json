@@ -10,6 +10,7 @@
         "id": 1,
         "description": "Trouvez toutes les pommes",
         "rightAnswers": 3,
+        "type": "handsTouch",
         "pictures": [
           {
             "description": "pomme",
@@ -48,6 +49,7 @@
         "description": "Où sont les chiens?",
         "src": "topics/animals.jpg",
         "topic": "animal",
+        "type": "handsTouch",
         "rightAnswers": 3,
         "pictures": [
           {

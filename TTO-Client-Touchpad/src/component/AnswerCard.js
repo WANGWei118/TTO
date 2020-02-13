@@ -5,34 +5,32 @@ import images from './images'
 const url = 'http://localhost:10000/'
 
 const AnswerCard = (props) => {
-  const [hide, setHide] = useState(false)
-  const answer = props.answer
+    const [hide, setHide] = useState(false);
+    const [hideClass, setHideClass] = useState('answerCard');
+    const answer = props.answer
 
-  const hideComponent = () => {
-    if (props.canHide) {
-      setHide(true)
+    const hideComponent = () => {
+        if (props.canHide) {
+
+            setHideClass(hideClass + ' hidden');
+        }
     }
-  }
-  let imageToDisplay
-  images.forEach((item) => {
-      if (answer.src === item.src) {
-        imageToDisplay = item.title
-      }
+
+    let imageToDisplay
+    images.forEach((item) => {
+        if (answer.src === item.src) {
+            imageToDisplay = item.title
+        }
     }
-  )
-  return (
-    <>
-      {hide ? <></> :
-        <div className="answerCard" onClick={() => {
-          props.onClick(answer)
-          hideComponent()
-        }}>
-          <img className="answerCardImage" src={url + answer.src}/>
-          {/* <h2 className="answerName">{answer.text}</h2> */}
-        </div>
-      }
-    </>
-  )
+    )
+    return (
+        <>
+            <div className={hideClass} onClick={() => { props.onClick(answer); hideComponent(); }}>
+                <img className="answerCardImage" src={answer.src} />
+                <h2 className="answerName">{answer.text}</h2>
+            </div>
+        </>
+    )
+
 }
-
 export default AnswerCard

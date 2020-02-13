@@ -1,10 +1,13 @@
 import TUIOWidget from 'tuiomanager/core/TUIOWidget'
 import $ from 'jquery/dist/jquery.min'
 import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
-let des = '';
-let validedAnswers = 0;
+
+let des = ''
+let validedAnswers = 0
+const url = 'http://10.212.107.151:10000/'
+
 class DivWidget extends TUIOWidget {
-  constructor (x, y, width, height, socket) {
+  constructor (x, y, width, height, socket, played, audioSrc) {
     super(x, y, width, height)
     this.socket = socket
     this._domElem = $('<div></div>')
@@ -14,7 +17,8 @@ class DivWidget extends TUIOWidget {
     this._domElem.css('left', `${x}px`)
     this._domElem.css('top', `${y}px`)
     this._domElem.css('fontSize', `50px`)
-    console.log(this._domElem)
+    this.audio = new Audio(url + audioSrc)
+    this.played = played
   }
 
   get domElem () { return this._domElem }
@@ -35,7 +39,19 @@ class DivWidget extends TUIOWidget {
           y: tuioTouch.y,
         },
       }
-     // console.log('hello world')
+      console.log('hello world')
+      this.played = true
+      setTimeout(() => {
+        this._domElem[0].setAttribute('class', 'vanishedNote')
+        setTimeout(() => {
+          this._domElem[0].style.display = 'none'
+        }, 1000)
+      }, 500)
+      if (this.played) {
+        this.audio.play()
+      } else {
+        this.audio.pause()
+      }
     }
   }
 
@@ -70,17 +86,16 @@ class DivWidget extends TUIOWidget {
         newY = WINDOW_HEIGHT - this.height
       }
 
-      this.moveTo(newX, newY)
-      this._lastTouchesValues = {
-        ...this._lastTouchesValues,
-        [tuioTouch.id]: {
-          x: tuioTouch.x,
-          y: tuioTouch.y,
-        },
-      }
+      // this.moveTo(newX, newY)
+      // this._lastTouchesValues = {
+      //   ...this._lastTouchesValues,
+      //   [tuioTouch.id]: {
+      //     x: tuioTouch.x,
+      //     y: tuioTouch.y,
+      //   },
+      // }
     }
   }
-
 
 }
 

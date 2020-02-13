@@ -15,8 +15,9 @@ import {
 import TableSupervisor from './component/collaborative/TableSupervisor';
 import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 import SelectAccueilli from './component/SelectAccueilli';
+import ThemeSelector from './component/ThemeSelector';
 
-export const socket = openSocket('http://localhost:10000');
+export const socket = openSocket('http://10.212.107.151:10000');
 
 const App = () => {
     return (
@@ -28,6 +29,9 @@ const App = () => {
                     <Switch>
                         <Route path="/selectAccueilli">
                             <SelectAccueilli socket={socket} />
+                        </Route>
+                        <Route path="/themes">
+                            <ThemeSelector socket={socket} />
                         </Route>
                         <Route path="/quiz">
                             <QuizSelector socket={socket} />

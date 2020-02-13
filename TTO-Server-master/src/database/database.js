@@ -13,6 +13,7 @@ class Database {
     const topics = require('../../document/topics')
     const quizHandsMove = require('../../document/quizHandsMove')
     const quizHandsTouch = require('../../document/quizHandsTouch')
+    const musics = require('../../document/music')
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       console.log('database created')
@@ -63,6 +64,14 @@ class Database {
       database.collection('profiles').insertMany(profiles, function (err, res) {
         if (err) throw err
         console.log(`inserted profiles:${res.insertedCount}`)
+      })
+
+      /**
+       * insert profiles
+       */
+      database.collection('music').insertMany(musics, function (err, res) {
+        if (err) throw err
+        console.log(`inserted musics:${res.insertedCount}`)
       })
 
     })
@@ -125,7 +134,8 @@ class Database {
       personal: [],
       collaborative: {
         handsMove: [],
-        handsTouch: []
+        handsTouch: [],
+        music: []
       }
     }
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -141,6 +151,11 @@ class Database {
         results.collaborative.handsTouch = result
       })
 
+      dbo.collection('music').find({}).toArray(function (err, result) {
+        if (err) throw err
+        results.collaborative.music = result
+      })
+
       dbo.collection('quizHandsMove').find({}).toArray(function (err, result) {
         if (err) throw err
         results.collaborative.handsMove = result
@@ -154,13 +169,29 @@ class Database {
    * send topics
    * @param socket
    */
-  sendTopics(socket){
+  sendTopics (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
       dbo.collection('topic').find({}).toArray(function (err, result) {
         if (err) throw err
         socket.emit('all topics', result)
+        db.close()
+      })
+    })
+  }
+
+  /**
+   * send music
+   * @param socket
+   */
+  sendMusics (socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      const dbo = db.db('tto')
+      dbo.collection('music').find({}).toArray(function (err, result) {
+        if (err) throw err
+        socket.emit('all music', result)
         db.close()
       })
     })
@@ -241,19 +272,20 @@ class Database {
    * add quiz collaborative
    * @param data
    * @param socket
+   * {type: , quiz: nre colla}
    */
   addQuizCollaborative (data, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
-      if(data.type ==="handsMove"){
+      if (data.type === 'handsMove') {
         dbo.collection('quizHandsMove').insertOne(data.quiz, function (err, res) {
           if (err) throw err
           console.log('quiz quizHandsMove inserted success')
           socket.emit('quiz hands move added', {type: true})
           db.close()
         })
-      }else if(data.type === "handsTouch"){
+      } else if (data.type === 'handsTouch') {
         dbo.collection('quizHandsTouch').insertOne(data.quiz, function (err, res) {
           if (err) throw err
           console.log('quiz quizHandsTouch inserted success')
@@ -283,6 +315,133 @@ class Database {
   }
 
   /**
+   * update topic
+   * {quiz: quiz, id: topicId}
+   *  "quiz": {
+      "personalQuiz": [
+        3,
+        4
+      ],
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
+    }
+   */
+  updateTopics (quiz, topicId, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: topicId}
+      var updateQuiz = {$set: {quiz: quiz}}
+      dbo.collection('topic').updateOne(searchId, updateQuiz, function (err, res) {
+        if (err) throw err
+        console.log('Update topic success')
+        db.close()
+      })
+    })
+  }
+
+  /**
+   *
+   * @param quizId
+   * @param type
+   * {
+   *   id: 1,
+   *   type: 'handsMove'/'handsTouch'/'personal'
+   * }
+   */
+  deleteQuiz (quizId, type) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: quizId}
+
+      if (type === 'personal') {
+        dbo.collection('personalQuiz').deleteOne(searchId, function (err, res) {
+          if (err) throw err
+          console.log('Delete personal quiz success')
+          db.close()
+        })
+      } else if (type === 'handsMove') {
+        dbo.collection('quizHandsMove').deleteOne(searchId, function (err, res) {
+          if (err) throw err
+          console.log('Delete quizHandsMove success')
+          db.close()
+        })
+      } else if (type === 'handsTouch') {
+        dbo.collection('quizHandsTouch').deleteOne(searchId, function (err, res) {
+          if (err) throw err
+          console.log('Delete quizHandsTouch success')
+          db.close()
+        })
+      }
+    })
+  }
+
+  updateQuiz (quizId, type, quiz) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: quizId}
+      var updateQuiz = {$set: {quiz: quiz}}
+      if (type === 'personal') {
+        dbo.collection('personalQuiz').updateOne(searchId, updateQuiz, function (err, res) {
+          if (err) throw err
+          console.log('Update personal quiz success')
+          db.close()
+        })
+      } else if (type === 'handsMove') {
+        dbo.collection('quizHandsMove').updateOne(searchId, updateQuiz, function (err, res) {
+          if (err) throw err
+          console.log('Update quizHandsMove success')
+          db.close()
+        })
+      } else if (type === 'handsTouch') {
+        dbo.collection('quizHandsTouch').updateOne(searchId, updateQuiz, function (err, res) {
+          if (err) throw err
+          console.log('Update quizHandsTouch success')
+          db.close()
+        })
+      }
+    })
+  }
+
+  /**
+   *
+   * @param topicId
+   */
+  deleteTopic (topicId) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: topicId}
+      dbo.collection('topic').deleteOne(searchId, function (err, res) {
+        if (err) throw err
+        console.log('Delete a topic success')
+        db.close()
+      })
+    })
+  }
+
+  /**
+   *
+   * @param profileId
+   */
+  deleteProfile (profileId) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: profileId}
+      dbo.collection('profiles').deleteOne(searchId, function (err, res) {
+        if (err) throw err
+        console.log('Delete a profile success')
+        db.close()
+      })
+    })
+  }
+
+  /**
    *
    */
   closeDatabases () {
@@ -296,4 +455,5 @@ class Database {
     })
   }
 }
+
 module.exports = new Database()
