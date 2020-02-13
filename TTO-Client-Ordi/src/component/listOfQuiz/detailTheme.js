@@ -33,7 +33,7 @@ class DetailTheme extends React.Component {
         this.type = props.type;
         if(this.type === 'individuel') {
             this.socket.emit('get quizz','pad');
-            this.socket.on('all quizz',(data) => {
+            this.socket.on('personal quiz',(data) => {
                 this.setState({
                     quizList: data,
                 });

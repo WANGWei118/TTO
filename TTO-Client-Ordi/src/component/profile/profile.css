@@ -1,2 +1,18 @@
-.card {
+.cardContainer {
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.selectQuizCard {
+    height: 20%;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    margin:20px;
+    text-align: center;
+}
+
+.quizIcon {
+    height: 100px;
+    width: 100%;
 }

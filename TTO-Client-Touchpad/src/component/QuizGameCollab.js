@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import './QuizGameCollab.css'
 import DraggableContainer from './individuel/DraggableContainer';
 import { useHistory } from 'react-router-dom';
+import HeaderComponent from './HeaderComponent';
 const nextArrow = require('./../assets/right_arrow.png')
 const home_menu = require('./../assets/home_menu.png')
 const restarto = require('./../assets/reload_icon.jpg')
@@ -82,6 +83,9 @@ const QuizGameCollab = props => {
 
 
     useEffect(() => {
+        window.addEventListener('touchmove', function (event) {
+            event.preventDefault()
+        }, { passive: false })
         setCentralDiv(document.getElementsByClassName('centralDiv')[0]);
         nbRightAnswers = 0;
     }, [isOver])
@@ -115,25 +119,27 @@ const QuizGameCollab = props => {
                 </div>
             </>
                 :
-                <div className="quizGameCollab">
-                    <div className="centralDiv">
-                        <div className="check_mark">
-                            <div className="sa-icon sa-success animate hide" style={style}>
-                                <span className="sa-line sa-tip animateSuccessTip"></span>
-                                <span className="sa-line sa-long animateSuccessLong"></span>
-                                <div className="sa-placeholder"></div>
-                                <div className="sa-fix"></div>
+                <>
+                    <div className="quizGameCollab">
+                        <div className="centralDiv">
+                            <div className="check_mark">
+                                <div className="sa-icon sa-success animate hide" style={style}>
+                                    <span className="sa-line sa-tip animateSuccessTip"></span>
+                                    <span className="sa-line sa-long animateSuccessLong"></span>
+                                    <div className="sa-placeholder"></div>
+                                    <div className="sa-fix"></div>
+                                </div>
                             </div>
+                            <p className='collabQuizDescription'>
+                                {currentQuestion.description}</p>
                         </div>
-                        <p className='collabQuizDescription'>
-                            {currentQuestion.description}</p>
+                        {currentQuestion.pictures.map((item) => {
+                            return (
+                                <DraggableContainer key={Math.random()} src={item.src} isAnswer={item.isAnswer} onValidate={(element, isAnswer) => validatePosition(element, isAnswer)} />
+                            )
+                        })}
                     </div>
-                    {currentQuestion.pictures.map((item) => {
-                        return (
-                            <DraggableContainer key={Math.random()} src={item.src} isAnswer={item.isAnswer} onValidate={(element, isAnswer) => validatePosition(element, isAnswer)} />
-                        )
-                    })}
-                </div>
+                </>
             }
 
         </>

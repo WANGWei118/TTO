@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Button, Result, Icon, } from 'antd'
+import HeaderComponent from '../HeaderComponent'
 
 
 const TableSupervisor = props => {
@@ -49,6 +50,7 @@ const TableSupervisor = props => {
 
   return (
     <div>
+      <HeaderComponent title="" />
       <Result
         icon={<Icon type="smile" theme="twoTone" />}
         title="C'est leur bon moment!"

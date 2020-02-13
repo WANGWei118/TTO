@@ -8,6 +8,7 @@ import DetailTheme from './component/listOfQuiz/detailTheme'
 import DetailQuiz from './component/listOfQuiz/detailQuiz'
 import Profile from './component/profile/profile'
 import DetailProfile from './component/profile/detailProfile'
+import CreateProfile from './component/profile/createProfile'
 
 import {
     BrowserRouter as Router,
@@ -15,7 +16,7 @@ import {
     Route,
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
-export const socket = openSocket('http://localhost:10000');
+export const socket = openSocket('http://10.212.107.151:10000');
 
 function App() {
   return (
@@ -53,6 +54,9 @@ function App() {
                   </Route>
                   <Route path="/profile">
                       <Profile socket = {socket}/>
+                  </Route>
+                  <Route path="/createProfile">
+                      <CreateProfile socket = {socket}/>
                   </Route>
 
                   <Route path="/">

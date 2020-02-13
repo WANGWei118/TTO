@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './DraggableContainer.css'
 
 const DraggableContainer = props => {
-  const url = 'http://localhost:10000/'
+  const url = 'http://10.212.107.151:10000/'
 
   const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80))
   const [y, setY] = useState(window.innerHeight * 0.80)
@@ -24,6 +24,7 @@ const DraggableContainer = props => {
   }
 
   const handleTouchMove = (e) => {
+    e.stopPropagation();
     if (dragging) {
 
       setX(x + e.touches[0].clientX - previousCursorPosX)
@@ -31,6 +32,7 @@ const DraggableContainer = props => {
 
       setPreviousCursorPosX(e.touches[0].clientX)
       setPreviousCursorPosY(e.touches[0].clientY)
+
     }
   }
 
@@ -48,22 +50,22 @@ const DraggableContainer = props => {
   const handleMouseUp = (e) => {
     setDragging(false)
   }
-
   return (
     <div>
-      <img className='draggableImage' draggable src={url + props.src} style={{position: 'absolute', left: x, top: y}}
-           onMouseMove={(e) => handleMouseMove(e)}
-           onTouchMove={(e) => handleTouchMove(e)}
-           onMouseDown={(e) => handleMouseDown(e)}
-           onTouchStart={(e) => handleMouseDown(e)}
-           onMouseUp={(e) => {
-             props.onValidate(e, props.isAnswer)
-             handleMouseUp(e)
-           }}
-           onTouchEnd={(e) => {
-             props.onValidate(e, props.isAnswer)
-             handleMouseUp(e)
-           }}></img>
+      <img className='draggableImage' draggable src={url + props.src} style={{ position: 'absolute', left: x, top: y }}
+        onMouseMove={(e) => handleMouseMove(e)}
+        onTouchMove={(e) => handleTouchMove(e)}
+        onMouseDown={(e) => handleMouseDown(e)}
+        onTouchStart={(e) => handleMouseDown(e)}
+        onMouseUp={(e) => {
+          props.onValidate(e, props.isAnswer)
+          handleMouseUp(e)
+        }}
+        onTouchEnd={(e) => {
+          props.onValidate(e, props.isAnswer)
+          handleMouseUp(e)
+        }}></img>
+      {/* <h2>{props.name}</h2> */}
     </div>
   )
 }
