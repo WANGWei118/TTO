@@ -227,7 +227,7 @@
     "id": 5,
     "name": "Quiz musique",
     "topic": "musique",
-    "src": "topics/animals.jpg",
+    "src": "topics/instruments.jpg",
     "questions": [
       {
         "id": 1,

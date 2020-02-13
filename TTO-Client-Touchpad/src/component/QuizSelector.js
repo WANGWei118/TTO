@@ -40,12 +40,6 @@ const QuizSelector = (props) => {
 
     const renderList = (data, type) => {
         console.log(data, type)
-
-        console.log(topicSelected)
-        console.log(topicSelected)
-        console.log(topicSelected)
-        console.log(topicSelected)
-
         if (selectedAccueilli !== null && selectedAccueilli !== undefined) {
             return (
                 <>
