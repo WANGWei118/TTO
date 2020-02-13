@@ -16,6 +16,7 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
+var timer = null
 
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
@@ -29,48 +30,75 @@ socketIOClient.getMessage()
 let quizLancez = false
 const imageWidgets = []
 let quiz = null
-const positions = []
+const positions = [
+  {x: 150, y: 150},
+  {x: 150, y: 350},
+  {x: 150, y: 500},
+  {x: 150, y: 650},
+  {x: 150, y: 800},
+  {x: 350, y: 150},
+  {x: 500, y: 150},
+  {x: 650, y: 150},
+  {x: 800, y: 150},
+  {x: 950, y: 150},
+  {x: 1100, y: 150},
+  {x: 1100, y: 350},
+  {x: 1100, y: 500},
+  {x: 1100, y: 650},
+  {x: 1100, y: 800},
+]
 let rightAnswer = 0
 let rightAnswersNum = 0
+let isElse = false
+let randedPosition = []
 
 /* App Code */
 const buildApp = () => {
   wait()
   socketIOClient._client.on('fun quiz start', (data) => {
     console.log(data)
+    isElse = false
+    $('#app').empty()
     forConentration(data.src)
     quizLancez = true
   })
 
   socketIOClient._client.on('start quiz collaborative', (data) => {
+    console.log(data)
     quizLancez = true
+    clearInterval(timer)
     quiz = data
     rightAnswer = 0
     rightAnswersNum = data.rightAnswers
-    console.log(data)
+    isElse = true
     $('#app').empty()
       .append(nonTangibleDiv(data.pictures.length, data.pictures, data.description))
   })
 
   socketIOClient._client.on('quiz tangible', (data) => {
     rightAnswer = 0
+    clearInterval(timer)
     rightAnswersNum = data.rightAnswers
+    isElse = true
     console.log(data)
     $('#app').empty()
       .append(imageDiv(data.pictures.length, data.pictures, data.description))
   })
 
   socketIOClient._client.on('next question', (data) => {
-    if (data.type === 'tangible') {
+    console.log(data)
+    if (data.type === 'handsTouch') {
       rightAnswer = 0
       rightAnswersNum = data.rightAnswers
       console.log('Tangible')
+      isElse = true
       $('#app').empty()
         .append(imageDiv(data.pictures.length, data.pictures, data.description))
     } else {
       rightAnswer = 0
       rightAnswersNum = data.rightAnswers
       console.log('Non tangible')
+      isElse = true
       $('#app').empty()
         .append(nonTangibleDiv(data.pictures.length, data.pictures, data.description))
     }
@@ -124,55 +152,47 @@ function imageDiv (picNum, pics, title) {
   titleBottom.innerText = title
   titleLeft.innerText = title
   titleRight.innerText = title
-  var acount = 1
+  randedPosition = getRandomPosition(picNum)
   for (let i = 0; i < picNum; i++) {
-    //   if (acount <= 3) {
-    //     const imageWidget1 = new ImageTouchWidget(acount * 300, 150, 150, 150, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
-    //     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    //     acount++
-    //     $('#app').append(imageWidget1.domElem)
-    //   } else {
-    //     const imageWidget2 = new ImageTouchWidget((acount - 3) * 300, 450, 150, 150, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
-    //     imageWidget2.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    //     acount++
-    //     $('#app').append(imageWidget2.domElem)
-    //   }
-    const image = document.createElement('img')
-    image.src = pics[i].src
-    image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    image.setAttribute('class', 'images')
-    image.addEventListener('click', () => {
-      console.log(pics[i])
-      if (pics[i].isAnswer === true) {
-        rightAnswer++
-        if (rightAnswer === rightAnswersNum) {
-          // socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
-          finished()
-          rightAnswersNum = 0
-          rightAnswer = 0
-          // socketIOClient._client.emit(NEXT_QUESTION, {type: 'tangible'})
-        }
-        image.style.display = 'none'
-        var bravo = document.createElement('h1')
-        bravo.setAttribute('class', 'information')
-        bravo.innerText = 'Bravo'
-        imageDiv.append(bravo)
-        setTimeout(() => {
-          imageDiv.removeChild(bravo)
-        }, 2000)
-      } else {
-        console.log('Essayez encore!')
-        image.style.display = 'none'
-        var again = document.createElement('h1')
-        again.setAttribute('class', 'information')
-        again.innerText = 'Essayez encore'
-        imageDiv.append(again)
-        setTimeout(() => {
-          imageDiv.removeChild(again)
-        }, 2000)
-      }
-    })
-    imageDiv.append(image)
+    const imageWidget1 = new ImageTouchWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+    imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    $('#app').append(imageWidget1.domElem)
+    //   const image = document.createElement('img')
+    //   image.src = pics[i].src
+    //   image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    //   image.setAttribute('class', 'images')
+    //   image.addEventListener('click', () => {
+    //     console.log(pics[i])
+    //     if (pics[i].isAnswer === true) {
+    //       rightAnswer++
+    //       if (rightAnswer === rightAnswersNum) {
+    //         // socketIOClient._client.emit(QUIZ_FINISHED, {type: 'tangible'})
+    //         finished()
+    //         rightAnswersNum = 0
+    //         rightAnswer = 0
+    //         // socketIOClient._client.emit(NEXT_QUESTION, {type: 'tangible'})
+    //       }
+    //       image.style.display = 'none'
+    //       var bravo = document.createElement('h1')
+    //       bravo.setAttribute('class', 'information')
+    //       bravo.innerText = 'Bravo'
+    //       imageDiv.append(bravo)
+    //       setTimeout(() => {
+    //         imageDiv.removeChild(bravo)
+    //       }, 2000)
+    //     } else {
+    //       console.log('Essayez encore!')
+    //       image.style.display = 'none'
+    //       var again = document.createElement('h1')
+    //       again.setAttribute('class', 'information')
+    //       again.innerText = 'Essayez encore'
+    //       imageDiv.append(again)
+    //       setTimeout(() => {
+    //         imageDiv.removeChild(again)
+    //       }, 2000)
+    //     }
+    //   })
+    //   imageDiv.append(image)
   }
   imageDiv.append(titleTop, titleBottom, titleLeft, titleRight)
   return imageDiv
@@ -195,9 +215,10 @@ function nonTangibleDiv (picNum, pic, title) {
   titleBottom.innerText = title
   titleLeft.innerText = title
   titleRight.innerText = title
+  randedPosition = getRandomPosition(picNum)
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageWidget(0, i * 300, 150, 150, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
+    const imageWidget1 = new ImageWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
   }
@@ -300,55 +321,57 @@ function contretration () {
  */
 
 function forConentration (audioSrc) {
-  var titleTop = document.createElement('h1')
-  var titleBottom = document.createElement('h1')
-  var titleLeft = document.createElement('h1')
-  var titleRight = document.createElement('h1')
-  titleTop.setAttribute('class', 'titleT')
-  titleBottom.setAttribute('class', 'titleB')
-  titleLeft.setAttribute('class', 'titleL')
-  titleRight.setAttribute('class', 'titleR')
-  titleTop.innerText = 'Jouez avec les notes'
-  titleBottom.innerText = 'Jouez avec les notes'
-  titleLeft.innerText = 'Jouez avec les notes'
-  titleRight.innerText = 'Jouez avec les notes'
-  var audio = new Audio('assets/lemon.mp3')
-  $('#app').append(titleTop, titleBottom, titleLeft, titleRight)
-  setInterval(() => {
-    var top = random(400, windowsHeight - 400)
-    var left = random(400, windowsWidth - 400)
-    const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false, audioSrc)
-    imageWidget.domElem[0].setAttribute('class', 'noteClass')
-    var image = document.createElement('img')
-    image.setAttribute('class', 'note')
-    image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
-    var pictureId = random(1, 8)
-    image.src = 'assets/' + pictureId + '.svg'
-    // image.addEventListener('click', () => {
-    //   console.log('hello')
-    //   played = true
-    //   setTimeout(() => {
-    //     imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
-    //     setTimeout(() => {
-    //       imageWidget.domElem[0].style.display = 'none'
-    //     }, 1000)
-    //   }, 500)
-    // })
-    // if (played) {
-    //   audio.play()
-    // } else {
-    //   audio.pause()
-    // }
-    imageWidget.domElem[0].append(image)
-    $('#app').append(imageWidget.domElem)
-    setTimeout(() => {
-      imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+  if (!isElse) {
+    var titleTop = document.createElement('h1')
+    var titleBottom = document.createElement('h1')
+    var titleLeft = document.createElement('h1')
+    var titleRight = document.createElement('h1')
+    titleTop.setAttribute('class', 'titleT')
+    titleBottom.setAttribute('class', 'titleB')
+    titleLeft.setAttribute('class', 'titleL')
+    titleRight.setAttribute('class', 'titleR')
+    titleTop.innerText = 'Jouez avec les notes'
+    titleBottom.innerText = 'Jouez avec les notes'
+    titleLeft.innerText = 'Jouez avec les notes'
+    titleRight.innerText = 'Jouez avec les notes'
+    var audio = new Audio('assets/lemon.mp3')
+    $('#app').append(titleTop, titleBottom, titleLeft, titleRight)
+    timer = setInterval(() => {
+      var top = random(400, windowsHeight - 400)
+      var left = random(400, windowsWidth - 400)
+      const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false, audioSrc)
+      imageWidget.domElem[0].setAttribute('class', 'noteClass')
+      var image = document.createElement('img')
+      image.setAttribute('class', 'note')
+      image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
+      var pictureId = random(1, 8)
+      image.src = 'assets/' + pictureId + '.svg'
+      imageWidget.domElem[0].append(image)
+      $('#app').append(imageWidget.domElem)
       setTimeout(() => {
-        imageWidget.domElem[0].style.display = 'none'
+        imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+        setTimeout(() => {
+          imageWidget.domElem[0].style.display = 'none'
+        }, 3000)
       }, 3000)
+      imageWidget.played = false
     }, 3000)
-    imageWidget.played = false
-  }, 3000)
+  }
+
+}
+
+function getRandomPosition (num) {
+  var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  var out = []
+  let i = 0
+  while (i < num) {
+    var index = parseInt(Math.random() * arr1.length)
+    out = out.concat(arr1.splice(index, 1))
+    // out = out.concat(positions.splice(index, 1))
+    i++
+  }
+  console.log(out)
+  return out
 }
 
 

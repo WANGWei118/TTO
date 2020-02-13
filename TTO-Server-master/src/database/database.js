@@ -316,6 +316,17 @@ class Database {
 
   /**
    * update topic
+   * {quiz: quiz, id: topicId}
+   *  "quiz": {
+      "personalQuiz": [
+        3,
+        4
+      ],
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
+    }
    */
   updateTopics (quiz, topicId, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {

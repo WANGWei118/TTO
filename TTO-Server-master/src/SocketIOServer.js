@@ -267,6 +267,7 @@ class SocketIOServer {
       })
 
       socket.on('update topic', (data) => {
+        console.log(data)
         database.updateTopics(data.quiz, data.id, socket)
       })
 
