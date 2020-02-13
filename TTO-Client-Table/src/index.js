@@ -36,7 +36,7 @@ let rightAnswersNum = 0
 /* App Code */
 const buildApp = () => {
   // wait()
-  contretration()
+  forConentration()
 
   socketIOClient._client.on('start quiz collaborative', (data) => {
     quizLancez = true
@@ -241,6 +241,7 @@ function finished () {
 //   height: 400px;
 //   top: 0;
 // }
+/*
 function contretration () {
   var titleTop = document.createElement('h1')
   var titleBottom = document.createElement('h1')
@@ -290,6 +291,59 @@ function contretration () {
       }, 3000)
     }, 3000)
     played = false
+  }, 3000)
+}
+ */
+
+function forConentration () {
+  var titleTop = document.createElement('h1')
+  var titleBottom = document.createElement('h1')
+  var titleLeft = document.createElement('h1')
+  var titleRight = document.createElement('h1')
+  titleTop.setAttribute('class', 'titleT')
+  titleBottom.setAttribute('class', 'titleB')
+  titleLeft.setAttribute('class', 'titleL')
+  titleRight.setAttribute('class', 'titleR')
+  titleTop.innerText = 'Jouez avec les notes'
+  titleBottom.innerText = 'Jouez avec les notes'
+  titleLeft.innerText = 'Jouez avec les notes'
+  titleRight.innerText = 'Jouez avec les notes'
+  var audio = new Audio('assets/lemon.mp3')
+  $('#app').append(titleTop, titleBottom, titleLeft, titleRight)
+  setInterval(() => {
+    var top = random(400, windowsHeight - 400)
+    var left = random(400, windowsWidth - 400)
+    const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false)
+    imageWidget.domElem[0].setAttribute('class', 'noteClass')
+    var image = document.createElement('img')
+    image.setAttribute('class', 'note')
+    image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
+    var pictureId = random(1, 8)
+    image.src = 'assets/' + pictureId + '.svg'
+    // image.addEventListener('click', () => {
+    //   console.log('hello')
+    //   played = true
+    //   setTimeout(() => {
+    //     imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+    //     setTimeout(() => {
+    //       imageWidget.domElem[0].style.display = 'none'
+    //     }, 1000)
+    //   }, 500)
+    // })
+    // if (played) {
+    //   audio.play()
+    // } else {
+    //   audio.pause()
+    // }
+    imageWidget.domElem[0].append(image)
+    $('#app').append(imageWidget.domElem)
+    setTimeout(() => {
+      imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+      setTimeout(() => {
+        imageWidget.domElem[0].style.display = 'none'
+      }, 3000)
+    }, 3000)
+    imageWidget.played = false
   }, 3000)
 }
 
