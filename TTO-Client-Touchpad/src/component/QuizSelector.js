@@ -17,7 +17,8 @@ const QuizSelector = (props) => {
     const [loadingCollab, setLoadingCollab] = useState(true);
     const [individualQuiz, setIndividualQuiz] = useState(null);
     const [collabQuiz, setCollabQuiz] = useState(null);
-    const selectedAccueilli = useSelector((state) => state.selected)
+    const selectedAccueilli = useSelector((state) => state.accueilli.accueilliSelected)
+    const topicSelected = useSelector((state) => state.topic.topicSelected);
 
 
 
@@ -40,12 +41,17 @@ const QuizSelector = (props) => {
     const renderList = (data, type) => {
         console.log(data, type)
 
+        console.log(topicSelected)
+        console.log(topicSelected)
+        console.log(topicSelected)
+        console.log(topicSelected)
+
         if (selectedAccueilli !== null && selectedAccueilli !== undefined) {
             return (
                 <>
                     {data.map((item) => {
                         if (type === 'quizIndividuel') {
-                            if (selectedAccueilli.tempSelectedAccueilli.quizAccessible[type].includes(item.id)) {
+                            if (selectedAccueilli.tempSelectedAccueilli.quizAccessible[type].includes(item.id) && topicSelected.topic === item.topic) {
                                 return (
                                     <QuizCard key={item._id} quiz={item} type={type} />
                                 )
@@ -53,9 +59,13 @@ const QuizSelector = (props) => {
                                 return (null);
                             }
                         } else {
-                            return (
-                                <QuizCard key={item._id} quiz={item} type={type} />
-                            )
+                            if (topicSelected.topic === item.topic) {
+                                return (
+                                    <QuizCard key={item._id} quiz={item} type={type} />
+                                )
+                            } else {
+                                return (null);
+                            }
                         }
                     })}
                 </>
