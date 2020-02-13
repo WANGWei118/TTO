@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 
 const INDIVIDUAL_TYPE = 'quizIndividuel';
 let history;
-const url = 'http://10.212.107.151:10000/'
+const url = 'http://192.168.182.29:10000/'
 
 const QuizCard = (props) => {
     history = useHistory();
@@ -30,10 +30,10 @@ const QuizCard = (props) => {
     const defaultImage = () => {
         if (topic === 'animal') {
             return (
-                <img className="quizImage" alt="Quiz sur le theme des Animaux" src={"http://10.212.107.151:10000/assets/animals.jpg"} />)
+                <img className="quizImage" alt="Quiz sur le theme des Animaux" src={"http://192.168.182.29:10000/assets/animals.jpg"} />)
         }
         else {
-            return (<img className="quizImage" alt="Quiz sur le theme des Fruits" src={"http://10.212.107.151:10000/assets/Fruits.jpg"} />)
+            return (<img className="quizImage" alt="Quiz sur le theme des Fruits" src={"http://192.168.182.29:10000/assets/Fruits.jpg"} />)
         }
     }
 
