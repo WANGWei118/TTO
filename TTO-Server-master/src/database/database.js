@@ -169,7 +169,7 @@ class Database {
    * send topics
    * @param socket
    */
-  sendTopics(socket){
+  sendTopics (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
@@ -185,7 +185,7 @@ class Database {
    * send music
    * @param socket
    */
-  sendMusics(socket){
+  sendMusics (socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       const dbo = db.db('tto')
@@ -278,14 +278,14 @@ class Database {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
-      if(data.type ==="handsMove"){
+      if (data.type === 'handsMove') {
         dbo.collection('quizHandsMove').insertOne(data.quiz, function (err, res) {
           if (err) throw err
           console.log('quiz quizHandsMove inserted success')
           socket.emit('quiz hands move added', {type: true})
           db.close()
         })
-      }else if(data.type === "handsTouch"){
+      } else if (data.type === 'handsTouch') {
         dbo.collection('quizHandsTouch').insertOne(data.quiz, function (err, res) {
           if (err) throw err
           console.log('quiz quizHandsTouch inserted success')
@@ -344,6 +344,105 @@ class Database {
 
   /**
    *
+   * @param quizId
+   * @param type
+   * {
+   *   id: 1,
+   *   type: 'handsMove'/'handsTouch'/'personal'
+   * }
+   */
+  deleteQuiz (quizId, type) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: quizId}
+
+      if (type === 'personal') {
+        dbo.collection('personalQuiz').deleteOne(searchId, function (err, res) {
+          if (err) throw err
+          console.log('Delete personal quiz success')
+          db.close()
+        })
+      } else if (type === 'handsMove') {
+        dbo.collection('quizHandsMove').deleteOne(searchId, function (err, res) {
+          if (err) throw err
+          console.log('Delete quizHandsMove success')
+          db.close()
+        })
+      } else if (type === 'handsTouch') {
+        dbo.collection('quizHandsTouch').deleteOne(searchId, function (err, res) {
+          if (err) throw err
+          console.log('Delete quizHandsTouch success')
+          db.close()
+        })
+      }
+    })
+  }
+
+  updateQuiz (quizId, type, quiz) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: quizId}
+      var updateQuiz = {$set: {quiz: quiz}}
+      if (type === 'personal') {
+        dbo.collection('personalQuiz').updateOne(searchId, updateQuiz, function (err, res) {
+          if (err) throw err
+          console.log('Update personal quiz success')
+          db.close()
+        })
+      } else if (type === 'handsMove') {
+        dbo.collection('quizHandsMove').updateOne(searchId, updateQuiz, function (err, res) {
+          if (err) throw err
+          console.log('Update quizHandsMove success')
+          db.close()
+        })
+      } else if (type === 'handsTouch') {
+        dbo.collection('quizHandsTouch').updateOne(searchId, updateQuiz, function (err, res) {
+          if (err) throw err
+          console.log('Update quizHandsTouch success')
+          db.close()
+        })
+      }
+    })
+  }
+
+  /**
+   *
+   * @param topicId
+   */
+  deleteTopic (topicId) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: topicId}
+      dbo.collection('topic').deleteOne(searchId, function (err, res) {
+        if (err) throw err
+        console.log('Delete a topic success')
+        db.close()
+      })
+    })
+  }
+
+  /**
+   *
+   * @param profileId
+   */
+  deleteProfile (profileId) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: profileId}
+      dbo.collection('profiles').deleteOne(searchId, function (err, res) {
+        if (err) throw err
+        console.log('Delete a profile success')
+        db.close()
+      })
+    })
+  }
+
+  /**
+   *
    */
   closeDatabases () {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
@@ -356,4 +455,5 @@ class Database {
     })
   }
 }
+
 module.exports = new Database()

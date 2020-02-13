@@ -271,6 +271,25 @@ class SocketIOServer {
         database.updateTopics(data.quiz, data.id, socket)
       })
 
+      socket.on('delete profile', (data) => {
+        console.log('delete profile', data)
+        database.deleteProfile(data.id)
+      })
+
+      socket.on('delete topic', (data) => {
+        console.log('delete profile', data)
+        database.deleteTopic(data.id)
+      })
+
+      socket.on('delete quiz', (data) => {
+        console.log('delete quiz', data)
+        database.deleteQuiz(data.id, data.type)
+      })
+
+      socket.on('modify quiz', (data) => {
+        console.log('modify quiz', data)
+      })
+
       socket.on('disconnect', () => {
         console.info('Socket.IO Client disconnected : ', socket.id)
         this.disconnectClient(socket)
