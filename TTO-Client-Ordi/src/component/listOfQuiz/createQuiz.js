@@ -53,7 +53,7 @@ function beforeUpload (file) {
 
 class CreateQuiz extends React.Component {
     socket = openSocket;
-    quizList = [];
+    quizList = null;
     cheminPic = [];
     prefix = null;
     state = {
@@ -121,6 +121,7 @@ class CreateQuiz extends React.Component {
         this.socket.on('all types quiz',(data) => {
             this.quizList = data;
             console.log(this.quizList);
+            console.log(this.quizList.individuel.length);
         });
         this.socket.on('quiz added',(type) =>{
             if (type.type === true){
@@ -167,11 +168,12 @@ class CreateQuiz extends React.Component {
 
     getId = () => {
         let id = 0;
-        for(let i = 0; i < this.quizList.length; i++) {
+        for(let i = 0; i < this.quizList.individuel.length; i++) {
             if (this.quizList[i].id > id) {
                 id = this.quizList[i].id;
             }
         }
+        console.log(id);
         return id;
     };
 
@@ -730,9 +732,9 @@ class CreateQuiz extends React.Component {
                 this.state.accList.map((acc)=>{
                     if (e.toString() === acc.id.toString()) {
                         sendAcc.push({
-                            id: e,
+                            id: acc.id,
                             quizAccessible: {
-                                quizIndividuel: acc.quizAccessible.quizIndividuel.concat("10"),
+                                quizIndividuel: acc.quizAccessible.quizIndividuel.concat(this.quizList.individuel.length+1),
                                 quizTangible:acc.quizAccessible.quizTangible,
                                 quizNonTangible:acc.quizAccessible.quizNonTangible,
                             }
@@ -757,7 +759,7 @@ class CreateQuiz extends React.Component {
 
             });
             const newQuiz = {
-                id: "10",
+                id: this.quizList.individuel.length+1,
                 name: this.state.name,
                 topic: this.state.theme,
                 questions: this.state.checkedQuestion,
@@ -806,6 +808,7 @@ class CreateQuiz extends React.Component {
                 });
             }else{
                 this.socket.emit('add quiz collaborative', newColla);
+
             }
         }
     };
@@ -912,7 +915,7 @@ class CreateQuiz extends React.Component {
                                                  value={this.state.tangible}
                                                  style = {{marginBottom:20,marginLeft:10}}>
                                         <Radio value={'tangible'}>Tangible</Radio>
-                                        <Radio value={'nonTangible'}>Non tangible</Radio>
+                                        <Radio value={'nonTangible'}>Drag and Drop</Radio>
                                     </Radio.Group>
                                 </div>
                             : null}
@@ -1106,7 +1109,7 @@ class CreateQuiz extends React.Component {
                                                onChange = {e=>this.onChangeRes2(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
-                                        <Bu  tton icon="picture"
+                                        <Button icon="picture"
                                                 style={{marginRight:30}}
                                                 onClick={this.addPic2} />
                                         Bonne Résponse
