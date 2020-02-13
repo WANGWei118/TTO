@@ -69,9 +69,13 @@ const QuizSelector = (props) => {
             return (
                 <>
                     {data.map((item) => {
-                        return (
-                            <QuizCard key={item._id} quiz={item} type={type} />
-                        )
+                        if (topicSelected.topic === item.topic) {
+                            return (
+                                <QuizCard key={item._id} quiz={item} type={type} />
+                            )
+                        } else {
+                            return (null);
+                        }
                     })}
                 </>
             )
