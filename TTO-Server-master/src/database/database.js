@@ -13,6 +13,7 @@ class Database {
     const topics = require('../../document/topics')
     const quizHandsMove = require('../../document/quizHandsMove')
     const quizHandsTouch = require('../../document/quizHandsTouch')
+    const musics = require('../../document/music')
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       console.log('database created')
@@ -63,6 +64,14 @@ class Database {
       database.collection('profiles').insertMany(profiles, function (err, res) {
         if (err) throw err
         console.log(`inserted profiles:${res.insertedCount}`)
+      })
+
+      /**
+       * insert profiles
+       */
+      database.collection('music').insertMany(musics, function (err, res) {
+        if (err) throw err
+        console.log(`inserted musics:${res.insertedCount}`)
       })
 
     })
@@ -241,6 +250,7 @@ class Database {
    * add quiz collaborative
    * @param data
    * @param socket
+   * {type: , quiz: nre colla}
    */
   addQuizCollaborative (data, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
