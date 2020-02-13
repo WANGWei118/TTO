@@ -11,7 +11,7 @@ import '../config/config'
 
 const { Header, Content} = Layout;
 const { Meta } = Card;
-const url = "http://10.212.107.151:10000/";
+const url = "http://localhost:10000/";
 
 class Profile extends React.Component {
     socket = openSocket;

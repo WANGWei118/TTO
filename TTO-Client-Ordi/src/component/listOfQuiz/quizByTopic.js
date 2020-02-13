@@ -11,7 +11,7 @@ import '../config/config'
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://10.212.107.151:10000/";
+const url = "http://localhost:10000/";
 const { Meta } = Card;
 
 
@@ -21,33 +21,66 @@ class QuizByTopic extends React.Component {
     state = {
         collapsed: false,
         topicList:[],
+        id: null,
+        currentTopic: null,
+        individuel: [],
+        handsTouch: [],
+        handsMove:[],
     };
 
     constructor(props) {
         super(props);
-
         this.socket = props.socket;
 
-        console.log(global.constants.topicId);
-        this.socket.emit("get topic by id",global.constants.topicId);
-
+        this.state.id = global.constants.topicId;
+        console.log(this.state.id);
         this.socket.emit("get topics");
         this.socket.on("all topics",(data)=>{
-            // let topic = data;
-            // topic.map((e)=>{
-            //     this.setState({
-            //         topicList: this.state.topicList.concat(e.topic),
-            //     });
-            // });
-            // this.state.topicList=this.state.topicList.concat(data);
             this.setState({
                 topicList:data,
             })
-
-            this.socket.on("topic by id",(data)=>{
-                console.log(data);
-            });
+            this.state.topicList.map((e)=>{
+                if(e.id === this.state.id){
+                    this.setState({
+                        currentTopic: e,
+                    });
+                }
+            })
+            console.log(this.state.currentTopic);
             console.log(this.state.topicList);
+
+            this.socket.emit('get all types quiz');
+            this.socket.on('all types quiz',(data) => {
+                this.state.individuel = [];
+                this.state.handsTouch = [];
+                this.state.handsMove = [];
+                data.personal.map((e)=>{
+                    if (this.state.currentTopic.topic===e.topic) {
+                        this.setState({
+                            individuel: this.state.individuel.concat(e),
+                        })
+                    }
+                });
+                data.collaborative.handsTouch.map((e)=>{
+                    if (this.state.currentTopic.topic===e.topic) {
+                        this.setState({
+                            handsTouch: this.state.handsTouch.concat(e),
+                        })
+                    }
+                });
+                data.collaborative.handsMove.map((e)=>{
+                    if (this.state.currentTopic.topic===e.topic) {
+                        this.setState({
+                            handsMove: this.state.handsMove.concat(e),
+                        })
+                    }
+                });
+                console.log(data);
+                console.log(this.state.individuel);
+                console.log(this.state.handsTouch);
+                console.log(this.state.handsMove);
+
+            });
         });
     };
 
@@ -55,22 +88,6 @@ class QuizByTopic extends React.Component {
         console.log(collapsed);
         this.setState({ collapsed });
     };
-
-    renderInput2() {
-        if (this.state.visible2){
-            console.log('render');
-            return (
-                <Search
-                    className = "input"
-                    placeholder="Enter name of list"
-                    enterButton="Ok"
-                    onSearch={value => {
-                        console.log(value);
-                    }}
-                />
-            );
-        }
-    }
 
     showDetail = (i,e) =>{
         global.constants.topicId = e.id;
@@ -91,8 +108,81 @@ class QuizByTopic extends React.Component {
                         <Breadcrumb style={{ margin: '16px 0' }}>
                             <Breadcrumb.Item> </Breadcrumb.Item>
                         </Breadcrumb>
-                        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                            wwwww
+                        <div style={{ padding: 24, background: '#fff' }}>
+                            <Tabs defaultActiveKey="1">
+                                <TabPane
+                                    tab={
+                                        <span>
+                                        <Icon type="database" />Individuel
+                                    </span>
+                                    }
+                                    key="1">
+                                    <Layout style={{ background: '#fff', minHeight: 450, flexDirection: 'column', }}>
+                                        {this.state.individuel.map((e)=>{
+                                            return<div style = {{marginBottom:20}}>
+                                                <h2>{e.name}</h2>
+                                                <List itemLayout="horizontal"
+                                                      bordered = "true"
+                                                      dataSource={e.questions}
+                                                      renderItem={item=>(
+                                                          <List.Item>
+                                                              <p>{item.description}</p>
+                                                          </List.Item>
+                                                      )}
+                                                />
+                                            </div>
+                                        })}
+                                    </Layout>
+                                </TabPane>
+                                <TabPane
+                                    tab={
+                                        <span>
+                                            <Icon type="ordered-list" />Hand Touch
+                                    </span>
+                                    }
+                                    key="2">
+                                    <Layout style={{ background: '#fff', minHeight: 360, }}>
+                                        {this.state.handsTouch.map((e)=>{
+                                            return<div style = {{marginBottom:20}}>
+                                                <h2>{e.name}</h2>
+                                                <List itemLayout="horizontal"
+                                                      bordered = "true"
+                                                      dataSource={e.questions}
+                                                      renderItem={item=>(
+                                                          <List.Item>
+                                                              <p>{item.description}</p>
+                                                          </List.Item>
+                                                      )}
+                                                />
+                                            </div>
+                                        })}
+                                    </Layout>
+                                </TabPane>
+                                <TabPane
+                                    tab={
+                                        <span>
+                                            <Icon type="ordered-list" />Hand Move
+                                    </span>
+                                    }
+                                    key="3">
+                                    <Layout style={{ background: '#fff', minHeight: 360, }}>
+                                        {this.state.handsMove.map((e)=>{
+                                            return<div style = {{marginBottom:20}}>
+                                                <h2>{e.name}</h2>
+                                                <List itemLayout="horizontal"
+                                                      bordered = "true"
+                                                      dataSource={e.questions}
+                                                      renderItem={item=>(
+                                                          <List.Item>
+                                                              <p>{item.description}</p>
+                                                          </List.Item>
+                                                      )}
+                                                />
+                                            </div>
+                                        })}
+                                    </Layout>
+                                </TabPane>
+                            </Tabs>,
                         </div>
                     </Content>
                 </Layout>
