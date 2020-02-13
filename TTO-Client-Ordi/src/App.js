@@ -19,6 +19,7 @@ import {
 import openSocket from 'socket.io-client';
 export const socket = openSocket('http://localhost:10000');
 
+
 let profileId = null;
 
 function handleId(val) {

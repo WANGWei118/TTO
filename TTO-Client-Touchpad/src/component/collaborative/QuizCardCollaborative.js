@@ -6,7 +6,7 @@ const QuizCardCollaborative = props => {
 
   const TANGIBLE = 'tangible'
   const NORMAL = 'normal'
-  const url = 'http://localhost:10000/'
+  const url = 'http://192.168.182.29:10000/'
 
   const history = useHistory()
   const quiz = props.quiz
