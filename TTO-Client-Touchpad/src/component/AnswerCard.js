@@ -6,11 +6,13 @@ import images from './images';
 
 const AnswerCard = (props) => {
     const [hide, setHide] = useState(false);
+    const [hideClass, setHideClass] = useState('answerCard');
     const answer = props.answer
 
     const hideComponent = () => {
         if (props.canHide) {
-            setHide(true);
+
+            setHideClass(hideClass + ' hidden');
         }
     }
     let imageToDisplay;
@@ -22,12 +24,10 @@ const AnswerCard = (props) => {
     )
     return (
         <>
-            {hide ? <></> :
-                <div className="answerCard" onClick={() => { props.onClick(answer); hideComponent(); }}>
-                    <img className="answerCardImage" src={answer.src} />
-                    {/* <h2 className="answerName">{answer.text}</h2> */}
-                </div>
-            }
+            <div className={hideClass} onClick={() => { props.onClick(answer); hideComponent(); }}>
+                <img className="answerCardImage" src={answer.src} />
+                {/* <h2 className="answerName">{answer.text}</h2> */}
+            </div>
         </>
     )
 }

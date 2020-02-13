@@ -59,7 +59,6 @@ const QuizGame = (props) => {
                     <AnswerCard answer={correctAnswer} onClick={() => { }} canHide={false} />
                     <p>{currentQuestion.explains}</p>
                     <img src={nextArrow} alt="Prochaine question" className="rightArrow" onClick={() => nextQuestion()} />
-                    {/* <Button type="primary" onClick={() => nextQuestion()}>Question suivante</Button> */}
                 </div>
             </div>
         )
