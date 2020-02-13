@@ -1,10 +1,14 @@
 [
   {
     "id": 1,
-    "src": "music/canon.mp3"
+    "description": "canon",
+    "src": "music/canon.mp3",
+    "cover": "covers/nature.jpg"
   },
   {
     "id": 2,
-    "src": "music/lemon.mp3"
+    "description": "lemon",
+    "src": "music/canon.mp3",
+    "cover": "covers/lemon.jpg"
   }
 ]

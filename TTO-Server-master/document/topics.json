@@ -8,7 +8,10 @@
         1,
         2
       ],
-      "tableQuiz": []
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
     }
   },
   {
@@ -20,7 +23,10 @@
         3,
         4
       ],
-      "tableQuiz": []
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
     }
   },
   {
@@ -29,7 +35,10 @@
     "icon": "topics/dailyLife.jpg",
     "quiz": {
       "personalQuiz": [],
-      "tableQuiz": []
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
     }
   },
   {
@@ -40,7 +49,10 @@
       "personalQuiz": [
         6
       ],
-      "tableQuiz": []
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
     }
   },
   {
@@ -51,7 +63,10 @@
       "personalQuiz": [
         5
       ],
-      "tableQuiz": []
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
     }
   }
 ]

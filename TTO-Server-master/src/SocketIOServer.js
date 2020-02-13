@@ -258,8 +258,16 @@ class SocketIOServer {
         database.addTopic(data, socket)
       })
 
-      socket.on('start fun quiz', () => {
-        socket.broadcast.emit('fun quiz start')
+      socket.on('start fun quiz', (data) => {
+        socket.broadcast.emit('fun quiz start', data)
+      })
+
+      socket.on('get musics', () => {
+        database.sendMusics(socket)
+      })
+
+      socket.on('update topic', (data) => {
+        database.updateTopics(data.quiz, data.id, socket)
       })
 
       socket.on('disconnect', () => {

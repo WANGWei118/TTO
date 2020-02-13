@@ -35,8 +35,12 @@ let rightAnswersNum = 0
 
 /* App Code */
 const buildApp = () => {
-  // wait()
-  forConentration()
+  wait()
+  socketIOClient._client.on('fun quiz start', (data) => {
+    console.log(data)
+    forConentration(data.src)
+    quizLancez = true
+  })
 
   socketIOClient._client.on('start quiz collaborative', (data) => {
     quizLancez = true
@@ -295,7 +299,7 @@ function contretration () {
 }
  */
 
-function forConentration () {
+function forConentration (audioSrc) {
   var titleTop = document.createElement('h1')
   var titleBottom = document.createElement('h1')
   var titleLeft = document.createElement('h1')
@@ -313,7 +317,7 @@ function forConentration () {
   setInterval(() => {
     var top = random(400, windowsHeight - 400)
     var left = random(400, windowsWidth - 400)
-    const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false)
+    const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false, audioSrc)
     imageWidget.domElem[0].setAttribute('class', 'noteClass')
     var image = document.createElement('img')
     image.setAttribute('class', 'note')
