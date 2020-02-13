@@ -9,8 +9,12 @@
         2
       ],
       "tableQuiz": {
-        "handsMove": [],
-        "handsTouch": []
+        "handsMove": [
+          1
+        ],
+        "handsTouch": [
+          1
+        ]
       }
     }
   },
@@ -24,7 +28,8 @@
         4
       ],
       "tableQuiz": {
-        "handsMove": [],
+        "handsMove": [
+        ],
         "handsTouch": []
       }
     }

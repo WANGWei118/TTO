@@ -315,6 +315,43 @@ class Database {
   }
 
   /**
+   * update profile
+   * @param newProfile
+   *   "firstName": "Louis",
+   "src": "profiles/4.jpg",
+   "lastName": "Lima",
+   "quizAccessible": {
+      "quizIndividuel": [
+        1,
+        2,
+        5,
+        6
+      ]
+    }
+   }
+   */
+  updateProfilesDetail (newProfile) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: newProfile.id}
+      var updateQuiz = {
+        $set: {
+          quizAccessible: newProfile.quizAccessible,
+          src: newProfile.src,
+          firstName: newProfile.firstName,
+          lastName: newProfile.lastName
+        }
+      }
+      dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
+        if (err) throw err
+        console.log('Update profiles success')
+        db.close()
+      })
+    })
+  }
+
+  /**
    * update topic
    * {quiz: quiz, id: topicId}
    *  "quiz": {
@@ -436,6 +473,34 @@ class Database {
       dbo.collection('profiles').deleteOne(searchId, function (err, res) {
         if (err) throw err
         console.log('Delete a profile success')
+        db.close()
+      })
+    })
+  }
+
+  getProfileById (id, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var whereId = {id: id}
+      dbo.collection('profiles').find(whereId).toArray(function (err, result) {
+        if (err) throw err
+        console.log(result[0])
+        socket.broadcast.emit('profile by id', result[0])
+        db.close()
+      })
+    })
+  }
+
+  getTopicById (id, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var whereId = {id: id}
+      dbo.collection('topic').find(whereId).toArray(function (err, result) {
+        if (err) throw err
+        console.log(result[0])
+        socket.broadcast.emit('topic by id', result[0])
         db.close()
       })
     })

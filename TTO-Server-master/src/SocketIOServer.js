@@ -226,12 +226,12 @@ class SocketIOServer {
        */
       socket.on('get quiz tangible', () => {
         console.log('get quiz tangible')
-        database.sendQuizTangible(socket)
+        // database.sendQuizTangible(socket)
       })
 
       socket.on('get quiz non tangible', () => {
         console.log('get quiz non tangible')
-        database.sendQuizNonTangible(socket)
+        // database.sendQuizNonTangible(socket)
       })
 
       socket.on('get profiles', () => {
@@ -288,6 +288,21 @@ class SocketIOServer {
 
       socket.on('modify quiz', (data) => {
         console.log('modify quiz', data)
+      })
+
+      socket.on('get profile by id', (data) => {
+        console.log('get profile by id', data)
+        database.getProfileById(data, socket)
+      })
+
+      socket.on('get topic by id', (data) => {
+        console.log('get topic by id', data)
+        database.getTopicById(data, socket)
+      })
+
+      socket.on('update profile detail', (data) => {
+        console.log('update profile detail', data)
+        database.updateProfilesDetail(data)
       })
 
       socket.on('disconnect', () => {
