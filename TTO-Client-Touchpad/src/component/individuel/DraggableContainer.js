@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './DraggableContainer.css'
 
 const DraggableContainer = props => {
-  const url = 'http://192.168.43.223:10000/'
+  const url = 'http://10.189.147.120:10000/'
 
   const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80))
   const [y, setY] = useState(1 + Math.random() * (window.innerHeight * 0.40) + (window.innerHeight * 0.50))
