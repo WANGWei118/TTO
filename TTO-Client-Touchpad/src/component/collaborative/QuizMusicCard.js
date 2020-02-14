@@ -7,7 +7,7 @@ const QuizMusicCard = props => {
     const music = props.music;
     const musicName = music.description;
 
-    const url = 'http://192.168.43.223:10000/';
+    const url = 'http://192.168.1.7:10000/';
 
     const handleClick = (item) => {
         console.log(item)

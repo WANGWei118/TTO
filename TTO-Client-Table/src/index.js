@@ -16,7 +16,7 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
-const url = 'http://192.168.43.223:10000/'
+const url = 'http://192.168.1.7:10000/'
 var timer = null
 let timeout = setTimeout(() => {
 

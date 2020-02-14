@@ -4,7 +4,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
 
 let des = ''
 let validedAnswers = 0
-const url = 'http://192.168.43.223:10000/'
+const url = 'http://192.168.1.7:10000/'
 
 class DivWidget extends TUIOWidget {
   constructor (x, y, width, height, socket, played, audioSrc) {

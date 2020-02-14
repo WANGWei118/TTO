@@ -19,7 +19,6 @@
     position: absolute;
     left: 50px;
     writing-mode: vertical-lr;
-    transform: rotate(180deg);
 }
 
 .information2 {
@@ -29,6 +28,7 @@
     position: absolute;
     writing-mode: vertical-lr;
     right: 50px;
+    transform: rotate(180deg);
 }
 
 .information3 {
@@ -37,6 +37,7 @@
     color: #f59010;
     position: absolute;
     top: 50px;
+    transform: rotate(180deg);
 }
 
 .information {

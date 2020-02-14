@@ -85,6 +85,53 @@ class ImageWidget extends TUIOWidget {
     }
   }
 
+  onTouchDeletion (tuioTouchId) {
+    super.onTouchDeletion(tuioTouchId)
+
+    if (!this.vanished) {
+      if (this._x >= 499 && this._x <= 1428
+        && this._y >= 283 && this._y <= 788 && this.isRight === true) {
+        this.socket.sendValidedAction(true)
+        for (let i = 0; i < 4; i++) {
+          var bravo = document.createElement('h1')
+          bravo.setAttribute('class', 'information' + i.toString())
+          bravo.innerText = 'Bravo'
+          $('.nonTangibleDiv').append(bravo)
+        }
+        this.vanished = true
+        console.log('bravo')
+        setTimeout(() => {
+          $('.' + this._domElem[0].className).fadeOut(2000)
+          // $('.testImage').remove()
+          $('.information0').fadeOut(2000)
+          $('.information1').fadeOut(2000)
+          $('.information2').fadeOut(2000)
+          $('.information3').fadeOut(2000)
+        }, 3000)
+      }
+      if (this._x >= 499 && this._x <= 1428
+        && this._y >= 283 && this._y <= 788 && this.isRight === false) {
+        this.socket.sendValidedAction(false)
+        for (let i = 0; i < 4; i++) {
+          var again = document.createElement('h1')
+          again.setAttribute('class', 'information' + i.toString())
+          again.innerText = 'Essayez encore'
+          $('.nonTangibleDiv').append(again)
+        }
+        console.log('essayez-encore')
+        this.vanished = true
+        setTimeout(() => {
+          $('.' + this._domElem[0].className).fadeOut(2000)
+          // $('.testImage').remove()
+          $('.information0').fadeOut(2000)
+          $('.information1').fadeOut(2000)
+          $('.information2').fadeOut(2000)
+          $('.information3').fadeOut(2000)
+        }, 3000)
+      }
+    }
+  }
+
   /**
    * Call after a TUIOTouch update.
    *
@@ -205,48 +252,6 @@ class ImageWidget extends TUIOWidget {
       this._domElem.css('transform', `rotate(${angle}deg)`)
     }
 
-    if (!this.vanished) {
-      if (this._x >= 499 && this._x <= 1428
-        && this._y >= 283 && this._y <= 788 && this.isRight === true) {
-        this.socket.sendValidedAction(true)
-        for (let i = 0; i < 4; i++) {
-          var bravo = document.createElement('h1')
-          bravo.setAttribute('class', 'information' + i.toString())
-          bravo.innerText = 'Bravo'
-          $('.nonTangibleDiv').append(bravo)
-        }
-        this.vanished = true
-        console.log('bravo')
-        setTimeout(() => {
-          $('.' + this._domElem[0].className).fadeOut(2000)
-          // $('.testImage').remove()
-          $('.information0').fadeOut(2000)
-          $('.information1').fadeOut(2000)
-          $('.information2').fadeOut(2000)
-          $('.information3').fadeOut(2000)
-        }, 3000)
-      }
-      if (this._x >= 499 && this._x <= 1428
-        && this._y >= 283 && this._y <= 788 && this.isRight === false) {
-        this.socket.sendValidedAction(false)
-        for (let i = 0; i < 4; i++) {
-          var again = document.createElement('h1')
-          again.setAttribute('class', 'information' + i.toString())
-          again.innerText = 'Essayez encore'
-          $('.nonTangibleDiv').append(again)
-        }
-        console.log('essayez-encore')
-        this.vanished = true
-        setTimeout(() => {
-          $('.' + this._domElem[0].className).fadeOut(2000)
-          // $('.testImage').remove()
-          $('.information0').fadeOut(2000)
-          $('.information1').fadeOut(2000)
-          $('.information2').fadeOut(2000)
-          $('.information3').fadeOut(2000)
-        }, 3000)
-      }
-    }
   }
 }
 
