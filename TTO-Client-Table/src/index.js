@@ -16,8 +16,11 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
-const url = 'http://192.168.182.29:10000/'
+const url = 'http://192.168.1.7:10000/'
 var timer = null
+let timeout = setTimeout(() => {
+
+}, 1000)
 
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
@@ -31,6 +34,7 @@ socketIOClient.getMessage()
 let quizLancez = false
 const imageWidgets = []
 let quiz = null
+let musicTimer = null
 const positions = [
   {x: 150, y: 150},
   {x: 150, y: 350},
@@ -69,20 +73,28 @@ const buildApp = () => {
 
   socketIOClient._client.on('play', (data) => {
     console.log(data)
+    clearTimeout(timeout)
     if (data === true) {
       audio.play()
-      setTimeout(() => {
-        socketIOClient._client.emit('pause music')
-      }, 7000)
+      timeout = setTimeout(() => {
+        audio.pause()
+      }, 4000)
     } else {
-      audio.pause()
+      setTimeout(() => {
+        audio.pause()
+      }, 3000)
     }
   })
+
+  musicTimer = setInterval(() => {
+    // socketIOClient._client.emit('pause music')
+  }, 7000)
 
   socketIOClient._client.on('start quiz collaborative', (data) => {
     console.log(data)
     quizLancez = true
     clearInterval(timer)
+    clearInterval(musicTimer)
     quiz = data
     rightAnswer = 0
     rightAnswersNum = data.rightAnswers
@@ -93,7 +105,9 @@ const buildApp = () => {
 
   socketIOClient._client.on('quiz tangible', (data) => {
     rightAnswer = 0
+    console.log(data)
     clearInterval(timer)
+    clearInterval(musicTimer)
     rightAnswersNum = data.rightAnswers
     isElse = true
     console.log(data)
@@ -123,6 +137,7 @@ const buildApp = () => {
   socketIOClient._client.on('validation', (data) => {
     if (data.valid === true) {
       rightAnswer++
+      console.log(rightAnswer, rightAnswersNum)
       if (rightAnswersNum === rightAnswer) {
         setTimeout(() => {
           finished()

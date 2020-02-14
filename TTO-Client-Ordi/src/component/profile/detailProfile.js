@@ -13,7 +13,7 @@ import openSocket from 'socket.io-client';
 
 const { Header, Content} = Layout;
 const { Meta } = Card;
-const url = "http://localhost:10000/";
+const url = "http://192.168.1.7:10000/";
 
 export default class DetailProfile extends React.Component {
     socket = openSocket;
