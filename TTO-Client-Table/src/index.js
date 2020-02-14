@@ -16,6 +16,7 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
+const url = 'http://192.168.182.29:10000/'
 var timer = null
 
 /* TUIOManager start */
@@ -51,16 +52,31 @@ let rightAnswer = 0
 let rightAnswersNum = 0
 let isElse = false
 let randedPosition = []
+let audio = null
 
 /* App Code */
 const buildApp = () => {
   wait()
   socketIOClient._client.on('fun quiz start', (data) => {
     console.log(data)
+    audio = new Audio(url + data.src)
+    // audio.play()
     isElse = false
     $('#app').empty()
     forConentration(data.src)
     quizLancez = true
+  })
+
+  socketIOClient._client.on('play', (data) => {
+    console.log(data)
+    if (data === true) {
+      audio.play()
+      setTimeout(() => {
+        socketIOClient._client.emit('pause music')
+      }, 7000)
+    } else {
+      audio.pause()
+    }
   })
 
   socketIOClient._client.on('start quiz collaborative', (data) => {

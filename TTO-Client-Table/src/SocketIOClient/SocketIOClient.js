@@ -75,6 +75,13 @@ class SocketIOClient {
     this._client.emit('get quizz', {type: 'table'})
   }
 
+  playMusic(){
+    this._client.emit('play music')
+  }
+
+  pauseMusic(){
+    this._client.emit('pause music')
+  }
   getMessage(data) {
     console.log(`Received message ${data}!`)
   }

@@ -40,18 +40,13 @@ class DivWidget extends TUIOWidget {
         },
       }
       console.log('hello world')
-      this.played = true
+      this.socket.playMusic()
       setTimeout(() => {
         this._domElem[0].setAttribute('class', 'vanishedNote')
         setTimeout(() => {
           this._domElem[0].style.display = 'none'
         }, 1000)
       }, 500)
-      if (this.played) {
-        this.audio.play()
-      } else {
-        this.audio.pause()
-      }
     }
   }
 

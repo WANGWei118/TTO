@@ -305,6 +305,16 @@ class SocketIOServer {
         database.updateProfilesDetail(data)
       })
 
+      socket.on('play music', () => {
+        console.log('play music')
+        socket.emit('play', true)
+      })
+
+      socket.on('pause music', () => {
+        console.log('pause music')
+        socket.emit('play', false)
+      })
+
       socket.on('disconnect', () => {
         console.info('Socket.IO Client disconnected : ', socket.id)
         this.disconnectClient(socket)
