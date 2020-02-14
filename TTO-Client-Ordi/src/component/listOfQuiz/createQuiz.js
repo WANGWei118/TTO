@@ -9,7 +9,9 @@ import Sidebar from '../sidebar';
 import './createQuiz.css'
 import {Link} from "react-router-dom";
 import $ from 'jquery';
+import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer, Sider} = Layout;
 const Menu1 = 'Liste de quiz';
 const Menu2 = 'Statistiques';
@@ -19,9 +21,6 @@ const { TextArea } = Input;
 const { Option } = Select;
 const questions = require('../question');
 const plainOptions = questions.map((question) => question.description);
-
-const url = "http://192.168.1.7:";
-
 
 const menu = (
     <Menu>
@@ -143,13 +142,45 @@ class CreateQuiz extends React.Component {
         this.socket.on('quiz added',(type) =>{
             if (type.type === true){
                 notification['success']({
-                    message: 'Quiz créé avec succès ',
+                    message: 'Quiz individuel créé avec succès ',
                 });
                 this.setState({
                     name: '',
                     theme: null,
                     checkedList: [],
                     checkedQuestion: [],
+                });
+                this.onChangeTheme('');
+            }
+        });
+
+        this.socket.on('quiz hands touch added',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Quiz hand touch créé avec succès ',
+                });
+                this.setState({
+                    name: '',
+                    theme: null,
+                    checkedList: [],
+                    checkedQuestion: [],
+                    questionCol: [],
+                });
+                this.onChangeTheme('');
+            }
+        });
+
+        this.socket.on('quiz hands move added',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Quiz drag and drop créé avec succès ',
+                });
+                this.setState({
+                    name: '',
+                    theme: null,
+                    checkedList: [],
+                    checkedQuestion: [],
+                    questionCol: [],
                 });
                 this.onChangeTheme('');
             }
@@ -183,7 +214,7 @@ class CreateQuiz extends React.Component {
                 this.state.images.push(
                     <Button className="buttonImage"
                             onClick={e => this.onChangePic(e, i)}>
-                        <img src = {url+'10000/'+i} className='image'/>
+                        <img src = {url+i} className='image'/>
                     </Button>
                 );
             });
@@ -952,18 +983,17 @@ class CreateQuiz extends React.Component {
             // Get this url from response in real world.
             getBase64(info.file.originFileObj, imageUrl =>{
                 let image;
-                image = this.prefix.concat(info.file.originFileObj.name);
+                image = 'assets/'+info.file.originFileObj.name;
                 this.setState({
                     imageUrl,
                     loading: false,
                     images: this.state.images.concat(
                         <Button className="buttonImage"
                                 onClick={e => this.onChangePic(e, image)}>
-                            <img src = {url+imageUrl} className='image'/>
+                            <img src = {url+image} className='image'/>
                         </Button>
                     ),
                 });
-                console.log(this.prefix);
                 console.log(image);
                 console.log(this.state.images);
             });
@@ -985,7 +1015,7 @@ class CreateQuiz extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: url+'10001/imgUpload',
+            url: 'http://192.168.43.223:10001/imgUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
@@ -993,7 +1023,6 @@ class CreateQuiz extends React.Component {
             dataType: 'json'
         }).done(function (data) {
             console.log(data);
-            alert(data.errMsg)
         }).fail(function (err) {
             console.error(err)
         })

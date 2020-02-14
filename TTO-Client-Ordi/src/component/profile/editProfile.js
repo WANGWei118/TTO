@@ -2,8 +2,10 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
 import './profile.css'
-import {Card, Layout, Menu, Icon, Tabs, Button, Tooltip,
-    Breadcrumb, Checkbox, List, Upload, Modal, Input, message} from 'antd';
+import {
+    Card, Layout, Menu, Icon, Tabs, Button, Tooltip,
+    Breadcrumb, Checkbox, List, Upload, Modal, Input, message, notification
+} from 'antd';
 import '../model';
 import {Link} from "react-router-dom";
 import Sidebar from '../sidebar';
@@ -11,10 +13,9 @@ import openSocket from 'socket.io-client';
 import $ from 'jquery';
 import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer} = Layout;
 const { Meta } = Card;
-const url = 'http://192.168.1.7:10001/';
-
 const CheckboxGroup = Checkbox.Group;
 
 function getBase64 (img, callback) {
@@ -84,6 +85,14 @@ class EditProfile extends React.Component {
                 quizList: data,
             });
             console.log(this.state.quizList);
+        });
+
+        this.socket.on('update a profile',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Profile modifié avec succès ',
+                });
+            }
         });
     };
     showModal = () => {
@@ -174,7 +183,7 @@ class EditProfile extends React.Component {
                 quizIndividuel: this.state.checkedQuiz,
             }
         }
-        this.socket.emit("update profile",newProfile);
+        this.socket.emit("update profile detail",newProfile);
         console.log(newProfile);
     };
 
@@ -192,7 +201,7 @@ class EditProfile extends React.Component {
                 <Sidebar default = "3"/>
                 <Layout>
                     <Header style={{ background: '#fff' , display:'flex', flexDirection: 'row'}}>
-                        <h2>Create un Profile</h2>
+                        <h2>Modifier un Profile</h2>
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Breadcrumb style={{ margin: '16px 0' }}>

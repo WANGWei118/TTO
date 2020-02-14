@@ -7,11 +7,12 @@ import Theme from "../homepage/theme";
 import '../model';
 import {Link} from "react-router-dom";
 import openSocket from 'socket.io-client';
+import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer, Sider} = Layout;
 const { Panel } = Collapse;
 
-const url = 'http://192.168.1.7:10000/';
 
 class DetailQuiz extends React.Component {
     socket = openSocket;

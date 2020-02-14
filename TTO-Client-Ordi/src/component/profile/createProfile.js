@@ -2,18 +2,20 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
 import './profile.css'
-import {Card, Layout, Menu, Icon, Tabs, Button, Tooltip,
-    Breadcrumb, Checkbox, List, Upload, Modal, Input, message} from 'antd';
+import {
+    Card, Layout, Menu, Icon, Tabs, Button, Tooltip,
+    Breadcrumb, Checkbox, List, Upload, Modal, Input, message, notification
+} from 'antd';
 import '../model';
 import {Link} from "react-router-dom";
 import Sidebar from '../sidebar';
 import openSocket from 'socket.io-client';
 import $ from 'jquery';
+import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer} = Layout;
 const { Meta } = Card;
-const url = 'http://192.168.1.7:10001/';
-
 const CheckboxGroup = Checkbox.Group;
 
 function getBase64 (img, callback) {
@@ -58,6 +60,21 @@ class CreateProfile extends React.Component {
             this.state.id = data.length + 1;
             console.log(this.state.infoList);
             console.log(this.state.id);
+        });
+
+        this.socket.on('profile added',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Profile créé avec succès ',
+                });
+                this.setState({
+                    firstName: '',
+                    lastName: '',
+                    imageUrl: null,
+                    image: null,
+                    checkedQuiz:[],
+                });
+            }
         });
 
         this.socket.emit('get quizz','pad');
@@ -209,7 +226,7 @@ class CreateProfile extends React.Component {
                             />
                             <h2>Ajouter des quiz individuels disponibles pour l'acceuilli</h2>
                             <div className="cardContainer">
-                            <Checkbox.Group style={{ width: '100%', display:'flex',flexDirection:'row',flexWrap:'wrap'}} onChange={this.onChange}>
+                            <Checkbox.Group value={this.state.checkedQuiz} style={{ width: '100%', display:'flex',flexDirection:'row',flexWrap:'wrap'}} onChange={this.onChange}>
                                 {this.state.quizList.map((item)=>{
                                     return <div  className="selectQuizCard">
                                         <Tooltip title={item.questions[0].description}>
