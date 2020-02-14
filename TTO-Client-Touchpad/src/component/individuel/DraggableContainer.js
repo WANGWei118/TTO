@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import './DraggableContainer.css'
 
 const DraggableContainer = props => {
-  const url = 'http://192.168.1.7:10000/'
+  const url = 'http://192.168.43.223:10000/'
 
   const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80))
-  const [y, setY] = useState(window.innerHeight * 0.80)
+  const [y, setY] = useState(1 + Math.random() * (window.innerHeight * 0.40) + (window.innerHeight * 0.50))
 
   const [previousCursorPosX, setPreviousCursorPosX] = useState(0)
   const [previousCursorPosY, setPreviousCursorPosY] = useState(0)
@@ -25,6 +25,7 @@ const DraggableContainer = props => {
 
   const handleTouchMove = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     if (dragging) {
 
       setX(x + e.touches[0].clientX - previousCursorPosX)
@@ -37,6 +38,8 @@ const DraggableContainer = props => {
   }
 
   const handleMouseDown = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     if (e.screenX) {
       setPreviousCursorPosX(e.screenX)
       setPreviousCursorPosY(e.screenY)

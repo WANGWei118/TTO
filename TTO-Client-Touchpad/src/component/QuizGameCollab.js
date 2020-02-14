@@ -83,9 +83,6 @@ const QuizGameCollab = props => {
 
 
     useEffect(() => {
-        window.addEventListener('touchmove', function (event) {
-            event.preventDefault()
-        }, { passive: false })
         setCentralDiv(document.getElementsByClassName('centralDiv')[0]);
         nbRightAnswers = 0;
     }, [isOver])
@@ -120,6 +117,7 @@ const QuizGameCollab = props => {
             </>
                 :
                 <>
+                    <HeaderComponent />
                     <div className="quizGameCollab">
                         <div className="centralDiv">
                             <div className="check_mark">
