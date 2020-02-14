@@ -1,13 +1,13 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-
+import './QuizMusicCard.css';
 const QuizMusicCard = props => {
 
     const history = useHistory();
     const music = props.music;
     const musicName = music.description;
 
-    const url = 'http://10.212.107.151:10000/';
+    const url = 'http://192.168.1.7:10000/';
 
     const handleClick = (item) => {
         console.log(item)
