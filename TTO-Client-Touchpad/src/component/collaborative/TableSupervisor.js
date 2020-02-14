@@ -44,6 +44,7 @@ const TableSupervisor = props => {
 
     }
     else {
+      console.log(quiz);
       socket.emit('start fun quiz', { src: quiz.src })
     }
   }, [])
