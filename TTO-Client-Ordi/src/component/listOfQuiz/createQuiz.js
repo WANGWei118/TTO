@@ -20,7 +20,7 @@ const { Option } = Select;
 const questions = require('../question');
 const plainOptions = questions.map((question) => question.description);
 
-const url = "http://localhost:";
+const url = "http://192.168.1.7:";
 
 
 const menu = (
@@ -121,10 +121,18 @@ class CreateQuiz extends React.Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeTheme = this.onChangeTheme.bind(this);
         this.socket = props.socket;
-        // this.socket.on('all quizz', (result) => {
-        //     this.quizList = result;
-        //     this.setState({ data: result })
-        // })
+
+        this.socket.emit("get topics");
+        this.socket.on("all topics",(data)=>{
+            this.state.topicList=[];
+            data.map((e)=>{
+                this.setState({
+                    topicList: this.state.topicList.concat(e),
+                })
+            });
+            console.log(this.state.topicList);
+        });
+
         this.socket.emit('get all types quiz');
         this.socket.on('all types quiz',(data) => {
             this.quizList = data;
@@ -175,7 +183,7 @@ class CreateQuiz extends React.Component {
                 this.state.images.push(
                     <Button className="buttonImage"
                             onClick={e => this.onChangePic(e, i)}>
-                        <img src = {url+i} className='image'/>
+                        <img src = {url+'10000/'+i} className='image'/>
                     </Button>
                 );
             });
@@ -784,13 +792,14 @@ class CreateQuiz extends React.Component {
 
     sendNewQuiz = () => {
         let themePic = '';
+        this.state.topicList.map((e)=>{
+            if(this.state.theme === e.topic){
+                themePic = e.icon;
+            }
+        });
+
         this.getTopicId(this.state.theme);
-        switch (this.state.theme) {
-            case 'fruit': themePic = 'topics/Fruits.jpg'; break;
-            case 'animal': themePic = 'topics/animals.jpg'; break;
-            case 'la vie quotidienne': themePic = 'topics/dailyLife.jpg'; break;
-            case 'musique': themePic = 'topics/instruments.jpg'; break;
-        }
+
         if (this.state.type === 'individuel') {
             let sendAcc = [];
             console.log(this.state.accList)
@@ -992,6 +1001,7 @@ class CreateQuiz extends React.Component {
 
 
     render() {
+        let i = 0;
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'}/>
@@ -1049,8 +1059,9 @@ class CreateQuiz extends React.Component {
                                 Thème<p style={{color:'red'}}>*</p>
                                 <Select defaultValue="" value = {this.state.theme}
                                         style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
-                                    <Option value="fruit">Fruit</Option>
-                                    <Option value="animal">Animaux</Option>
+                                    {this.state.topicList.map((e)=>(
+                                        <Option key={e.topic}>{e.topic}</Option>
+                                    ))}
                                 </Select>
                             </div>
                             <div style = {{ marginBottom:20, fontSize:16, display: 'flex', flexDirection: 'row'}}> Acceuilli

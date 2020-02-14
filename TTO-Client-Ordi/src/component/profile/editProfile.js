@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import Sidebar from '../sidebar';
 import openSocket from 'socket.io-client';
 import $ from 'jquery';
+import '../config/config'
 
 const { Header, Content, Footer} = Layout;
 const { Meta } = Card;
@@ -33,7 +34,7 @@ function beforeUpload (file) {
     return isJpgOrPng
 }
 
-class CreateProfile extends React.Component {
+class EditProfile extends React.Component {
     socket = openSocket;
 
     state = {
@@ -46,6 +47,9 @@ class CreateProfile extends React.Component {
         quizList: [],
         loading: false,
         checkedQuiz: [],
+        profileId: global.constants.profileId,
+        profile: {},
+        imageUrl: null,
     };
 
     constructor(props) {
@@ -56,6 +60,20 @@ class CreateProfile extends React.Component {
         this.socket.on('all profiles',(data) => {
             this.state.infoList = data;
             this.state.id = data.length + 1;
+            this.state.infoList.map((e)=>{
+                if(e.id===this.state.profileId) {
+                    this.setState({
+                        profile: e,
+                    })
+                }
+            });
+            this.setState({
+                firstName: this.state.profile.firstName,
+                lastName: this.state.profile.lastName,
+                imageUrl: url+this.state.profile.src,
+                image: this.state.profile.src,
+            })
+            console.log(this.state.profile);
             console.log(this.state.infoList);
             console.log(this.state.id);
         });
@@ -146,9 +164,9 @@ class CreateProfile extends React.Component {
         })
     };
 
-    sendNewProfile = () => {
+    updateProfile = () => {
         let newProfile = {
-            id: this.state.id,
+            id: this.state.profileId,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
             src: this.state.image,
@@ -156,7 +174,7 @@ class CreateProfile extends React.Component {
                 quizIndividuel: this.state.checkedQuiz,
             }
         }
-        this.socket.emit("add profile",newProfile);
+        this.socket.emit("update profile",newProfile);
         console.log(newProfile);
     };
 
@@ -182,16 +200,16 @@ class CreateProfile extends React.Component {
                         </Breadcrumb>
                         <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                             <div style={{display:'flex', flexDirection:'row'}}><div style={{ marginRight:20}}>Image:</div>
-                            <Upload
-                                name="avatar"
-                                listType="picture-card"
-                                className="avatar-uploader"
-                                showUploadList={false}
-                                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                beforeUpload={beforeUpload}
-                                onChange={this.handleChange}>
-                                {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
-                            </Upload>
+                                <Upload
+                                    name="avatar"
+                                    listType="picture-card"
+                                    className="avatar-uploader"
+                                    showUploadList={false}
+                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                    beforeUpload={beforeUpload}
+                                    onChange={this.handleChange}>
+                                    {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                                </Upload>
                             </div>
                             <Input style = {{width:400, marginBottom:20,marginRight:20}}
                                    addonBefore= 'Nom '
@@ -209,28 +227,28 @@ class CreateProfile extends React.Component {
                             />
                             <h2>Ajouter des quiz individuels disponibles pour l'acceuilli</h2>
                             <div className="cardContainer">
-                            <Checkbox.Group style={{ width: '100%', display:'flex',flexDirection:'row',flexWrap:'wrap'}} onChange={this.onChange}>
-                                {this.state.quizList.map((item)=>{
-                                    return <div  className="selectQuizCard">
-                                        <Tooltip title={item.questions[0].description}>
-                                        <img src={url+item.src} className="quizIcon"/>
-                                        <p>{item.name}</p>
-                                        <Checkbox value={item.id}/>
-                                        </Tooltip>
-                                    </div>
-                                        })}
-                            </Checkbox.Group>
+                                <Checkbox.Group style={{ width: '100%', display:'flex',flexDirection:'row',flexWrap:'wrap'}} onChange={this.onChange}>
+                                    {this.state.quizList.map((item)=>{
+                                        return <div  className="selectQuizCard">
+                                            <Tooltip title={item.questions[0].description}>
+                                                <img src={url+item.src} className="quizIcon"/>
+                                                <p>{item.name}</p>
+                                                <Checkbox value={item.id}/>
+                                            </Tooltip>
+                                        </div>
+                                    })}
+                                </Checkbox.Group>
                             </div>
 
                         </div>
                     </Content>
                     <Footer style={{display:'flex', justifyContent:'center'}}>
                         <Button style={{marginBottom:100,marginRight:50}}><Link to="/profile"> Annuler</Link></Button>
-                        <Button style={{marginBottom:100}} type='primary' onClick={this.sendNewProfile}>Terminer</Button>
+                        <Button style={{marginBottom:100}} type='primary' onClick={this.updateProfile}>Terminer</Button>
                     </Footer>
                 </Layout>
             </Layout>
         );
     }
 }
-export default CreateProfile;
+export default EditProfile;

@@ -10,7 +10,7 @@ import openSocket from 'socket.io-client';
 
 const { Header, Content, Footer, Sider} = Layout;
 const { Panel } = Collapse;
-const url = 'http://localhost:10001/';
+const url = 'http://192.168.1.7:10000/';
 
 
 class DetailQuiz extends React.Component {
@@ -93,34 +93,37 @@ class DetailQuiz extends React.Component {
         });
         console.log(deleteQuiz);
 
-        // this.socket.emit('get all types quiz');
-        // this.socket.on('all types quiz',(data) => {
-        //     data.personal.map((e)=>{
-        //         this.state.individuel = [];
-        //         this.state.individuel.push({
-        //             type:'personal',
-        //             e
-        //         })
-        //     });
-        //     data.collaborative.handsTouch.map((e)=>{
-        //         this.state.handsTouch = [];
-        //         this.state.handsTouch.push({
-        //             type:'handsTouch',
-        //             e
-        //         })
-        //     });
-        //     data.collaborative.handsMove.map((e)=>{
-        //         this.state.handsMove = [];
-        //         this.state.handsMove.push({
-        //             type:'handsMove',
-        //             e
-        //         })
-        //     });
-        //     this.setState({
-        //         questionList: this.state.questionList.concat(this.state.individuel,this.state.handsTouch,this.state.handsMove),
-        //     });
-        //     console.log(this.state.questionList);
-        // });
+        this.socket.emit('get all types quiz');
+        this.socket.on('all types quiz',(data) => {
+            this.state.individuel = [];
+            data.personal.map((e)=>{
+                this.state.individuel.push({
+                    type:'personal',
+                    e
+                })
+            });
+            this.state.handsTouch = [];
+            data.collaborative.handsTouch.map((e)=>{
+                this.state.handsTouch.push({
+                    type:'handsTouch',
+                    e
+                })
+            });
+            this.state.handsMove = [];
+            data.collaborative.handsMove.map((e)=>{
+                this.state.handsMove.push({
+                    type:'handsMove',
+                    e
+                })
+            });
+            this.state.questionList = [];
+            this.setState({
+                questionList: this.state.questionList.concat(this.state.individuel,this.state.handsTouch,this.state.handsMove),
+            });
+            console.log(data);
+            console.log(this.state.individuel);
+            console.log(this.state.questionList);
+        });
     };
 
     handleCancel = e => {
@@ -155,7 +158,7 @@ class DetailQuiz extends React.Component {
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >
-                    <p>Vous êtes sûr de supprimer cette quiz?</p>
+                    <p>Vous êtes sûr de supprimer ce quiz?</p>
                 </Modal>
     </div>
         );

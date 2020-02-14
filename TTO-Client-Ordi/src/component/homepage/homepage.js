@@ -13,7 +13,7 @@ const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
 
-const url = "http://localhost:10000/";
+const url = "http://192.168.1.7:10000/";
 
 const { Meta } = Card;
 
@@ -32,6 +32,7 @@ class Homepage extends React.Component {
 
         this.socket.emit("get topics");
         this.socket.on("all topics",(data)=>{
+            this.state.topicList=[];
             // let topic = data;
             // topic.map((e)=>{
             //     this.setState({
