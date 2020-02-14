@@ -1,4 +1,4 @@
 global.constants = {
-    profileId: null,
-    topicId: null,
+    profileId: 1,
+    topicId: 1,
 }

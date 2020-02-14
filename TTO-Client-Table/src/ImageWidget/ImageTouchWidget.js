@@ -66,7 +66,6 @@ class ImageTouchWidget extends TUIOWidget {
 
   onTouchCreation(tuioTouch) {
     super.onTouchCreation(tuioTouch)
-    console.log('sdfsdf')
     if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
       this._lastTouchesValues = {
         ...this._lastTouchesValues,
@@ -75,7 +74,6 @@ class ImageTouchWidget extends TUIOWidget {
           y: tuioTouch.y,
         },
       }
-      console.log('sdfsdf')
       if(this.isRight === true) {
         this._domElem.css('display', `none`)
         this.socket.sendValidedAction(true)
@@ -128,42 +126,42 @@ class ImageTouchWidget extends TUIOWidget {
       }
     }
   }
-
-  onTagCreation(tuioTag) {
-    super.onTagCreation(tuioTag)
-    if (this.isTouched(tuioTag.x, tuioTag.y)) {
-      this._lastTagsValues = {
-        ...this._lastTagsValues,
-        [tuioTag.id]: {
-          x: tuioTag.x,
-          y: tuioTag.y,
-        },
-      }
-      if(this.isRight === true) {
-        this.socket.sendValidedAction(true)
-        this._domElem.css('display', `none`)
-        var bravo = document.createElement('h1')
-        bravo.setAttribute('class', 'information')
-        bravo.innerText = 'Bravo'
-        console.log('bravo')
-        $('.imageDiv').append(bravo)
-        setTimeout(()=>{
-          $('.information').css('display', `none`)
-        }, 1000)
-      }else{
-        this.socket.sendValidedAction(false)
-        this._domElem.css('display', `none`)
-        var again = document.createElement('h1')
-        again.setAttribute('class', 'information')
-        again.innerText = 'Essayez encore'
-        $('.imageDiv').append(again)
-        console.log('essayez-encore')
-        setTimeout(()=>{
-          $('.information').css('display', `none`)
-        }, 1000)
-      }
-    }
-  }
+  //
+  // onTagCreation(tuioTag) {
+  //   super.onTagCreation(tuioTag)
+  //   if (this.isTouched(tuioTag.x, tuioTag.y)) {
+  //     this._lastTagsValues = {
+  //       ...this._lastTagsValues,
+  //       [tuioTag.id]: {
+  //         x: tuioTag.x,
+  //         y: tuioTag.y,
+  //       },
+  //     }
+  //     if(this.isRight === true) {
+  //       this.socket.sendValidedAction(true)
+  //       this._domElem.css('display', `none`)
+  //       var bravo = document.createElement('h1')
+  //       bravo.setAttribute('class', 'information')
+  //       bravo.innerText = 'Bravo'
+  //       console.log('bravo')
+  //       $('.imageDiv').append(bravo)
+  //       setTimeout(()=>{
+  //         $('.information').css('display', `none`)
+  //       }, 1000)
+  //     }else{
+  //       this.socket.sendValidedAction(false)
+  //       this._domElem.css('display', `none`)
+  //       var again = document.createElement('h1')
+  //       again.setAttribute('class', 'information')
+  //       again.innerText = 'Essayez encore'
+  //       $('.imageDiv').append(again)
+  //       console.log('essayez-encore')
+  //       setTimeout(()=>{
+  //         $('.information').css('display', `none`)
+  //       }, 1000)
+  //     }
+  //   }
+  // }
 
   /**
    * Call after a TUIOTag update.
@@ -171,33 +169,33 @@ class ImageTouchWidget extends TUIOWidget {
    * @method onTagUpdate
    * @param {TUIOTag} tuioTag - A TUIOTag instance.
    */
-  onTagUpdate(tuioTag) {
-    if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
-      const lastTagValue = this._lastTagsValues[tuioTag.id]
-      const diffX = tuioTag.x - lastTagValue.x
-      const diffY = tuioTag.y - lastTagValue.y
-
-      let newX = this.x + diffX
-      let newY = this.y + diffY
-
-      if (newX < 0) {
-        newX = 0
-      }
-
-      if (newX > (WINDOW_WIDTH - this.width)) {
-        newX = WINDOW_WIDTH - this.width
-      }
-
-      if (newY < 0) {
-        newY = 0
-      }
-
-      if (newY > (WINDOW_HEIGHT - this.height)) {
-        newY = WINDOW_HEIGHT - this.height
-      }
-
-    }
-  }
+  // onTagUpdate(tuioTag) {
+  //   if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
+  //     const lastTagValue = this._lastTagsValues[tuioTag.id]
+  //     const diffX = tuioTag.x - lastTagValue.x
+  //     const diffY = tuioTag.y - lastTagValue.y
+  //
+  //     let newX = this.x + diffX
+  //     let newY = this.y + diffY
+  //
+  //     if (newX < 0) {
+  //       newX = 0
+  //     }
+  //
+  //     if (newX > (WINDOW_WIDTH - this.width)) {
+  //       newX = WINDOW_WIDTH - this.width
+  //     }
+  //
+  //     if (newY < 0) {
+  //       newY = 0
+  //     }
+  //
+  //     if (newY > (WINDOW_HEIGHT - this.height)) {
+  //       newY = WINDOW_HEIGHT - this.height
+  //     }
+  //
+  //   }
+  // }
 
 }
 
