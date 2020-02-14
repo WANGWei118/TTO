@@ -1,18 +1,32 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
-import {Layout, Menu, Icon, Tabs, Button, Breadcrumb, Modal, Checkbox, Upload, message, Input} from 'antd';
+import {
+    Layout,
+    Menu,
+    Icon,
+    Tabs,
+    Button,
+    Breadcrumb,
+    Modal,
+    Checkbox,
+    Upload,
+    message,
+    Input,
+    notification
+} from 'antd';
 import Theme from "../homepage/theme";
 import '../model';
 import {Link} from "react-router-dom";
 import openSocket from 'socket.io-client';
 import Sidebar from '../sidebar';
 import $ from "jquery";
+import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer, Sider} = Layout;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['Quiz 1', 'Quiz2'];
-const url = 'http://192.168.43.223:10001/';
 
 function getBase64 (img, callback) {
     const reader = new FileReader()
@@ -54,6 +68,19 @@ class NewTheme extends React.Component {
             });
             console.log(this.state.id);
 
+        });
+        this.socket.on('topic added',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Thème créé avec succès ',
+                });
+                this.setState({
+                    name: '',
+                    imageUrl: null,
+                    image: null,
+                    checkedQuiz:[],
+                });
+            }
         });
     };
     onChange = checkedList => {
@@ -103,7 +130,7 @@ class NewTheme extends React.Component {
                 this.setState({
                     imageUrl,
                     loading: false,
-                    image: "profiles/".concat(info.file.originFileObj.name),
+                    image: "topics/".concat(info.file.originFileObj.name),
                 });
 
                 console.log(this.state.image);
