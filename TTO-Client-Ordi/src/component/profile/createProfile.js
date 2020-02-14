@@ -12,7 +12,8 @@ import $ from 'jquery';
 
 const { Header, Content, Footer} = Layout;
 const { Meta } = Card;
-const url = 'http://192.168.182.29:10001/';
+const url = 'http://localhost:10001/';
+
 const CheckboxGroup = Checkbox.Group;
 
 function getBase64 (img, callback) {

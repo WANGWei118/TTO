@@ -12,7 +12,7 @@ import $ from "jquery";
 const { Header, Content, Footer, Sider} = Layout;
 const CheckboxGroup = Checkbox.Group;
 const plainOptions = ['Quiz 1', 'Quiz2'];
-const url = 'http://192.168.182.29:10001/';
+const url = 'http://localhost:10001/';
 
 function getBase64 (img, callback) {
     const reader = new FileReader()

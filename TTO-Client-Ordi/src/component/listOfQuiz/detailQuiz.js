@@ -10,7 +10,7 @@ import openSocket from 'socket.io-client';
 
 const { Header, Content, Footer, Sider} = Layout;
 const { Panel } = Collapse;
-const url = 'http://192.168.182.29:10001/';
+const url = 'http://localhost:10001/';
 
 
 class DetailQuiz extends React.Component {

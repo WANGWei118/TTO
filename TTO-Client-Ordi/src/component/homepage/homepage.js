@@ -12,7 +12,9 @@ import '../config/config'
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://192.168.182.29:10000/";
+
+const url = "http://localhost:10000/";
+
 const { Meta } = Card;
 
 
@@ -99,14 +101,14 @@ class Homepage extends React.Component {
                                         <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
                                             {this.state.topicList.map((item)=>{
 
-                                                    return <Link to="/quizByTopic"><Card onClick={(i)=>this.showDetail(i,item)} style={{height:180,width:'20%',margin:10}}
+                                                    return <Card onClick={(i)=>this.showDetail(i,item)} style={{height:180,width:'20%',margin:10}}
                                                            cover={<img alt="photo"
                                                                        src={url+item.icon}
                                                                        style={{height:120,width:'100%',objectFit:'contain'}}
                                                            />}
                                                     >
-                                                        <Meta title={item.topic} />
-                                                    </Card></Link>
+                                                        <Link to="/quizByTopic"><Meta title={item.topic} />
+                                                        </Link></Card>
                                         })}</div>
                                         <Button style={{height:180,width:'20%',margin:10,verticalAlign:'middle',textAlign:'center',fontSize:48}}>
                                             <Link to="/newTheme">+</Link></Button>
