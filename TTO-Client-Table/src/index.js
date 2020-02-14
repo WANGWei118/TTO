@@ -93,6 +93,9 @@ const buildApp = () => {
   socketIOClient._client.on('start quiz collaborative', (data) => {
     console.log(data)
     quizLancez = true
+    if(audio !==null) {
+      audio.pause()
+    }
     clearInterval(timer)
     clearInterval(musicTimer)
     quiz = data
@@ -106,6 +109,9 @@ const buildApp = () => {
   socketIOClient._client.on('quiz tangible', (data) => {
     rightAnswer = 0
     console.log(data)
+    if(audio !==null) {
+      audio.pause()
+    }
     clearInterval(timer)
     clearInterval(musicTimer)
     rightAnswersNum = data.rightAnswers
