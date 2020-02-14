@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './AnswerCard.css'
 import images from './images'
 
-const url = 'http://192.168.1.7:10000/'
+const url = 'http://192.168.43.223:10000/'
 
 const AnswerCard = (props) => {
   const [hide, setHide] = useState(false)

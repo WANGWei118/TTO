@@ -35,7 +35,8 @@ class ImageWidget extends TUIOWidget {
    * @param socket
    */
 
-  constructor (x, y, width, height, imgSrc, socket, isRight, rightNum) {
+  constructor (x, y, width, height, imgSrc, socket, isRight, rightNum,
+               i) {
     super(x, y, width, height)
     this._lastTouchesValues = {}
     this._lastTagsValues = {}
@@ -49,6 +50,9 @@ class ImageWidget extends TUIOWidget {
     this._domElem.css('position', 'absolute')
     this._domElem.css('left', `${x}px`)
     this._domElem.css('top', `${y}px`)
+    this.vanished = false
+
+    this._domElem[0].className = 'name' + i.toString()
 
     this.socket._client.on('all tableQuiz', () => {
       console.log('asdfjlasjdflkjasdlkfjlas')
@@ -201,31 +205,47 @@ class ImageWidget extends TUIOWidget {
       this._domElem.css('transform', `rotate(${angle}deg)`)
     }
 
-    if (this._x >= (windowsWidth * 0.25) && this._x <= (windowsWidth * 0.25 + windowsWidth * 0.5)
-      && this._y >= (windowsHeight * 0.25) && this._y <= (windowsHeight * 0.25 + windowsHeight * 0.5) && this.isRight === true) {
-      this.socket.sendValidedAction(true)
-      var bravo = document.createElement('h1')
-      bravo.setAttribute('class', 'information')
-      bravo.innerText = 'Bravo'
-      console.log('bravo')
-      $('.answerBox').append(bravo)
-      setTimeout(() => {
-        this._domElem.css('display', `none`)
-        $('.information').css('display', `none`)
-      }, 3000)
-    }
-    if (this._x >= (windowsWidth * 0.25) && this._x <= (windowsWidth * 0.25 + windowsWidth * 0.5)
-      && this._y >= (windowsHeight * 0.25) && this._y <= (windowsHeight * 0.25 + windowsHeight * 0.5) && this.isRight === false) {
-      this.socket.sendValidedAction(false)
-      var again = document.createElement('h1')
-      again.setAttribute('class', 'information')
-      again.innerText = 'Essayez encore'
-      $('.answerBox').append(again)
-      console.log('essayez-encore')
-      setTimeout(()=>{
-      this._domElem.css('display', `none`)
-      $('.information').css('display', `none`)
-       }, 3000)
+    if (!this.vanished) {
+      if (this._x >= 499 && this._x <= 1428
+        && this._y >= 283 && this._y <= 788 && this.isRight === true) {
+        this.socket.sendValidedAction(true)
+        for (let i = 0; i < 4; i++) {
+          var bravo = document.createElement('h1')
+          bravo.setAttribute('class', 'information' + i.toString())
+          bravo.innerText = 'Bravo'
+          $('.nonTangibleDiv').append(bravo)
+        }
+        this.vanished = true
+        console.log('bravo')
+        setTimeout(() => {
+          $('.' + this._domElem[0].className).fadeOut(2000)
+          // $('.testImage').remove()
+          $('.information0').fadeOut(2000)
+          $('.information1').fadeOut(2000)
+          $('.information2').fadeOut(2000)
+          $('.information3').fadeOut(2000)
+        }, 3000)
+      }
+      if (this._x >= 499 && this._x <= 1428
+        && this._y >= 283 && this._y <= 788 && this.isRight === false) {
+        this.socket.sendValidedAction(false)
+        for (let i = 0; i < 4; i++) {
+          var again = document.createElement('h1')
+          again.setAttribute('class', 'information' + i.toString())
+          again.innerText = 'Essayez encore'
+          $('.nonTangibleDiv').append(again)
+        }
+        console.log('essayez-encore')
+        this.vanished = true
+        setTimeout(() => {
+          $('.' + this._domElem[0].className).fadeOut(2000)
+          // $('.testImage').remove()
+          $('.information0').fadeOut(2000)
+          $('.information1').fadeOut(2000)
+          $('.information2').fadeOut(2000)
+          $('.information3').fadeOut(2000)
+        }, 3000)
+      }
     }
   }
 }

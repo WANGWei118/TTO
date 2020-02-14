@@ -329,8 +329,9 @@ class Database {
       ]
     }
    }
+   * @param socket
    */
-  updateProfilesDetail (newProfile) {
+  updateProfilesDetail (newProfile, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
@@ -346,6 +347,7 @@ class Database {
       dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
         console.log('Update profiles success')
+        socket.broadcast.emit('update a profile', {type: true})
         db.close()
       })
     })
@@ -374,6 +376,7 @@ class Database {
       dbo.collection('topic').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
         console.log('Update topic success')
+        socket.broadcast.emit('update a topic', true)
         db.close()
       })
     })

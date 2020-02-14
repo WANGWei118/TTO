@@ -21,7 +21,7 @@ const ThemeCard = props => {
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
         <div className="quizCard" onClick={() => handleClick(theme)}>
-            {theme.icon ? <img className="quizImage" src={"http://192.168.1.7:10000/" + theme.icon} /> :
+            {theme.icon ? <img className="quizImage" src={"http://192.168.43.223:10000/" + theme.icon} /> :
                 <></>
             }
             <h2 className="quizName">{theme.topic}</h2>

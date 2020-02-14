@@ -11,7 +11,7 @@ import '../config/config'
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://192.168.1.7:10000/";
+const url = "http://192.168.43.223:10000/";
 const { Meta } = Card;
 
 
