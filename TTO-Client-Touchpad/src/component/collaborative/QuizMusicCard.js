@@ -19,7 +19,7 @@ const QuizMusicCard = props => {
 
     return (
         <div className="quizCard" onClick={() => handleClick(music)}>
-            <img src={url + music.cover} /> :
+            <img className={"quizImage"} src={url + music.cover} /> :
             <h2 className="quizName">{musicName}</h2>
         </div>
     );

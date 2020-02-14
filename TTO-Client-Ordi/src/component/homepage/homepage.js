@@ -9,12 +9,10 @@ import Sidebar from '../sidebar';
 import DetailQuiz from "../listOfQuiz/detailQuiz";
 import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-
-const url = "http://192.168.1.7:10000/";
-
 const { Meta } = Card;
 
 
@@ -32,6 +30,7 @@ class Homepage extends React.Component {
 
         this.socket.emit("get topics");
         this.socket.on("all topics",(data)=>{
+            this.state.topicList=[];
             // let topic = data;
             // topic.map((e)=>{
             //     this.setState({
@@ -43,31 +42,9 @@ class Homepage extends React.Component {
                 topicList:data,
             })
 
-
             console.log(this.state.topicList);
         });
     };
-
-    onCollapse = collapsed => {
-        console.log(collapsed);
-        this.setState({ collapsed });
-    };
-
-    renderInput2() {
-        if (this.state.visible2){
-            console.log('render');
-            return (
-                <Search
-                    className = "input"
-                    placeholder="Enter name of list"
-                    enterButton="Ok"
-                    onSearch={value => {
-                        console.log(value);
-                    }}
-                />
-            );
-        }
-    }
 
     showDetail = (i,e) =>{
         global.constants.topicId = e.id;
@@ -124,7 +101,6 @@ class Homepage extends React.Component {
                                     key="2">
                                     <Layout style={{ background: '#fff', minHeight: 360, }}>
                                         <Button type='primary' style = {{fontSize:20,marginBottom:10}} size='large'><Link to="/createQuiz">+ Créer nouveau quiz</Link></Button>
-                                        {this.renderInput2()}
                                         <DetailQuiz socket={this.socket}/>
                                     </Layout>
                                 </TabPane>

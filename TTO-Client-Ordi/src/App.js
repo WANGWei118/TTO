@@ -10,6 +10,7 @@ import Profile from './component/profile/profile'
 import DetailProfile from './component/profile/detailProfile'
 import CreateProfile from './component/profile/createProfile'
 import QuizByTopic from './component/listOfQuiz/quizByTopic'
+import EditProfile from './component/profile/editProfile'
 
 import {
     BrowserRouter as Router,
@@ -18,7 +19,6 @@ import {
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
 export const socket = openSocket('http://192.168.1.7:10000');
-
 
 let profileId = null;
 
@@ -65,6 +65,9 @@ function App() {
                   </Route>
                   <Route path="/createProfile">
                       <CreateProfile socket = {socket}/>
+                  </Route>
+                  <Route path="/editProfile">
+                      <EditProfile socket = {socket}/>
                   </Route>
                   <Route path="/quizByTopic">
                       <QuizByTopic socket = {socket}/>

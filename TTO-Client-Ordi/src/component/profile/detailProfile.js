@@ -6,14 +6,12 @@ import {Descriptions,Card, Layout, Menu, Icon, Tabs, Button, Breadcrumb, Checkbo
 import '../model';
 import {Link,useParams} from "react-router-dom";
 import Sidebar from '../sidebar';
+import openSocket from 'socket.io-client';
 import '../config/config'
 
-import openSocket from 'socket.io-client';
-
-
+const url = global.constants.url;
 const { Header, Content} = Layout;
 const { Meta } = Card;
-const url = "http://192.168.1.7:10000/";
 
 export default class DetailProfile extends React.Component {
     socket = openSocket;

@@ -302,7 +302,7 @@ class SocketIOServer {
 
       socket.on('update profile detail', (data) => {
         console.log('update profile detail', data)
-        database.updateProfilesDetail(data)
+        database.updateProfilesDetail(data, socket)
       })
 
       socket.on('play music', () => {

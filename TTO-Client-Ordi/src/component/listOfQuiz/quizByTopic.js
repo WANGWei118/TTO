@@ -8,10 +8,10 @@ import Sidebar from '../sidebar';
 import DetailQuiz from "../listOfQuiz/detailQuiz";
 import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://192.168.1.7:10000/";
 const { Meta } = Card;
 
 
