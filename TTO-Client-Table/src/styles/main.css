@@ -5,7 +5,7 @@
 }
 
 .information0 {
-    bottom:50px;
+    bottom: 50px;
     z-index: 4;
     font-size: 70px;
     color: #f59010;
@@ -210,11 +210,11 @@
 }
 
 
-.noteClass {
+#noteClass {
     animation: crescendo 4s ease-out;
 }
 
-.vanishedNote {
+#vanishedNote {
     animation: shrink 3s ease-out;
 }
 
