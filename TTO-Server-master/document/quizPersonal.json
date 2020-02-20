@@ -375,65 +375,97 @@
     "questions": [
       {
         "id": 1,
-        "description": "Choisissez Rouge?",
+        "description": "Où est la capitale de la France?",
         "answers": [
           {
             "id": 1,
-            "text": "Bleu",
-            "src": "assets/bleu.jpg"
+            "text": "Paris",
+            "src": "assets/paris.jpg"
           },
           {
             "id": 2,
-            "text": "Rouge",
-            "src": "assets/red.jpg"
+            "text": "Londres",
+            "src": "assets/london.jpg"
           },
           {
             "id": 3,
-            "text": "Vert",
-            "src": "assets/green.jpg"
+            "text": "Tokyo",
+            "src": "assets/tokyo.jpg"
           },
           {
             "id": 4,
-            "text": "Noir",
-            "src": "assets/black.jpg"
+            "text": "Lyon",
+            "src": "assets/lyon.jpg"
           }
         ],
         "rightAnwer": {
-          "id": 2,
-          "text": "Rouge",
-          "src": "assets/red.jpg"
+          "id": 1,
+          "text": "Paris",
+          "src": "assets/paris.jpg"
         },
-        "explains": ""
+        "explains": "Paris est la capitale de la France"
       },
       {
         "id": 2,
-        "description": "Choisissez Vert?",
+        "description": "Choisissez le Taj Mahal?",
         "answers": [
           {
             "id": 1,
-            "text": "Bleu",
-            "src": "assets/bleu.jpg"
+            "text": "Tour de Tokyo",
+            "src": "assets/tokyo.jpg"
           },
           {
             "id": 2,
-            "text": "Rouge",
-            "src": "assets/red.jpg"
+            "text": "Pont de Londres",
+            "src": "assets/london.jpg"
           },
           {
             "id": 3,
-            "text": "Vert",
-            "src": "assets/green.jpg"
+            "text": "Le Taj Mahal",
+            "src": "assets/india.jpg"
           },
           {
             "id": 4,
-            "text": "Noir",
-            "src": "assets/black.jpg"
+            "text": "Pont du Golden Gate",
+            "src": "assets/golden.jpg"
           }
         ],
         "rightAnwer": {
           "id": 3,
-          "text": "Vert",
-          "src": "assets/green.jpg"
+          "text": "Le Taj Mahal",
+          "src": "assets/india.jpg"
+        },
+        "explains": ""
+      },
+      {
+        "id": 3,
+        "description": "Où est la capitale des États-Unis?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Londres",
+            "src": "assets/london.jpg"
+          },
+          {
+            "id": 2,
+            "text": "New York",
+            "src": "assets/empire.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Moscow",
+            "src": "assets/moscow.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Washington",
+            "src": "assets/dc.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 4,
+          "text": "Washington",
+          "src": "assets/dc.jpg"
         },
         "explains": ""
       }
