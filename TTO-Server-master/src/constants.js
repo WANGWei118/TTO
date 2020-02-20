@@ -1,5 +1,5 @@
 /* SOCKET.IO message Types */
-export const url = 'localhost'
+export const url = '192.168.1.7'
 export const PING_SOCKETIO_TYPE = 'PING'
 export const PONG_SOCKETIO_TYPE = 'PONG'
 export const MESSAGE = 'MESSAGE'

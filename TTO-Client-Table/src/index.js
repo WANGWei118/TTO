@@ -16,7 +16,11 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
+const url = 'http://192.168.1.7:10000/'
 var timer = null
+let timeout = setTimeout(() => {
+
+}, 1000)
 
 /* TUIOManager start */
 const tuioManager = new TUIOManager()
@@ -30,6 +34,7 @@ socketIOClient.getMessage()
 let quizLancez = false
 const imageWidgets = []
 let quiz = null
+let musicTimer = null
 const positions = [
   {x: 150, y: 150},
   {x: 150, y: 350},
@@ -41,32 +46,62 @@ const positions = [
   {x: 650, y: 150},
   {x: 800, y: 150},
   {x: 950, y: 150},
-  {x: 1100, y: 150},
-  {x: 1100, y: 350},
-  {x: 1100, y: 500},
-  {x: 1100, y: 650},
-  {x: 1100, y: 800},
+  {x: 1650, y: 150},
+  {x: 1650, y: 350},
+  {x: 1650, y: 500},
+  {x: 1650, y: 650},
+  {x: 150, y: 900},
+  {x: 350, y: 900},
+  {x: 500, y: 900},
+  {x: 650, y: 900},
+  {x: 800, y: 900},
+  {x: 950, y: 900},
 ]
 let rightAnswer = 0
 let rightAnswersNum = 0
 let isElse = false
 let randedPosition = []
+let audio = null
 
 /* App Code */
 const buildApp = () => {
   wait()
   socketIOClient._client.on('fun quiz start', (data) => {
     console.log(data)
+    audio = null
+    audio = new Audio(url + data.src)
+    // audio.play()
     isElse = false
     $('#app').empty()
     forConentration(data.src)
     quizLancez = true
   })
 
+  socketIOClient._client.on('play', (data) => {
+    console.log(data)
+    clearTimeout(timeout)
+    if (data === true) {
+      audio.play()
+      timeout = setTimeout(() => {
+        audio.pause()
+      }, 4000)
+    } else {
+      setTimeout(() => {
+        audio.pause()
+      }, 3000)
+    }
+  })
+
+  musicTimer = setInterval(() => {
+    // socketIOClient._client.emit('pause music')
+  }, 7000)
+
   socketIOClient._client.on('start quiz collaborative', (data) => {
     console.log(data)
+    audio = null
     quizLancez = true
     clearInterval(timer)
+    clearInterval(musicTimer)
     quiz = data
     rightAnswer = 0
     rightAnswersNum = data.rightAnswers
@@ -77,7 +112,10 @@ const buildApp = () => {
 
   socketIOClient._client.on('quiz tangible', (data) => {
     rightAnswer = 0
+    console.log(data)
+    audio = null
     clearInterval(timer)
+    clearInterval(musicTimer)
     rightAnswersNum = data.rightAnswers
     isElse = true
     console.log(data)
@@ -107,6 +145,7 @@ const buildApp = () => {
   socketIOClient._client.on('validation', (data) => {
     if (data.valid === true) {
       rightAnswer++
+      console.log(rightAnswer, rightAnswersNum)
       if (rightAnswersNum === rightAnswer) {
         setTimeout(() => {
           finished()
@@ -154,7 +193,7 @@ function imageDiv (picNum, pics, title) {
   titleRight.innerText = title
   randedPosition = getRandomPosition(picNum)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageTouchWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum)
+    const imageWidget1 = new ImageTouchWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum, i)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
     //   const image = document.createElement('img')
@@ -218,7 +257,7 @@ function nonTangibleDiv (picNum, pic, title) {
   randedPosition = getRandomPosition(picNum)
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum)
+    const imageWidget1 = new ImageWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum, i)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
   }
@@ -238,7 +277,7 @@ function wait () {
   waitImage.setAttribute('id', 'waitImage')
   waitDiv.setAttribute('id', 'waitDiv')
   waitTitle.setAttribute('id', 'waitTitle')
-  waitTitle.innerText = 'Notre moment arrive...'
+  waitTitle.innerText = 'Jouons ensemble, les amis!'
   waitImage.src = 'assets/quiz.png'
   waitDiv.append(waitImage, waitTitle)
   $('#app').append(waitDiv)
@@ -322,15 +361,15 @@ function contretration () {
 
 function forConentration (audioSrc) {
   if (!isElse) {
-    var titleTop = document.createElement('h1')
-    var titleBottom = document.createElement('h1')
-    var titleLeft = document.createElement('h1')
-    var titleRight = document.createElement('h1')
+    var titleTop = document.createElement('div')
+    var titleBottom = document.createElement('div')
+    var titleLeft = document.createElement('div')
+    var titleRight = document.createElement('div')
     titleTop.setAttribute('class', 'titleT')
     titleBottom.setAttribute('class', 'titleB')
     titleLeft.setAttribute('class', 'titleL')
     titleRight.setAttribute('class', 'titleR')
-    titleTop.innerText = 'Jouez avec les notes'
+    titleTop.innerHTML = '<h1>Jouez avec les notes</h1>'
     titleBottom.innerText = 'Jouez avec les notes'
     titleLeft.innerText = 'Jouez avec les notes'
     titleRight.innerText = 'Jouez avec les notes'
@@ -361,7 +400,7 @@ function forConentration (audioSrc) {
 }
 
 function getRandomPosition (num) {
-  var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+  var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
   var out = []
   let i = 0
   while (i < num) {
@@ -373,6 +412,12 @@ function getRandomPosition (num) {
   console.log(out)
   return out
 }
+
+$('#app').mousemove(function (e) {
+  var xx = e.originalEvent.x || e.originalEvent.X || 0
+  var yy = e.originalEvent.y || e.originalEvent.Y || 0
+  console.log(xx, yy)
+})
 
 
 

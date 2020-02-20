@@ -22,6 +22,7 @@ import { radToDeg } from 'tuiomanager/core/helpers'
 
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
+
 class ImageTouchWidget extends TUIOWidget {
   /**
    * ImageWidget constructor.
@@ -35,13 +36,15 @@ class ImageTouchWidget extends TUIOWidget {
    * @param socket
    */
 
-  constructor (x, y, width, height, imgSrc, socket, isRight, rightNum) {
+  constructor (x, y, width, height, imgSrc, socket,
+               isRight, rightNum, i) {
     super(x, y, width, height)
     this._lastTouchesValues = {}
     this._lastTagsValues = {}
     this.socket = socket
     this.isRight = isRight
     this.rightNums = rightNum
+    this.i = 'name' + i.toString()
     this._domElem = $('<img>')
     this._domElem.attr('src', `${imgSrc}`)
     this._domElem.css('width', `${width}px`)
@@ -50,7 +53,9 @@ class ImageTouchWidget extends TUIOWidget {
     this._domElem.css('left', `${x}px`)
     this._domElem.css('top', `${y}px`)
 
-    this._domElem[0].className = 'testImage'
+    this._domElem[0].className = this.i
+    console.log(this._domElem[0].className)
+    this.vanished = false
 
     this.socket._client.on('all tableQuiz', () => {
       console.log('asdfjlasjdflkjasdlkfjlas')
@@ -64,9 +69,8 @@ class ImageTouchWidget extends TUIOWidget {
    */
   get domElem () { return this._domElem }
 
-  onTouchCreation(tuioTouch) {
+  onTouchCreation (tuioTouch) {
     super.onTouchCreation(tuioTouch)
-    console.log('sdfsdf')
     if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
       this._lastTouchesValues = {
         ...this._lastTouchesValues,
@@ -75,34 +79,52 @@ class ImageTouchWidget extends TUIOWidget {
           y: tuioTouch.y,
         },
       }
-      console.log('sdfsdf')
-      if(this.isRight === true) {
-        this._domElem.css('display', `none`)
-        this.socket.sendValidedAction(true)
-        var bravo = document.createElement('h1')
-        bravo.setAttribute('class', 'information')
-        bravo.innerText = 'Bravo'
-        console.log('bravo')
-        $('.imageDiv').append(bravo)
-        setTimeout(()=>{
-          $('.information').css('display', `none`)
-        }, 1000)
-      }else{
-        this._domElem.css('display', `none`)
-        this.socket.sendValidedAction(false)
-        var again = document.createElement('h1')
-        again.setAttribute('class', 'information')
-        again.innerText = 'Essayez encore'
-        $('.imageDiv').append(again)
-        console.log('essayez-encore')
-        setTimeout(()=>{
-          $('.information').css('display', `none`)
-        }, 1000)
+      console.log('test')
+      if (!this.vanished) {
+        if (this.isRight === true) {
+          // this._domElem.css('display', `none`)
+          // $('.testImage').remove()
+          // this._domElem[0].className.
+          $('.' + this._domElem[0].className).fadeOut(2000)
+          this.socket.sendValidedAction(true)
+          this.vanished = true
+          console.log('bravo')
+          for (let i = 0; i < 4; i++) {
+            var bravo = document.createElement('h1')
+            bravo.setAttribute('class', 'information' + i.toString())
+            bravo.innerText = 'Bravo'
+            $('.imageDiv').append(bravo)
+          }
+          setTimeout(() => {
+            $('.information0').fadeOut(2000)
+            $('.information1').fadeOut(2000)
+            $('.information2').fadeOut(2000)
+            $('.information3').fadeOut(2000)
+          }, 1000)
+        } else {
+          this.vanished = true
+          $('.' + this._domElem[0].className).fadeOut(2000)
+          // $('.testImage').remove()
+          this.socket.sendValidedAction(false)
+          for (let i = 0; i < 4; i++) {
+            var again = document.createElement('h1')
+            again.setAttribute('class', 'information' + i.toString())
+            again.innerText = 'Essayez encore'
+            $('.imageDiv').append(again)
+          }
+          console.log('essayez-encore')
+          setTimeout(() => {
+            $('.information0').fadeOut(2000)
+            $('.information1').fadeOut(2000)
+            $('.information2').fadeOut(2000)
+            $('.information3').fadeOut(2000)
+          }, 1000)
+        }
       }
     }
   }
 
-  onTouchUpdate(tuioTouch) {
+  onTouchUpdate (tuioTouch) {
     if (typeof (this._lastTouchesValues[tuioTouch.id]) !== 'undefined') {
       const lastTouchValue = this._lastTouchesValues[tuioTouch.id]
       const diffX = tuioTouch.x - lastTouchValue.x
@@ -129,41 +151,42 @@ class ImageTouchWidget extends TUIOWidget {
     }
   }
 
-  onTagCreation(tuioTag) {
-    super.onTagCreation(tuioTag)
-    if (this.isTouched(tuioTag.x, tuioTag.y)) {
-      this._lastTagsValues = {
-        ...this._lastTagsValues,
-        [tuioTag.id]: {
-          x: tuioTag.x,
-          y: tuioTag.y,
-        },
-      }
-      if(this.isRight === true) {
-        this.socket.sendValidedAction(true)
-        this._domElem.css('display', `none`)
-        var bravo = document.createElement('h1')
-        bravo.setAttribute('class', 'information')
-        bravo.innerText = 'Bravo'
-        console.log('bravo')
-        $('.imageDiv').append(bravo)
-        setTimeout(()=>{
-          $('.information').css('display', `none`)
-        }, 1000)
-      }else{
-        this.socket.sendValidedAction(false)
-        this._domElem.css('display', `none`)
-        var again = document.createElement('h1')
-        again.setAttribute('class', 'information')
-        again.innerText = 'Essayez encore'
-        $('.imageDiv').append(again)
-        console.log('essayez-encore')
-        setTimeout(()=>{
-          $('.information').css('display', `none`)
-        }, 1000)
-      }
-    }
-  }
+  //
+  // onTagCreation(tuioTag) {
+  //   super.onTagCreation(tuioTag)
+  //   if (this.isTouched(tuioTag.x, tuioTag.y)) {
+  //     this._lastTagsValues = {
+  //       ...this._lastTagsValues,
+  //       [tuioTag.id]: {
+  //         x: tuioTag.x,
+  //         y: tuioTag.y,
+  //       },
+  //     }
+  //     if(this.isRight === true) {
+  //       this.socket.sendValidedAction(true)
+  //       this._domElem.css('display', `none`)
+  //       var bravo = document.createElement('h1')
+  //       bravo.setAttribute('class', 'information')
+  //       bravo.innerText = 'Bravo'
+  //       console.log('bravo')
+  //       $('.imageDiv').append(bravo)
+  //       setTimeout(()=>{
+  //         $('.information').css('display', `none`)
+  //       }, 1000)
+  //     }else{
+  //       this.socket.sendValidedAction(false)
+  //       this._domElem.css('display', `none`)
+  //       var again = document.createElement('h1')
+  //       again.setAttribute('class', 'information')
+  //       again.innerText = 'Essayez encore'
+  //       $('.imageDiv').append(again)
+  //       console.log('essayez-encore')
+  //       setTimeout(()=>{
+  //         $('.information').css('display', `none`)
+  //       }, 1000)
+  //     }
+  //   }
+  // }
 
   /**
    * Call after a TUIOTag update.
@@ -171,33 +194,33 @@ class ImageTouchWidget extends TUIOWidget {
    * @method onTagUpdate
    * @param {TUIOTag} tuioTag - A TUIOTag instance.
    */
-  onTagUpdate(tuioTag) {
-    if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
-      const lastTagValue = this._lastTagsValues[tuioTag.id]
-      const diffX = tuioTag.x - lastTagValue.x
-      const diffY = tuioTag.y - lastTagValue.y
-
-      let newX = this.x + diffX
-      let newY = this.y + diffY
-
-      if (newX < 0) {
-        newX = 0
-      }
-
-      if (newX > (WINDOW_WIDTH - this.width)) {
-        newX = WINDOW_WIDTH - this.width
-      }
-
-      if (newY < 0) {
-        newY = 0
-      }
-
-      if (newY > (WINDOW_HEIGHT - this.height)) {
-        newY = WINDOW_HEIGHT - this.height
-      }
-
-    }
-  }
+  // onTagUpdate(tuioTag) {
+  //   if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
+  //     const lastTagValue = this._lastTagsValues[tuioTag.id]
+  //     const diffX = tuioTag.x - lastTagValue.x
+  //     const diffY = tuioTag.y - lastTagValue.y
+  //
+  //     let newX = this.x + diffX
+  //     let newY = this.y + diffY
+  //
+  //     if (newX < 0) {
+  //       newX = 0
+  //     }
+  //
+  //     if (newX > (WINDOW_WIDTH - this.width)) {
+  //       newX = WINDOW_WIDTH - this.width
+  //     }
+  //
+  //     if (newY < 0) {
+  //       newY = 0
+  //     }
+  //
+  //     if (newY > (WINDOW_HEIGHT - this.height)) {
+  //       newY = WINDOW_HEIGHT - this.height
+  //     }
+  //
+  //   }
+  // }
 
 }
 

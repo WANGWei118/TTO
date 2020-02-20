@@ -7,65 +7,122 @@ import '../model';
 import {Link,useParams} from "react-router-dom";
 import Sidebar from '../sidebar';
 import openSocket from 'socket.io-client';
+import '../config/config'
 
-
+const url = global.constants.url;
 const { Header, Content} = Layout;
 const { Meta } = Card;
 
-export default function DetailProfile(props){
-    let { id } = useParams();
-    let info = null;
-    let infoList = [];
+export default class DetailProfile extends React.Component {
+    socket = openSocket;
 
-    let socket = props.socket;
-    console.log(id);
-    socket.emit('get profiles');
-    socket.on('all profiles',(data)=>{
-        infoList = data;
-        console.log(infoList);
-        infoList.map((e) => {
-            if (e.id == id) {
-                info = e;
-                console.log(info);
-            }
+    state = {
+        id:global.constants.profileId,
+        infoList:[],
+        info: {quizAccessible:{quizIndividuel:[]}},
+        individuel: [],
+        questions: [],
+    };
+
+    constructor(props) {
+        super(props);
+        this.socket = props.socket;
+        this.socket.emit('get profiles');
+        this.socket.on('all profiles',(data)=>{
+            this.state.infoList = data;
+            console.log(this.state.infoList);
+            this.state.infoList.map((e) => {
+                if (e.id === this.state.id) {
+                    this.setState({
+                        info:e,
+                    });
+                    console.log(this.state.info);
+                }
+            });
         });
 
-    });
-    return(
-        <Layout style={{ minHeight: '100vh' }}>
-            <Sidebar default = "3"/>
-            <Layout>
-                <Header style={{ background: '#fff' }}>
-                    <h2>Profile</h2>
-                </Header>
-                <Content style={{ margin: '0 16px' }}>
-                    <Breadcrumb style={{ margin: '16px 0' }}>
-                        <Breadcrumb.Item> </Breadcrumb.Item>
-                    </Breadcrumb>
-                    <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                        <Descriptions title="User Info" bordered>
-                            <Descriptions.Item label="Prénom">rrr</Descriptions.Item>
-                            <Descriptions.Item label="Nom">rrr</Descriptions.Item>
-                            <Descriptions.Item label="Id">{id}</Descriptions.Item>
-                            <Descriptions.Item label="Photo">d</Descriptions.Item>
-                            <Descriptions.Item label="Quiz accessible">
-                                Data disk type: MongoDB
-                                <br />
-                                Database version: 3.4
-                                <br />
-                                Package: dds.mongo.mid
-                                <br />
-                                Storage space: 10 GB
-                                <br />
-                                Replication factor: 3
-                                <br />
-                                Region: East China 1<br />
-                            </Descriptions.Item>
-                        </Descriptions>
-                    </div>
-                </Content>
+        this.socket.emit('get all types quiz');
+        this.socket.on('all types quiz',(data) => {
+            this.state.individuel = [];
+            this.state.questions = [];
+            data.personal.map((e)=>{
+                this.state.info.quizAccessible.quizIndividuel.map((i)=>{
+                    if(e.id === i) {
+                        this.setState({
+                            individuel: this.state.individuel.concat(e),
+                        })
+                    }
+                });
+            });
+            this.setState({
+                questions: data.collaborative.handsTouch.concat(data.collaborative.handsMove),
+            })
+
+            console.log(data);
+            console.log(this.state.individuel);
+            console.log(this.state.questions);
+
+        });
+    }
+    render() {
+        const info = this.state.info;
+        console.log(info);
+        return(
+            <Layout style={{ minHeight: '100vh' }}>
+                <Sidebar default = "3"/>
+                <Layout>
+                    <Header style={{ background: '#fff' }}>
+                        <h2>Profile</h2>
+                    </Header>
+                    <Content style={{ margin: '0 16px' }}>
+                        <Breadcrumb style={{ margin: '16px 0' }}>
+                            <Breadcrumb.Item> </Breadcrumb.Item>
+                        </Breadcrumb>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                            <Descriptions title="User Info" bordered>
+                                <Descriptions.Item label="Prénom">{info.firstName}</Descriptions.Item>
+                                <Descriptions.Item label="Nom">{info.lastName}</Descriptions.Item>
+                                <Descriptions.Item label="Photo"><img style={{height:100,width:100}} src={url+info.src}/></Descriptions.Item>
+                                <Descriptions.Item label="Quiz accessible individuel">
+                                    {this.state.individuel.map((e)=>{
+                                        return<div style = {{marginBottom:20}}>
+                                            <h2>{e.name}</h2>
+                                            <List itemLayout="horizontal"
+                                                  bordered = "true"
+                                                  dataSource={e.questions}
+                                                  renderItem={item=>(
+                                                      <List.Item>
+                                                          <p>{item.description}</p>
+                                                      </List.Item>
+                                                  )}
+                                            />
+                                        </div>
+                                    })}
+                                </Descriptions.Item>
+                                <Descriptions.Item label="Quiz accessible collaboratif">
+                                    {this.state.questions.map((e)=>{
+                                        return<div style = {{marginBottom:20}}>
+                                            <h2>{e.name}</h2>
+                                            <List itemLayout="horizontal"
+                                                  bordered = "true"
+                                                  dataSource={e.questions}
+                                                  renderItem={item=>(
+                                                      <List.Item>
+                                                          <p>{item.description}</p>
+                                                      </List.Item>
+                                                  )}
+                                            />
+                                        </div>
+                                    })}
+                                </Descriptions.Item>
+                            </Descriptions>
+                        </div>
+                    </Content>
+                </Layout>
             </Layout>
-        </Layout>
-    );
+        );
+    }
+
 }
+
 

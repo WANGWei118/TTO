@@ -4,7 +4,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
 
 let des = ''
 let validedAnswers = 0
-const url = 'http://172.20.10.2:10000/'
+const url = 'http://192.168.1.7:10000/'
 
 class DivWidget extends TUIOWidget {
   constructor (x, y, width, height, socket, played, audioSrc) {
@@ -40,18 +40,13 @@ class DivWidget extends TUIOWidget {
         },
       }
       console.log('hello world')
-      this.played = true
+      this.socket.playMusic()
       setTimeout(() => {
         this._domElem[0].setAttribute('class', 'vanishedNote')
         setTimeout(() => {
           this._domElem[0].style.display = 'none'
         }, 1000)
       }, 500)
-      if (this.played) {
-        this.audio.play()
-      } else {
-        this.audio.pause()
-      }
     }
   }
 

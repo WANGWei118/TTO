@@ -9,7 +9,9 @@ import Sidebar from '../sidebar';
 import './createQuiz.css'
 import {Link} from "react-router-dom";
 import $ from 'jquery';
+import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer, Sider} = Layout;
 const Menu1 = 'Liste de quiz';
 const Menu2 = 'Statistiques';
@@ -19,7 +21,6 @@ const { TextArea } = Input;
 const { Option } = Select;
 const questions = require('../question');
 const plainOptions = questions.map((question) => question.description);
-const url = "http://172.20.10.2:10000/";
 
 const menu = (
     <Menu>
@@ -119,10 +120,18 @@ class CreateQuiz extends React.Component {
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeTheme = this.onChangeTheme.bind(this);
         this.socket = props.socket;
-        // this.socket.on('all quizz', (result) => {
-        //     this.quizList = result;
-        //     this.setState({ data: result })
-        // })
+
+        this.socket.emit("get topics");
+        this.socket.on("all topics",(data)=>{
+            this.state.topicList=[];
+            data.map((e)=>{
+                this.setState({
+                    topicList: this.state.topicList.concat(e),
+                })
+            });
+            console.log(this.state.topicList);
+        });
+
         this.socket.emit('get all types quiz');
         this.socket.on('all types quiz',(data) => {
             this.quizList = data;
@@ -133,13 +142,45 @@ class CreateQuiz extends React.Component {
         this.socket.on('quiz added',(type) =>{
             if (type.type === true){
                 notification['success']({
-                    message: 'Quiz créé avec succès ',
+                    message: 'Quiz individuel créé avec succès ',
                 });
                 this.setState({
                     name: '',
                     theme: null,
                     checkedList: [],
                     checkedQuestion: [],
+                });
+                this.onChangeTheme('');
+            }
+        });
+
+        this.socket.on('quiz hands touch added',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Quiz hand touch créé avec succès ',
+                });
+                this.setState({
+                    name: '',
+                    theme: null,
+                    checkedList: [],
+                    checkedQuestion: [],
+                    questionCol: [],
+                });
+                this.onChangeTheme('');
+            }
+        });
+
+        this.socket.on('quiz hands move added',(type) =>{
+            if (type.type === true){
+                notification['success']({
+                    message: 'Quiz drag and drop créé avec succès ',
+                });
+                this.setState({
+                    name: '',
+                    theme: null,
+                    checkedList: [],
+                    checkedQuestion: [],
+                    questionCol: [],
                 });
                 this.onChangeTheme('');
             }
@@ -782,13 +823,14 @@ class CreateQuiz extends React.Component {
 
     sendNewQuiz = () => {
         let themePic = '';
+        this.state.topicList.map((e)=>{
+            if(this.state.theme === e.topic){
+                themePic = e.icon;
+            }
+        });
+
         this.getTopicId(this.state.theme);
-        switch (this.state.theme) {
-            case 'fruit': themePic = 'topics/Fruits.jpg'; break;
-            case 'animal': themePic = 'topics/animals.jpg'; break;
-            case 'la vie quotidienne': themePic = 'topics/dailyLife.jpg'; break;
-            case 'musique': themePic = 'topics/instruments.jpg'; break;
-        }
+
         if (this.state.type === 'individuel') {
             let sendAcc = [];
             console.log(this.state.accList)
@@ -941,18 +983,17 @@ class CreateQuiz extends React.Component {
             // Get this url from response in real world.
             getBase64(info.file.originFileObj, imageUrl =>{
                 let image;
-                image = this.prefix.concat(info.file.originFileObj.name);
+                image = 'assets/'+info.file.originFileObj.name;
                 this.setState({
                     imageUrl,
                     loading: false,
                     images: this.state.images.concat(
                         <Button className="buttonImage"
                                 onClick={e => this.onChangePic(e, image)}>
-                            <img src = {url+imageUrl} className='image'/>
+                            <img src = {url+image} className='image'/>
                         </Button>
                     ),
                 });
-                console.log(this.prefix);
                 console.log(image);
                 console.log(this.state.images);
             });
@@ -974,7 +1015,7 @@ class CreateQuiz extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: 'http://172.20.10.2:10001/imgUpload',
+            url: 'http://192.168.1.7:10001/imgUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
@@ -982,7 +1023,6 @@ class CreateQuiz extends React.Component {
             dataType: 'json'
         }).done(function (data) {
             console.log(data);
-            alert(data.errMsg)
         }).fail(function (err) {
             console.error(err)
         })
@@ -990,6 +1030,7 @@ class CreateQuiz extends React.Component {
 
 
     render() {
+        let i = 0;
         const uploadButton = (
             <div>
                 <Icon type={this.state.loading ? 'loading' : 'plus'}/>
@@ -1047,8 +1088,9 @@ class CreateQuiz extends React.Component {
                                 Thème<p style={{color:'red'}}>*</p>
                                 <Select defaultValue="" value = {this.state.theme}
                                         style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
-                                    <Option value="fruit">Fruit</Option>
-                                    <Option value="animal">Animaux</Option>
+                                    {this.state.topicList.map((e)=>(
+                                        <Option key={e.topic}>{e.topic}</Option>
+                                    ))}
                                 </Select>
                             </div>
                             <div style = {{ marginBottom:20, fontSize:16, display: 'flex', flexDirection: 'row'}}> Acceuilli

@@ -7,11 +7,12 @@ import {Link} from "react-router-dom";
 import openSocket from 'socket.io-client';
 import Sidebar from '../sidebar';
 import DetailQuiz from "../listOfQuiz/detailQuiz";
+import '../config/config'
 
+const url = global.constants.url;
 const { Header, Content, Footer,Sider } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://172.20.10.2:10000/";
 const { Meta } = Card;
 
 
@@ -29,6 +30,7 @@ class Homepage extends React.Component {
 
         this.socket.emit("get topics");
         this.socket.on("all topics",(data)=>{
+            this.state.topicList=[];
             // let topic = data;
             // topic.map((e)=>{
             //     this.setState({
@@ -40,31 +42,14 @@ class Homepage extends React.Component {
                 topicList:data,
             })
 
-
             console.log(this.state.topicList);
         });
     };
 
-    onCollapse = collapsed => {
-        console.log(collapsed);
-        this.setState({ collapsed });
+    showDetail = (i,e) =>{
+        global.constants.topicId = e.id;
+        console.log(global.constants.topicId);
     };
-
-    renderInput2() {
-        if (this.state.visible2){
-            console.log('render');
-            return (
-                <Search
-                    className = "input"
-                    placeholder="Enter name of list"
-                    enterButton="Ok"
-                    onSearch={value => {
-                        console.log(value);
-                    }}
-                />
-            );
-        }
-    }
 
 
     render() {
@@ -93,14 +78,14 @@ class Homepage extends React.Component {
                                         <div style={{display:'flex',flexDirection:'row',flexWrap:'wrap'}}>
                                             {this.state.topicList.map((item)=>{
 
-                                                    return <Card onClick={()=>console.log('ww')} style={{height:180,width:'20%',margin:10}}
+                                                    return <Card onClick={(i)=>this.showDetail(i,item)} style={{height:180,width:'20%',margin:10}}
                                                            cover={<img alt="photo"
                                                                        src={url+item.icon}
                                                                        style={{height:120,width:'100%',objectFit:'contain'}}
                                                            />}
                                                     >
-                                                        <Meta title={item.topic} />
-                                                    </Card>
+                                                        <Link to="/quizByTopic"><Meta title={item.topic} />
+                                                        </Link></Card>
                                         })}</div>
                                         <Button style={{height:180,width:'20%',margin:10,verticalAlign:'middle',textAlign:'center',fontSize:48}}>
                                             <Link to="/newTheme">+</Link></Button>
@@ -116,7 +101,6 @@ class Homepage extends React.Component {
                                     key="2">
                                     <Layout style={{ background: '#fff', minHeight: 360, }}>
                                         <Button type='primary' style = {{fontSize:20,marginBottom:10}} size='large'><Link to="/createQuiz">+ Créer nouveau quiz</Link></Button>
-                                        {this.renderInput2()}
                                         <DetailQuiz socket={this.socket}/>
                                     </Layout>
                                 </TabPane>

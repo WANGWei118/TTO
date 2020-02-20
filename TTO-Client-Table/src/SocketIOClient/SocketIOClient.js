@@ -54,9 +54,9 @@ class SocketIOClient {
    * Init and start SocketIOClient.
    *
    * @method start
-   * @param {string} socketIOUrl - Socket IO Server's url. Default : 'http://172.20.10.2:10000/'
+   * @param {string} socketIOUrl - Socket IO Server's url. Default : 'http://192.168.1.7:10000/'
    */
-  start(socketIOUrl = 'http://172.20.10.2:10000/') {
+  start(socketIOUrl = 'http://192.168.1.7:10000/') {
     this._client = io(socketIOUrl)
     this._client.on(PING_SOCKETIO_TYPE, (data) => {
       this.handlePing(data)
@@ -75,6 +75,13 @@ class SocketIOClient {
     this._client.emit('get quizz', {type: 'table'})
   }
 
+  playMusic(){
+    this._client.emit('play music')
+  }
+
+  pauseMusic(){
+    this._client.emit('pause music')
+  }
   getMessage(data) {
     console.log(`Received message ${data}!`)
   }

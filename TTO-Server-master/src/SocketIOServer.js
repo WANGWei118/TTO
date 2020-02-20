@@ -20,7 +20,7 @@ import profileUpload from '../controller/profile-uploader'
 import topicUpload from '../controller/topic-uploader'
 
 const MongoClient = require('mongodb').MongoClient
-const urlDB = 'mongodb://localhost:27017/tto'
+const urlDB = 'mongodb://192.168.1.7:27017/tto'
 
 const database = require('./database/database')
 
@@ -302,7 +302,17 @@ class SocketIOServer {
 
       socket.on('update profile detail', (data) => {
         console.log('update profile detail', data)
-        database.updateProfilesDetail(data)
+        database.updateProfilesDetail(data, socket)
+      })
+
+      socket.on('play music', () => {
+        console.log('play music')
+        socket.emit('play', true)
+      })
+
+      socket.on('pause music', () => {
+        console.log('pause music')
+        socket.emit('play', false)
       })
 
       socket.on('disconnect', () => {

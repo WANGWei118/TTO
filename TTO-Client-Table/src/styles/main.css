@@ -4,6 +4,42 @@
     overflow: hidden;
 }
 
+.information0 {
+    bottom:50px;
+    z-index: 4;
+    font-size: 70px;
+    color: #f59010;
+    position: absolute;
+}
+
+.information1 {
+    z-index: 4;
+    font-size: 70px;
+    color: #f59010;
+    position: absolute;
+    left: 50px;
+    writing-mode: vertical-lr;
+}
+
+.information2 {
+    z-index: 4;
+    font-size: 70px;
+    color: #f59010;
+    position: absolute;
+    writing-mode: vertical-lr;
+    right: 50px;
+    transform: rotate(180deg);
+}
+
+.information3 {
+    z-index: 4;
+    font-size: 70px;
+    color: #f59010;
+    position: absolute;
+    top: 50px;
+    transform: rotate(180deg);
+}
+
 .information {
     z-index: 4;
     font-size: 70px;
@@ -11,6 +47,10 @@
     position: absolute;
     top: 35%;
     left: 20%;
+}
+
+#0 {
+    color: #282c34;
 }
 
 .nonTangibleDiv {
@@ -36,11 +76,11 @@
     z-index: 4;
     font-size: 40px;
     position: absolute;
-    left: -5vw;
-    transform: rotate(90deg);
+    left: 0;
     background-color: #3893d4;
     color: white;
     font-weight: bold;
+    writing-mode: vertical-lr;
 }
 
 .titleB {
@@ -60,8 +100,9 @@
     color: white;
     font-weight: bold;
     position: absolute;
-    right: -5vw;
-    transform: rotate(-90deg)
+    right: 0;
+    transform: rotate(180deg);
+    writing-mode: vertical-rl;
 }
 
 
@@ -173,7 +214,7 @@
     animation: crescendo 4s ease-out;
 }
 
-.vanishedNote{
+.vanishedNote {
     animation: shrink 3s ease-out;
 }
 

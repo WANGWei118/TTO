@@ -6,7 +6,7 @@ const QuizCardCollaborative = props => {
 
   const TANGIBLE = 'tangible'
   const NORMAL = 'normal'
-  const url = 'http://172.20.10.2:10000/'
+  const url = 'http://192.168.1.7:10000/'
 
   const history = useHistory()
   const quiz = props.quiz
@@ -31,9 +31,9 @@ const QuizCardCollaborative = props => {
   const defaultImage = () => {
     if (topic === 'animal') {
       return (
-        <img src={'http://172.20.10.2:10000/assets/animals.jpg'}/>)
+        <img src={'http://192.168.1.7:10000/assets/animals.jpg'}/>)
     } else {
-      return (<img src={'http://172.20.10.2:10000/assets/Fruits.jpg'}/>)
+      return (<img src={'http://192.168.1.7:10000/assets/Fruits.jpg'}/>)
     }
   }
 
