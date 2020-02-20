@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Choisir les fruits",
-    "topic": "fruit",
+    "topic": "Fruit",
     "type": "notangible",
     "questions": [
       {

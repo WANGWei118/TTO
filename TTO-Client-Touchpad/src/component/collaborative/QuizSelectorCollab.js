@@ -13,7 +13,7 @@ const QuizSelectorCollab = props => {
 
     const TANGIBLE = 'tangible';
     const NORMAL = 'normal';
-    const url = 'http://192.168.1.7:10000/'
+    const url = 'http://172.20.10.2:10000/'
 
     const history = useHistory();
     const socket = props.socket;

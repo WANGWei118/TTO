@@ -20,7 +20,7 @@ import profileUpload from '../controller/profile-uploader'
 import topicUpload from '../controller/topic-uploader'
 
 const MongoClient = require('mongodb').MongoClient
-const urlDB = 'mongodb://192.168.1.7:27017/tto'
+const urlDB = 'mongodb://172.20.10.2:27017/tto'
 
 const database = require('./database/database')
 
@@ -256,6 +256,12 @@ class SocketIOServer {
 
       socket.on('add topic', (data) => {
         database.addTopic(data, socket)
+        database.addNewImagesTopic(data, socket)
+      })
+
+      socket.on('add image', (data)=>{
+        console.log('add image', data)
+        database.addImageInTopic(data, socket);
       })
 
       socket.on('start fun quiz', (data) => {

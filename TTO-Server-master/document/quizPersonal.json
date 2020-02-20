@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Quiz fruits",
-    "topic": "fruit",
+    "topic": "Fruit",
     "src": "topics/Fruits.jpg",
     "questions": [
       {
@@ -75,7 +75,7 @@
     "id": 2,
     "name": "Quiz fruits",
     "src": "topics/Fruits.jpg",
-    "topic": "fruit",
+    "topic": "Fruit",
     "questions": [
       {
         "id": 1,
@@ -115,7 +115,7 @@
     "id": 3,
     "name": "Quiz animaux",
     "src": "topics/animals.jpg",
-    "topic": "animal",
+    "topic": "Animal",
     "questions": [
       {
         "id": 1,
@@ -154,7 +154,7 @@
   {
     "id": 4,
     "name": "Quiz animaux",
-    "topic": "animal",
+    "topic": "Animal",
     "src": "topics/animals.jpg",
     "questions": [
       {
@@ -226,7 +226,7 @@
   {
     "id": 5,
     "name": "Quiz musique",
-    "topic": "musique",
+     "topic": "Musique",
     "src": "topics/instruments.jpg",
     "questions": [
       {
@@ -298,8 +298,80 @@
   {
     "id": 6,
     "name": "Quiz couleur",
-    "topic": "couleur",
+     "topic": "Couleur",
     "src": "topics/color.png",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Choisissez Rouge?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Bleu",
+            "src": "assets/bleu.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Rouge",
+            "src": "assets/red.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Vert",
+            "src": "assets/green.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Noir",
+            "src": "assets/black.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 2,
+          "text": "Rouge",
+          "src": "assets/red.jpg"
+        },
+        "explains": ""
+      },
+      {
+        "id": 2,
+        "description": "Choisissez Vert?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Bleu",
+            "src": "assets/bleu.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Rouge",
+            "src": "assets/red.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Vert",
+            "src": "assets/green.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Noir",
+            "src": "assets/black.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 3,
+          "text": "Vert",
+          "src": "assets/green.jpg"
+        },
+        "explains": ""
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Quiz monuments et capitales",
+    "topic": "Monuments et capitales",
+    "src": "topics/map.jpg",
     "questions": [
       {
         "id": 1,
