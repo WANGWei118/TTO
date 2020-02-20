@@ -103,6 +103,7 @@ class Database {
       const dbo = db.db('tto')
       dbo.collection('images').find({}).toArray(function (err, result) {
         if (err) throw err
+        console.log(result)
         socket.emit('images', result)
         db.close()
       })
@@ -250,6 +251,59 @@ class Database {
   }
 
   /**
+   * "id": 6,
+   "topic": "Monuments et capitales",
+   * @param newImageTopic
+   * @param socket
+   */
+  addNewImagesTopic (newImageTopic, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      const imagesTopic = {
+        id: newImageTopic.id,
+        topic: newImageTopic.topic,
+        images: []
+      }
+      dbo.collection('images').insertOne(imagesTopic, function (err, res) {
+        if (err) throw err
+        console.log('images topic inserted success')
+        socket.emit('images topic added', {type: true})
+        db.close()
+      })
+    })
+  }
+
+  /**
+   * data ={id: 1, data: {
+   *   id: 44,
+   *   src:'test.png'
+   * }]}
+   * @param data
+   * @param socket
+   */
+  addImageInTopic (data, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      var searchId = {id: data.id}
+      var updatedTopicImages = []
+      dbo.collection('images').find(searchId).toArray(function (err, result) {
+        if (err) throw err
+        updatedTopicImages = result[0].images.concat(data.data)
+        console.log('this new images')
+        console.log(updatedTopicImages)
+        var updated = {$set: {'images': updatedTopicImages}}
+        dbo.collection('images').updateOne(searchId, updated, function (err, res) {
+          if (err) throw err
+          console.log('update images succeed')
+          db.close()
+        })
+      })
+    })
+  }
+
+  /**
    *
    * @param newProfile
    * @param socket
@@ -329,8 +383,9 @@ class Database {
       ]
     }
    }
+   * @param socket
    */
-  updateProfilesDetail (newProfile) {
+  updateProfilesDetail (newProfile, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err
       var dbo = db.db('tto')
@@ -346,6 +401,7 @@ class Database {
       dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
         console.log('Update profiles success')
+        socket.broadcast.emit('update a profile', {type: true})
         db.close()
       })
     })
@@ -374,6 +430,7 @@ class Database {
       dbo.collection('topic').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
         console.log('Update topic success')
+        socket.broadcast.emit('update a topic', true)
         db.close()
       })
     })

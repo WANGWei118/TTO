@@ -3,13 +3,13 @@
     "id": 1,
     "name": "Choisir les fruits",
     "src": "topics/Fruits.jpg",
-    "topic": "fruit",
+    "topic": "Fruit",
     "type": "handsMove",
     "questions": [
       {
         "id": 1,
         "description": "Mettez les pommes au milieu",
-        "topic": "fruit",
+        "topic": "Fruit",
         "type": "handsMove",
         "rightAnswers": 1,
         "pictures": [
@@ -27,7 +27,7 @@
       },
       {
         "id": 2,
-        "topic": "fruit",
+        "topic": "Fruit",
         "description": "Mettez les bananes au milieu",
         "src": "topics/Fruits.jpg",
         "rightAnswers": 2,

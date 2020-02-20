@@ -1,51 +1,24 @@
 import React from 'react';
 import 'antd/dist/antd.css';
-import openSocket from 'socket.io-client';
-import { BrowserRouter as Router,
-    Switch,
-    Route,
-    Link } from "react-router-dom";
-import '../app.css';
-import {List, Layout, Breadcrumb, Menu, Icon, Tabs, Button, Input, Card} from 'antd';
-import NewTheme from '../listOfQuiz/newTheme'
-import DetailQuiz from '../listOfQuiz/detailQuiz'
+import { BrowserRouter as Router, Route } from "react-router-dom";import './app.css';
+import { Layout, Breadcrumb, Menu, Icon, Tabs, Button, Input} from 'antd';
+import DetailTheme from './detailTheme'
 const { Header, Content, Footer, } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://172.20.10.2:10000/";
-const { Meta } = Card;
 
 function callback(key) {
     console.log(key);
 }
 
 class Theme extends React.Component {
-    socket = openSocket;
-
     state = {
         current: 'theme',
         visible1: false,
         visible2 :false,
-        topicList: [],
-        test: null,
     };
     constructor(props) {
         super(props);
-        this.socket = props.socket;
-
-        this.socket.emit("get topics");
-        this.socket.on("all topics",(data)=>{
-            // let topic = data;
-            // topic.map((e)=>{
-            //     this.setState({
-            //         topicList: this.state.topicList.concat(e.topic),
-            //     });
-            // });
-            this.state.topicList=this.state.topicList.concat(data);
-
-
-            console.log(this.state.topicList);
-        });
         this.renderInput1 = this.renderInput1.bind(this);
         this.addList1 = this.addList1.bind(this);
     }
@@ -60,9 +33,10 @@ class Theme extends React.Component {
                     enterButton="Ok"
                     onSearch={value => {
                         console.log(value);
-                        // this.props.history.push('/detailTheme');
-                    }}/>
-                    );
+                        this.props.history.push('/detailTheme');
+                    }}
+                />
+            );
         }
     }
     renderInput2() {
@@ -75,18 +49,24 @@ class Theme extends React.Component {
                     enterButton="Ok"
                     onSearch={value => {
                         console.log(value);
+                        this.goto();
                     }}
                 />
             );
         }
     }
 
-    addList1 =() => {
+    addList1() {
         this.setState({
             visible1: !this.state.visible1,
         });
-    };
+    }
 
+    addList2() {
+        this.setState({
+            visible2: !this.state.visible2,
+        });
+    }
 
     render() {
         return(
@@ -107,35 +87,34 @@ class Theme extends React.Component {
                                     </span>
                                 }
                                 key="1">
-                                <Layout style={{ background: '#fff', minHeight: 450, flexDirection: 'row', }}>
-                                    <p>{this.state.topicList.length}</p>
-                                    <List grid={{ gutter: 16, column: 4 }}
-                                          style = {{background: '#aaafff'}}
-                                          dataSource = {this.state.topicList}
-                                          renderItem = {item => (
-
-                                              <List.item>
-                                                  <Card cover={<img alt="photo" src={url+item.icon} />}
-                                                  >
-                                                      <Meta title={item.topic} />
-
-                                                  </Card>
-
-                                              </List.item>
-                                          )}/>
+                                <Layout style={{ background: '#fff', minHeight: 360, flexDirection: 'row', }}>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button">Fruit</Button>
+                                    </div>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button" onClick={this.addList1}>+</Button>
+                                        {this.renderInput1()}
+                                    </div>
                                 </Layout>
                             </TabPane>
                             <TabPane
                                 tab={
                                     <span>
-                                            <Icon type="ordered-list" />Tous les quiz
+                                            <Icon type="ordered-list" />Quiz
                                     </span>
                                 }
                                 key="2">
-                                <Layout style={{ background: '#fff', minHeight: 360, }}>
-                                        <Button type='primary' style = {{fontSize:20,marginBottom:10}} size='large'><Link to="/createQuiz">+ Créer nouveau quiz</Link></Button>
+                                <Layout style={{ background: '#fff', minHeight: 360, flexDirection: 'row', }}>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button">Quiz 1</Button>
+                                    </div>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button">Quiz 2</Button>
+                                    </div>
+                                    <div className = "buttonContainer">
+                                        <Button className = "button" onClick={this.addList2}>+</Button>
                                         {this.renderInput2()}
-                                    <DetailQuiz socket={this.socket}/>
+                                    </div>
                                 </Layout>
                             </TabPane>
                         </Tabs>,

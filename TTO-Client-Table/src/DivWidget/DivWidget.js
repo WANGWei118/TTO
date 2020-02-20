@@ -4,12 +4,13 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
 
 let des = ''
 let validedAnswers = 0
-const url = 'http://192.168.1.7:10000/'
+const url = 'http://172.20.10.2:10000/'
 
 class DivWidget extends TUIOWidget {
-  constructor (x, y, width, height, socket, played, audioSrc) {
+  constructor (x, y, width, height, socket, played, audioSrc, count) {
     super(x, y, width, height)
     this.socket = socket
+    this.count = count
     this._domElem = $('<div></div>')
     this._domElem.css('width', `${width}px`)
     this._domElem.css('height', `${height}px`)
@@ -19,6 +20,7 @@ class DivWidget extends TUIOWidget {
     this._domElem.css('fontSize', `50px`)
     this.audio = new Audio(url + audioSrc)
     this.played = played
+    this._domElem[0].className = 'name' + this.count.toString()
   }
 
   get domElem () { return this._domElem }
@@ -41,12 +43,7 @@ class DivWidget extends TUIOWidget {
       }
       console.log('hello world')
       this.socket.playMusic()
-      setTimeout(() => {
-        this._domElem[0].setAttribute('class', 'vanishedNote')
-        setTimeout(() => {
-          this._domElem[0].style.display = 'none'
-        }, 1000)
-      }, 500)
+      $('.' + this._domElem[0].className).fadeOut(3000)
     }
   }
 

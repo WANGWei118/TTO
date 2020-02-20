@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Choisir les fruits ou les animaux",
-    "topic": "fruit",
+    "topic": "Fruit",
     "src": "topics/Fruits.jpg",
     "type": "handsTouch",
     "questions": [
@@ -48,7 +48,7 @@
         "id": 2,
         "description": "Où sont les chiens?",
         "src": "topics/animals.jpg",
-        "topic": "animal",
+        "topic": "Animal",
         "type": "handsTouch",
         "rightAnswers": 3,
         "pictures": [

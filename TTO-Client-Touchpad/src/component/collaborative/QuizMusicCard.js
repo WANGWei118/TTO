@@ -7,7 +7,7 @@ const QuizMusicCard = props => {
     const music = props.music;
     const musicName = music.description;
 
-    const url = 'http://192.168.1.7:10000/';
+    const url = 'http://172.20.10.2:10000/';
 
     const handleClick = (item) => {
         console.log(item)
@@ -19,7 +19,7 @@ const QuizMusicCard = props => {
 
     return (
         <div className="quizCard" onClick={() => handleClick(music)}>
-            <img src={url + music.cover} /> :
+            <img className={"quizImage"} src={url + music.cover} /> :
             <h2 className="quizName">{musicName}</h2>
         </div>
     );

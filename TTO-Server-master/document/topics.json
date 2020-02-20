@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "topic": "fruit",
+    "topic": "Fruit",
     "icon": "topics/Fruits.jpg",
     "quiz": {
       "personalQuiz": [
@@ -20,7 +20,7 @@
   },
   {
     "id": 2,
-    "topic": "animal",
+    "topic": "Animal",
     "icon": "topics/animals.jpg",
     "quiz": {
       "personalQuiz": [
@@ -36,7 +36,7 @@
   },
   {
     "id": 3,
-    "topic": "la vie quotidienne",
+    "topic": "La vie quotidienne",
     "icon": "topics/dailyLife.jpg",
     "quiz": {
       "personalQuiz": [],
@@ -48,7 +48,7 @@
   },
   {
     "id": 4,
-    "topic": "couleur",
+    "topic": "Couleur",
     "icon": "topics/color.png",
     "quiz": {
       "personalQuiz": [
@@ -62,11 +62,25 @@
   },
   {
     "id": 5,
-    "topic": "musique",
+    "topic": "Musique",
     "icon": "topics/instruments.jpg",
     "quiz": {
       "personalQuiz": [
         5
+      ],
+      "tableQuiz": {
+        "handsMove": [],
+        "handsTouch": []
+      }
+    }
+  },
+  {
+    "id": 6,
+    "topic": "Monuments et capitales",
+    "icon": "topics/map.jpg",
+    "quiz": {
+      "personalQuiz": [
+        7
       ],
       "tableQuiz": {
         "handsMove": [],
