@@ -11,6 +11,7 @@ import DetailProfile from './component/profile/detailProfile'
 import CreateProfile from './component/profile/createProfile'
 import QuizByTopic from './component/listOfQuiz/quizByTopic'
 import EditProfile from './component/profile/editProfile'
+import WrappedDynamicFieldSet from './component/test'
 
 import {
     BrowserRouter as Router,
@@ -18,7 +19,7 @@ import {
     Route,
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
-export const socket = openSocket('http://192.168.43.223:10000');
+export const socket = openSocket('http://localhost:10000');
 
 let profileId = null;
 
@@ -61,7 +62,7 @@ function App() {
                       <DetailProfile socket = {socket}/>
                   </Route>
                   <Route path="/profile">
-                      <Profile socket = {socket} handleId ={handleId.bind(this)}/>
+                      <Profile socket = {socket}/>
                   </Route>
                   <Route path="/createProfile">
                       <CreateProfile socket = {socket}/>
@@ -73,8 +74,10 @@ function App() {
                       <QuizByTopic socket = {socket}/>
                   </Route>
 
-                  <Route path="/">
-                      <HomePage socket = {socket}/>
+                  <Route exact path="/">
+                      {/*<HomePage socket = {socket}/>*/}
+                      <WrappedDynamicFieldSet />
+
                   </Route>
               </Switch>
           </div>

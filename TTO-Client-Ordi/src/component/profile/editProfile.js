@@ -7,7 +7,10 @@ import {
     Breadcrumb, Checkbox, List, Upload, Modal, Input, message, notification
 } from 'antd';
 import '../model';
-import {Link} from "react-router-dom";
+import {Link,
+    Switch,
+    Route,
+    withRouter,} from "react-router-dom";
 import Sidebar from '../sidebar';
 import openSocket from 'socket.io-client';
 import $ from 'jquery';
@@ -55,6 +58,8 @@ class EditProfile extends React.Component {
 
     constructor(props) {
         super(props);
+        const { history } = this.props;
+
         this.socket = props.socket;
 
         this.socket.emit('get profiles');
@@ -89,8 +94,11 @@ class EditProfile extends React.Component {
 
         this.socket.on('update a profile',(type) =>{
             if (type.type === true){
-                notification['success']({
-                    message: 'Profile modifié avec succès ',
+                Modal.success({
+                    content: 'Thème modifié avec succès',
+                    onOk(){
+                        if(history) history.push('/profile');
+                    }
                 });
             }
         });
@@ -260,4 +268,4 @@ class EditProfile extends React.Component {
         );
     }
 }
-export default EditProfile;
+export default withRouter(EditProfile);

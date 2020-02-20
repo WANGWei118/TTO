@@ -7,7 +7,10 @@ import {
     Breadcrumb, Checkbox, List, Upload, Modal, Input, message, notification
 } from 'antd';
 import '../model';
-import {Link} from "react-router-dom";
+import {Link,
+    Switch,
+    Route,
+    withRouter,} from "react-router-dom";
 import Sidebar from '../sidebar';
 import openSocket from 'socket.io-client';
 import $ from 'jquery';
@@ -52,6 +55,7 @@ class CreateProfile extends React.Component {
 
     constructor(props) {
         super(props);
+        const { history } = this.props;
         this.socket = props.socket;
 
         this.socket.emit('get profiles');
@@ -64,15 +68,11 @@ class CreateProfile extends React.Component {
 
         this.socket.on('profile added',(type) =>{
             if (type.type === true){
-                notification['success']({
-                    message: 'Profile créé avec succès ',
-                });
-                this.setState({
-                    firstName: '',
-                    lastName: '',
-                    imageUrl: null,
-                    image: null,
-                    checkedQuiz:[],
+                Modal.success({
+                    content: 'Nouveau profile créé avec succès',
+                    onOk(){
+                        if(history) history.push('/profile');
+                    }
                 });
             }
         });
@@ -250,4 +250,4 @@ class CreateProfile extends React.Component {
         );
     }
 }
-export default CreateProfile;
+export default withRouter(CreateProfile);

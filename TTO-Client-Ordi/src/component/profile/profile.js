@@ -163,8 +163,9 @@ class Profile extends React.Component {
                                     </List.Item>
                                 )}
                             />
-                            <Modal title=""
+                            <Modal title="Confirmation"
                                    visible={this.state.visible}
+                                   okType="danger"
                                    onOk={this.handleOk}
                                    onCancel={this.handleCancel}>
                                 <p>Vous êtes sûr de supprimer ce profile?</p>

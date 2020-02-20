@@ -2,12 +2,15 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
 import openSocket from 'socket.io-client';
-import { Upload, message,notification, List, Select,Layout, Menu, Icon,
-    Tabs, Button, Breadcrumb, Modal, Checkbox, Input, Radio} from 'antd';
+import { Form, Upload, message,notification, List, Select,Layout, Menu, Icon,
+     Button, Breadcrumb, Modal, Checkbox, Input, Radio} from 'antd';
 import images from './images';
 import Sidebar from '../sidebar';
 import './createQuiz.css'
-import {Link} from "react-router-dom";
+import {Link,
+    Switch,
+    Route,
+    withRouter,} from "react-router-dom";
 import $ from 'jquery';
 import '../config/config'
 
@@ -21,6 +24,8 @@ const { TextArea } = Input;
 const { Option } = Select;
 const questions = require('../question');
 const plainOptions = questions.map((question) => question.description);
+
+let id = 0;
 
 const menu = (
     <Menu>
@@ -65,6 +70,7 @@ class CreateQuiz extends React.Component {
         visible: false,
         visible2: false,
         visiblePic: false,
+        visiblePic2: false,
         checkedList: [],
         data: null,
         name: null,
@@ -101,7 +107,7 @@ class CreateQuiz extends React.Component {
         indi4: null,
         rightAnsNb: 0,
         images: [],
-        tangible: 'tangible',
+        tangible: 'handsTouch',
         bonneIndi: "",
         rightAnwer: null,
         showAcc: false,
@@ -114,9 +120,11 @@ class CreateQuiz extends React.Component {
         quizList: null,
         topicList: [],
         topicId:0,
+        checkResList: [],
     };
     constructor(props) {
         super(props);
+        const { history } = this.props;
         this.onChangeName = this.onChangeName.bind(this);
         this.onChangeTheme = this.onChangeTheme.bind(this);
         this.socket = props.socket;
@@ -141,48 +149,41 @@ class CreateQuiz extends React.Component {
         });
         this.socket.on('quiz added',(type) =>{
             if (type.type === true){
-                notification['success']({
-                    message: 'Quiz individuel créé avec succès ',
+                // this.setState({
+                //     name: '',
+                //     theme: null,
+                //     checkedList: [],
+                //     checkedQuestion: [],
+                // });
+                // this.onChangeTheme('');
+                Modal.success({
+                    content: 'Quiz individuel créé avec succès',
+                    onOk(){
+                        if(history) history.push('/homepage');
+                    }
                 });
-                this.setState({
-                    name: '',
-                    theme: null,
-                    checkedList: [],
-                    checkedQuestion: [],
-                });
-                this.onChangeTheme('');
             }
         });
 
         this.socket.on('quiz hands touch added',(type) =>{
             if (type.type === true){
-                notification['success']({
-                    message: 'Quiz hand touch créé avec succès ',
+                Modal.success({
+                    content: 'Quiz hand touch créé avec succès',
+                    onOk(){
+                        if(history) history.push('/homepage');
+                    }
                 });
-                this.setState({
-                    name: '',
-                    theme: null,
-                    checkedList: [],
-                    checkedQuestion: [],
-                    questionCol: [],
-                });
-                this.onChangeTheme('');
             }
         });
 
         this.socket.on('quiz hands move added',(type) =>{
             if (type.type === true){
-                notification['success']({
-                    message: 'Quiz drag and drop créé avec succès ',
+                Modal.success({
+                    content: 'Quiz hand move créé avec succès',
+                    onOk(){
+                        if(history) history.push('/homepage');
+                    }
                 });
-                this.setState({
-                    name: '',
-                    theme: null,
-                    checkedList: [],
-                    checkedQuestion: [],
-                    questionCol: [],
-                });
-                this.onChangeTheme('');
             }
         });
 
@@ -472,7 +473,7 @@ class CreateQuiz extends React.Component {
         this.setState({
             checkedPic: null,
             currentRes: 1,
-            visiblePic: true,
+            visiblePic2: true,
         });
         console.log(this.state.currentRes)
     };
@@ -480,21 +481,21 @@ class CreateQuiz extends React.Component {
         this.setState({
             checkedPic: null,
             currentRes: 2,
-            visiblePic: true,
+            visiblePic2: true,
         });
     };
     addPic3 = () => {
         this.setState({
             checkedPic: null,
             currentRes: 3,
-            visiblePic: true,
+            visiblePic2: true,
         });
     };
     addPic4= () => {
         this.setState({
             checkedPic: null,
             currentRes: 4,
-            visiblePic: true,
+            visiblePic2: true,
         });
     };
 
@@ -569,8 +570,8 @@ class CreateQuiz extends React.Component {
         }
     };
 
-    handleOk = e => {
 
+    handleOk = e => {
         const questionsIndividuel = [];
         let right;
         const response = [];
@@ -598,7 +599,8 @@ class CreateQuiz extends React.Component {
             notification['warning']({
                 message: 'Ajouter une image pour réponse 4',
             });
-        }else {
+        }
+        else {
             if (this.state.res1 !== (null || '')) {
                 response.push({
                     id:"A",
@@ -686,6 +688,13 @@ class CreateQuiz extends React.Component {
     handleOkCol = e => {
         const questionsCollaborative = [];
         const response = [];
+        const { form } = this.props;
+        // can use data-binding to get
+        const keys = form.getFieldValue('keys');
+        const names = form.getFieldValue('names');
+        const icons = form.getFieldValue('icons');
+        const checks = form.getFieldValue('checks');
+
         if (this.state.nameCol === null || this.state.nameCol === '') {
             notification['warning']({
                 message: 'Entrez la question',
@@ -694,92 +703,155 @@ class CreateQuiz extends React.Component {
             notification['warning']({
                 message: 'Il faut au moins une bonne réponse',
             });
-        } else if (this.state.pic1 === null) {
-            notification['warning']({
-                message: 'Ajouter une image pour réponse 1',
-            });
-        } else if ((this.state.pic2 === null)&&(this.state.showingRes2===true)) {
-            notification['warning']({
-                message: 'Ajouter une image pour réponse 2',
-            });
-        } else if ((this.state.pic3 === null)&&(this.state.showingRes3===true)) {
-            notification['warning']({
-                message: 'Ajouter une image pour réponse 3',
-            });
-        } else if ((this.state.pic4 === null)&&(this.state.showingRes4===true)) {
-            notification['warning']({
-                message: 'Ajouter une image pour réponse 4',
-            });
-        }else {
-            if (this.state.res1 !== (null || '')) {
-                response.push({
-                    description: this.state.res1,
-                    src: this.state.pic1,
-                    isAnswer: this.state.bon1,
-                });
-            }
-            if ((this.state.res2 !== (null || ''))
-                && (this.state.showingRes2 === true)) {
-                response.push({
-                    description: this.state.res2,
-                    src: this.state.pic2,
-                    isAnswer: this.state.bon2,
-                });
-            }
-            if ((this.state.res3 !== (null || ''))
-                && (this.state.showingRes3 === true)) {
-                response.push({
-                    description: this.state.res3,
-                    src: this.state.pic3,
-                    isAnswer: this.state.bon3,
-                });
-            }
-            if ((this.state.res4 !== (null || ''))
-                && (this.state.showingRes4 === true)) {
-                response.push({
-                    description: this.state.res4,
-                    src: this.state.pic4,
-                    isAnswer: this.state.bon4,
-                });
-            }
-            questionsCollaborative.push({
-                id:questionsCollaborative.length,
-                description: this.state.nameCol,
-                type: "notangile",
-                rightAnswers: this.state.rightAnsNb,
-                pictures: response,
-            });
+        } else {
+            let key =1;
+            let flag = 0;
 
-            this.setState({
-                visible2: false,
-                questionCol: this.state.questionCol.concat(questionsCollaborative),
-            });
+            if (flag === 0){
+                for(let i = 0; i < names.length; i++){
+                    if(names[i] !== null)
+                    response.push({
+                        description: names[i],
+                        src: icons[i],
+                        isAnswer: checks[i],
+                    });
+                }
 
-            console.log(questionsCollaborative);
-            console.log(this.state.questionCol);
+
+                questionsCollaborative.push({
+                    id:questionsCollaborative.length,
+                    description: this.state.nameCol,
+                    type: this.state.tangible,
+                    rightAnswers: this.state.rightAnsNb,
+                    pictures: response,
+                });
+
+                this.setState({
+                    visible2: false,
+                    questionCol: this.state.questionCol.concat(questionsCollaborative),
+                });
+
+                console.log(questionsCollaborative);
+                console.log(this.state.questionCol);
+            }
+
+
         }
 
     };
 
-    handleOkPic = e => {
-        switch (this.state.currentRes){
-            case 1: this.setState({
-                pic1: this.state.checkedPic,
-            }); break;
-            case 2: this.setState({
-                pic2: this.state.checkedPic,
-            }); break;
-            case 3: this.setState({
-                pic3: this.state.checkedPic,
-            }); break;
-            case 4: this.setState({
-                pic4: this.state.checkedPic,
-            }); break;
+
+    remove = k => {
+        const { form } = this.props;
+        // can use data-binding to get
+        const keys = form.getFieldValue('keys');
+        const names = form.getFieldValue('names');
+        const icons = form.getFieldValue('icons');
+        const checks = form.getFieldValue('checks');
+        names.splice(k,1);
+        icons.splice(k,1);
+        checks.splice(k,1);
+        console.log(names);
+        // We need at least one passenger
+        if (keys.length === 1) {
+            return;
         }
+
+        // can use data-binding to set
+        form.setFieldsValue({
+            keys: keys.filter(key => key !== k),
+            names: names,
+            icons: icons,
+            checks:checks,
+        });
+
+        console.log(this.props.form.getFieldsValue());
+    };
+
+    add = () => {
+        const { form } = this.props;
+        // can use data-binding to get
+        const keys = form.getFieldValue('keys');
+        const icons = form.getFieldValue('icons');
+        const checks = form.getFieldValue('checks');
+        const nextIcons = icons.concat(null);
+        const nextChecks = checks.concat(false);
+        const nextKeys = keys.concat(id++);
+        // can use data-binding to set
+        // important! notify form to detect changes
+        form.setFieldsValue({
+            keys: nextKeys,
+            icons: nextIcons,
+            checks: nextChecks,
+        });
+        console.log(this.props.form.getFieldsValue())
+    };
+
+    addPic = k => {
+        this.setState({
+            visiblePic: true,
+            currentRes: k,
+        });
+        console.log(k)
+    }
+
+    handleOkPic = k => {
+        const values = this.props.form.getFieldsValue();
+        let icons = values.icons;
+        console.log(icons);
+        icons[k]=this.state.checkedPic;
+        this.props.form.setFieldsValue({
+            icons: icons,
+        });
         this.setState({
             visiblePic: false,
         });
-        console.log(this.state.pic1);
+        console.log(this.props.form.getFieldsValue());
+    }
+
+
+
+    handleCancelPic = () => {
+        this.setState({
+            visiblePic: false,
+        });
+    }
+
+    select = (e,k) => {
+        const values = this.props.form.getFieldsValue();
+        let count = 0;
+        let checks = values.checks;
+        checks.map((e)=>{
+            if(e === true) {
+                count++;
+                console.log(count);
+            }
+        })
+        console.log(checks);
+        checks[k] = e.target.checked;
+        if (e.target.checked === true) {
+            count ++;
+        }
+        this.setState({
+            checkResList: checks,
+            rightAnsNb: count,
+        });
+
+        console.log(this.state.checkResList);
+        console.log(this.state.rightAnsNb);
+    }
+
+
+
+    handleSubmit = e => {
+        e.preventDefault();
+        this.props.form.validateFields((err, values) => {
+            if (!err) {
+                const { keys, names } = values;
+                console.log('Received values of form: ', values);
+                console.log('Merged values:', keys.map(key => names[key]));
+            }
+        });
     };
 
     handleOkAcc = e =>{
@@ -795,9 +867,34 @@ class CreateQuiz extends React.Component {
         });
         console.log(this.state.checkedAccId);
     };
+    handleOkPic2 = e => {
+        switch (this.state.currentRes){
+            case 1: this.setState({
+                pic1: this.state.checkedPic,
+            }); break;
+            case 2: this.setState({
+                pic2: this.state.checkedPic,
+            }); break;
+            case 3: this.setState({
+                pic3: this.state.checkedPic,
+            }); break;
+            case 4: this.setState({
+                pic4: this.state.checkedPic,
+            }); break;
+        }
+        this.setState({
+            visiblePic2: false,
+        });
+        console.log(this.state.pic1);
+    };
     handleCancelAcc = e =>{
         this.setState({
             showAcc: false,
+        });
+    };
+    handleCancelPic2 = e =>{
+        this.setState({
+            visiblePic2: false,
         });
     };
     handleCancel = e => {
@@ -814,12 +911,6 @@ class CreateQuiz extends React.Component {
         });
     };
 
-    handleCancelPic = e => {
-        console.log(e);
-        this.setState({
-            visiblePic: false,
-        });
-    };
 
     sendNewQuiz = () => {
         let themePic = '';
@@ -846,21 +937,6 @@ class CreateQuiz extends React.Component {
                         })
                     }
                 });
-                // this.state.accList.filter(function(acc) {
-                //     // checkedList.map((check) => check === question.description)
-                //     for(var i = 0; i < this.state.checkedAccId.length; i++) {
-                //         if(acc.id === this.state.checkedAccId [i]){
-                //             sendAcc.push({
-                //                 id: e,
-                //                 questionAccessible: {
-                //                     questionIndividuel: e.questionAccessible.questionIndividuel.concat(this.getId),
-                //                     questionTangible:e.questionAccessible.questionTangible,
-                //                     questionNonTangible:e.questionAccessible.questionNonTangible,
-                //                 }
-                //             })
-                //         }
-                //     }
-                // });
 
             });
             const newQuiz = {
@@ -960,6 +1036,7 @@ class CreateQuiz extends React.Component {
             }else{
                 this.socket.emit('add quiz collaborative', {type:this.state.tangible,quiz:newColla});
                 this.socket.emit('update topic',updateTopicCol);
+                console.log(newColla);
                 console.log(updateTopicCol);
             }
         }
@@ -1015,7 +1092,7 @@ class CreateQuiz extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: 'http://192.168.43.223:10001/imgUpload',
+            url: 'http://localhost:10001/imgUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
@@ -1038,6 +1115,80 @@ class CreateQuiz extends React.Component {
             </div>
         );
         const {imageUrl} = this.state;
+        const { getFieldDecorator, getFieldValue } = this.props.form;
+        const formItemLayout = {
+            labelCol: {
+                xs: { span: 24 },
+                sm: { span: 4 },
+            },
+            wrapperCol: {
+                xs: { span: 24 },
+                sm: { span: 20 },
+            },
+        };
+        const formItemLayoutWithOutLabel = {
+            wrapperCol: {
+                xs: { span: 24, offset: 0 },
+                sm: { span: 20, offset: 4 },
+            },
+        };
+        getFieldDecorator('keys', { initialValue: [] });
+        getFieldDecorator('icons', { initialValue: [] });
+        getFieldDecorator('checks', { initialValue: [] });
+        const keys = getFieldValue('keys');
+        const formItems = keys.map((k, index) => (
+            <Form.Item
+                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                label={index === 0 ? 'Reponses' : ''}
+                required={false}
+                key={k}
+            >
+                {getFieldDecorator(`names[${k}]`, {
+                    validateTrigger: ['onChange', 'onBlur'],
+                    rules: [
+                        {
+                            required: true,
+                            whitespace: true,
+                            message: "Please input passenger's name or delete this field.",
+                        },
+                    ],
+                })(<Input placeholder="passenger name" style={{ width: '50%', marginRight: 8 }} />)}
+                <Button icon="picture"
+                        style={{marginRight:30}}
+                        onClick={() => this.addPic(k)}
+                />
+                Bonne Résponse
+                <Checkbox checked={this.state.checkResList[k]}
+                          style={{marginRight:20}}
+                          onChange={e => this.select(e,k)}
+                />
+                <Modal title="Choisir une image"
+                       visible={this.state.visiblePic}
+                       zIndex={20}
+                       onOk={() => this.handleOkPic(this.state.currentRes)}
+                       onCancel={this.handleCancelPic}>
+                    <p>Response {this.state.currentRes}</p>
+                    <div style={{maxHeight:450,overflowY:"auto",}}>{this.state.images}</div>
+                    <Upload
+                        name="avatar"
+                        listType="picture-card"
+                        className="avatar-uploader"
+                        showUploadList={false}
+                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                        beforeUpload={beforeUpload}
+                        onChange={this.handleChange}>
+                        {uploadButton}
+                    </Upload>
+                </Modal>
+                {keys.length > 1 ? (
+                    <Icon
+                        className="dynamic-delete-button"
+                        type="minus-circle-o"
+                        onClick={() => this.remove(k)}
+                    />
+                ) : null}
+            </Form.Item>
+        ));
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sidebar default = "1"/>
@@ -1112,19 +1263,21 @@ class CreateQuiz extends React.Component {
                             <div style = {{ marginBottom:20,fontSize:16,display: 'flex', flexDirection: 'row'}}> Les questions<p style={{color:'red'}}>*</p>
                                 <Button style={{marginLeft:130}} type='primary' onClick={this.showModal}><Icon type="plus"/> Ajouter des questions</Button>
                             </div>
+
                             <Modal
                                 title="Ajouter des questions individuels"
                                 visible={this.state.visible}
                                 onOk={this.handleOk}
                                 onCancel={this.handleCancel}
                                 width={800}
-                                style={{zIndex:10}}
+                                zIndex={10}
                             >
                                 {/*<CheckboxGroup*/}
-                                    {/*options={plainOptions}*/}
-                                    {/*value={this.state.checkedList}*/}
-                                    {/*onChange={this.onChangeQuestionIndi}*/}
+                                {/*options={plainOptions}*/}
+                                {/*value={this.state.checkedList}*/}
+                                {/*onChange={this.onChangeQuestionIndi}*/}
                                 {/*/>*/}
+
                                 <Input style = {{marginBottom:20}}
                                        addonBefore= 'Question individuel '
                                        prefix={<p style={{color:'red'}}>*</p>}
@@ -1197,16 +1350,6 @@ class CreateQuiz extends React.Component {
                                     : null
                                 }
                                 <div style={{height:30}}> </div>
-                                {/*{resCol.map(res => {*/}
-                                {/*return <div key={res} style={{ display: 'flex', flexDirection: 'row'}}>*/}
-                                {/*<Input style = {{width:400, marginBottom:20, marginRight:20}}*/}
-                                {/*addonBefore= 'Résponse'*/}
-                                {/*allowClear = 'true'*/}
-                                {/*onChange = {e=>this.onChangeRes2(e)}*/}
-                                {/*/>*/}
-                                {/*<Button type="danger" shape="circle" icon="minus" onClick={this.deleteRes2} />*/}
-                                {/*</div>*/}
-                                {/*})}*/}
                                 {
                                     this.state.resNb < 4
                                         ? <Button style={{position:'absolute',right:20,bottom:70}} onClick={this.addResponse}
@@ -1217,133 +1360,19 @@ class CreateQuiz extends React.Component {
                                         : null
                                 }
                                 Bonne reponse<Select defaultValue="" value = {this.state.bonneIndi}
-                                        style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeBonne}>
-                                    <Option value="A">A</Option>
-                                    <Option value="B">B</Option>
-                                    <Option value="C">C</Option>
-                                    <Option value="D">D</Option>
-                                </Select>
-
-                            </Modal>
-                            <Modal
-                                title="Ajouter des questions collaboratives"
-                                visible={this.state.visible2}
-                                onOk={this.handleOkCol}
-                                onCancel={this.handleCancelCol}
-                                width={800}
-                                style={{zIndex:10}}
-                            >
-                                <Input style = {{marginBottom:20}}
-                                       addonBefore= 'Question collaboraitve '
-                                       prefix={<p style={{color:'red'}}>*</p>}
-                                       allowClear = 'true'
-                                       onChange = {e=>this.onChangeNameCol(e)}
-                                />
-                                <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                    <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                           addonBefore= 'Réponse 1'
-                                           allowClear = 'true'
-                                           onChange = {e=>this.onChangeRes1(e)}
-                                    />
-                                    <p style={{color:'red'}}>*</p>
-                                    <Button icon="picture"
-                                            style={{marginRight:30}}
-                                            onClick={this.addPic1} />
-                                    {/*{this.showPic1}*/}
-                                    Bonne Résponse
-                                    <Checkbox checked={this.state.bon1}
-                                              style={{marginLeft:5}}
-                                              onChange={this.onSelect1}/>
-                                </div>
-                                { this.state.showingRes2
-                                    ? <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                        <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                               addonBefore= 'Réponse 2'
-                                               allowClear = 'true'
-                                               onChange = {e=>this.onChangeRes2(e)}
-                                        />
-                                        <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
-                                                style={{marginRight:30}}
-                                                onClick={this.addPic2} />
-                                        Bonne Résponse
-                                        <Checkbox checked={this.state.bon2}
-                                                  style={{marginLeft:5}}
-                                                  onChange={this.onSelect2}/>
-                                        <Button type="danger"
-                                                size='small'
-                                                shape="circle"
-                                                icon="minus"
-                                                style={{marginLeft:20}}
-                                                onClick={this.deleteRes2} />
-                                    </div>
-                                    : null
-                                }
-                                { this.state.showingRes3
-                                    ? <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                        <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                               addonBefore= 'Réponse 3'
-                                               allowClear = 'true'
-                                               onChange = {e=>this.onChangeRes3(e)}
-                                        />
-                                        <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
-                                                style={{marginRight:30}}
-                                                onClick={this.addPic3} />
-                                        Bonne Résponse
-                                        <Checkbox checked={this.state.bon3}
-                                                  style={{marginLeft:5}}
-                                                  onChange={this.onSelect3}/>
-                                        <Button type="danger" style={{marginLeft:20}} size='small' shape="circle" icon="minus" onClick={this.deleteRes3} />
-                                    </div>
-                                    : null
-                                }
-                                { this.state.showingRes4
-                                    ? <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                        <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                               addonBefore= 'Réponse 4'
-                                               allowClear = 'true'
-                                               onChange = {e=>this.onChangeRes4(e)}
-                                        />
-                                        <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
-                                                style={{marginRight:30}}
-                                                onClick={this.addPic4} />
-                                        Bonne Résponse
-                                        <Checkbox checked={this.state.bon4}
-                                                  style={{marginLeft:5}}
-                                                  onChange={this.onSelect4}/>
-                                        <Button type="danger" style={{marginLeft:20}} size='small' shape="circle" icon="minus" onClick={this.deleteRes4} />
-                                    </div>
-                                    : null
-                                }
-                                <div style={{height:30}}> </div>
-                                {/*{resCol.map(res => {*/}
-                                    {/*return <div key={res} style={{ display: 'flex', flexDirection: 'row'}}>*/}
-                                        {/*<Input style = {{width:400, marginBottom:20, marginRight:20}}*/}
-                                               {/*addonBefore= 'Résponse'*/}
-                                               {/*allowClear = 'true'*/}
-                                               {/*onChange = {e=>this.onChangeRes2(e)}*/}
-                                        {/*/>*/}
-                                        {/*<Button type="danger" shape="circle" icon="minus" onClick={this.deleteRes2} />*/}
-                                    {/*</div>*/}
-                                {/*})}*/}
-                                {
-                                    this.state.resNb < 4
-                                    ? <Button style={{position:'absolute',right:20,bottom:70}} onClick={this.addResponse}
-                                            // onClick = {() => this.setState({comps: comps.concat([Date.now()])})}
-                                        >
-                                            <Icon type="plus"/> Ajouter une response
-                                        </Button>
-                                        : null
-                                }
+                                                     style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeBonne}>
+                                <Option value="A">A</Option>
+                                <Option value="B">B</Option>
+                                <Option value="C">C</Option>
+                                <Option value="D">D</Option>
+                            </Select>
 
                             </Modal>
                             <Modal
                                 title="Choisir une image"
-                                visible={this.state.visiblePic}
-                                onOk={this.handleOkPic}
-                                onCancel={this.handleCancelPic}
+                                visible={this.state.visiblePic2}
+                                onOk={this.handleOkPic2}
+                                onCancel={this.handleCancelPic2}
                                 style={{zIndex:20}}
                             >
                                 <p>Response {this.state.currentRes}</p>
@@ -1357,7 +1386,33 @@ class CreateQuiz extends React.Component {
                                     beforeUpload={beforeUpload}
                                     onChange={this.handleChange}>
                                     {uploadButton}
-                            </Upload>
+                                </Upload>
+                            </Modal>
+                            <Modal
+                                title="Ajouter des questions collaboratives"
+                                visible={this.state.visible2}
+                                onOk={this.handleOkCol}
+                                onCancel={this.handleCancelCol}
+                                width={800}
+                                zIndex={10}
+                            >
+                                <Form onSubmit={this.handleSubmit}>
+                                    <Form.Item label="Question">
+                                        {getFieldDecorator('title', {
+                                            rules: [{ required: true, message: 'Please input the title of collection!' }],
+                                        })(<Input style = {{marginBottom:20}}
+                                                  allowClear = 'true'
+                                                  onChange = {e=>this.onChangeNameCol(e)}
+                                        />)}
+                                    </Form.Item>
+                                    {formItems}
+                                    <Form.Item {...formItemLayoutWithOutLabel}>
+                                        <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+                                            <Icon type="plus" /> Add field
+                                        </Button>
+                                    </Form.Item>
+                                </Form>
+
                             </Modal>
                             {this.state.type === 'individuel'
                                 ? <List
@@ -1389,4 +1444,5 @@ class CreateQuiz extends React.Component {
         );
     }
 }
-export default CreateQuiz;
+
+export default Form.create({ name: 'dynamic_form_item' })(withRouter(CreateQuiz));
