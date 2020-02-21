@@ -9,7 +9,7 @@ import RadioGroup from 'antd/lib/radio/group'
 import RadioButton from 'antd/lib/radio/radioButton'
 
 const {Meta} = Card
-const url = 'http://172.20.10.2:10000/'
+const url = 'http://192.168.1.16:10000/'
 
 const SelectAccueilli = props => {
 

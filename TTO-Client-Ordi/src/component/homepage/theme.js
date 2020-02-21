@@ -12,7 +12,7 @@ import DetailQuiz from '../listOfQuiz/detailQuiz'
 const { Header, Content, Footer, } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://172.20.10.2:10000/";
+const url = "http://192.168.1.16:10000/";
 const { Meta } = Card;
 
 function callback(key) {

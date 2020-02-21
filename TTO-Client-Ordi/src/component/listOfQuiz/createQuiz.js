@@ -1015,7 +1015,7 @@ class CreateQuiz extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: 'http://172.20.10.2:10001/imgUpload',
+            url: 'http://192.168.1.16:10001/imgUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
