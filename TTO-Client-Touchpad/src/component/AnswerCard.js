@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import './AnswerCard.css'
 import images from './images'
-
-const url = 'http://192.168.1.16:10000/'
+import {SERVER_URL} from '../constants.js';
 
 const AnswerCard = (props) => {
   const [hide, setHide] = useState(false)
@@ -29,7 +28,7 @@ const AnswerCard = (props) => {
         props.onClick(answer)
         hideComponent()
       }}>
-        <img className="answerCardImage" src={url + answer.src}/>
+        <img className="answerCardImage" src={SERVER_URL + answer.src}/>
         <h2 className="answerName">{answer.text}</h2>
       </div>
     </>

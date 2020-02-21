@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import './DraggableContainer.css'
+import { SERVER_URL } from '../../constants.js';
 
 const DraggableContainer = props => {
-  const url = 'http://192.168.1.16:10000/'
 
   const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80))
-  const [y, setY] = useState(window.innerHeight * 0.80)
+  const [y, setY] = useState(1 + Math.random() * (window.innerHeight * 0.40) + (window.innerHeight * 0.50))
 
   const [previousCursorPosX, setPreviousCursorPosX] = useState(0)
   const [previousCursorPosY, setPreviousCursorPosY] = useState(0)
@@ -25,6 +25,7 @@ const DraggableContainer = props => {
 
   const handleTouchMove = (e) => {
     e.stopPropagation();
+    e.preventDefault();
     if (dragging) {
 
       setX(x + e.touches[0].clientX - previousCursorPosX)
@@ -37,6 +38,8 @@ const DraggableContainer = props => {
   }
 
   const handleMouseDown = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
     if (e.screenX) {
       setPreviousCursorPosX(e.screenX)
       setPreviousCursorPosY(e.screenY)
@@ -52,7 +55,7 @@ const DraggableContainer = props => {
   }
   return (
     <div>
-      <img className='draggableImage' draggable src={url + props.src} style={{ position: 'absolute', left: x, top: y }}
+      <img className='draggableImage' draggable src={SERVER_URL + props.src} style={{ position: 'absolute', left: x, top: y }}
         onMouseMove={(e) => handleMouseMove(e)}
         onTouchMove={(e) => handleTouchMove(e)}
         onMouseDown={(e) => handleMouseDown(e)}

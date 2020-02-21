@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Tabs, Spin } from 'antd';
 import QuizCardCollaborative from './QuizCardCollaborative';
-import images from '../images';
 
 import './QuizSelectorCollab.css';
 import { useHistory } from 'react-router-dom';
@@ -13,7 +11,6 @@ const QuizSelectorCollab = props => {
 
     const TANGIBLE = 'tangible';
     const NORMAL = 'normal';
-    const url = 'http://192.168.1.16:10000/'
 
     const history = useHistory();
     const socket = props.socket;
@@ -75,11 +72,11 @@ const QuizSelectorCollab = props => {
         <div>
             <HeaderComponent title="Selectionner un Quiz collaboratif" />
             <Tabs defaultActiveKey="1" type="card">
-                <TabPane tab="Quiz - Les mains bougent" key="1">
+                <TabPane tab="Quiz - Glisser dans la zone" key="1">
                     {loading ? <Spin tip="Chargement" ></Spin> : renderList(collabQuizNormal, NORMAL)}
 
                 </TabPane>
-                <TabPane tab="Quiz - les mains touchent" key="2">
+                <TabPane tab="Quiz - Toucher les bonnes images" key="2">
                     {loading ? <Spin tip="Chargement" ></Spin> : renderList(collabQuizTangible, TANGIBLE)}
                 </TabPane>
                 <TabPane tab="Quiz - Jouer avec la musique" key="3">

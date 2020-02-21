@@ -7,9 +7,9 @@ import './SelectAccueilli.css'
 import HeaderComponent from './HeaderComponent'
 import RadioGroup from 'antd/lib/radio/group'
 import RadioButton from 'antd/lib/radio/radioButton'
+import {SERVER_URL} from '../constants.js'
 
-const {Meta} = Card
-const url = 'http://192.168.1.16:10000/'
+const { Meta } = Card
 
 const SelectAccueilli = props => {
 
@@ -49,9 +49,9 @@ const SelectAccueilli = props => {
   const fullCard = () => {
     return (
       <Card hoverable
-            cover={<img src={url + accueilliSelected.tempSelectedAccueilli.src}/>}
-            onClick={() => showModal()}>
-        <Meta className="metaCard" title={accueilliSelected.tempSelectedAccueilli.firstName}/>
+        cover={<img src={SERVER_URL + accueilliSelected.tempSelectedAccueilli.src} />}
+        onClick={() => showModal()}>
+        <Meta className="metaCard" title={accueilliSelected.tempSelectedAccueilli.firstName} />
       </Card>
     )
   }
@@ -107,8 +107,8 @@ const SelectAccueilli = props => {
               {accueilliList.item.map((item) => {
                 return <Radio.Button className={'radioBtn'} value={item}>
                   <Card className="littleCard"
-                        cover={<img className={'profileImage'} src={url + item.src}/>}><Meta
-                    className="metaCard" title={item.firstName}/> </Card>
+                    cover={<img className={'profileImage'} src={SERVER_URL + item.src} />}><Meta
+                      className="metaCard" title={item.firstName} /> </Card>
                 </Radio.Button>
                 // return <Radio value={item}>{item.firstName}</Radio>
               })}
