@@ -2,7 +2,7 @@
   {
     "id": 1,
     "name": "Quiz fruits",
-    "topic": "fruit",
+    "topic": "Fruit",
     "src": "topics/Fruits.jpg",
     "questions": [
       {
@@ -75,7 +75,7 @@
     "id": 2,
     "name": "Quiz fruits",
     "src": "topics/Fruits.jpg",
-    "topic": "fruit",
+    "topic": "Fruit",
     "questions": [
       {
         "id": 1,
@@ -115,7 +115,7 @@
     "id": 3,
     "name": "Quiz animaux",
     "src": "topics/animals.jpg",
-    "topic": "animal",
+    "topic": "Animal",
     "questions": [
       {
         "id": 1,
@@ -154,7 +154,7 @@
   {
     "id": 4,
     "name": "Quiz animaux",
-    "topic": "animal",
+    "topic": "Animal",
     "src": "topics/animals.jpg",
     "questions": [
       {
@@ -226,7 +226,7 @@
   {
     "id": 5,
     "name": "Quiz musique",
-    "topic": "musique",
+     "topic": "Musique",
     "src": "topics/instruments.jpg",
     "questions": [
       {
@@ -298,7 +298,7 @@
   {
     "id": 6,
     "name": "Quiz couleur",
-    "topic": "couleur",
+     "topic": "Couleur",
     "src": "topics/color.png",
     "questions": [
       {
@@ -362,6 +362,110 @@
           "id": 3,
           "text": "Vert",
           "src": "assets/green.jpg"
+        },
+        "explains": ""
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Quiz monuments et capitales",
+    "topic": "Monuments et capitales",
+    "src": "topics/map.jpg",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Où est la capitale de la France?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Paris",
+            "src": "assets/paris.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Londres",
+            "src": "assets/london.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Tokyo",
+            "src": "assets/tokyo.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Lyon",
+            "src": "assets/lyon.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 1,
+          "text": "Paris",
+          "src": "assets/paris.jpg"
+        },
+        "explains": "Paris est la capitale de la France"
+      },
+      {
+        "id": 2,
+        "description": "Choisissez le Taj Mahal?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Tour de Tokyo",
+            "src": "assets/tokyo.jpg"
+          },
+          {
+            "id": 2,
+            "text": "Pont de Londres",
+            "src": "assets/london.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Le Taj Mahal",
+            "src": "assets/india.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Pont du Golden Gate",
+            "src": "assets/golden.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 3,
+          "text": "Le Taj Mahal",
+          "src": "assets/india.jpg"
+        },
+        "explains": ""
+      },
+      {
+        "id": 3,
+        "description": "Où est la capitale des États-Unis?",
+        "answers": [
+          {
+            "id": 1,
+            "text": "Londres",
+            "src": "assets/london.jpg"
+          },
+          {
+            "id": 2,
+            "text": "New York",
+            "src": "assets/empire.jpg"
+          },
+          {
+            "id": 3,
+            "text": "Moscow",
+            "src": "assets/moscow.jpg"
+          },
+          {
+            "id": 4,
+            "text": "Washington",
+            "src": "assets/dc.jpg"
+          }
+        ],
+        "rightAnwer": {
+          "id": 4,
+          "text": "Washington",
+          "src": "assets/dc.jpg"
         },
         "explains": ""
       }

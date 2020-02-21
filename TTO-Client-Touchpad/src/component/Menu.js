@@ -10,42 +10,32 @@ import DndDraggable from './DndDraggable';
 function Menu(props) {
     const socket = props.socket
 
-    let history = useHistory();
+  let history = useHistory()
 
-    function selectQuiz() {
-        // let path = 'quiz'
-        let path = 'selectAccueilli'
-        history.push(path);
-    }
+  function selectQuiz () {
+    // let path = 'quiz'
+    let path = 'selectAccueilli'
+    console.log('ok')
+    history.push(path)
+  }
 
-    const selectQuizCollaboratif = () => {
-        const path = '/quizSelectorCollab'
-        history.push(path)
-    }
+  const selectQuizCollaboratif = () => {
+    const path = '/quizSelectorCollab'
+    history.push(path)
+  }
 
-    const knight = "KNIGHT";
-    const [{ isDragging }, drag] = useDrag({
-        item: { type: knight },
-        collect: monitor => ({
-            isDragging: !!monitor.isDragging(),
-        }),
-    });
-
-
-    return (
-        <div className="divMenu">
-            <h1 className="mainTitle">TOT</h1>
-            <div className="menuButton">
-                <Button type="primary" className="startQuiz" onClick={() => selectQuiz()}>Lancer un quiz individuel</Button>
-            </div>
-            <div className="menuButton" >
-                <Button type="primary" className="startQuiz" onClick={selectQuizCollaboratif}>Lancer un quiz collaboratif</Button>
-            </div>
-
-            <div><DndDraggable /></div>
-        </div>
-
-    );
+  return (
+    <div className="divMenu">
+      <h1 className="mainTitle">TOT</h1>
+      <div className="menuButton">
+        <Button type="primary" className="startQuiz" onClick={() => selectQuiz()}>Lancer un quiz individuel</Button>
+      </div>
+      <div className="menuButton">
+        <Button type="primary" className="startQuiz" onClick={selectQuizCollaboratif}>Lancer un quiz
+          collaboratif</Button>
+      </div>
+    </div>
+  )
 }
 
-export default Menu;
+export default Menu

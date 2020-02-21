@@ -11,10 +11,10 @@
 // opt-in, read https://bit.ly/CRA-PWA
 
 const islocalhost = Boolean(
-  window.location.hostname === '192.168.1.7' ||
-    // [::1] is the IPv6 192.168.1.7 address.
+  window.location.hostname === '172.20.10.2' ||
+    // [::1] is the IPv6 172.20.10.2 address.
     window.location.hostname === '[::1]' ||
-    // 127.0.0.0/8 are considered 192.168.1.7 for IPv4.
+    // 127.0.0.0/8 are considered 172.20.10.2 for IPv4.
 
     window.location.hostname.match(
       /^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/
@@ -36,10 +36,10 @@ export function register(config) {
       const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
 
       if (islocalhost) {
-        // This is running on 192.168.1.7. Let's check if a service worker still exists or not.
+        // This is running on 172.20.10.2. Let's check if a service worker still exists or not.
         checkValidServiceWorker(swUrl, config);
 
-        // Add some additional logging to 192.168.1.7, pointing developers to the
+        // Add some additional logging to 172.20.10.2, pointing developers to the
         // service worker/PWA documentation.
         navigator.serviceWorker.ready.then(() => {
           console.log(
@@ -48,7 +48,7 @@ export function register(config) {
           );
         });
       } else {
-        // Is not 192.168.1.7. Just register service worker
+        // Is not 172.20.10.2. Just register service worker
         registerValidSW(swUrl, config);
       }
     });

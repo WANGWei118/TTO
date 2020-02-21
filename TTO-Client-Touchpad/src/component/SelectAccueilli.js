@@ -27,7 +27,7 @@ const SelectAccueilli = props => {
 
   const handleOk = () => {
     if (tempSelectedAccueilli) {
-      dispatch({ type: 'select_accueilli', accueilliSelected: { tempSelectedAccueilli } })
+      dispatch({type: 'select_accueilli', accueilliSelected: {tempSelectedAccueilli}})
     }
     setVisible(false)
   }
@@ -39,9 +39,9 @@ const SelectAccueilli = props => {
   const defaultCard = () => {
     return (
       <Card hoverable
-        onClick={() => showModal()}
-        cover={<img src="https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg" />}>
-        <Meta className="metaCard" description="Appuyer pour selectionner un joueur !" />
+            onClick={() => showModal()}
+            cover={<img src="https://institutducontenu.com/wp-content/uploads/2015/07/buyer-persona-1.jpg"/>}>
+        <Meta className="metaCard" description="Appuyer pour selectionner un joueur !"/>
       </Card>
     )
   }
@@ -61,14 +61,14 @@ const SelectAccueilli = props => {
   }
 
   const removeSelectedAccueilli = () => {
-    dispatch({ type: 'select_accueilli', accueilli: null })
+    dispatch({type: 'select_accueilli', accueilli: null})
     setTempSelectedAccueilli(null)
   }
 
   useEffect(() => {
     socket.on('all profiles', (item) => {
       console.log(item)
-      dispatch({ type: 'list_accueilli', accueilliList: { item } })
+      dispatch({type: 'list_accueilli', accueilliList: {item}})
     })
     socket.emit('get profiles')
 
@@ -79,7 +79,7 @@ const SelectAccueilli = props => {
 
   return (
     <>
-      <HeaderComponent title="Selectionner l'accueilli qui va jouer" />
+      <HeaderComponent title="Selectionner l'accueilli qui va jouer"/>
       <div className="accueilliSelectionDiv">
         <div className="accueilliCard">
           {accueilliSelected === null || accueilliSelected === undefined ? defaultCard() : fullCard()}
@@ -88,21 +88,21 @@ const SelectAccueilli = props => {
         {accueilliList === null || accueilliList === undefined ?
           <></> :
           <Modal visible={visible}
-            title="Selectionner un accueilli"
-            onOk={handleOk}
-            onCancel={handleCancel}
-            width="70%"
-            footer={[
-              <Button key="back"
-                onClick={handleCancel}>
-                Annuler
+                 title="Selectionner un accueilli"
+                 onOk={handleOk}
+                 onCancel={handleCancel}
+                 width="70%"
+                 footer={[
+                   <Button key="back"
+                           onClick={handleCancel}>
+                     Annuler
                    </Button>,
-              <Button key="submit"
-                type="primary"
-                onClick={handleOk}>
-                Valider
+                   <Button key="submit"
+                           type="primary"
+                           onClick={handleOk}>
+                     Valider
                    </Button>,
-            ]}>
+                 ]}>
             <Radio.Group defaultValue={null} className={'radioGroup'} onChange={(e) => onSelectionChange(e)}>
               {accueilliList.item.map((item) => {
                 return <Radio.Button className={'radioBtn'} value={item}>
@@ -115,11 +115,11 @@ const SelectAccueilli = props => {
             </Radio.Group>
           </Modal>}
         <div className="accueilliCard"><Icon type="close-square" theme="twoTone" twoToneColor="red"
-          style={{ fontSize: '50px' }} onClick={removeSelectedAccueilli} /></div>
+                                             style={{fontSize: '50px'}} onClick={removeSelectedAccueilli}/></div>
       </div>
       <div className="selectAccueilliConfirmButton">
         <Button className="confirmAccueilliButton" type="primary"><Link className="confirmAccueilliLink"
-          to="themes">Confirmer</Link></Button>
+                                                                        to="themes">Confirmer</Link></Button>
       </div>
     </>
   )

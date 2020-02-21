@@ -12,7 +12,7 @@ import '../config/config'
 const url = global.constants.url;
 const { Header, Content, Footer, Sider} = Layout;
 const { Panel } = Collapse;
-
+const { confirm } = Modal;
 
 class DetailQuiz extends React.Component {
     socket = openSocket;
@@ -82,7 +82,7 @@ class DetailQuiz extends React.Component {
         })
     };
 
-    handleOk = e => {
+    handleOk = () => {
         let deleteQuiz = {
             id: this.state.deleteItem.e.id,
             type: this.state.deleteItem.type,
@@ -127,7 +127,7 @@ class DetailQuiz extends React.Component {
         });
     };
 
-    handleCancel = e => {
+    handleCancel = () => {
 
         this.setState({
             visible: false,
@@ -143,7 +143,8 @@ class DetailQuiz extends React.Component {
                 dataSource={this.state.questionList}
                 renderItem={item => (
                     <List.Item
-                        actions={[<a key="list-loadmore-edit">modifier</a>, <a onClick={(e) => this.deleteQuiz(e,item)}>supprimer</a>]}
+                        actions={[<a key="list-loadmore-edit">modifier</a>,
+                            <a onClick={(e) => this.deleteQuiz(e,item)}>supprimer</a>]}
                     >
                         <List.Item.Meta
                             avatar={<Avatar src={url+item.e.src} />}
@@ -154,8 +155,9 @@ class DetailQuiz extends React.Component {
                 )}
             />
                 <Modal
-                    title=""
+                    title="Confirmation"
                     visible={this.state.visible}
+                    okType='danger'
                     onOk={this.handleOk}
                     onCancel={this.handleCancel}
                 >

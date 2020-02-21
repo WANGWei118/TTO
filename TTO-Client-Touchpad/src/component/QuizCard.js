@@ -5,7 +5,6 @@ import {SERVER_URL} from '../constants.js';
 const INDIVIDUAL_TYPE = 'quizIndividuel';
 let history;
 
-
 const QuizCard = (props) => {
     history = useHistory();
     const quiz = props.quiz

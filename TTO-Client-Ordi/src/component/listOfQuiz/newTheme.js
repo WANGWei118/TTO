@@ -17,7 +17,14 @@ import {
 } from 'antd';
 import Theme from "../homepage/theme";
 import '../model';
-import {Link} from "react-router-dom";
+import {BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    withRouter,
+    useHistory,
+    useLocation,
+    useParams} from "react-router-dom";
 import openSocket from 'socket.io-client';
 import Sidebar from '../sidebar';
 import $ from "jquery";
@@ -44,7 +51,9 @@ function beforeUpload (file) {
     // }
     return isJpgOrPng
 }
+
 class NewTheme extends React.Component {
+    // history = useHistory();
     socket = openSocket;
     state = {
         collapsed: false,
@@ -58,6 +67,7 @@ class NewTheme extends React.Component {
 
     constructor(props) {
         super(props);
+        const { history } = this.props;
         this.socket = props.socket;
 
         this.socket.emit('get topics');
@@ -71,48 +81,16 @@ class NewTheme extends React.Component {
         });
         this.socket.on('topic added',(type) =>{
             if (type.type === true){
-                notification['success']({
-                    message: 'Thème créé avec succès ',
-                });
-                this.setState({
-                    name: '',
-                    imageUrl: null,
-                    image: null,
-                    checkedQuiz:[],
+                Modal.success({
+                    content: 'Nouveau thème créé avec succès',
+                    onOk(){
+                        if(history) history.push('/homepage');
+                    }
                 });
             }
         });
     };
-    onChange = checkedList => {
-        this.setState({
-            checkedList,
-        });
-    };
 
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    handleOk = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    };
-
-    handleCancel = e => {
-        console.log(e);
-        this.setState({
-            visible: false,
-        });
-    };
-
-    onCollapse = collapsed => {
-        console.log(collapsed);
-        this.setState({ collapsed });
-    };
 
     onChangeName = e => {
         this.setState({
@@ -217,18 +195,6 @@ class NewTheme extends React.Component {
                                    value={this.state.name}
                                    onChange = {e=>this.onChangeName(e)}
                             />
-                            {/*<Modal*/}
-                                {/*title="Choisir le quiz"*/}
-                                {/*visible={this.state.visible}*/}
-                                {/*onOk={this.handleOk}*/}
-                                {/*onCancel={this.handleCancel}*/}
-                            {/*>*/}
-                                {/*<CheckboxGroup*/}
-                                    {/*options={plainOptions}*/}
-                                    {/*value={this.state.checkedList}*/}
-                                    {/*onChange={this.onChange}*/}
-                                {/*/>*/}
-                            {/*</Modal>*/}
                         </div>
                     </Content>
                     <Footer style={{display:'flex', justifyContent:'center'}}>
@@ -239,4 +205,4 @@ class NewTheme extends React.Component {
         );
     }
 }
-export default NewTheme;
+export default withRouter(NewTheme);

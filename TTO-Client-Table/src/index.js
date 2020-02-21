@@ -16,7 +16,7 @@ import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
-const url = 'http://192.168.1.7:10000/'
+const url = 'http://172.20.10.2:10000/'
 var timer = null
 let timeout = setTimeout(() => {
 
@@ -34,6 +34,7 @@ socketIOClient.getMessage()
 let quizLancez = false
 const imageWidgets = []
 let quiz = null
+let countNote = 0
 let musicTimer = null
 const positions = [
   {x: 150, y: 150},
@@ -73,6 +74,7 @@ const buildApp = () => {
     // audio.play()
     isElse = false
     $('#app').empty()
+    countNote = 0;
     forConentration(data.src)
     quizLancez = true
   })
@@ -361,6 +363,7 @@ function contretration () {
 
 function forConentration (audioSrc) {
   if (!isElse) {
+    countNote++
     var titleTop = document.createElement('div')
     var titleBottom = document.createElement('div')
     var titleLeft = document.createElement('div')
@@ -378,8 +381,8 @@ function forConentration (audioSrc) {
     timer = setInterval(() => {
       var top = random(400, windowsHeight - 400)
       var left = random(400, windowsWidth - 400)
-      const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false, audioSrc)
-      imageWidget.domElem[0].setAttribute('class', 'noteClass')
+      const imageWidget = new DivWidget(left, top, 200, 200, socketIOClient, false, audioSrc, countNote)
+      imageWidget.domElem[0].setAttribute('id', 'noteClass')
       var image = document.createElement('img')
       image.setAttribute('class', 'note')
       image.style.transform = 'rotate(' + random(0, 180) + 'deg)'
@@ -388,7 +391,7 @@ function forConentration (audioSrc) {
       imageWidget.domElem[0].append(image)
       $('#app').append(imageWidget.domElem)
       setTimeout(() => {
-        imageWidget.domElem[0].setAttribute('class', 'vanishedNote')
+        imageWidget.domElem[0].setAttribute('id', 'vanishedNote')
         setTimeout(() => {
           imageWidget.domElem[0].style.display = 'none'
         }, 3000)
