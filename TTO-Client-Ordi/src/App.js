@@ -18,7 +18,7 @@ import {
     Route,
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
-export const socket = openSocket('http://192.168.1.7:10000');
+export const socket = openSocket('http://10.189.147.120:10000');
 
 let profileId = null;
 
@@ -27,59 +27,59 @@ function handleId(val) {
 }
 function App() {
 
-  return (
-      <Router>
-          <div>
-              {/* A <Switch> looks through its children <Route>s and
+    return (
+        <Router>
+            <div>
+                {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
-              <Switch>
-                  <Route path="/homepage">
-                      <HomePage socket = {socket}/>
-                  </Route>
-                  <Route path="/newTheme">
-                      <NewTheme socket = {socket}/>
-                  </Route>
-                  <Route path="/detailThemeIndividuel">
-                      <DetailTheme type = 'individuel' socket = {socket}/>
-                  </Route>
-                  <Route path="/detailThemeCollaboratif">
-                      <DetailTheme type = 'collaboratif' socket = {socket}/>
-                  </Route>
-                  <Route path="/detailThemeTangible">
-                      <DetailTheme type = 'tangible' socket = {socket}/>
-                  </Route>
-                  <Route path="/detailThemeNonTangible">
-                      <DetailTheme type = 'non-tangible' socket = {socket}/>
-                  </Route>
-                  <Route path="/allQuiz">
-                      <DetailQuiz socket = {socket}/>
-                  </Route>
-                  <Route path="/createQuiz">
-                      <CreateQuiz socket = {socket}/>
-                  </Route>
-                  <Route path="/detailProfile">
-                      <DetailProfile socket = {socket}/>
-                  </Route>
-                  <Route path="/profile">
-                      <Profile socket = {socket} handleId ={handleId.bind(this)}/>
-                  </Route>
-                  <Route path="/createProfile">
-                      <CreateProfile socket = {socket}/>
-                  </Route>
-                  <Route path="/editProfile">
-                      <EditProfile socket = {socket}/>
-                  </Route>
-                  <Route path="/quizByTopic">
-                      <QuizByTopic socket = {socket}/>
-                  </Route>
+                <Switch>
+                    <Route path="/homepage">
+                        <HomePage socket={socket} />
+                    </Route>
+                    <Route path="/newTheme">
+                        <NewTheme socket={socket} />
+                    </Route>
+                    <Route path="/detailThemeIndividuel">
+                        <DetailTheme type='individuel' socket={socket} />
+                    </Route>
+                    <Route path="/detailThemeCollaboratif">
+                        <DetailTheme type='collaboratif' socket={socket} />
+                    </Route>
+                    <Route path="/detailThemeTangible">
+                        <DetailTheme type='tangible' socket={socket} />
+                    </Route>
+                    <Route path="/detailThemeNonTangible">
+                        <DetailTheme type='non-tangible' socket={socket} />
+                    </Route>
+                    <Route path="/allQuiz">
+                        <DetailQuiz socket={socket} />
+                    </Route>
+                    <Route path="/createQuiz">
+                        <CreateQuiz socket={socket} />
+                    </Route>
+                    <Route path="/detailProfile">
+                        <DetailProfile socket={socket} />
+                    </Route>
+                    <Route path="/profile">
+                        <Profile socket={socket} handleId={handleId.bind(this)} />
+                    </Route>
+                    <Route path="/createProfile">
+                        <CreateProfile socket={socket} />
+                    </Route>
+                    <Route path="/editProfile">
+                        <EditProfile socket={socket} />
+                    </Route>
+                    <Route path="/quizByTopic">
+                        <QuizByTopic socket={socket} />
+                    </Route>
 
-                  <Route path="/">
-                      <HomePage socket = {socket}/>
-                  </Route>
-              </Switch>
-          </div>
-      </Router>
-  );
+                    <Route path="/">
+                        <HomePage socket={socket} />
+                    </Route>
+                </Switch>
+            </div>
+        </Router>
+    );
 }
 
 export default App;

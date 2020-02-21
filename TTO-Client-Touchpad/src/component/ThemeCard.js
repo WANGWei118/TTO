@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-
+import {SERVER_URL} from '../constants.js'
 
 const ThemeCard = props => {
     const history = useHistory();
@@ -21,7 +21,7 @@ const ThemeCard = props => {
     return (
         // <div className="quizCard" onClick={() => props.onClick()}>
         <div className="quizCard" onClick={() => handleClick(theme)}>
-            {theme.icon ? <img className="quizImage" src={"http://192.168.43.223:10000/" + theme.icon} /> :
+            {theme.icon ? <img className="quizImage" src={SERVER_URL + theme.icon} /> :
                 <></>
             }
             <h2 className="quizName">{theme.topic}</h2>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './DraggableContainer.css'
+import { SERVER_URL } from '../../constants.js';
 
 const DraggableContainer = props => {
-  const url = 'http://10.189.147.120:10000/'
 
   const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80))
   const [y, setY] = useState(1 + Math.random() * (window.innerHeight * 0.40) + (window.innerHeight * 0.50))
@@ -55,7 +55,7 @@ const DraggableContainer = props => {
   }
   return (
     <div>
-      <img className='draggableImage' draggable src={url + props.src} style={{ position: 'absolute', left: x, top: y }}
+      <img className='draggableImage' draggable src={SERVER_URL + props.src} style={{ position: 'absolute', left: x, top: y }}
         onMouseMove={(e) => handleMouseMove(e)}
         onTouchMove={(e) => handleTouchMove(e)}
         onMouseDown={(e) => handleMouseDown(e)}
