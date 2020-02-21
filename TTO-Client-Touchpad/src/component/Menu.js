@@ -6,7 +6,6 @@ import "antd/dist/antd.css";
 import { useHistory } from "react-router-dom";
 import TouchBackend from 'react-dnd-touch-backend'
 import { DndProvider, useDrag } from 'react-dnd'
-import DndDraggable from './DndDraggable';
 function Menu(props) {
     const socket = props.socket
 
