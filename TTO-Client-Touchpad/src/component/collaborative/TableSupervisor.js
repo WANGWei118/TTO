@@ -10,6 +10,9 @@ import { SERVER_URL } from '../../constants.js';
 import AccueilliModal from './AccueilliModal';
 import { useDispatch } from 'react-redux';
 import AccueilliFeedback from './AccueilliFeedback';
+import { useHistory } from 'react-router-dom';
+const home_menu = require('./../../assets/home_menu.png')
+const restarto = require('./../../assets/reload_icon.jpg')
 
 const TableSupervisor = props => {
   // const TANGIBLE = 'tangible'
@@ -22,6 +25,10 @@ const TableSupervisor = props => {
   const [tempAccueilliAdded, setTempsAccueilliAdded] = useState(null);
   const dispatch = useDispatch();
   const [selectedAccueilli, setSelectedAccueilli] = useState(null);
+  const [isAtLastQuestion, setIsAtLastQuestion] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
+
+  const history = useHistory();
 
   console.log(props.location.state);
   const quiz = props.location.state.quiz.item
@@ -36,31 +43,49 @@ const TableSupervisor = props => {
   // Tells if the current question is over in the table
   const [isQuestionOver, setIsQuestionOver] = useState(false)
 
+  const navigateToMenu = () => {
+    history.push('/')
+  }
+
+  const restart = () => {
+    setIndex(0);
+    setCurrentQuestion(questions[0]);
+    setIsAtLastQuestion(false);
+    setQuizStarted(false);
+    setCurrentQuestion(questions[0]);
+  }
+
+
+
   const handleNextQuestion = () => {
     if (questions.length > index) {
       console.log("type:")
       console.log(quiz.type)
-
       socket.emit('next question', questions[index + 1], { type: quiz.type })
       setCurrentQuestion(questions[index + 1])
       setIndex(index + 1)
+      if (questions.length <= index + 1) {
+        setIsAtLastQuestion(true);
+        socket.emit("quiz finished");
+      }
     } else {
-      // The quizz is over
+      // The quizz is over or at last question
+      socket.emit("quiz finished");
     }
 
   }
 
   useEffect(() => {
-    if (quiz.type === 'handsMove') {
-      socket.emit('lancer quiz collaborative', currentQuestion)
-    } else if (quiz.type === 'handsTouch') {
-      socket.emit('lancer quiz tangible', currentQuestion)
+    // if (quiz.type === 'handsMove') {
+    //   socket.emit('lancer quiz collaborative', currentQuestion)
+    // } else if (quiz.type === 'handsTouch') {
+    //   socket.emit('lancer quiz tangible', currentQuestion)
 
-    }
-    else {
-      console.log(quiz);
-      socket.emit('start fun quiz', { src: quiz.src })
-    }
+    // }
+    // else {
+    //   console.log(quiz);
+    //   socket.emit('start fun quiz', { src: quiz.src })
+    // }
   }, [])
 
   useEffect(() => {
@@ -75,9 +100,18 @@ const TableSupervisor = props => {
     }
   }, [])
 
-  console.log(accueillisPlaying);
-  console.log(tempAccueilliAdded);
-
+  const startQuiz = () => {
+    setQuizStarted(true);
+    if (quiz.type === 'handsMove') {
+      socket.emit('lancer quiz collaborative', currentQuestion)
+    } else if (quiz.type === 'handsTouch') {
+      socket.emit('lancer quiz tangible', currentQuestion)
+    }
+    else {
+      console.log(quiz);
+      socket.emit('start fun quiz', { src: quiz.src })
+    }
+  }
 
   const openModal = () => {
     setShowModal(true);
@@ -111,15 +145,46 @@ const TableSupervisor = props => {
     setShowModal(false);
   }
 
+
+
   return (
     <>
+
       <div className="gameSupervisor">
         <HeaderComponent title="" />
-        <Result
-          icon={<Icon type="smile" theme="twoTone" />}
-          title="C'est l'heure de jouer sur la table!"
-          extra={<Button type="primary" onClick={() => handleNextQuestion()}>Question suivante</Button>}
-        />
+        {!quizStarted ?
+          <Result
+            icon={<Icon type="smile" theme="twoTone" />}
+            title="C'est l'heure de jouer sur la table!"
+            extra={
+              <Button type="primary" onClick={() => startQuiz()}>Commencer le quiz !</Button>
+            }
+          /> :
+          !isAtLastQuestion ?
+            <Result
+              icon={<Icon type="smile" theme="twoTone" />}
+              title={`Jeu ${index + 1}/${questions.length}`}
+              extra={
+                <Button type="primary" onClick={() => handleNextQuestion()}>Question suivante</Button>
+              }
+            />
+            :
+            <Result
+              status="success"
+              title="Bravo ! Le quiz est terminé !"
+              extra={[
+                <>
+
+                  <img src={home_menu} alt="Retourner au menu" className="homeMenuTable" onClick={() => navigateToMenu()} />
+
+                  <img src={restarto} alt="Recommencer le quiz" className="restartTable" onClick={() => restart()} />
+                </>
+
+              ]
+              }
+            />
+        }
+
       </div>
       <div className="accueillisSupervisor">
         {accueillisPlaying.map((accueilli) => {
