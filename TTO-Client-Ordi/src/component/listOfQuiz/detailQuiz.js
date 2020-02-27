@@ -2,7 +2,7 @@ import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
 import './createQuiz.css'
-import {Modal,Skeleton,List,Avatar, Card,Collapse, Layout} from 'antd';
+import {notification, Modal,Skeleton,List,Avatar, Card,Collapse, Layout} from 'antd';
 import Theme from "../homepage/theme";
 import '../model';
 import {Link} from "react-router-dom";
@@ -88,6 +88,9 @@ class DetailQuiz extends React.Component {
             type: this.state.deleteItem.type,
         };
         this.socket.emit('delete quiz',deleteQuiz);
+        notification['success']({
+            message: 'Supprimé ',
+        });
 
         this.setState({
             visible: false,

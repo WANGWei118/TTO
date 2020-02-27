@@ -19,7 +19,7 @@ import {
     Route,
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
-export const socket = openSocket('http://localhost:10000');
+export const socket = openSocket('http://192.168.1.16:10000');
 
 
 let profileId = null;
@@ -76,8 +76,8 @@ function App() {
                   </Route>
 
                   <Route exact path="/">
-                      {/*<HomePage socket = {socket}/>*/}
-                      <WrappedDynamicFieldSet />
+                      <HomePage socket = {socket}/>
+                      {/*<WrappedDynamicFieldSet />*/}
 
                   </Route>
               </Switch>

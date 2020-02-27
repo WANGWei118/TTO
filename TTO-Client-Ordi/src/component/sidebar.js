@@ -34,10 +34,10 @@ class Sidebar extends React.Component {
                             <span>Liste de quiz</span>
                             <Link to="/homepage" />
                         </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="pie-chart" />
-                            <span>Statistiques</span>
-                        </Menu.Item>
+                        {/*<Menu.Item key="2">*/}
+                            {/*<Icon type="pie-chart" />*/}
+                            {/*<span>Statistiques</span>*/}
+                        {/*</Menu.Item>*/}
                         <Menu.Item key="3">
                             <Icon type="file" />
                             <span>Profile</span>

@@ -1,14 +1,17 @@
 .draggableImage {
     width: 100px;
     height: 100px;
+
     margin: 0 20%;
 }
 
 .imageList {
     text-align: right;
     width: 100%;
+    min-height: 100px;
+
     /* height: 400px;*/
-    overflow: scroll;
+    /* overflow: scroll; */
     margin-top: 5%;
 }
 
@@ -36,4 +39,6 @@
 
 .droppableImages {
     display: flex;
+    min-height: 100px;
+
 }

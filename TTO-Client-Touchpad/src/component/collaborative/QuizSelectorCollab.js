@@ -71,8 +71,8 @@ const QuizSelectorCollab = props => {
     return (
         <div>
             <HeaderComponent title="Selectionner un Quiz collaboratif" />
-            <Tabs defaultActiveKey="1" type="card">
-                <TabPane tab="Quiz - Glisser dans la zone" key="1">
+            <Tabs defaultActiveKey="1" type="card" tabBarGutter={50}>
+                <TabPane tab="Quiz - Glisser dans la zone" key="1" className="firstTab">
                     {loading ? <Spin tip="Chargement" ></Spin> : renderList(collabQuizNormal, NORMAL)}
 
                 </TabPane>

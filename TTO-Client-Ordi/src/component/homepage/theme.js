@@ -14,7 +14,8 @@ import DetailQuiz from '../listOfQuiz/detailQuiz'
 const { Header, Content, Footer, } = Layout;
 const { TabPane } = Tabs;
 const { Search } = Input;
-const url = "http://192.168.1.16:10000/";
+const url = global.constants.url;
+
 const { Meta } = Card;
 
 function callback(key) {
