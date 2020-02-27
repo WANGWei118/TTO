@@ -5,7 +5,6 @@ import * as serviceWorker from './serviceWorker';
 import Homepage from './component/homepage.js'
 import DetailTheme from './component/detailTheme'
 import CreateQuiz from './component/createQuiz'
-import Client from './socket/client'
 import App from './App'
 
 ReactDOM.render(<App />, document.getElementById('root'));

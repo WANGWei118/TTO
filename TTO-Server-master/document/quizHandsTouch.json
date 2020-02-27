@@ -85,5 +85,90 @@
         ]
       }
     ]
+  },
+  {
+    "id": 2,
+    "name": "Les monument",
+    "topic": "Monuments et capitales",
+    "src": "topics/map.jpg",
+    "type": "handsTouch",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Trouvez tous les monument en Europe",
+        "rightAnswers": 2,
+        "type": "handsTouch",
+        "pictures": [
+          {
+            "description": "empire",
+            "src": "assets/empire.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "golden",
+            "src": "assets/golden.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "lyon",
+            "src": "assets/lyon.jpg",
+            "isAnswer": true
+          },
+          {
+            "description": "paris",
+            "src": "assets/paris.jpg",
+            "isAnswer": true
+          },
+          {
+            "description": "india",
+            "src": "assets/india.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "great wall",
+            "src": "assets/greatwall.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "forbidden",
+            "src": "assets/forbidden.jpg",
+            "isAnswer": false
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "description": "Trouvez tous les monument en Asia",
+        "type": "handsTouch",
+        "rightAnswers": 3,
+        "pictures": [
+          {
+            "description": "forbidden",
+            "src": "assets/forbidden.jpg",
+            "isAnswer": true
+          },
+          {
+            "description": "lyon",
+            "src": "assets/lyon.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "paris",
+            "src": "assets/paris.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "india",
+            "src": "assets/india.jpg",
+            "isAnswer": true
+          },
+          {
+            "description": "great wall",
+            "src": "assets/greatwall.jpg",
+            "isAnswer": true
+          }
+        ]
+      }
+    ]
   }
 ]

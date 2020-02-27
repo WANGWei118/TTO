@@ -13,7 +13,7 @@
       },
       {
         "id": 3,
-        "src": "assets/fraise.jpg"
+        "src": "assets/fraise.png"
       },
       {
         "id": 4,
@@ -78,7 +78,24 @@
   {
     "id": 3,
     "topic": "La vie quotidienne",
-    "images": []
+    "images": [
+      {
+        "id": 1,
+        "src": "assets/fire.png"
+      },
+      {
+        "id": 2,
+        "src": "assets/hu.png"
+      },
+      {
+        "id": 3,
+        "src": "assets/sppon.png"
+      },
+      {
+        "id": 4,
+        "src": "assets/sppon2.jpg"
+      }
+    ]
   },
   {
     "id": 4,

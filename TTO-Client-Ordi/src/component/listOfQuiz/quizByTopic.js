@@ -137,7 +137,7 @@ class QuizByTopic extends React.Component {
                                 <TabPane
                                     tab={
                                         <span>
-                                            <Icon type="ordered-list" />Hand Touch
+                                            <Icon type="ordered-list" />Cliquer avec doigt
                                     </span>
                                     }
                                     key="2">
@@ -161,7 +161,7 @@ class QuizByTopic extends React.Component {
                                 <TabPane
                                     tab={
                                         <span>
-                                            <Icon type="ordered-list" />Hand Move
+                                            <Icon type="ordered-list" />Drag and Drop
                                     </span>
                                     }
                                     key="3">
