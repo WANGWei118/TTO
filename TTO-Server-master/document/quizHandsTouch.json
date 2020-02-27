@@ -95,7 +95,7 @@
     "questions": [
       {
         "id": 1,
-        "description": "Trouvez tous les monument en Europe",
+        "description": "Trouvez tous les monuments en Europe",
         "rightAnswers": 2,
         "type": "handsTouch",
         "pictures": [
@@ -138,7 +138,7 @@
       },
       {
         "id": 2,
-        "description": "Trouvez tous les monument en Asia",
+        "description": "Trouvez tous les monuments en Asie",
         "type": "handsTouch",
         "rightAnswers": 3,
         "pictures": [

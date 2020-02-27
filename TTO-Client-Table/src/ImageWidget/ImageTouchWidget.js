@@ -93,7 +93,7 @@ class ImageTouchWidget extends TUIOWidget {
             var bravo = document.createElement('h1')
             bravo.setAttribute('class', 'information' + i.toString())
             bravo.innerText = 'Bravo'
-            $('.imageDiv').remove($('.information0'), $('.information1'),$('.information2'),$('.information3'))
+            $('.imageDiv').remove($('.information0'), $('.information1'), $('.information2'), $('.information3'))
               .append(bravo)
           }
           setTimeout(() => {
@@ -111,7 +111,7 @@ class ImageTouchWidget extends TUIOWidget {
             var again = document.createElement('h1')
             again.setAttribute('class', 'information' + i.toString())
             again.innerText = 'Essayez encore'
-            $('.imageDiv').remove($('.information0'), $('.information1'),$('.information2'),$('.information3'))
+            $('.imageDiv').remove($('.information0'), $('.information1'), $('.information2'), $('.information3'))
               .append(again)
           }
           console.log('essayez-encore')
@@ -150,6 +150,15 @@ class ImageTouchWidget extends TUIOWidget {
       if (newY > (WINDOW_HEIGHT - this.height)) {
         newY = WINDOW_HEIGHT - this.height
       }
+
+      // this.moveTo(newX, newY, radToDeg(tuioTouch.angle))
+      // this._lastTouchesValues = {
+      //   ...this._lastTouchesValues,
+      //   [tuioTouch.id]: {
+      //     x: tuioTouch.x,
+      //     y: tuioTouch.y,
+      //   },
+      // }
     }
   }
 
@@ -190,12 +199,6 @@ class ImageTouchWidget extends TUIOWidget {
   //   }
   // }
 
-  /**
-   * Call after a TUIOTag update.
-   *
-   * @method onTagUpdate
-   * @param {TUIOTag} tuioTag - A TUIOTag instance.
-   */
   // onTagUpdate(tuioTag) {
   //   if (typeof (this._lastTagsValues[tuioTag.id]) !== 'undefined') {
   //     const lastTagValue = this._lastTagsValues[tuioTag.id]
@@ -222,6 +225,16 @@ class ImageTouchWidget extends TUIOWidget {
   //     }
   //
   //   }
+  // }
+  // moveTo (x, y, angle = null) {
+  //   this._x = x
+  //   this._y = y
+  //   this._domElem.css('left', `${x}px`)
+  //   this._domElem.css('top', `${y}px`)
+  //   if (angle !== null) {
+  //     this._domElem.css('transform', `rotate(${angle}deg)`)
+  //   }
+  //
   // }
 
 }
