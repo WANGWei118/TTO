@@ -5,14 +5,26 @@ import { SERVER_URL } from '../../constants.js';
 import './AccueilliFeedback.css';
 
 const AccueilliFeedback = props => {
+
+    /**
+    * Props
+     */
     const currentQuestionImages = props.images;
 
     const selectedAccueilli = props.accueilli
-    const [visible, setVisible] = useState(true)
+    /**
+     * redux
+     */
 
+    /**
+     * States
+     */
+
+    const [visible, setVisible] = useState(true)
     const [imageList, setImageList] = useState([]);
     const [goodBoxList, setGoodBoxList] = useState([]);
     const [badBoxList, setBadBoxList] = useState([]);
+
 
     const getListStyle = isDraggingOver => ({
         background: isDraggingOver ? 'lightblue' : '',

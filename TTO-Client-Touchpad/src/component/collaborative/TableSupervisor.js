@@ -18,30 +18,49 @@ const TableSupervisor = props => {
   // const TANGIBLE = 'tangible'
   // const NORMAL = 'normal'
 
-  const [accueillisPlaying, setAccueillisPlaying] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const socket = props.socket
-  const [tempAccueilliAdded, setTempsAccueilliAdded] = useState(null);
+
+
   const dispatch = useDispatch();
-  const [selectedAccueilli, setSelectedAccueilli] = useState(null);
-  const [isAtLastQuestion, setIsAtLastQuestion] = useState(false);
-  const [quizStarted, setQuizStarted] = useState(false);
-
   const history = useHistory();
+  /**
+  * Props or constants
+  */
 
+  const socket = props.socket
   console.log(props.location.state);
   const quiz = props.location.state.quiz.item
   let questions = [];
+
+
+  /**
+   * States for the game played
+   * 
+   */
+
+  const [isAtLastQuestion, setIsAtLastQuestion] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [currentQuestion, setCurrentQuestion] = useState(questions[index])
+
+  /**
+   * 
+   * States for accueilli monitoring
+   */
+
+  const [accueillisPlaying, setAccueillisPlaying] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [tempAccueilliAdded, setTempsAccueilliAdded] = useState(null);
+  const [selectedAccueilli, setSelectedAccueilli] = useState(null);
+
+
+
   if (quiz.type !== 'music') {
     questions = quiz.questions
   }
 
-  const [index, setIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[index])
 
   // Tells if the current question is over in the table
-  const [isQuestionOver, setIsQuestionOver] = useState(false)
 
   const navigateToMenu = () => {
     history.push('/')
@@ -145,8 +164,6 @@ const TableSupervisor = props => {
     }
     setShowModal(false);
   }
-
-
 
   return (
     <>

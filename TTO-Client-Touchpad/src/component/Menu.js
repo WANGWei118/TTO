@@ -7,11 +7,24 @@ import { useHistory } from "react-router-dom";
 import TouchBackend from 'react-dnd-touch-backend'
 import { DndProvider, useDrag } from 'react-dnd'
 function Menu(props) {
-    const socket = props.socket
 
   let history = useHistory()
 
-  function selectQuiz () {
+  /**
+  * Props
+  */
+
+  /**
+   * redux
+   */
+
+  /**
+   * States
+   */
+
+
+
+  function selectQuiz() {
     // let path = 'quiz'
     let path = 'selectAccueilli'
     console.log('ok')

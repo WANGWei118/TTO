@@ -4,8 +4,21 @@ import images from './images';
 import { useHistory } from 'react-router-dom';
 
 const HeaderComponent = props => {
-
     const history = useHistory();
+    /**
+    * Props
+    */
+
+    /**
+     * redux
+     */
+
+    /**
+     * States
+     */
+
+
+
 
     const goBack = () => {
         history.goBack();

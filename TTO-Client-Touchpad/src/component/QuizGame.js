@@ -12,9 +12,20 @@ let questions;
 let correctAnswer;
 
 const QuizGame = (props) => {
+
     const history = useHistory();
 
-    console.log(props)
+    /**
+    * Props
+    */
+
+    /**
+     * redux
+     */
+
+    /**
+     * States
+     */
     const [quiz] = useState(props.location.state.quiz.item);
     const [quizOver, setQuizOver] = useState(false);
     const [showExplaination, setShowExplaination] = useState(false);
@@ -22,7 +33,11 @@ const QuizGame = (props) => {
     const [loaded, setLoaded] = useState(false);
     const [index, setIndex] = useState(0);
     const [numberOfPlay, setNumberOfPlay] = useState(1);
-    
+
+
+    console.log(props)
+
+
 
     const renderQuestion = () => {
 

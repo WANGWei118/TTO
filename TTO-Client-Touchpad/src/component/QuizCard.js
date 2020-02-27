@@ -1,15 +1,29 @@
 import React from 'react';
 import './QuizCard.css';
 import { useHistory } from "react-router-dom";
-import {SERVER_URL} from '../constants.js';
+import { SERVER_URL } from '../constants.js';
 const INDIVIDUAL_TYPE = 'quizIndividuel';
 let history;
 
 const QuizCard = (props) => {
     history = useHistory();
+
+
+    /**
+    * Props or constants
+    */
     const quiz = props.quiz
     const quizName = quiz.name
     const topic = quiz.topic;
+    /**
+     * redux
+     */
+
+    /**
+     * States
+     */
+
+
     console.log(quiz)
 
     const handleClick = (item) => {

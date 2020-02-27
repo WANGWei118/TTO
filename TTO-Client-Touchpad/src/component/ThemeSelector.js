@@ -7,10 +7,26 @@ import ThemeCard from './ThemeCard';
 
 const ThemeSelector = props => {
 
+    /**
+     * Props
+    */
+    const socket = props.socket;
+
+    /**
+     * redux
+     */
+
+    const selectedAccueilli = useSelector((state) => state.accueilli.accueilliSelected)
+
+    /**
+     * States
+     */
+
     const [themeList, setThemeList] = useState([]);
     const [loadingTheme, setLoadingTheme] = useState(true);
-    const socket = props.socket;
-    const selectedAccueilli = useSelector((state) => state.accueilli.accueilliSelected)
+
+
+
     console.log(themeList);
 
     const accueilliCanPlay = (item) => {

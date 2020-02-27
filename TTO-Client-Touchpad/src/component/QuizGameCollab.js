@@ -16,14 +16,26 @@ let nbRightAnswers = 0;
 
 const QuizGameCollab = props => {
 
+    /**
+    * Props or constants
+    */
+
     const quiz = props.location.state.quiz.item;
     const questions = quiz.questions;
     const history = useHistory();
+
+    /**
+     * redux
+     */
+
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [centralDiv, setCentralDiv] = useState(undefined);
-    // const [nbRightAnswers, setNbRightAnswers] = useState(0);
     const [index, setIndex] = useState(0);
     const [isOver, setIsOver] = useState(false);
+
+    /**
+     * States
+     */
 
     const nextQuestion = () => {
 

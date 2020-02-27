@@ -1,12 +1,26 @@
 import React, { useState } from 'react'
 import './AnswerCard.css'
 import images from './images'
-import {SERVER_URL} from '../constants.js';
+import { SERVER_URL } from '../constants.js';
 
 const AnswerCard = (props) => {
+
+  /**
+  * Props
+  */
+  const answer = props.answer
+
+  /**
+   * redux
+   */
+
+  /**
+   * States
+   */
+
   const [hide, setHide] = useState(false)
   const [hideClass, setHideClass] = useState('answerCard')
-  const answer = props.answer
+
 
   const hideComponent = () => {
     if (props.canHide) {
@@ -17,10 +31,10 @@ const AnswerCard = (props) => {
 
   let imageToDisplay
   images.forEach((item) => {
-      if (answer.src === item.src) {
-        imageToDisplay = item.title
-      }
+    if (answer.src === item.src) {
+      imageToDisplay = item.title
     }
+  }
   )
   return (
     <>
@@ -28,7 +42,7 @@ const AnswerCard = (props) => {
         props.onClick(answer)
         hideComponent()
       }}>
-        <img className="answerCardImage" src={SERVER_URL + answer.src}/>
+        <img className="answerCardImage" src={SERVER_URL + answer.src} />
         <h2 className="answerName">{answer.text}</h2>
       </div>
     </>

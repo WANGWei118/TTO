@@ -8,10 +8,21 @@ const QuizCardCollaborative = props => {
   const TANGIBLE = 'tangible'
   const NORMAL = 'normal'
 
+  /**
+   * Props or constants
+  */
   const history = useHistory()
   const quiz = props.quiz
   const quizName = quiz.name
   const topic = quiz.topic
+  /**
+   * redux
+   */
+
+  /**
+   * States
+   */
+
 
   const handleClick = (item) => {
     console.log(item)

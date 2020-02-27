@@ -7,8 +7,25 @@ import { SERVER_URL } from '../../constants.js';
 
 const AccueilliModal = props => {
 
-    const [visible, setVisible] = useState(true);
+    /**
+     * Props
+    */
+
+    /**
+     * redux
+     */
+
     const accueilliList = useSelector((state) => state.accueilli.accueilliList)
+
+    /**
+     * States
+     */
+
+    const [visible, setVisible] = useState(true);
+
+
+
+
     const closeModal = () => {
         setVisible(false)
     }
