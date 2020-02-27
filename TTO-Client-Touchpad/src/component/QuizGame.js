@@ -22,6 +22,7 @@ const QuizGame = (props) => {
     const [loaded, setLoaded] = useState(false);
     const [index, setIndex] = useState(0);
     const [numberOfPlay, setNumberOfPlay] = useState(1);
+    
 
     const renderQuestion = () => {
 
@@ -114,6 +115,7 @@ const QuizGame = (props) => {
     const navigateToMenu = () => {
         history.push('/')
     }
+
     if (!loaded) {
         initQuiz();
     }
