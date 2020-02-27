@@ -282,10 +282,12 @@ function wait () {
   var waitImage2 = document.createElement('img')
   var waitImage3 = document.createElement('img')
   var waitImage4 = document.createElement('img')
+  var loading = document.createElement('img')
   var titleTop = document.createElement('h1')
   var titleBottom = document.createElement('h1')
   var titleLeft = document.createElement('h1')
   var titleRight = document.createElement('h1')
+  loading.setAttribute('class', 'loadingImage')
   titleTop.setAttribute('class', 'titleT')
   titleBottom.setAttribute('class', 'titleB')
   titleLeft.setAttribute('class', 'titleL')
@@ -303,7 +305,8 @@ function wait () {
   waitImage2.src = 'assets/quiz.png'
   waitImage3.src = 'assets/quiz.png'
   waitImage4.src = 'assets/quiz.png'
-  waitDiv.append(waitImage1, waitImage2, waitImage3, waitImage4, titleTop, titleBottom, titleRight, titleLeft)
+  loading.src = 'assets/loading.png'
+  waitDiv.append(waitImage1, waitImage2, waitImage3, waitImage4, titleTop, titleBottom, titleRight, titleLeft, loading)
   $('#app').append(waitDiv)
 }
 

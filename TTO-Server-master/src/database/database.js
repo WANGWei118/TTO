@@ -237,6 +237,19 @@ class Database {
     })
   }
 
+  addMusic (newMusic, socket) {
+    MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
+      if (err) throw err
+      var dbo = db.db('tto')
+      dbo.collection('music').insertOne(newMusic, function (err, res) {
+        if (err) throw err
+        console.log('music inserted success')
+        socket.emit('music added', {type: true})
+        db.close()
+      })
+    })
+  }
+
   addTopic (newTopic, socket) {
     MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
       if (err) throw err

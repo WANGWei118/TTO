@@ -35,7 +35,7 @@ class SocketIOServer {
    *
    * @constructor
    */
-  constructor() {
+  constructor () {
     this._socketIOClients = {}
     this._onNewClientCallback = null
     this._onClientDisconnectionCallback = null
@@ -48,12 +48,12 @@ class SocketIOServer {
    * @method start
    * @param {number} socketIOPort - Socket IO Server's port. Default : 10000
    */
-  start(socketIOPort = 10000) {
+  start (socketIOPort = 10000) {
     this._app = express()
     this._httpServer = http.createServer(this._app)
     this._ioServer = sio(this._httpServer)
     this.handleSocketIOClient()
-    this._app.use(bodyParser.urlencoded({ extended: false }))
+    this._app.use(bodyParser.urlencoded({extended: false}))
     this._app.use(express.static('public'))
 
     this._app.use(imageUpload)
@@ -62,9 +62,9 @@ class SocketIOServer {
 
     this._app.get('/hello/:ok', function (req, res) {
       var ok = req.params.ok
-      MongoClient.connect(urlDB, { useNewUrlParser: true }, function (err, db) {
+      MongoClient.connect(urlDB, {useNewUrlParser: true}, function (err, db) {
         const dbo = db.db('tto')
-        dbo.collection('pictures').find({ name: ok }).toArray(function (err, result) {
+        dbo.collection('pictures').find({name: ok}).toArray(function (err, result) {
           if (err) throw err
           console.log(result[0])
           res.send(result[0].img.buffer)
@@ -81,7 +81,7 @@ class SocketIOServer {
 
   }
 
-  closeDatabase() {
+  closeDatabase () {
     database.closeDatabases()
   }
 
@@ -91,7 +91,7 @@ class SocketIOServer {
    * @method onNewClient
    * @param {Function} newClientCallback - new client callback function.
    */
-  onNewClient(newClientCallback) {
+  onNewClient (newClientCallback) {
     this._onNewClientCallback = newClientCallback
   }
 
@@ -101,11 +101,11 @@ class SocketIOServer {
    * @method onClientDisconnection
    * @param {Function} clientDisconnectionCallback - client disconnection callback function.
    */
-  onClientDisconnection(clientDisconnectionCallback) {
+  onClientDisconnection (clientDisconnectionCallback) {
     this._onClientDisconnectionCallback = clientDisconnectionCallback
   }
 
-  onClientMessage(clientMessageCallBack) {
+  onClientMessage (clientMessageCallBack) {
     this._onClientMessageCallback = clientMessageCallBack
   }
 
@@ -115,7 +115,7 @@ class SocketIOServer {
    * @method newClient
    * @param {Object} socket - client socket.
    */
-  newClient(socket) {
+  newClient (socket) {
     this._socketIOClients[socket.id] = true
     if (this._onNewClientCallback !== null) {
       this._onNewClientCallback(socket)
@@ -128,7 +128,7 @@ class SocketIOServer {
    * @method disconnectClient
    * @param {Object} socket - client socket.
    */
-  disconnectClient(socket) {
+  disconnectClient (socket) {
     if (this._onClientDisconnectionCallback !== null) {
       this._onClientDisconnectionCallback(socket)
     }
@@ -140,7 +140,7 @@ class SocketIOServer {
    *
    * @method handleSocketIOClient
    */
-  handleSocketIOClient() {
+  handleSocketIOClient () {
     this._ioServer.on('connection', (socket) => {
       // console.log(database.getImage('dog3'))
       console.info('New Socket.IO Client Connection : ', socket.id)
@@ -164,9 +164,9 @@ class SocketIOServer {
       socket.on('valided action', (data) => {
         console.log('Received valided action from client')
         if (data.type === true) {
-          socket.emit('validation', { valid: true })
+          socket.emit('validation', {valid: true})
         } else {
-          socket.emit('validation', { valid: false })
+          socket.emit('validation', {valid: false})
         }
       })
 
@@ -261,7 +261,7 @@ class SocketIOServer {
 
       socket.on('add image', (data) => {
         console.log('add image', data)
-        database.addImageInTopic(data, socket);
+        database.addImageInTopic(data, socket)
       })
 
       socket.on('start fun quiz', (data) => {
@@ -321,6 +321,16 @@ class SocketIOServer {
         socket.emit('play', false)
       })
 
+      socket.on('add music', (data) => {
+        console.log('add music')
+        database.addMusic(data, socket)
+      })
+
+      socket.on('table quiz finished', () => {
+        console.log('table quiz finished')
+        socket.broadcast.emit('end table quiz')
+      })
+
       socket.on('disconnect', () => {
         console.info('Socket.IO Client disconnected : ', socket.id)
         this.disconnectClient(socket)
@@ -366,7 +376,7 @@ class SocketIOServer {
  * @param socket
  */
 
-function addQuiz(data, socket) {
+function addQuiz (data, socket) {
   if (data.type === 'collaborative') {
     database.addQuizCollaborative(data.quiz, socket)
   } else {
@@ -374,7 +384,7 @@ function addQuiz(data, socket) {
   }
 }
 
-function getQuiz(data, socket) {
+function getQuiz (data, socket) {
   switch (data.type) {
     case ALL_TYPES_QUIZZ:
       database.sendAllQuizz(socket)
@@ -394,7 +404,7 @@ function getQuiz(data, socket) {
   }
 }
 
-function startQuiz(data, socket) {
+function startQuiz (data, socket) {
   switch (data.type) {
     case TANGIBLE_QUIZZ:
       socket.emit(TANGIBLE_QUIZZ, data.quiz)
