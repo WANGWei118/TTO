@@ -3,7 +3,7 @@ import 'antd/dist/antd.css';
 import '../app.css';
 import openSocket from 'socket.io-client';
 import { Form, Upload, message,notification, List, Select,Layout, Menu, Icon,
-     Button, Breadcrumb, Modal, Checkbox, Input, Radio} from 'antd';
+     Button, Breadcrumb, Modal, Checkbox, Input, Radio, Tabs} from 'antd';
 import images from './images';
 import Sidebar from '../sidebar';
 import './createQuiz.css'
@@ -16,9 +16,7 @@ import '../config/config'
 
 const url = global.constants.url;
 const { Header, Content, Footer, Sider} = Layout;
-const Menu1 = 'Liste de quiz';
-const Menu2 = 'Statistiques';
-const Menu3 = 'Information par acceuil';
+const { TabPane } = Tabs;
 const CheckboxGroup = Checkbox.Group;
 const { TextArea } = Input;
 const { Option } = Select;
@@ -62,6 +60,7 @@ class CreateQuiz extends React.Component {
     socket = openSocket;
     quizList = null;
     cheminPic = [];
+    allPics = [];
     prefix = null;
     state = {
         id : 0,
@@ -206,19 +205,31 @@ class CreateQuiz extends React.Component {
             console.log(this.state.topicList);
         });
 
+        this.getImages();
+    }
+
+    getImages = () => {
         this.socket.emit('get images');
         this.socket.on('images',(data) => {
-            this.cheminPic = data[0].src.map((e) => e);
-            console.log(data);
+            this.cheminPic = data;
+            this.state.images = [];
             console.log(this.cheminPic);
             this.cheminPic.map((i)=>{
-                this.state.images.push(
-                    <Button className="buttonImage"
-                            onClick={e => this.onChangePic(e, i)}>
-                        <img src = {url+i} className='image'/>
-                    </Button>
-                );
-            });
+                let buttons = [];
+                i.images.map((img)=>{
+                    buttons.push(
+                        <Button className="buttonImage"
+                                onClick={e => this.onChangePic(e, img.src)}>
+                            <img src = {url+img.src} className='image'/>
+                        </Button>
+                    );
+                })
+                this.state.images.push({
+                    id: i.id,
+                    topic: i.topic,
+                    images: buttons,
+                });
+            })
         });
     }
 
@@ -470,6 +481,7 @@ class CreateQuiz extends React.Component {
     };
 
     addPic1 = () => {
+        this.getImages();
         this.setState({
             checkedPic: null,
             currentRes: 1,
@@ -478,6 +490,7 @@ class CreateQuiz extends React.Component {
         console.log(this.state.currentRes)
     };
     addPic2 = () => {
+        this.getImages();
         this.setState({
             checkedPic: null,
             currentRes: 2,
@@ -485,6 +498,7 @@ class CreateQuiz extends React.Component {
         });
     };
     addPic3 = () => {
+        this.getImages();
         this.setState({
             checkedPic: null,
             currentRes: 3,
@@ -492,55 +506,12 @@ class CreateQuiz extends React.Component {
         });
     };
     addPic4= () => {
+        this.getImages();
         this.setState({
             checkedPic: null,
             currentRes: 4,
             visiblePic2: true,
         });
-    };
-
-    onSelect1 = e => {
-        this.setState({
-            bon1: e.target.checked,
-            rightAnsNb : (!this.state.bon1 ? 1 : 0)
-            + (this.state.bon2 ? 1 : 0)
-            + (this.state.bon3 ? 1 : 0)
-            + (this.state.bon4 ? 1 : 0),
-        });
-        console.log("bon1 " + this.state.bon1);
-    };
-
-    onSelect2 = () => {
-        this.setState({
-            bon2 : !this.state.bon2,
-            rightAnsNb : (this.state.bon1 ? 1 : 0)
-                + (!this.state.bon2 ? 1 : 0)
-                + (this.state.bon3 ? 1 : 0)
-                + (this.state.bon4 ? 1 : 0),
-        });
-        console.log("bon2 " + this.state.bon2);
-    };
-
-    onSelect3 = () => {
-        this.setState({
-            bon3 : !this.state.bon3,
-            rightAnsNb : (!this.state.bon1 ? 1 : 0)
-                + (this.state.bon2 ? 1 : 0)
-                + (!this.state.bon3 ? 1 : 0)
-                + (this.state.bon4 ? 1 : 0),
-        });
-        console.log("bon3 " + this.state.bon3);
-    };
-
-    onSelect4 = () => {
-        this.setState({
-            bon4 : !this.state.bon4,
-            rightAnsNb : (this.state.bon1 ? 1 : 0)
-                + (this.state.bon2 ? 1 : 0)
-                + (this.state.bon3 ? 1 : 0)
-                + (!this.state.bon4 ? 1 : 0),
-        });
-        console.log("bon4 " + this.state.bon4);
     };
 
     onChangeNameIndi = e =>{
@@ -729,6 +700,16 @@ class CreateQuiz extends React.Component {
                 this.setState({
                     visible2: false,
                     questionCol: this.state.questionCol.concat(questionsCollaborative),
+                    nameCol: '',
+                    rightAnsNb: 0,
+                });
+
+                form.setFieldsValue({
+                    keys:[],
+                    icons: [],
+                    checks:[],
+                    names: [],
+                    title: '',
                 });
 
                 console.log(questionsCollaborative);
@@ -788,6 +769,7 @@ class CreateQuiz extends React.Component {
     };
 
     addPic = k => {
+        this.getImages();
         this.setState({
             visiblePic: true,
             currentRes: k,
@@ -1051,7 +1033,7 @@ class CreateQuiz extends React.Component {
       return this.state.checkedQuestion.map((q) => q.description);
     };
 
-    handleChange = info => {
+    handleChange = (info,topic) => {
         if (info.file.status === 'uploading') {
             this.setState({loading: true});
             return
@@ -1061,24 +1043,30 @@ class CreateQuiz extends React.Component {
             getBase64(info.file.originFileObj, imageUrl =>{
                 let image;
                 image = 'assets/'+info.file.originFileObj.name;
+                let newImages = this.state.images;
+                newImages.map((i)=>{
+                    if(i.id===topic.id) {
+                        i.images=i.images.concat(
+                            <Button className="buttonImage"
+                                              onClick={e => this.onChangePic(e, image)}>
+                            <img src = {url+image} className='image'/>
+                        </Button>)
+                    }
+                })
+
                 this.setState({
                     imageUrl,
                     loading: false,
-                    images: this.state.images.concat(
-                        <Button className="buttonImage"
-                                onClick={e => this.onChangePic(e, image)}>
-                            <img src = {url+image} className='image'/>
-                        </Button>
-                    ),
+                    images: newImages,
                 });
                 console.log(image);
                 console.log(this.state.images);
             });
-            this.sendImage(info);
+            this.sendImage(info,topic);
         }
     };
 
-    sendImage = info => {
+    sendImage = (info,topic) => {
         const image = info.file.originFileObj;
 
         console.log(image);
@@ -1092,7 +1080,7 @@ class CreateQuiz extends React.Component {
         // oMyForm.append("userfile", myPhoto);
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:10001/imgUpload',
+            url: 'http://192.168.1.16:10001/imgUpload',
             cache: false,  //不需要缓存
             processData: false,    //不需要进行数据转换
             contentType: false, //默认数据传输方式是application,改为false，编程multipart
@@ -1103,6 +1091,18 @@ class CreateQuiz extends React.Component {
         }).fail(function (err) {
             console.error(err)
         })
+
+        let newImageId = topic.images.length +1;
+        console.log(newImageId);
+        let newImage = {
+            id: topic.id,
+            data: {
+                id: newImageId,
+                src: 'assets/'+image.name,
+            },
+        };
+        console.log(newImage);
+        this.socket.emit("add image",newImage);
     };
 
 
@@ -1136,59 +1136,6 @@ class CreateQuiz extends React.Component {
         getFieldDecorator('icons', { initialValue: [] });
         getFieldDecorator('checks', { initialValue: [] });
         const keys = getFieldValue('keys');
-        const formItems = keys.map((k, index) => (
-            <Form.Item
-                {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                label={index === 0 ? 'Reponses' : ''}
-                required={false}
-                key={k}
-            >
-                {getFieldDecorator(`names[${k}]`, {
-                    validateTrigger: ['onChange', 'onBlur'],
-                    rules: [
-                        {
-                            required: true,
-                            whitespace: true,
-                            message: "Please input passenger's name or delete this field.",
-                        },
-                    ],
-                })(<Input placeholder="passenger name" style={{ width: '50%', marginRight: 8 }} />)}
-                <Button icon="picture"
-                        style={{marginRight:30}}
-                        onClick={() => this.addPic(k)}
-                />
-                Bonne Résponse
-                <Checkbox checked={this.state.checkResList[k]}
-                          style={{marginRight:20}}
-                          onChange={e => this.select(e,k)}
-                />
-                <Modal title="Choisir une image"
-                       visible={this.state.visiblePic}
-                       zIndex={20}
-                       onOk={() => this.handleOkPic(this.state.currentRes)}
-                       onCancel={this.handleCancelPic}>
-                    <p>Response {this.state.currentRes}</p>
-                    <div style={{maxHeight:450,overflowY:"auto",}}>{this.state.images}</div>
-                    <Upload
-                        name="avatar"
-                        listType="picture-card"
-                        className="avatar-uploader"
-                        showUploadList={false}
-                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                        beforeUpload={beforeUpload}
-                        onChange={this.handleChange}>
-                        {uploadButton}
-                    </Upload>
-                </Modal>
-                {keys.length > 1 ? (
-                    <Icon
-                        className="dynamic-delete-button"
-                        type="minus-circle-o"
-                        onClick={() => this.remove(k)}
-                    />
-                ) : null}
-            </Form.Item>
-        ));
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sidebar default = "1"/>
@@ -1201,7 +1148,7 @@ class CreateQuiz extends React.Component {
                             <Breadcrumb.Item> </Breadcrumb.Item>
                         </Breadcrumb>
                         <div style={{ padding: 24, background: '#fff', minHeight: 480, display: 'flex', flexDirection: 'column' }}>
-                            <div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type<p style={{color:'red'}}>*</p>
+                            <div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type de quiz<p style={{color:'red'}}>*</p>
                                 <Radio.Group defaultValue={'individuel'}
                                              onChange={this.onChangeType}
                                              value={this.state.type}
@@ -1211,7 +1158,7 @@ class CreateQuiz extends React.Component {
                                 </Radio.Group>
                             </div>
                             {this.state.type === 'collaboratif'
-                            ?<div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type<p style={{color:'red'}}>*</p>
+                            ?<div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type de question<p style={{color:'red'}}>*</p>
                                     <Radio.Group defaultValue={'individuel'}
                                                  onChange={this.onChangeTangible}
                                                  value={this.state.tangible}
@@ -1251,6 +1198,8 @@ class CreateQuiz extends React.Component {
                                 title="Choisir des acceuillis"
                                 visible={this.state.showAcc}
                                 onOk={this.handleOkAcc}
+                                okText='Valider'
+                                cancelText='Annuler'
                                 onCancel={this.handleCancelAcc}
                                 width={800}
                             >
@@ -1268,6 +1217,8 @@ class CreateQuiz extends React.Component {
                                 title="Ajouter des questions individuels"
                                 visible={this.state.visible}
                                 onOk={this.handleOk}
+                                okText='Valider'
+                                cancelText='Annuler'
                                 onCancel={this.handleCancel}
                                 width={800}
                                 zIndex={10}
@@ -1291,10 +1242,13 @@ class CreateQuiz extends React.Component {
                                            onChange = {e=>this.onChangeRes1(e)}
                                     />
                                     <p style={{color:'red'}}>*</p>
-                                    <Button icon="picture"
-                                            style={{marginRight:30}}
-                                            onClick={this.addPic1} />
-                                    {/*{this.showPic1}*/}
+
+                                    <Button style={{marginRight:30}}
+                                            onClick={this.addPic1} >
+                                        {this.state.pic1 !== null
+                                            ? <img src={url+this.state.pic1} className='littleImage'/> :<Icon type="picture"/>
+                                        }
+                                    </Button>
                                 </div>
                                 { this.state.showingRes2
                                     ? <div style={{ display: 'flex', flexDirection: 'row'}}>
@@ -1304,9 +1258,12 @@ class CreateQuiz extends React.Component {
                                                onChange = {e=>this.onChangeRes2(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
-                                                style={{marginRight:30}}
-                                                onClick={this.addPic2} />
+                                        <Button style={{marginRight:30}}
+                                                onClick={this.addPic2}>
+                                            {this.state.pic2 !== null
+                                                ? <img src={url+this.state.pic2} className='littleImage'/> :<Icon type="picture"/>
+                                            }
+                                        </Button>
 
                                         <Button type="danger"
                                                 size='small'
@@ -1325,9 +1282,12 @@ class CreateQuiz extends React.Component {
                                                onChange = {e=>this.onChangeRes3(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
-                                                style={{marginRight:30}}
-                                                onClick={this.addPic3} />
+                                        <Button style={{marginRight:30}}
+                                                onClick={this.addPic3}>
+                                            {this.state.pic3 !== null
+                                                ? <img src={url+this.state.pic3} className='littleImage'/> :<Icon type="picture"/>
+                                            }
+                                        </Button>
 
                                         <Button type="danger" style={{marginLeft:20}} size='small' shape="circle" icon="minus" onClick={this.deleteRes3} />
                                     </div>
@@ -1341,9 +1301,12 @@ class CreateQuiz extends React.Component {
                                                onChange = {e=>this.onChangeRes4(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
-                                        <Button icon="picture"
-                                                style={{marginRight:30}}
-                                                onClick={this.addPic4} />
+                                        <Button style={{marginRight:30}}
+                                                onClick={this.addPic4}>
+                                            {this.state.pic4 !== null
+                                                ? <img src={url+this.state.pic4} className='littleImage'/> :<Icon type="picture"/>
+                                            }
+                                        </Button>
 
                                         <Button type="danger" style={{marginLeft:20}} size='small' shape="circle" icon="minus" onClick={this.deleteRes4} />
                                     </div>
@@ -1362,9 +1325,9 @@ class CreateQuiz extends React.Component {
                                 Bonne reponse<Select defaultValue="" value = {this.state.bonneIndi}
                                                      style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeBonne}>
                                 <Option value="A">A</Option>
-                                <Option value="B">B</Option>
-                                <Option value="C">C</Option>
-                                <Option value="D">D</Option>
+                                {this.state.showingRes2 ? <Option value="B">B</Option> : null}
+                                {this.state.showingRes3 ? <Option value="C">C</Option> : null}
+                                {this.state.showingRes4 ? <Option value="D">D</Option> : null}
                             </Select>
 
                             </Modal>
@@ -1372,26 +1335,40 @@ class CreateQuiz extends React.Component {
                                 title="Choisir une image"
                                 visible={this.state.visiblePic2}
                                 onOk={this.handleOkPic2}
+                                okText='Valider'
+                                cancelText='Annuler'
                                 onCancel={this.handleCancelPic2}
                                 style={{zIndex:20}}
+                                width={800}
                             >
                                 <p>Response {this.state.currentRes}</p>
-                                <div style={{maxHeight:450,overflowY:"auto",}}>{this.state.images}</div>
-                                <Upload
-                                    name="avatar"
-                                    listType="picture-card"
-                                    className="avatar-uploader"
-                                    showUploadList={false}
-                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                    beforeUpload={beforeUpload}
-                                    onChange={this.handleChange}>
-                                    {uploadButton}
-                                </Upload>
+                                <div style={{maxHeight:400,overflowY:"auto",}}>
+                                    <Tabs type="card">
+                                        {this.state.images.map((topic)=>{
+                                            return <TabPane tab={topic.topic} key={topic.id}>
+                                                {topic.images}
+                                                <Upload
+                                                    multiple= 'true'
+                                                    name="avatar"
+                                                    listType="picture-card"
+                                                    className="avatar-uploader"
+                                                    showUploadList={false}
+                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                    beforeUpload={beforeUpload}
+                                                    onChange={e => this.handleChange(e,topic)}>
+                                                    {uploadButton}
+                                                </Upload>
+                                            </TabPane>;
+                                        })}
+                                    </Tabs>
+                                </div>
                             </Modal>
                             <Modal
                                 title="Ajouter des questions collaboratives"
                                 visible={this.state.visible2}
                                 onOk={this.handleOkCol}
+                                okText='Valider'
+                                cancelText='Annuler'
                                 onCancel={this.handleCancelCol}
                                 width={800}
                                 zIndex={10}
@@ -1405,10 +1382,78 @@ class CreateQuiz extends React.Component {
                                                   onChange = {e=>this.onChangeNameCol(e)}
                                         />)}
                                     </Form.Item>
-                                    {formItems}
+                                    {keys.map((k, index) => {
+                                        return <Form.Item
+                                            {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                                            label={index === 0 ? 'Réponse ' : ''}
+                                            required={false}
+                                            style={{display:'flex',flexDirection:'row'}}
+                                            key={k}
+                                        >
+                                            <span style={{color: 'red'}}>*</span>
+                                            {getFieldDecorator(`names[${k}]`, {
+                                                validateTrigger: ['onChange', 'onBlur'],
+                                                rules: [
+                                                    {
+                                                        required: true,
+                                                        whitespace: true,
+                                                        message: "Veuillez saisir une réponse ou supprimer ce champ.",
+                                                    },
+                                                ],
+                                            })(<Input placeholder="réponse " style={{ width: '50%', marginRight: 15 }} />)}
+                                            <span style={{color: 'red'}}>*</span>
+                                            <Button style={{marginRight:30}}
+                                                    onClick={() => this.addPic(k)}>
+                                                {this.props.form.getFieldsValue().icons[k] !== null && this.props.form.getFieldsValue().icons[k] !== undefined
+                                                    ?<img src={url+this.props.form.getFieldsValue().icons[k]} className='littleImage'/>
+                                                :<Icon type = "picture" />}</Button>
+                                            Bonne Résponse
+                                            <Checkbox checked={this.state.checkResList[k]}
+                                                      style={{marginRight:20}}
+                                                      onChange={e => this.select(e,k)}
+                                            />
+                                            <Modal title="Choisir une image"
+                                                   visible={this.state.visiblePic}
+                                                   zIndex={20}
+                                                   width={800}
+                                                   okText='Valider'
+                                                   cancelText='Annuler'
+                                                   onOk={() => this.handleOkPic(this.state.currentRes)}
+                                                   onCancel={this.handleCancelPic}>
+                                                <p>Response {this.state.currentRes+1}</p>
+                                                <div style={{maxHeight:400,overflowY:"auto",}}>
+                                                    <Tabs type="card">
+                                                        {this.state.images.map((topic)=>{
+                                                            return <TabPane tab={topic.topic} key={topic.id}>
+                                                                {topic.images}
+                                                                <Upload
+                                                                    name="avatar"
+                                                                    listType="picture-card"
+                                                                    className="avatar-uploader"
+                                                                    showUploadList={false}
+                                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                                    beforeUpload={beforeUpload}
+                                                                    onChange={e => this.handleChange(e,topic)}>
+                                                                    {uploadButton}
+                                                                </Upload>
+                                                            </TabPane>;
+                                                        })}
+                                                    </Tabs>
+                                                </div>
+                                            </Modal>
+                                            {keys.length > 1 ? (
+                                                <Button type="danger"
+                                                size='small'
+                                                shape="circle"
+                                                icon="minus"
+                                                style={{marginLeft:20}}
+                                                onClick={() => this.remove(k)} />
+                                            ) : null}
+                                        </Form.Item>;
+                                    })}
                                     <Form.Item {...formItemLayoutWithOutLabel}>
                                         <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-                                            <Icon type="plus" /> Add field
+                                            <Icon type="plus" /> Ajouter réponse
                                         </Button>
                                     </Form.Item>
                                 </Form>

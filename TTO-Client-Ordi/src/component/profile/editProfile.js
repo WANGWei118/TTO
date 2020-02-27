@@ -93,6 +93,7 @@ class EditProfile extends React.Component {
         });
 
         this.socket.on('update a profile',(type) =>{
+            console.log(type);
             if (type.type === true){
                 Modal.success({
                     content: 'Thème modifié avec succès',
