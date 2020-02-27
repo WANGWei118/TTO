@@ -77,7 +77,7 @@ const QuizGame = (props) => {
                         {/* <Button type="primary" onClick={() => navigateToMenu()}> Quitter</Button> */}
                     </div>
                     <div className="restartDivEnd">
-                        <img src={restarto} alt="Recommencer le quiz" onClick={() => restart()} />
+                        <img src={restarto} alt="Recommencer le quiz" className="restart" onClick={() => restart()} />
                         {/* <Button type="primary" onClick={() => restart()}>Recommencer</Button> */}
                     </div>
                 </div>
