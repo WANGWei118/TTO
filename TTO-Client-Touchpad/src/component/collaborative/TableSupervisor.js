@@ -59,18 +59,19 @@ const TableSupervisor = props => {
 
   const handleNextQuestion = () => {
     if (questions.length > index) {
-      console.log("type:")
-      console.log(quiz.type)
       socket.emit('next question', questions[index + 1], { type: quiz.type })
       setCurrentQuestion(questions[index + 1])
       setIndex(index + 1)
       if (questions.length <= index + 1) {
+
         setIsAtLastQuestion(true);
-        socket.emit("quiz finished");
+        socket.emit("table quiz finished");
+
       }
     } else {
       // The quizz is over or at last question
-      socket.emit("quiz finished");
+      setIsAtLastQuestion(true);
+      socket.emit("table quiz finished");
     }
 
   }
