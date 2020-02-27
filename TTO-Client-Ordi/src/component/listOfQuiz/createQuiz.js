@@ -120,6 +120,11 @@ class CreateQuiz extends React.Component {
         topicList: [],
         topicId:0,
         checkResList: [],
+        fileList: null,
+        uploading: false,
+        musicImage: null,
+        music:'',
+        musicId: 0,
     };
     constructor(props) {
         super(props);
@@ -203,6 +208,25 @@ class CreateQuiz extends React.Component {
                 topicList: data,
             });
             console.log(this.state.topicList);
+        });
+
+        this.socket.emit("get musics");
+        this.socket.on("all music",(data)=>{
+            this.setState({
+                musicId: data.length +1,
+            });
+            console.log(data);
+            console.log(id);
+        });
+        this.socket.on('music added',(type) =>{
+            if (type.type === true){
+                Modal.success({
+                    content: 'Quiz musical créé avec succès',
+                    onOk(){
+                        if(history) history.push('/homepage');
+                    }
+                });
+            }
         });
 
         this.getImages();
@@ -303,7 +327,12 @@ class CreateQuiz extends React.Component {
         this.setState({
             nameCol: e.target.value,
         });
-        console.log(this.state);
+    };
+
+    onChangeMusic = e => {
+        this.setState({
+            music: e.target.value,
+        });
     };
 
     onChangeTheme = value => {
@@ -680,7 +709,7 @@ class CreateQuiz extends React.Component {
 
             if (flag === 0){
                 for(let i = 0; i < names.length; i++){
-                    if(names[i] !== null)
+                    if(names[i] !== null && names[i] !== undefined)
                     response.push({
                         description: names[i],
                         src: icons[i],
@@ -1023,7 +1052,20 @@ class CreateQuiz extends React.Component {
             }
         }
     };
+    sendNewMusic = () => {
+        console.log(this.state.fileList);
 
+        const newMusic = {
+            id: this.state.musicId,
+            description: this.state.music,
+            src: this.state.fileList,
+            cover: this.state.musicImage,
+            type: "music",
+        };
+
+        console.log(newMusic);
+        this.socket.emit("add music",newMusic);
+    };
     onCollapse = collapsed => {
         console.log(collapsed);
         this.setState({ collapsed });
@@ -1105,6 +1147,43 @@ class CreateQuiz extends React.Component {
         this.socket.emit("add image",newImage);
     };
 
+    handleMusicImage = (info) => {
+        if (info.file.status !== 'uploading') {
+            console.log(info.file, info.fileList);
+        }
+        if (info.file.status === 'done') {
+            console.log(info.file.name);
+            message.success(`${info.file.name} file uploaded successfully`);
+            getBase64(info.file.originFileObj, imageUrl => {
+                let image;
+                image = 'assets/'+info.file.originFileObj.name;
+                this.setState({
+                    imageUrl,
+                    loading: false,
+                    musicImage: image,
+                })
+                let myForm = new FormData();
+                myForm.append('name', 'testUpload');
+                myForm.append('userfile', info.file.originFileObj);
+                $.ajax({
+                    type: 'POST',
+                    url: 'http://192.168.1.16:10001/imgUpload',
+                    cache: false,  //不需要缓存
+                    processData: false,    //不需要进行数据转换
+                    contentType: false, //默认数据传输方式是application,改为false，编程multipart
+                    data: myForm,
+                    dataType: 'json'
+                }).done(function (data) {
+                    console.log(data);
+                }).fail(function (err) {
+                    console.error(err)
+                })
+            });
+        } else if (info.file.status === 'error') {
+            message.error(`${info.file.name} file upload failed.`);
+        }
+    };
+
 
     render() {
         let i = 0;
@@ -1136,6 +1215,51 @@ class CreateQuiz extends React.Component {
         getFieldDecorator('icons', { initialValue: [] });
         getFieldDecorator('checks', { initialValue: [] });
         const keys = getFieldValue('keys');
+
+        const changeFile = (data) => {
+            this.setState({
+                fileList: data,
+            })
+        };
+        const props = {
+            name: 'file',
+            action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+            headers: {
+                authorization: 'authorization-text',
+            },
+            onChange(info) {
+                if (info.file.status !== 'uploading') {
+                    console.log(info.file, info.fileList);
+                }
+                if (info.file.status === 'done') {
+                    console.log(info.file.name);
+                    message.success(`${info.file.name} file uploaded successfully`);
+                    getBase64(info.file.originFileObj, imageUrl => {
+                        let image;
+                        image = 'assets/'+info.file.originFileObj.name;
+                        changeFile(image);
+                        let myForm = new FormData();
+                        myForm.append('name', 'testUpload');
+                        myForm.append('userfile', info.file.originFileObj);
+                        $.ajax({
+                            type: 'POST',
+                            url: 'http://192.168.1.16:10001/imgUpload',
+                            cache: false,  //不需要缓存
+                            processData: false,    //不需要进行数据转换
+                            contentType: false, //默认数据传输方式是application,改为false，编程multipart
+                            data: myForm,
+                            dataType: 'json'
+                        }).done(function (data) {
+                            console.log(data);
+                        }).fail(function (err) {
+                            console.error(err)
+                        })
+                    });
+                } else if (info.file.status === 'error') {
+                    message.error(`${info.file.name} file upload failed.`);
+                }
+            },
+        };
         return (
             <Layout style={{ minHeight: '100vh' }}>
                 <Sidebar default="1" />
@@ -1155,335 +1279,377 @@ class CreateQuiz extends React.Component {
                                     style={{ marginBottom: 20, marginLeft: 10 }}>
                                     <Radio value={'individuel'}>Quiz individuel</Radio>
                                     <Radio value={'collaboratif'}>Quiz collaboratif</Radio>
+                                    <Radio value={'musical'}>Quiz musical</Radio>
                                 </Radio.Group>
                             </div>
-                            {this.state.type === 'collaboratif'
-                            ?<div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type de question<p style={{color:'red'}}>*</p>
-                                    <Radio.Group defaultValue={'individuel'}
-                                        onChange={this.onChangeTangible}
-                                        value={this.state.tangible}
-                                        style={{ marginBottom: 20, marginLeft: 10 }}>
-                                        <Radio value={'handsTouch'}>Appuyer sur les bonnes réponses</Radio>
-                                        <Radio value={'handsMove'}>Glisser la réponse dans la zone</Radio>
-                                    </Radio.Group>
+                            {this.state.type === 'musical'
+                                ?<div className="column">
+                                    <br/>
+                                    <div className="row">
+                                        <label className="row"><p style={{ color: "red" }}>*</p>Fichier</label>
+                                        <Upload {...props}
+                                                className="upload">
+                                            <Button>
+                                                <Icon type="upload"/> Choisir le musique
+                                            </Button>
+                                        </Upload>
+                                    </div>
+                                    <br/>
+                                    <div className="row">
+                                    <label className="row"><p style={{ color: "red" }}>*</p>Image </label>
+                                    <Upload
+                                        name="avatar"
+                                        listType="picture-card"
+                                        className="avatar-uploader"
+                                        showUploadList={false}
+                                        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                        beforeUpload={beforeUpload}
+                                        onChange={e => this.handleMusicImage(e)}>
+                                        {imageUrl ? <img src={imageUrl} alt="avatar" style={{ width: '100%' }} /> : uploadButton}
+                                    </Upload>
+                                    </div>
+                                    <br/>
+                                    <div className="row">
+                                        <label className="row"><p style={{ color: "red" }}>*</p>Nom</label>
+                                        <Input style={{ width: 400, marginBottom: 20,marginLeft:10 }}
+                                               allowClear='true'
+                                               value={this.state.music}
+                                               onChange={e => this.onChangeMusic(e)}
+                                        />
+                                    </div>
                                 </div>
-                                : null}
+                                :<div className="column">
+                                    {this.state.type === 'collaboratif'
+                                        ?<div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type de question<p style={{color:'red'}}>*</p>
+                                            <Radio.Group defaultValue={'individuel'}
+                                                         onChange={this.onChangeTangible}
+                                                         value={this.state.tangible}
+                                                         style={{ marginBottom: 20, marginLeft: 10 }}>
+                                                <Radio value={'handsTouch'}>Appuyer sur les bonnes réponses</Radio>
+                                                <Radio value={'handsMove'}>Glisser la réponse dans la zone</Radio>
+                                            </Radio.Group>
+                                        </div>
+                                        : null}
 
-                            <Input style={{ width: 400, marginBottom: 20 }}
-                                addonBefore='Nom '
-                                prefix={<p style={{ color: 'red' }}>*</p>}
-                                allowClear='true'
-                                value={this.state.name}
-                                onChange={e => this.onChangeName(e)}
-                            />
-                            <Input style={{ width: 400, marginBottom: 20 }}
-                                addonBefore='Description '
-                                allowClear='true'
-                                value={this.state.description}
-                                onChange={e => this.onChangeDes(e)}
-                            />
-                            <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}>
-                                Thème<p style={{ color: 'red' }}>*</p>
-                                <Select defaultValue="" value={this.state.theme}
-                                    style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
-                                    {this.state.topicList.map((e) => (
-                                        <Option key={e.topic}>{e.topic}</Option>
-                                    ))}
-                                </Select>
-                            </div>
-                            <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}> Acceuilli
-                                {this.renderAcceuilli()}
-                            </div>
-                            <Modal
-                                title="Choisir des acceuillis"
-                                visible={this.state.showAcc}
-                                onOk={this.handleOkAcc}
-                                okText='Valider'
-                                cancelText='Annuler'
-                                onCancel={this.handleCancelAcc}
-                                width={800}
-                            >
-                                <CheckboxGroup
-                                    options={this.state.nameList}
-                                    value={this.state.checkedAcc}
-                                    onChange={this.onSelectAcc}
-                                />
-                            </Modal>
-                            <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}> Les questions<p style={{ color: 'red' }}>*</p>
-                                <Button style={{ marginLeft: 130 }} type='primary' onClick={this.showModal}><Icon type="plus" /> Ajouter des questions</Button>
-                            </div>
-
-                            <Modal
-                                title="Ajouter des questions individuels"
-                                visible={this.state.visible}
-                                onOk={this.handleOk}
-                                okText='Valider'
-                                cancelText='Annuler'
-                                onCancel={this.handleCancel}
-                                width={800}
-                                zIndex={10}
-                            >
-                                {/*<CheckboxGroup*/}
-                                {/*options={plainOptions}*/}
-                                {/*value={this.state.checkedList}*/}
-                                {/*onChange={this.onChangeQuestionIndi}*/}
-                                {/*/>*/}
-
-                                <Input style = {{marginBottom:20}}
-                                       addonBefore= 'Question individuel '
-                                       prefix={<p style={{color:'red'}}>*</p>}
-                                       allowClear = 'true'
-                                       onChange = {e=>this.onChangeNameIndi(e)}
-                                />
-                                <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                    <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
-                                        addonBefore='Réponse A'
-                                        allowClear='true'
-                                        onChange={e => this.onChangeRes1(e)}
+                                    <Input style={{ width: 400, marginBottom: 20 }}
+                                           addonBefore='Nom '
+                                           prefix={<p style={{ color: 'red' }}>*</p>}
+                                           allowClear='true'
+                                           value={this.state.name}
+                                           onChange={e => this.onChangeName(e)}
                                     />
-                                    <p style={{color:'red'}}>*</p>
-
-                                    <Button style={{marginRight:30}}
-                                            onClick={this.addPic1} >
-                                        {this.state.pic1 !== null
-                                            ? <img src={url+this.state.pic1} className='littleImage'/> :<Icon type="picture"/>
-                                        }
-                                    </Button>
-                                </div>
-                                {this.state.showingRes2
-                                    ? <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                        <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
-                                            addonBefore='Réponse B'
-                                            allowClear='true'
-                                            onChange={e => this.onChangeRes2(e)}
-                                        />
-                                        <p style={{color:'red'}}>*</p>
-                                        <Button style={{marginRight:30}}
-                                                onClick={this.addPic2}>
-                                            {this.state.pic2 !== null
-                                                ? <img src={url+this.state.pic2} className='littleImage'/> :<Icon type="picture"/>
-                                            }
-                                        </Button>
-
-                                        <Button type="danger"
-                                            size='small'
-                                            shape="circle"
-                                            icon="minus"
-                                            style={{ marginLeft: 20 }}
-                                            onClick={this.deleteRes2} />
+                                    <Input style={{ width: 400, marginBottom: 20 }}
+                                           addonBefore='Description '
+                                           allowClear='true'
+                                           value={this.state.description}
+                                           onChange={e => this.onChangeDes(e)}
+                                    />
+                                    <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}>
+                                        Thème<p style={{ color: 'red' }}>*</p>
+                                        <Select defaultValue="" value={this.state.theme}
+                                                style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
+                                            {this.state.topicList.map((e) => (
+                                                <Option key={e.topic}>{e.topic}</Option>
+                                            ))}
+                                        </Select>
                                     </div>
-                                    : null
-                                }
-                                {this.state.showingRes3
-                                    ? <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                        <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
-                                            addonBefore='Réponse C'
-                                            allowClear='true'
-                                            onChange={e => this.onChangeRes3(e)}
-                                        />
-                                        <p style={{color:'red'}}>*</p>
-                                        <Button style={{marginRight:30}}
-                                                onClick={this.addPic3}>
-                                            {this.state.pic3 !== null
-                                                ? <img src={url+this.state.pic3} className='littleImage'/> :<Icon type="picture"/>
-                                            }
-                                        </Button>
-
-                                        <Button type="danger" style={{ marginLeft: 20 }} size='small' shape="circle" icon="minus" onClick={this.deleteRes3} />
+                                    <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}> Acceuilli
+                                        {this.renderAcceuilli()}
                                     </div>
-                                    : null
-                                }
-                                {this.state.showingRes4
-                                    ? <div style={{ display: 'flex', flexDirection: 'row' }}>
-                                        <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
-                                            addonBefore='Réponse D'
-                                            allowClear='true'
-                                            onChange={e => this.onChangeRes4(e)}
+                                    <Modal
+                                        title="Choisir des acceuillis"
+                                        visible={this.state.showAcc}
+                                        onOk={this.handleOkAcc}
+                                        okText='Valider'
+                                        cancelText='Annuler'
+                                        onCancel={this.handleCancelAcc}
+                                        width={800}
+                                    >
+                                        <CheckboxGroup
+                                            options={this.state.nameList}
+                                            value={this.state.checkedAcc}
+                                            onChange={this.onSelectAcc}
                                         />
-                                        <p style={{color:'red'}}>*</p>
-                                        <Button style={{marginRight:30}}
-                                                onClick={this.addPic4}>
-                                            {this.state.pic4 !== null
-                                                ? <img src={url+this.state.pic4} className='littleImage'/> :<Icon type="picture"/>
-                                            }
-                                        </Button>
-
-                                        <Button type="danger" style={{ marginLeft: 20 }} size='small' shape="circle" icon="minus" onClick={this.deleteRes4} />
+                                    </Modal>
+                                    <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}> Les questions<p style={{ color: 'red' }}>*</p>
+                                        <Button style={{ marginLeft: 130 }} type='primary' onClick={this.showModal}><Icon type="plus" /> Ajouter des questions</Button>
                                     </div>
-                                    : null
-                                }
-                                <div style={{height:30}}> </div>
-                                {
-                                    this.state.resNb < 4
-                                        ? <Button style={{ position: 'absolute', right: 20, bottom: 70 }} onClick={this.addResponse}
-                                        // onClick = {() => this.setState({comps: comps.concat([Date.now()])})}
-                                        >
-                                            <Icon type="plus" /> Ajouter une response
-                                        </Button>
-                                        : null
-                                }
-                                Bonne reponse<Select defaultValue="" value = {this.state.bonneIndi}
-                                                     style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeBonne}>
-                                <Option value="A">A</Option>
-                                {this.state.showingRes2 ? <Option value="B">B</Option> : null}
-                                {this.state.showingRes3 ? <Option value="C">C</Option> : null}
-                                {this.state.showingRes4 ? <Option value="D">D</Option> : null}
-                            </Select>
 
-                            </Modal>
-                            <Modal
-                                title="Choisir une image"
-                                visible={this.state.visiblePic2}
-                                onOk={this.handleOkPic2}
-                                okText='Valider'
-                                cancelText='Annuler'
-                                onCancel={this.handleCancelPic2}
-                                style={{zIndex:20}}
-                                width={800}
-                            >
-                                <p>Response {this.state.currentRes}</p>
-                                <div style={{maxHeight:400,overflowY:"auto",}}>
-                                    <Tabs type="card">
-                                        {this.state.images.map((topic)=>{
-                                            return <TabPane tab={topic.topic} key={topic.id}>
-                                                {topic.images}
-                                                <Upload
-                                                    multiple= 'true'
-                                                    name="avatar"
-                                                    listType="picture-card"
-                                                    className="avatar-uploader"
-                                                    showUploadList={false}
-                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                    beforeUpload={beforeUpload}
-                                                    onChange={e => this.handleChange(e,topic)}>
-                                                    {uploadButton}
-                                                </Upload>
-                                            </TabPane>;
-                                        })}
-                                    </Tabs>
-                                </div>
+                                    <Modal
+                                        title="Ajouter des questions individuels"
+                                        visible={this.state.visible}
+                                        onOk={this.handleOk}
+                                        okText='Valider'
+                                        cancelText='Annuler'
+                                        onCancel={this.handleCancel}
+                                        width={800}
+                                        zIndex={10}
+                                    >
+                                        {/*<CheckboxGroup*/}
+                                        {/*options={plainOptions}*/}
+                                        {/*value={this.state.checkedList}*/}
+                                        {/*onChange={this.onChangeQuestionIndi}*/}
+                                        {/*/>*/}
 
-                            </Modal>
-                            <Modal
-                                title="Ajouter des questions collaboratives"
-                                visible={this.state.visible2}
-                                onOk={this.handleOkCol}
-                                okText='Valider'
-                                cancelText='Annuler'
-                                onCancel={this.handleCancelCol}
-                                width={800}
-                                zIndex={10}
-                            >
-                                <Form onSubmit={this.handleSubmit}>
-                                    <Form.Item label="Question">
-                                        {getFieldDecorator('title', {
-                                            rules: [{ required: true, message: 'Please input the title of collection!' }],
-                                        })(<Input style = {{marginBottom:20}}
-                                                  allowClear = 'true'
-                                                  onChange = {e=>this.onChangeNameCol(e)}
-                                        />)}
-                                    </Form.Item>
-                                    {keys.map((k, index) => {
-                                        return <Form.Item
-                                            {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
-                                            label={index === 0 ? 'Réponse ' : ''}
-                                            required={false}
-                                            style={{display:'flex',flexDirection:'row'}}
-                                            key={k}
-                                        >
-                                            <span style={{color: 'red'}}>*</span>
-                                            {getFieldDecorator(`names[${k}]`, {
-                                                validateTrigger: ['onChange', 'onBlur'],
-                                                rules: [
-                                                    {
-                                                        required: true,
-                                                        whitespace: true,
-                                                        message: "Veuillez saisir une réponse ou supprimer ce champ.",
-                                                    },
-                                                ],
-                                            })(<Input placeholder="réponse " style={{ width: '50%', marginRight: 15 }} />)}
-                                            <span style={{color: 'red'}}>*</span>
-                                            <Button style={{marginRight:30}}
-                                                    onClick={() => this.addPic(k)}>
-                                                {this.props.form.getFieldsValue().icons[k] !== null && this.props.form.getFieldsValue().icons[k] !== undefined
-                                                    ?<img src={url+this.props.form.getFieldsValue().icons[k]} className='littleImage'/>
-                                                :<Icon type = "picture" />}</Button>
-                                            Bonne Résponse
-                                            <Checkbox checked={this.state.checkResList[k]}
-                                                      style={{marginRight:20}}
-                                                      onChange={e => this.select(e,k)}
+                                        <Input style = {{marginBottom:20}}
+                                               addonBefore= 'Question individuel '
+                                               prefix={<p style={{color:'red'}}>*</p>}
+                                               allowClear = 'true'
+                                               onChange = {e=>this.onChangeNameIndi(e)}
+                                        />
+                                        <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                            <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                                   addonBefore='Réponse A'
+                                                   allowClear='true'
+                                                   onChange={e => this.onChangeRes1(e)}
                                             />
-                                            <Modal title="Choisir une image"
-                                                   visible={this.state.visiblePic}
-                                                   zIndex={20}
-                                                   width={800}
-                                                   okText='Valider'
-                                                   cancelText='Annuler'
-                                                   onOk={() => this.handleOkPic(this.state.currentRes)}
-                                                   onCancel={this.handleCancelPic}>
-                                                <p>Response {this.state.currentRes+1}</p>
-                                                <div style={{maxHeight:400,overflowY:"auto",}}>
-                                                    <Tabs type="card">
-                                                        {this.state.images.map((topic)=>{
-                                                            return <TabPane tab={topic.topic} key={topic.id}>
-                                                                {topic.images}
-                                                                <Upload
-                                                                    name="avatar"
-                                                                    listType="picture-card"
-                                                                    className="avatar-uploader"
-                                                                    showUploadList={false}
-                                                                    action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                                                                    beforeUpload={beforeUpload}
-                                                                    onChange={e => this.handleChange(e,topic)}>
-                                                                    {uploadButton}
-                                                                </Upload>
-                                                            </TabPane>;
-                                                        })}
-                                                    </Tabs>
-                                                </div>
-                                            </Modal>
-                                            {keys.length > 1 ? (
-                                                <Button type="danger"
-                                                size='small'
-                                                shape="circle"
-                                                icon="minus"
-                                                style={{marginLeft:20}}
-                                                onClick={() => this.remove(k)} />
-                                            ) : null}
-                                        </Form.Item>;
-                                    })}
-                                    <Form.Item {...formItemLayoutWithOutLabel}>
-                                        <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-                                            <Icon type="plus" /> Ajouter réponse
-                                        </Button>
-                                    </Form.Item>
-                                </Form>
+                                            <p style={{color:'red'}}>*</p>
 
-                            </Modal>
-                            {this.state.type === 'individuel'
-                                ? <List
-                                    bordered
-                                    dataSource={this.state.checkedQuestion}
-                                    renderItem={item => <List.Item><List.Item.Meta
-                                        title={item.description}
-                                        description={"Options: " + item.answers.map((a) => a.text)}
-                                    /></List.Item>}
-                                />
-                                : <List
-                                    bordered
-                                    dataSource={this.state.questionCol}
-                                    renderItem={item =>
-                                        <List.Item><List.Item.Meta
-                                            title={item.description}
-                                            description={"Options: " + item.pictures.map((a) => a.description)}
-                                        /></List.Item>}
-                                />
-                            }
+                                            <Button style={{marginRight:30}}
+                                                    onClick={this.addPic1} >
+                                                {this.state.pic1 !== null
+                                                    ? <img src={url+this.state.pic1} className='littleImage'/> :<Icon type="picture"/>
+                                                }
+                                            </Button>
+                                        </div>
+                                        {this.state.showingRes2
+                                            ? <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                                       addonBefore='Réponse B'
+                                                       allowClear='true'
+                                                       onChange={e => this.onChangeRes2(e)}
+                                                />
+                                                <p style={{color:'red'}}>*</p>
+                                                <Button style={{marginRight:30}}
+                                                        onClick={this.addPic2}>
+                                                    {this.state.pic2 !== null
+                                                        ? <img src={url+this.state.pic2} className='littleImage'/> :<Icon type="picture"/>
+                                                    }
+                                                </Button>
+
+                                                <Button type="danger"
+                                                        size='small'
+                                                        shape="circle"
+                                                        icon="minus"
+                                                        style={{ marginLeft: 20 }}
+                                                        onClick={this.deleteRes2} />
+                                            </div>
+                                            : null
+                                        }
+                                        {this.state.showingRes3
+                                            ? <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                                       addonBefore='Réponse C'
+                                                       allowClear='true'
+                                                       onChange={e => this.onChangeRes3(e)}
+                                                />
+                                                <p style={{color:'red'}}>*</p>
+                                                <Button style={{marginRight:30}}
+                                                        onClick={this.addPic3}>
+                                                    {this.state.pic3 !== null
+                                                        ? <img src={url+this.state.pic3} className='littleImage'/> :<Icon type="picture"/>
+                                                    }
+                                                </Button>
+
+                                                <Button type="danger" style={{ marginLeft: 20 }} size='small' shape="circle" icon="minus" onClick={this.deleteRes3} />
+                                            </div>
+                                            : null
+                                        }
+                                        {this.state.showingRes4
+                                            ? <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                                <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                                       addonBefore='Réponse D'
+                                                       allowClear='true'
+                                                       onChange={e => this.onChangeRes4(e)}
+                                                />
+                                                <p style={{color:'red'}}>*</p>
+                                                <Button style={{marginRight:30}}
+                                                        onClick={this.addPic4}>
+                                                    {this.state.pic4 !== null
+                                                        ? <img src={url+this.state.pic4} className='littleImage'/> :<Icon type="picture"/>
+                                                    }
+                                                </Button>
+
+                                                <Button type="danger" style={{ marginLeft: 20 }} size='small' shape="circle" icon="minus" onClick={this.deleteRes4} />
+                                            </div>
+                                            : null
+                                        }
+                                        <div style={{height:30}}> </div>
+                                        {
+                                            this.state.resNb < 4
+                                                ? <Button style={{ position: 'absolute', right: 20, bottom: 70 }} onClick={this.addResponse}
+                                                    // onClick = {() => this.setState({comps: comps.concat([Date.now()])})}
+                                                >
+                                                    <Icon type="plus" /> Ajouter une response
+                                                </Button>
+                                                : null
+                                        }
+                                        Bonne reponse<Select defaultValue="" value = {this.state.bonneIndi}
+                                                             style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeBonne}>
+                                        <Option value="A">A</Option>
+                                        {this.state.showingRes2 ? <Option value="B">B</Option> : null}
+                                        {this.state.showingRes3 ? <Option value="C">C</Option> : null}
+                                        {this.state.showingRes4 ? <Option value="D">D</Option> : null}
+                                    </Select>
+
+                                    </Modal>
+                                    <Modal
+                                        title="Choisir une image"
+                                        visible={this.state.visiblePic2}
+                                        onOk={this.handleOkPic2}
+                                        okText='Valider'
+                                        cancelText='Annuler'
+                                        onCancel={this.handleCancelPic2}
+                                        style={{zIndex:20}}
+                                        width={800}
+                                    >
+                                        <p>Response {this.state.currentRes}</p>
+                                        <div style={{maxHeight:400,overflowY:"auto",}}>
+                                            <Tabs type="card">
+                                                {this.state.images.map((topic)=>{
+                                                    return <TabPane tab={topic.topic} key={topic.id}>
+                                                        {topic.images}
+                                                        <Upload
+                                                            multiple= 'true'
+                                                            name="avatar"
+                                                            listType="picture-card"
+                                                            className="avatar-uploader"
+                                                            showUploadList={false}
+                                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                            beforeUpload={beforeUpload}
+                                                            onChange={e => this.handleChange(e,topic)}>
+                                                            {uploadButton}
+                                                        </Upload>
+                                                    </TabPane>;
+                                                })}
+                                            </Tabs>
+                                        </div>
+
+                                    </Modal>
+                                    <Modal
+                                        title="Ajouter des questions collaboratives"
+                                        visible={this.state.visible2}
+                                        onOk={this.handleOkCol}
+                                        okText='Valider'
+                                        cancelText='Annuler'
+                                        onCancel={this.handleCancelCol}
+                                        width={800}
+                                        zIndex={10}
+                                    >
+                                        <Form onSubmit={this.handleSubmit}>
+                                            <Form.Item label="Question">
+                                                {getFieldDecorator('title', {
+                                                    rules: [{ required: true, message: 'Please input the title of collection!' }],
+                                                })(<Input style = {{marginBottom:20}}
+                                                          allowClear = 'true'
+                                                          onChange = {e=>this.onChangeNameCol(e)}
+                                                />)}
+                                            </Form.Item>
+                                            {keys.map((k, index) => {
+                                                return <Form.Item
+                                                    {...(index === 0 ? formItemLayout : formItemLayoutWithOutLabel)}
+                                                    label={index === 0 ? 'Réponse ' : ''}
+                                                    required={false}
+                                                    style={{display:'flex',flexDirection:'row'}}
+                                                    key={k}
+                                                >
+                                                    <span style={{color: 'red'}}>*</span>
+                                                    {getFieldDecorator(`names[${k}]`, {
+                                                        validateTrigger: ['onChange', 'onBlur'],
+                                                        rules: [
+                                                            {
+                                                                required: true,
+                                                                whitespace: true,
+                                                                message: "Veuillez saisir une réponse ou supprimer ce champ.",
+                                                            },
+                                                        ],
+                                                    })(<Input placeholder="réponse " style={{ width: '50%', marginRight: 15 }} />)}
+                                                    <span style={{color: 'red'}}>*</span>
+                                                    <Button style={{marginRight:30}}
+                                                            onClick={() => this.addPic(k)}>
+                                                        {this.props.form.getFieldsValue().icons[k] !== null && this.props.form.getFieldsValue().icons[k] !== undefined
+                                                            ?<img src={url+this.props.form.getFieldsValue().icons[k]} className='littleImage'/>
+                                                            :<Icon type = "picture" />}</Button>
+                                                    Bonne Résponse
+                                                    <Checkbox checked={this.state.checkResList[k]}
+                                                              style={{marginRight:20}}
+                                                              onChange={e => this.select(e,k)}
+                                                    />
+                                                    <Modal title="Choisir une image"
+                                                           visible={this.state.visiblePic}
+                                                           zIndex={20}
+                                                           width={800}
+                                                           okText='Valider'
+                                                           cancelText='Annuler'
+                                                           onOk={() => this.handleOkPic(this.state.currentRes)}
+                                                           onCancel={this.handleCancelPic}>
+                                                        <p>Response {this.state.currentRes+1}</p>
+                                                        <div style={{maxHeight:400,overflowY:"auto",}}>
+                                                            <Tabs type="card">
+                                                                {this.state.images.map((topic)=>{
+                                                                    return <TabPane tab={topic.topic} key={topic.id}>
+                                                                        {topic.images}
+                                                                        <Upload
+                                                                            name="avatar"
+                                                                            listType="picture-card"
+                                                                            className="avatar-uploader"
+                                                                            showUploadList={false}
+                                                                            action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                                                                            beforeUpload={beforeUpload}
+                                                                            onChange={e => this.handleChange(e,topic)}>
+                                                                            {uploadButton}
+                                                                        </Upload>
+                                                                    </TabPane>;
+                                                                })}
+                                                            </Tabs>
+                                                        </div>
+                                                    </Modal>
+                                                    {keys.length > 1 ? (
+                                                        <Button type="danger"
+                                                                size='small'
+                                                                shape="circle"
+                                                                icon="minus"
+                                                                style={{marginLeft:20}}
+                                                                onClick={() => this.remove(k)} />
+                                                    ) : null}
+                                                </Form.Item>;
+                                            })}
+                                            <Form.Item {...formItemLayoutWithOutLabel}>
+                                                <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+                                                    <Icon type="plus" /> Ajouter réponse
+                                                </Button>
+                                            </Form.Item>
+                                        </Form>
+
+                                    </Modal>
+                                    {this.state.type === 'individuel'
+                                        ? <List
+                                            bordered
+                                            dataSource={this.state.checkedQuestion}
+                                            renderItem={item => <List.Item><List.Item.Meta
+                                                title={item.description}
+                                                description={"Options: " + item.answers.map((a) => a.text)}
+                                            /></List.Item>}
+                                        />
+                                        : <List
+                                            bordered
+                                            dataSource={this.state.questionCol}
+                                            renderItem={item =>
+                                                <List.Item><List.Item.Meta
+                                                    title={item.description}
+                                                    description={"Options: " + item.pictures.map((a) => a.description)}
+                                                /></List.Item>}
+                                        />
+                                    }
+                                </div>}
+
 
                         </div>
                     </Content>
                     <Footer style={{ display: 'flex', justifyContent: 'center' }}>
-                        <Button style={{ marginBottom: 100 }} type='primary' onClick={this.sendNewQuiz}>Terminer</Button>
+                        {this.state.type === 'musical'
+                            ?<Button style={{ marginBottom: 100 }} type='primary' onClick={this.sendNewMusic}>Terminer</Button>
+                            :<Button style={{ marginBottom: 100 }} type='primary' onClick={this.sendNewQuiz}>Terminer</Button>}
                     </Footer>
                 </Layout>
             </Layout>

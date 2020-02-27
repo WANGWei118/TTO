@@ -21,3 +21,17 @@
     width: 30px;
     height: 30px;
 }
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload {
+    width: 300px;
+    margin-left: 10px;
+}

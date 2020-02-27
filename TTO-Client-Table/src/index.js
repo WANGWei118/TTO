@@ -51,13 +51,41 @@ const positions = [
   {x: 1650, y: 350},
   {x: 1650, y: 500},
   {x: 1650, y: 650},
-  {x: 150, y: 900},
-  {x: 350, y: 900},
-  {x: 500, y: 900},
-  {x: 650, y: 900},
-  {x: 800, y: 900},
-  {x: 950, y: 900},
+  {x: 150, y: 860},
+  {x: 350, y: 860},
+  {x: 500, y: 860},
+  {x: 650, y: 860},
+  {x: 800, y: 860},
+  {x: 950, y: 860},
 ]
+
+const positionsForTouch = [
+  {x: 150, y: 150},
+  {x: 150, y: 400},
+  {x: 150, y: 650},
+  {x: 150, y: 860},
+  {x: 400, y: 150},
+  {x: 400, y: 400},
+  {x: 400, y: 650},
+  {x: 400, y: 830},
+  {x: 650, y: 150},
+  {x: 650, y: 400},
+  {x: 650, y: 650},
+  {x: 650, y: 830},
+  {x: 900, y: 150},
+  {x: 900, y: 400},
+  {x: 900, y: 650},
+  {x: 900, y: 830},
+  {x: 1250, y: 150},
+  {x: 1250, y: 400},
+  {x: 1250, y: 650},
+  {x: 1250, y: 860},
+  {x: 1400, y: 150},
+  {x: 1400, y: 400},
+  {x: 1400, y: 650},
+  {x: 1400, y: 830},
+]
+
 let rightAnswer = 0
 let rightAnswersNum = 0
 let isElse = false
@@ -161,6 +189,17 @@ const buildApp = () => {
     }
   })
 
+  socketIOClient._client.on('end table quiz', () => {
+    rightAnswer = 0
+    audio.muted = true
+    socketIOClient.pauseMusic()
+    clearInterval(timer)
+    clearInterval(musicTimer)
+    isElse = true
+    $('#app').empty()
+    lastPage()
+  })
+
 }
 $(window)
   .ready(() => {
@@ -197,9 +236,9 @@ function imageDiv (picNum, pics, title) {
   titleBottom.innerText = title
   titleLeft.innerText = title
   titleRight.innerText = title
-  randedPosition = getRandomPosition(picNum)
+  randedPosition = getRandomPositionForTouch(picNum)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageTouchWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, url + pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum, i)
+    const imageWidget1 = new ImageTouchWidget(positionsForTouch[randedPosition[i]].x, positionsForTouch[randedPosition[i]].y, 200, 200, url + pics[i].src, socketIOClient, pics[i].isAnswer, rightAnswersNum, i)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
     //   const image = document.createElement('img')
@@ -306,7 +345,7 @@ function wait () {
   waitImage3.src = 'assets/quiz.png'
   waitImage4.src = 'assets/quiz.png'
   loading.src = 'assets/loading.png'
-  waitDiv.append(waitImage1, waitImage2, waitImage3, waitImage4, titleTop, titleBottom, titleRight, titleLeft, loading)
+  waitDiv.append(waitImage1, waitImage2, waitImage3, waitImage4, titleTop, titleBottom, titleRight, titleLeft)
   $('#app').append(waitDiv)
 }
 
@@ -477,8 +516,30 @@ function forConentration (audioSrc) {
 
 }
 
+function randomPositionForTouchX () {
+  return Math.floor(Math.random() * 1400) + 150
+}
+
+function randomPositionForTouchY () {
+  return Math.floor(Math.random() * 700) + 150
+}
+
 function getRandomPosition (num) {
   var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+  var out = []
+  let i = 0
+  while (i < num) {
+    var index = parseInt(Math.random() * arr1.length)
+    out = out.concat(arr1.splice(index, 1))
+    // out = out.concat(positions.splice(index, 1))
+    i++
+  }
+  console.log(out)
+  return out
+}
+
+function getRandomPositionForTouch (num) {
+  var arr1 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
   var out = []
   let i = 0
   while (i < num) {
