@@ -85,7 +85,7 @@ class ImageTouchWidget extends TUIOWidget {
           // this._domElem.css('display', `none`)
           // $('.testImage').remove()
           // this._domElem[0].className.
-          $('.' + this._domElem[0].className).fadeOut(2000)
+          $('.' + this._domElem[0].className).fadeOut(1000)
           this.socket.sendValidedAction(true)
           this.vanished = true
           console.log('bravo')
@@ -93,31 +93,33 @@ class ImageTouchWidget extends TUIOWidget {
             var bravo = document.createElement('h1')
             bravo.setAttribute('class', 'information' + i.toString())
             bravo.innerText = 'Bravo'
-            $('.imageDiv').append(bravo)
+            $('.imageDiv').remove($('.information0'), $('.information1'),$('.information2'),$('.information3'))
+              .append(bravo)
           }
           setTimeout(() => {
-            $('.information0').fadeOut(2000)
-            $('.information1').fadeOut(2000)
-            $('.information2').fadeOut(2000)
-            $('.information3').fadeOut(2000)
+            $('.information0').fadeOut(1000)
+            $('.information1').fadeOut(1000)
+            $('.information2').fadeOut(1000)
+            $('.information3').fadeOut(1000)
           }, 1000)
         } else {
           this.vanished = true
-          $('.' + this._domElem[0].className).fadeOut(2000)
+          $('.' + this._domElem[0].className).fadeOut(1000)
           // $('.testImage').remove()
           this.socket.sendValidedAction(false)
           for (let i = 0; i < 4; i++) {
             var again = document.createElement('h1')
             again.setAttribute('class', 'information' + i.toString())
             again.innerText = 'Essayez encore'
-            $('.imageDiv').append(again)
+            $('.imageDiv').remove($('.information0'), $('.information1'),$('.information2'),$('.information3'))
+              .append(again)
           }
           console.log('essayez-encore')
           setTimeout(() => {
-            $('.information0').fadeOut(2000)
-            $('.information1').fadeOut(2000)
-            $('.information2').fadeOut(2000)
-            $('.information3').fadeOut(2000)
+            $('.information0').fadeOut(1000)
+            $('.information1').fadeOut(1000)
+            $('.information2').fadeOut(1000)
+            $('.information3').fadeOut(1000)
           }, 1000)
         }
       }
