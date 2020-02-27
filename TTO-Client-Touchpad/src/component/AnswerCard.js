@@ -18,7 +18,6 @@ const AnswerCard = (props) => {
    * States
    */
 
-  const [hide, setHide] = useState(false)
   const [hideClass, setHideClass] = useState('answerCard')
 
 
@@ -29,13 +28,13 @@ const AnswerCard = (props) => {
     }
   }
 
-  let imageToDisplay
-  images.forEach((item) => {
-    if (answer.src === item.src) {
-      imageToDisplay = item.title
-    }
-  }
-  )
+  // let imageToDisplay
+  // images.forEach((item) => {
+  //   if (answer.src === item.src) {
+  //     imageToDisplay = item.title
+  //   }
+  // }
+  // )
   return (
     <>
       <div className={hideClass} onClick={() => {

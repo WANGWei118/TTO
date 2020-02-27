@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Modal, Button, Radio, Card } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import { useSelector } from 'react-redux';

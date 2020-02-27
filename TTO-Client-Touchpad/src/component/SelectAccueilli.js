@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Card, Button, Modal, Radio, Icon } from 'antd'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import './SelectAccueilli.css'
 import HeaderComponent from './HeaderComponent'
-import RadioGroup from 'antd/lib/radio/group'
-import RadioButton from 'antd/lib/radio/radioButton'
+
 import { SERVER_URL } from '../constants.js'
 
 const { Meta } = Card
@@ -137,6 +135,5 @@ const SelectAccueilli = props => {
   )
 }
 
-SelectAccueilli.propTypes = {}
 
 export default SelectAccueilli

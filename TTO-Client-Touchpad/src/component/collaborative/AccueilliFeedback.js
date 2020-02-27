@@ -158,12 +158,12 @@ const AccueilliFeedback = props => {
                                 <div className="goodAnswers" ref={provided.innerRef} {...provided.droppableProps} style={getListStyle(snapshot.isDraggingOver)}>
                                     <p>Bien !</p>
                                     {goodBoxList.map((image, imageIndex) => {
-                                        return <Draggable draggableId={image.id} index={imageIndex}>
+                                        return <Draggable draggableId={image.id} key={image.id} index={imageIndex}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     ref={provided.innerRef}
-                                                > <img src={SERVER_URL + image.src} alt="image" className="draggableImage" />
+                                                > <img src={SERVER_URL + image.src} alt="Good image" className="draggableImage" />
                                                 </div>
                                             )
                                             }
@@ -179,12 +179,12 @@ const AccueilliFeedback = props => {
                                 <div ref={provided.innerRef} {...provided.droppableProps} className="badAnswers" style={getListStyle(snapshot.isDraggingOver)}>
                                     <p>À surveiller</p>
                                     {badBoxList.map((image, imageIndex) => {
-                                        return <Draggable draggableId={image.id} index={imageIndex}>
+                                        return <Draggable draggableId={image.id} key={image.id} index={imageIndex}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     ref={provided.innerRef}
-                                                > <img src={SERVER_URL + image.src} alt="image" className="draggableImage" />
+                                                > <img src={SERVER_URL + image.src} alt="Bad image" className="draggableImage" />
                                                 </div>
                                             )
                                             }
@@ -200,12 +200,12 @@ const AccueilliFeedback = props => {
                             {(provided, snapshot) => (
                                 <div ref={provided.innerRef} {...provided.droppableProps} style={getListStyle(snapshot.isDraggingOver)} className="droppableImages">
                                     {imageList.map((image, imageIndex) => {
-                                        return <Draggable draggableId={image.id} index={imageIndex}>
+                                        return <Draggable draggableId={image.id} key={image.id} index={imageIndex}>
                                             {(provided) => (
                                                 <div {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
                                                     ref={provided.innerRef}
-                                                > <img src={SERVER_URL + image.src} alt="image" className="draggableImage" />
+                                                > <img src={SERVER_URL + image.src} alt="List image" className="draggableImage" />
                                                 </div>
                                             )
                                             }

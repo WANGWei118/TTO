@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Result, Icon, Card, } from 'antd'
 import HeaderComponent from '../HeaderComponent'
-import TouchBackend from 'react-dnd-touch-backend';
-import { DndProvider } from 'react-dnd';
 import './TableSupervisor.css';
 import Meta from 'antd/lib/card/Meta';
 import { SERVER_URL } from '../../constants.js';
@@ -31,6 +28,9 @@ const TableSupervisor = props => {
   const quiz = props.location.state.quiz.item
   let questions = [];
 
+  if (quiz.type !== 'music') {
+    questions = quiz.questions
+  }
 
   /**
    * States for the game played
@@ -40,7 +40,7 @@ const TableSupervisor = props => {
   const [isAtLastQuestion, setIsAtLastQuestion] = useState(false);
   const [quizStarted, setQuizStarted] = useState(false);
   const [index, setIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[index])
+  const [currentQuestion, setCurrentQuestion] = useState(questions[0])
 
   /**
    * 
@@ -55,9 +55,7 @@ const TableSupervisor = props => {
 
 
 
-  if (quiz.type !== 'music') {
-    questions = quiz.questions
-  }
+
 
 
   // Tells if the current question is over in the table
@@ -68,13 +66,13 @@ const TableSupervisor = props => {
 
   const restart = () => {
     setIndex(0);
-    setCurrentQuestion(questions[0]);
     setIsAtLastQuestion(false);
     setQuizStarted(false);
     setCurrentQuestion(questions[0]);
   }
 
-
+  console.log("CurrentQuestion : ")
+  console.log(currentQuestion)
 
   const handleNextQuestion = () => {
     if (questions.length > index) {
@@ -221,11 +219,9 @@ const TableSupervisor = props => {
         </div>
         {showModal ? <AccueilliModal onSelectionChange={(e) => onSelectionChange(e.target.value)} handleCancel={() => handleCancel()} handleOk={() => handleOk()} /> : <></>}
       </div>
-      {showFeedback ? <AccueilliFeedback accueilli={selectedAccueilli} images={currentQuestion.pictures} cancelFeedback={() => cancelFeedback()} okFeedback={() => okFeedback()} /> : <></>}
+      {showFeedback ? <AccueilliFeedback accueilli={selectedAccueilli} images={currentQuestion ? currentQuestion.pictures : []} cancelFeedback={() => cancelFeedback()} okFeedback={() => okFeedback()} /> : <></>}
     </>
   )
 }
-
-TableSupervisor.propTypes = {}
 
 export default TableSupervisor
