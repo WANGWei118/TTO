@@ -32,19 +32,19 @@ const menu = (
             Fruit
         </Menu.Item>
         {/*<Menu.Item key="2">*/}
-            {/*<Icon type="user" />*/}
-            {/*2*/}
+        {/*<Icon type="user" />*/}
+        {/*2*/}
         {/*</Menu.Item>*/}
     </Menu>
 );
 
-function getBase64 (img, callback) {
+function getBase64(img, callback) {
     const reader = new FileReader()
     reader.addEventListener('load', () => callback(reader.result))
     reader.readAsDataURL(img)
 }
 
-function beforeUpload (file) {
+function beforeUpload(file) {
     const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png'
     if (!isJpgOrPng) {
         message.error('You can only upload JPG/PNG file!')
@@ -63,7 +63,7 @@ class CreateQuiz extends React.Component {
     allPics = [];
     prefix = null;
     state = {
-        id : 0,
+        id: 0,
         loading: false,
         collapsed: false,
         visible: false,
@@ -129,9 +129,9 @@ class CreateQuiz extends React.Component {
         this.socket = props.socket;
 
         this.socket.emit("get topics");
-        this.socket.on("all topics",(data)=>{
-            this.state.topicList=[];
-            data.map((e)=>{
+        this.socket.on("all topics", (data) => {
+            this.state.topicList = [];
+            data.map((e) => {
                 this.setState({
                     topicList: this.state.topicList.concat(e),
                 })
@@ -140,7 +140,7 @@ class CreateQuiz extends React.Component {
         });
 
         this.socket.emit('get all types quiz');
-        this.socket.on('all types quiz',(data) => {
+        this.socket.on('all types quiz', (data) => {
             this.quizList = data;
             this.state.quizList = data;
             console.log(this.quizList);
@@ -187,20 +187,20 @@ class CreateQuiz extends React.Component {
         });
 
         this.socket.emit('get profiles');
-        this.socket.on('all profiles',(data) => {
+        this.socket.on('all profiles', (data) => {
             this.state.accList = data;
             console.log(this.state.accList);
-            this.state.accList.map((e)=>{
-                this.state.nameList.push(e.id + ". " +e.firstName+e.lastName);
+            this.state.accList.map((e) => {
+                this.state.nameList.push(e.id + ". " + e.firstName + e.lastName);
             });
             console.log(this.state.nameList);
             console.log(this.state.idList);
         });
 
         this.socket.emit('get topics');
-        this.socket.on('all topics',(data)=>{
+        this.socket.on('all topics', (data) => {
             this.setState({
-                topicList:data,
+                topicList: data,
             });
             console.log(this.state.topicList);
         });
@@ -233,8 +233,8 @@ class CreateQuiz extends React.Component {
         });
     }
 
-    getTopicId = name =>{
-        this.state.topicList.map((e)=>{
+    getTopicId = name => {
+        this.state.topicList.map((e) => {
             if (e.topic.toString() === name.toString()) {
                 console.log(e.id);
                 this.state.topicId = e.id;
@@ -246,8 +246,8 @@ class CreateQuiz extends React.Component {
 
     getTopicPersonalQuiz = name => {
         let personal = [];
-        this.quizList.personal.map((e)=>{
-            if(e.topic === name) {
+        this.quizList.personal.map((e) => {
+            if (e.topic === name) {
                 personal.push(e.id);
             }
         });
@@ -256,8 +256,8 @@ class CreateQuiz extends React.Component {
 
     getTopicHandsMoveQuiz = name => {
         let handsmove = [];
-        this.quizList.collaborative.handsMove.map((e)=>{
-            if(e.topic === name) {
+        this.quizList.collaborative.handsMove.map((e) => {
+            if (e.topic === name) {
                 handsmove.push(e.id);
             }
         });
@@ -266,8 +266,8 @@ class CreateQuiz extends React.Component {
 
     getTopicHandsTouchQuiz = name => {
         let handstouch = [];
-        this.quizList.collaborative.handsTouch.map((e)=>{
-            if(e.topic === name) {
+        this.quizList.collaborative.handsTouch.map((e) => {
+            if (e.topic === name) {
                 handstouch.push(e.id);
             }
         });
@@ -276,7 +276,7 @@ class CreateQuiz extends React.Component {
 
     getId = () => {
         let id = 0;
-        for(let i = 0; i < this.quizList.personal.length; i++) {
+        for (let i = 0; i < this.quizList.personal.length; i++) {
             if (this.quizList[i].id > id) {
                 id = this.quizList[i].id;
             }
@@ -295,13 +295,13 @@ class CreateQuiz extends React.Component {
 
     onChangeName = e => {
         this.setState({
-            name:e.target.value,
+            name: e.target.value,
         });
     };
 
     onChangeNameCol = e => {
         this.setState({
-            nameCol:e.target.value,
+            nameCol: e.target.value,
         });
         console.log(this.state);
     };
@@ -366,36 +366,36 @@ class CreateQuiz extends React.Component {
         });
     };
 
-    onChangePic = (e,i) => {
+    onChangePic = (e, i) => {
         this.setState({
             checkedPic: i,
         });
     };
 
     showPic1 = () => {
-        this.cheminPic.map((i)=> {
-            if(this.state.pic1 === i) {
-                return <img src={url+i} className='littleImage'/>;
+        this.cheminPic.map((i) => {
+            if (this.state.pic1 === i) {
+                return <img src={url + i} className='littleImage' />;
             }
         });
     };
 
     renderAcceuilli = () => {
-        if(this.state.type === 'individuel') {
-            return(
-                <div style={{display:"flex", flexDirection: "row"}}>
-                    <p style={{color:'red'}}>*</p>
+        if (this.state.type === 'individuel') {
+            return (
+                <div style={{ display: "flex", flexDirection: "row" }}>
+                    <p style={{ color: 'red' }}>*</p>
                     {/*<Select defaultValue="" value = {this.state.acceuilli}*/}
-                            {/*style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeAcc}>*/}
-                        {/*<Option value="acceuilli">Acceuilli</Option>*/}
+                    {/*style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeAcc}>*/}
+                    {/*<Option value="acceuilli">Acceuilli</Option>*/}
                     {/*</Select>*/}
-                    <Button style={{marginLeft:30}} onClick={this.modalAcceuilli}>Ajouter les acceuillis</Button>
+                    <Button style={{ marginLeft: 30 }} onClick={this.modalAcceuilli}>Ajouter les acceuillis</Button>
                 </div>
 
             );
         } else {
             return (
-                <div style={{marginLeft:30}}><b>Tout le monde</b></div>
+                <div style={{ marginLeft: 30 }}><b>Tout le monde</b></div>
             );
         }
     };
@@ -421,12 +421,12 @@ class CreateQuiz extends React.Component {
         //         resNb: 4
         //     });break;
         // }
-        if(this.state.showingRes2 === false) {
+        if (this.state.showingRes2 === false) {
             this.setState({
                 showingRes2: true,
                 resNb: this.state.resNb + 1,
             });
-        }else if (this.state.showingRes3 === false) {
+        } else if (this.state.showingRes3 === false) {
             this.setState({
                 showingRes3: true,
                 resNb: this.state.resNb + 1,
@@ -445,9 +445,9 @@ class CreateQuiz extends React.Component {
         this.setState({
             showingRes2: false,
             res2: null,
-            resNb: this.state.resNb-1,
+            resNb: this.state.resNb - 1,
             bon2: false,
-            rightAnsNb : (this.state.bon1 ? 1 : 0)
+            rightAnsNb: (this.state.bon1 ? 1 : 0)
                 + (this.state.bon3 ? 1 : 0)
                 + (this.state.bon4 ? 1 : 0),
         });
@@ -458,9 +458,9 @@ class CreateQuiz extends React.Component {
         this.setState({
             showingRes3: false,
             res3: null,
-            resNb: this.state.resNb-1,
+            resNb: this.state.resNb - 1,
             bon3: false,
-            rightAnsNb : (this.state.bon1 ? 1 : 0)
+            rightAnsNb: (this.state.bon1 ? 1 : 0)
                 + (this.state.bon2 ? 1 : 0)
                 + (this.state.bon4 ? 1 : 0),
         });
@@ -471,9 +471,9 @@ class CreateQuiz extends React.Component {
         this.setState({
             showingRes4: false,
             res4: null,
-            resNb: this.state.resNb-1,
+            resNb: this.state.resNb - 1,
             bon4: false,
-            rightAnsNb : (this.state.bon1 ? 1 : 0)
+            rightAnsNb: (this.state.bon1 ? 1 : 0)
                 + (this.state.bon2 ? 1 : 0)
                 + (this.state.bon3 ? 1 : 0)
         });
@@ -550,7 +550,7 @@ class CreateQuiz extends React.Component {
             notification['warning']({
                 message: 'Entrez la question',
             });
-        } else if (this.state.bonneIndi === ""){
+        } else if (this.state.bonneIndi === "") {
             notification['warning']({
                 message: 'Il manque la bonne réponse',
             });
@@ -558,15 +558,15 @@ class CreateQuiz extends React.Component {
             notification['warning']({
                 message: 'Ajouter une image pour réponse 1',
             });
-        } else if ((this.state.pic2 === null)&&(this.state.showingRes2===true)) {
+        } else if ((this.state.pic2 === null) && (this.state.showingRes2 === true)) {
             notification['warning']({
                 message: 'Ajouter une image pour réponse 2',
             });
-        } else if ((this.state.pic3 === null)&&(this.state.showingRes3===true)) {
+        } else if ((this.state.pic3 === null) && (this.state.showingRes3 === true)) {
             notification['warning']({
                 message: 'Ajouter une image pour réponse 3',
             });
-        } else if ((this.state.pic4 === null)&&(this.state.showingRes4===true)) {
+        } else if ((this.state.pic4 === null) && (this.state.showingRes4 === true)) {
             notification['warning']({
                 message: 'Ajouter une image pour réponse 4',
             });
@@ -574,7 +574,7 @@ class CreateQuiz extends React.Component {
         else {
             if (this.state.res1 !== (null || '')) {
                 response.push({
-                    id:"A",
+                    id: "A",
                     text: this.state.res1,
                     src: this.state.pic1,
                 });
@@ -582,7 +582,7 @@ class CreateQuiz extends React.Component {
             if ((this.state.res2 !== (null || ''))
                 && (this.state.showingRes2 === true)) {
                 response.push({
-                    id:"B",
+                    id: "B",
                     text: this.state.res2,
                     src: this.state.pic2,
                 });
@@ -590,7 +590,7 @@ class CreateQuiz extends React.Component {
             if ((this.state.res3 !== (null || ''))
                 && (this.state.showingRes3 === true)) {
                 response.push({
-                    id:"C",
+                    id: "C",
                     text: this.state.res3,
                     src: this.state.pic3,
                 });
@@ -598,7 +598,7 @@ class CreateQuiz extends React.Component {
             if ((this.state.res4 !== (null || ''))
                 && (this.state.showingRes4 === true)) {
                 response.push({
-                    id:"D",
+                    id: "D",
                     text: this.state.res4,
                     src: this.state.pic4,
                 });
@@ -640,10 +640,10 @@ class CreateQuiz extends React.Component {
             }
 
             questionsIndividuel.push({
-                id:questionsIndividuel .length,
+                id: questionsIndividuel.length,
                 description: this.state.nameIndi,
                 answers: response,
-                rightAnwer:right,
+                rightAnwer: right,
             });
 
             this.setState({
@@ -670,7 +670,7 @@ class CreateQuiz extends React.Component {
             notification['warning']({
                 message: 'Entrez la question',
             });
-        } else if (this.state.rightAnsNb === 0){
+        } else if (this.state.rightAnsNb === 0) {
             notification['warning']({
                 message: 'Il faut au moins une bonne réponse',
             });
@@ -896,8 +896,8 @@ class CreateQuiz extends React.Component {
 
     sendNewQuiz = () => {
         let themePic = '';
-        this.state.topicList.map((e)=>{
-            if(this.state.theme === e.topic){
+        this.state.topicList.map((e) => {
+            if (this.state.theme === e.topic) {
                 themePic = e.icon;
             }
         });
@@ -907,14 +907,14 @@ class CreateQuiz extends React.Component {
         if (this.state.type === 'individuel') {
             let sendAcc = [];
             console.log(this.state.accList)
-            this.state.checkedAccId.map((e)=>{
-                this.state.accList.map((acc)=>{
+            this.state.checkedAccId.map((e) => {
+                this.state.accList.map((acc) => {
                     console.log(acc)
                     if (e.toString() === acc.id.toString()) {
                         sendAcc.push({
                             id: acc.id,
                             quizAccessible: {
-                                quizIndividuel: acc.quizAccessible.quizIndividuel.concat(this.state.quizList.personal.length+1),
+                                quizIndividuel: acc.quizAccessible.quizIndividuel.concat(this.state.quizList.personal.length + 1),
                             }
                         })
                     }
@@ -922,7 +922,7 @@ class CreateQuiz extends React.Component {
 
             });
             const newQuiz = {
-                id: this.state.quizList.personal.length+1,
+                id: this.state.quizList.personal.length + 1,
                 name: this.state.name,
                 topic: this.state.theme,
                 src: themePic,
@@ -941,25 +941,25 @@ class CreateQuiz extends React.Component {
                     }
                 }
             };
-            if (newQuiz.name === null || newQuiz.name === ''){
+            if (newQuiz.name === null || newQuiz.name === '') {
                 notification['warning']({
                     message: 'Entrer le nom ',
                 });
                 return null;
-            }else if (newQuiz.topic === null || newQuiz.topic === '') {
+            } else if (newQuiz.topic === null || newQuiz.topic === '') {
                 notification['warning']({
                     message: 'Choisir un theme ',
                 });
-            }else if (newQuiz.questions.length === 0) {
+            } else if (newQuiz.questions.length === 0) {
                 notification['warning']({
                     message: 'Choisir les questions ',
                 });
-            }else {
+            } else {
                 this.socket.emit('add quiz', newQuiz);
                 console.log(newQuiz);
-                this.socket.emit('update profile',sendAcc);
+                this.socket.emit('update profile', sendAcc);
                 console.log(sendAcc);
-                this.socket.emit('update topic',updateTopic);
+                this.socket.emit('update topic', updateTopic);
                 console.log(updateTopic);
             }
         } else if (this.state.type === 'collaboratif') {
@@ -967,7 +967,7 @@ class CreateQuiz extends React.Component {
             let updateTopicCol = null;
             if (this.state.tangible === 'handsTouch') {
 
-                    id = this.state.quizList.collaborative.handsTouch.length + 1;
+                id = this.state.quizList.collaborative.handsTouch.length + 1;
                 updateTopicCol = {
                     id: this.state.topicId,
                     quiz: {
@@ -996,22 +996,22 @@ class CreateQuiz extends React.Component {
             const newColla = {
                 id: id,
                 name: this.state.name,
-                topic:this.state.theme,
-                src:themePic,
+                topic: this.state.theme,
+                src: themePic,
                 type: this.state.tangible,
                 questions: this.state.questionCol,
             };
             console.log(newColla);
-            if (newColla.name === null || newColla.name === ''){
+            if (newColla.name === null || newColla.name === '') {
                 notification['warning']({
                     message: 'Entrer le nom ',
                 });
                 return null;
-            }else if (newColla.topic === null || newColla.topic === '') {
+            } else if (newColla.topic === null || newColla.topic === '') {
                 notification['warning']({
                     message: 'Choisir un theme ',
                 });
-            }else if (newColla.questions.length === 0) {
+            } else if (newColla.questions.length === 0) {
                 notification['warning']({
                     message: 'Ajouter les questions ',
                 });
@@ -1030,17 +1030,17 @@ class CreateQuiz extends React.Component {
     };
 
     renderQuestion = () => {
-      return this.state.checkedQuestion.map((q) => q.description);
+        return this.state.checkedQuestion.map((q) => q.description);
     };
 
     handleChange = (info,topic) => {
         if (info.file.status === 'uploading') {
-            this.setState({loading: true});
+            this.setState({ loading: true });
             return
         }
         if (info.file.status === 'done') {
             // Get this url from response in real world.
-            getBase64(info.file.originFileObj, imageUrl =>{
+            getBase64(info.file.originFileObj, imageUrl => {
                 let image;
                 image = 'assets/'+info.file.originFileObj.name;
                 let newImages = this.state.images;
@@ -1110,7 +1110,7 @@ class CreateQuiz extends React.Component {
         let i = 0;
         const uploadButton = (
             <div>
-                <Icon type={this.state.loading ? 'loading' : 'plus'}/>
+                <Icon type={this.state.loading ? 'loading' : 'plus'} />
                 <div className="ant-upload-text">Upload</div>
             </div>
         );
@@ -1138,7 +1138,7 @@ class CreateQuiz extends React.Component {
         const keys = getFieldValue('keys');
         return (
             <Layout style={{ minHeight: '100vh' }}>
-                <Sidebar default = "1"/>
+                <Sidebar default="1" />
                 <Layout>
                     <Header style={{ background: '#fff' }}>
                         <h2>Créer un quiz</h2>
@@ -1150,48 +1150,48 @@ class CreateQuiz extends React.Component {
                         <div style={{ padding: 24, background: '#fff', minHeight: 480, display: 'flex', flexDirection: 'column' }}>
                             <div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type de quiz<p style={{color:'red'}}>*</p>
                                 <Radio.Group defaultValue={'individuel'}
-                                             onChange={this.onChangeType}
-                                             value={this.state.type}
-                                         style = {{marginBottom:20,marginLeft:10}}>
-                                <Radio value={'individuel'}>Quiz individuel</Radio>
-                                <Radio value={'collaboratif'}>Quiz collaboratif</Radio>
+                                    onChange={this.onChangeType}
+                                    value={this.state.type}
+                                    style={{ marginBottom: 20, marginLeft: 10 }}>
+                                    <Radio value={'individuel'}>Quiz individuel</Radio>
+                                    <Radio value={'collaboratif'}>Quiz collaboratif</Radio>
                                 </Radio.Group>
                             </div>
                             {this.state.type === 'collaboratif'
                             ?<div style={{fontSize:16,display: 'flex', flexDirection: 'row'}}>Type de question<p style={{color:'red'}}>*</p>
                                     <Radio.Group defaultValue={'individuel'}
-                                                 onChange={this.onChangeTangible}
-                                                 value={this.state.tangible}
-                                                 style = {{marginBottom:20,marginLeft:10}}>
-                                        <Radio value={'handsTouch'}>Cliquer avec un objet</Radio>
-                                        <Radio value={'handsMove'}>Drag and Drop</Radio>
+                                        onChange={this.onChangeTangible}
+                                        value={this.state.tangible}
+                                        style={{ marginBottom: 20, marginLeft: 10 }}>
+                                        <Radio value={'handsTouch'}>Appuyer sur les bonnes réponses</Radio>
+                                        <Radio value={'handsMove'}>Glisser la réponse dans la zone</Radio>
                                     </Radio.Group>
                                 </div>
-                            : null}
+                                : null}
 
-                            <Input style = {{width:400, marginBottom:20}}
-                                   addonBefore= 'Nom '
-                                   prefix={<p style={{color:'red'}}>*</p>}
-                                   allowClear = 'true'
-                                   value={this.state.name}
-                                   onChange = {e=>this.onChangeName(e)}
+                            <Input style={{ width: 400, marginBottom: 20 }}
+                                addonBefore='Nom '
+                                prefix={<p style={{ color: 'red' }}>*</p>}
+                                allowClear='true'
+                                value={this.state.name}
+                                onChange={e => this.onChangeName(e)}
                             />
-                            <Input style = {{width:400, marginBottom:20}}
-                                   addonBefore= 'Description '
-                                   allowClear = 'true'
-                                   value={this.state.description}
-                                   onChange = {e=>this.onChangeDes(e)}
+                            <Input style={{ width: 400, marginBottom: 20 }}
+                                addonBefore='Description '
+                                allowClear='true'
+                                value={this.state.description}
+                                onChange={e => this.onChangeDes(e)}
                             />
-                            <div style = {{ marginBottom:20, fontSize:16,display: 'flex', flexDirection: 'row'}}>
-                                Thème<p style={{color:'red'}}>*</p>
-                                <Select defaultValue="" value = {this.state.theme}
-                                        style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
-                                    {this.state.topicList.map((e)=>(
+                            <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}>
+                                Thème<p style={{ color: 'red' }}>*</p>
+                                <Select defaultValue="" value={this.state.theme}
+                                    style={{ width: 120, marginLeft: 50 }} onChange={this.onChangeTheme}>
+                                    {this.state.topicList.map((e) => (
                                         <Option key={e.topic}>{e.topic}</Option>
                                     ))}
                                 </Select>
                             </div>
-                            <div style = {{ marginBottom:20, fontSize:16, display: 'flex', flexDirection: 'row'}}> Acceuilli
+                            <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}> Acceuilli
                                 {this.renderAcceuilli()}
                             </div>
                             <Modal
@@ -1204,13 +1204,13 @@ class CreateQuiz extends React.Component {
                                 width={800}
                             >
                                 <CheckboxGroup
-                                options={this.state.nameList}
-                                value={this.state.checkedAcc}
-                                onChange={this.onSelectAcc}
+                                    options={this.state.nameList}
+                                    value={this.state.checkedAcc}
+                                    onChange={this.onSelectAcc}
                                 />
                             </Modal>
-                            <div style = {{ marginBottom:20,fontSize:16,display: 'flex', flexDirection: 'row'}}> Les questions<p style={{color:'red'}}>*</p>
-                                <Button style={{marginLeft:130}} type='primary' onClick={this.showModal}><Icon type="plus"/> Ajouter des questions</Button>
+                            <div style={{ marginBottom: 20, fontSize: 16, display: 'flex', flexDirection: 'row' }}> Les questions<p style={{ color: 'red' }}>*</p>
+                                <Button style={{ marginLeft: 130 }} type='primary' onClick={this.showModal}><Icon type="plus" /> Ajouter des questions</Button>
                             </div>
 
                             <Modal
@@ -1235,11 +1235,11 @@ class CreateQuiz extends React.Component {
                                        allowClear = 'true'
                                        onChange = {e=>this.onChangeNameIndi(e)}
                                 />
-                                <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                    <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                           addonBefore= 'Réponse A'
-                                           allowClear = 'true'
-                                           onChange = {e=>this.onChangeRes1(e)}
+                                <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                    <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                        addonBefore='Réponse A'
+                                        allowClear='true'
+                                        onChange={e => this.onChangeRes1(e)}
                                     />
                                     <p style={{color:'red'}}>*</p>
 
@@ -1250,12 +1250,12 @@ class CreateQuiz extends React.Component {
                                         }
                                     </Button>
                                 </div>
-                                { this.state.showingRes2
-                                    ? <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                        <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                               addonBefore= 'Réponse B'
-                                               allowClear = 'true'
-                                               onChange = {e=>this.onChangeRes2(e)}
+                                {this.state.showingRes2
+                                    ? <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                            addonBefore='Réponse B'
+                                            allowClear='true'
+                                            onChange={e => this.onChangeRes2(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
                                         <Button style={{marginRight:30}}
@@ -1266,20 +1266,20 @@ class CreateQuiz extends React.Component {
                                         </Button>
 
                                         <Button type="danger"
-                                                size='small'
-                                                shape="circle"
-                                                icon="minus"
-                                                style={{marginLeft:20}}
-                                                onClick={this.deleteRes2} />
+                                            size='small'
+                                            shape="circle"
+                                            icon="minus"
+                                            style={{ marginLeft: 20 }}
+                                            onClick={this.deleteRes2} />
                                     </div>
                                     : null
                                 }
-                                { this.state.showingRes3
-                                    ? <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                        <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                               addonBefore= 'Réponse C'
-                                               allowClear = 'true'
-                                               onChange = {e=>this.onChangeRes3(e)}
+                                {this.state.showingRes3
+                                    ? <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                            addonBefore='Réponse C'
+                                            allowClear='true'
+                                            onChange={e => this.onChangeRes3(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
                                         <Button style={{marginRight:30}}
@@ -1289,16 +1289,16 @@ class CreateQuiz extends React.Component {
                                             }
                                         </Button>
 
-                                        <Button type="danger" style={{marginLeft:20}} size='small' shape="circle" icon="minus" onClick={this.deleteRes3} />
+                                        <Button type="danger" style={{ marginLeft: 20 }} size='small' shape="circle" icon="minus" onClick={this.deleteRes3} />
                                     </div>
                                     : null
                                 }
-                                { this.state.showingRes4
-                                    ? <div style={{ display: 'flex', flexDirection: 'row'}}>
-                                        <Input style = {{width:450, marginBottom:20, marginRight:20}}
-                                               addonBefore= 'Réponse D'
-                                               allowClear = 'true'
-                                               onChange = {e=>this.onChangeRes4(e)}
+                                {this.state.showingRes4
+                                    ? <div style={{ display: 'flex', flexDirection: 'row' }}>
+                                        <Input style={{ width: 450, marginBottom: 20, marginRight: 20 }}
+                                            addonBefore='Réponse D'
+                                            allowClear='true'
+                                            onChange={e => this.onChangeRes4(e)}
                                         />
                                         <p style={{color:'red'}}>*</p>
                                         <Button style={{marginRight:30}}
@@ -1308,17 +1308,17 @@ class CreateQuiz extends React.Component {
                                             }
                                         </Button>
 
-                                        <Button type="danger" style={{marginLeft:20}} size='small' shape="circle" icon="minus" onClick={this.deleteRes4} />
+                                        <Button type="danger" style={{ marginLeft: 20 }} size='small' shape="circle" icon="minus" onClick={this.deleteRes4} />
                                     </div>
                                     : null
                                 }
                                 <div style={{height:30}}> </div>
                                 {
                                     this.state.resNb < 4
-                                        ? <Button style={{position:'absolute',right:20,bottom:70}} onClick={this.addResponse}
-                                            // onClick = {() => this.setState({comps: comps.concat([Date.now()])})}
+                                        ? <Button style={{ position: 'absolute', right: 20, bottom: 70 }} onClick={this.addResponse}
+                                        // onClick = {() => this.setState({comps: comps.concat([Date.now()])})}
                                         >
-                                            <Icon type="plus"/> Ajouter une response
+                                            <Icon type="plus" /> Ajouter une response
                                         </Button>
                                         : null
                                 }
@@ -1362,6 +1362,7 @@ class CreateQuiz extends React.Component {
                                         })}
                                     </Tabs>
                                 </div>
+
                             </Modal>
                             <Modal
                                 title="Ajouter des questions collaboratives"
@@ -1465,7 +1466,7 @@ class CreateQuiz extends React.Component {
                                     dataSource={this.state.checkedQuestion}
                                     renderItem={item => <List.Item><List.Item.Meta
                                         title={item.description}
-                                        description={"Options: " + item.answers.map((a)=>a.text)}
+                                        description={"Options: " + item.answers.map((a) => a.text)}
                                     /></List.Item>}
                                 />
                                 : <List
@@ -1473,16 +1474,16 @@ class CreateQuiz extends React.Component {
                                     dataSource={this.state.questionCol}
                                     renderItem={item =>
                                         <List.Item><List.Item.Meta
-                                        title={item.description}
-                                        description={"Options: " + item.pictures.map((a)=>a.description)}
-                                    /></List.Item>}
+                                            title={item.description}
+                                            description={"Options: " + item.pictures.map((a) => a.description)}
+                                        /></List.Item>}
                                 />
                             }
 
                         </div>
                     </Content>
-                    <Footer style={{display:'flex', justifyContent:'center'}}>
-                        <Button style={{marginBottom:100}} type='primary' onClick={this.sendNewQuiz}>Terminer</Button>
+                    <Footer style={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button style={{ marginBottom: 100 }} type='primary' onClick={this.sendNewQuiz}>Terminer</Button>
                     </Footer>
                 </Layout>
             </Layout>

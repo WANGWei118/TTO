@@ -41,7 +41,9 @@
     "quiz": {
       "personalQuiz": [],
       "tableQuiz": {
-        "handsMove": [],
+        "handsMove": [
+          2
+        ],
         "handsTouch": []
       }
     }
@@ -84,7 +86,9 @@
       ],
       "tableQuiz": {
         "handsMove": [],
-        "handsTouch": []
+        "handsTouch": [
+          2
+        ]
       }
     }
   }

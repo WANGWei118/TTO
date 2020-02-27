@@ -54,9 +54,9 @@ class SocketIOClient {
    * Init and start SocketIOClient.
    *
    * @method start
-   * @param {string} socketIOUrl - Socket IO Server's url. Default : 'http://172.20.10.2:10000/'
+   * @param {string} socketIOUrl - Socket IO Server's url. Default : 'http://192.168.1.16:10000/'
    */
-  start(socketIOUrl = 'http://172.20.10.2:10000/') {
+  start(socketIOUrl = 'http://192.168.1.16:10000/') {
     this._client = io(socketIOUrl)
     this._client.on(PING_SOCKETIO_TYPE, (data) => {
       this.handlePing(data)
@@ -72,14 +72,14 @@ class SocketIOClient {
   }
 
   sendBntMessage() {
-    this._client.emit('get quizz', {type: 'table'})
+    this._client.emit('get quizz', { type: 'table' })
   }
 
-  playMusic(){
+  playMusic() {
     this._client.emit('play music')
   }
 
-  pauseMusic(){
+  pauseMusic() {
     this._client.emit('pause music')
   }
   getMessage(data) {
@@ -108,7 +108,7 @@ class SocketIOClient {
 
   sendValidedAction(type) {
     console.log('Send valided action to server')
-    this._client.emit('valided action', {type: type})
+    this._client.emit('valided action', { type: type })
   }
 }
 

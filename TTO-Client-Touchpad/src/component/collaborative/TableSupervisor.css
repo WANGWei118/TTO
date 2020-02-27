@@ -1,0 +1,33 @@
+.uploadDiv {
+    text-align: center;
+    background-color: #FAFAFA;
+    border: 1px dotted #D9D9D9;
+    width: fit-content;
+    height: fit-content;
+    padding: 2%;
+    transition-duration: 0.5s;
+    margin: 2%;
+
+}
+
+.uploadDiv:hover {
+    transition-duration: 0.5s;
+    border: 1px dotted #1890FF;
+}
+
+.accueillisSupervisor {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.accueilliCardSupervisor {
+    flex: 0 1 22%;
+    margin-bottom: 2%;
+}
+
+.accueilliImageSupervisor {
+    height: 200px;
+}

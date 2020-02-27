@@ -56,5 +56,53 @@
         ]
       }
     ]
+  },
+  {
+    "id": 2,
+    "name": "La vie quotidienne",
+    "src": "topics/dailyLife.jpg",
+    "topic": "La vie quotidienne",
+    "type": "handsMove",
+    "questions": [
+      {
+        "id": 1,
+        "description": "Les utils dans la cuisine",
+        "topic": "La vie quotidienne",
+        "type": "handsMove",
+        "rightAnswers": 3,
+        "pictures": [
+          {
+            "description": "guitar",
+            "src": "assets/guitar.png",
+            "isAnswer": false
+          },
+          {
+            "description": "fire",
+            "src": "assets/fire.png",
+            "isAnswer": true
+          },
+          {
+            "description": "basket",
+            "src": "assets/basket.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "hu",
+            "src": "assets/hu.png",
+            "isAnswer": true
+          },
+          {
+            "description": "lyon",
+            "src": "assets/lyon.jpg",
+            "isAnswer": false
+          },
+          {
+            "description": "sppon",
+            "src": "assets/sppon2.jpg",
+            "isAnswer": true
+          }
+        ]
+      }
+    ]
   }
 ]
