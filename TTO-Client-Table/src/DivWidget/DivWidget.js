@@ -5,6 +5,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
 let des = ''
 let validedAnswers = 0
 const url = 'http://192.168.1.16:10000/'
+let isTouched = false
 
 class DivWidget extends TUIOWidget {
   constructor (x, y, width, height, socket, played, audioSrc, count) {
@@ -21,6 +22,7 @@ class DivWidget extends TUIOWidget {
     this.audio = new Audio(url + audioSrc)
     this.played = played
     this._domElem[0].className = 'name' + this.count.toString()
+    isTouched = false
   }
 
   get domElem () { return this._domElem }
@@ -42,8 +44,11 @@ class DivWidget extends TUIOWidget {
         },
       }
       console.log('hello world')
-      this.socket.playMusic()
-      $('.' + this._domElem[0].className).fadeOut(3000)
+      if (!isTouched) {
+        isTouched = true
+        this.socket.playMusic()
+        $('.' + this._domElem[0].className).fadeOut(3000)
+      }
     }
   }
 

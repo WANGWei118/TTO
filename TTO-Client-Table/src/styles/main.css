@@ -21,6 +21,15 @@
     writing-mode: vertical-lr;
 }
 
+.finishImage1{
+    z-index: 4;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 50px;
+    transform: rotate(90deg);
+}
+
 .information2 {
     z-index: 4;
     font-size: 70px;
@@ -29,6 +38,15 @@
     writing-mode: vertical-lr;
     right: 50px;
     transform: rotate(180deg);
+}
+
+.finishImage2{
+    z-index: 4;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    right: 50px;
+    transform: rotate(270deg);
 }
 
 .information3 {
@@ -40,6 +58,15 @@
     transform: rotate(180deg);
 }
 
+.finishImage3{
+    z-index: 4;
+    position: absolute;
+    top: 50px;
+    width: 200px;
+    height: 200px;
+    transform: rotate(180deg);
+}
+
 .information {
     z-index: 4;
     font-size: 70px;
@@ -47,6 +74,14 @@
     position: absolute;
     top: 35%;
     left: 20%;
+}
+
+.finishImage4{
+    z-index: 4;
+    position: absolute;
+    bottom: 50px;
+    width: 200px;
+    height: 200px;
 }
 
 #0 {

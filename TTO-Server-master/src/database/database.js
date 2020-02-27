@@ -401,7 +401,7 @@ class Database {
       dbo.collection('profiles').updateOne(searchId, updateQuiz, function (err, res) {
         if (err) throw err
         console.log('Update profiles success')
-        socket.broadcast.emit('update a profile', {type: true})
+        socket.emit('update a profile', {type: true})
         db.close()
       })
     })

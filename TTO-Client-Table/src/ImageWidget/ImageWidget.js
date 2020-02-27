@@ -75,6 +75,7 @@ class ImageWidget extends TUIOWidget {
   onTouchCreation (tuioTouch) {
     super.onTouchCreation(tuioTouch)
     if (this.isTouched(tuioTouch.x, tuioTouch.y)) {
+      console.log(tuioTouch.x, tuioTouch.y)
       this._lastTouchesValues = {
         ...this._lastTouchesValues,
         [tuioTouch.id]: {
@@ -96,17 +97,18 @@ class ImageWidget extends TUIOWidget {
           var bravo = document.createElement('h1')
           bravo.setAttribute('class', 'information' + i.toString())
           bravo.innerText = 'Bravo'
-          $('.nonTangibleDiv').append(bravo)
+          $('.nonTangibleDiv').remove($('.information0'), $('.information1'),$('.information2'),$('.information3'))
+            .append(bravo)
         }
         this.vanished = true
         console.log('bravo')
         setTimeout(() => {
-          $('.' + this._domElem[0].className).fadeOut(2000)
+          $('.' + this._domElem[0].className).fadeOut(1000)
           // $('.testImage').remove()
-          $('.information0').fadeOut(2000)
-          $('.information1').fadeOut(2000)
-          $('.information2').fadeOut(2000)
-          $('.information3').fadeOut(2000)
+          $('.information0').fadeOut(1000)
+          $('.information1').fadeOut(1000)
+          $('.information2').fadeOut(1000)
+          $('.information3').fadeOut(1000)
         }, 3000)
       }
       if (this._x >= 499 && this._x <= 1428
@@ -116,17 +118,18 @@ class ImageWidget extends TUIOWidget {
           var again = document.createElement('h1')
           again.setAttribute('class', 'information' + i.toString())
           again.innerText = 'Essayez encore'
-          $('.nonTangibleDiv').append(again)
+          $('.nonTangibleDiv').remove($('.information0'), $('.information1'),$('.information2'),$('.information3'))
+            .append(again)
         }
         console.log('essayez-encore')
         this.vanished = true
         setTimeout(() => {
-          $('.' + this._domElem[0].className).fadeOut(2000)
+          $('.' + this._domElem[0].className).fadeOut(1000)
           // $('.testImage').remove()
-          $('.information0').fadeOut(2000)
-          $('.information1').fadeOut(2000)
-          $('.information2').fadeOut(2000)
-          $('.information3').fadeOut(2000)
+          $('.information0').fadeOut(1000)
+          $('.information1').fadeOut(1000)
+          $('.information2').fadeOut(1000)
+          $('.information3').fadeOut(1000)
         }, 3000)
       }
     }
@@ -163,7 +166,8 @@ class ImageWidget extends TUIOWidget {
         newY = WINDOW_HEIGHT - this.height
       }
 
-      this.moveTo(newX, newY)
+      console.log(tuioTouch);
+      this.moveTo(newX, newY, radToDeg(tuioTouch.angle))
       this._lastTouchesValues = {
         ...this._lastTouchesValues,
         [tuioTouch.id]: {
