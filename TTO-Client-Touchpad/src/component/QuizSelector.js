@@ -11,14 +11,27 @@ const COLLAB_TYPE = 'quizHandsMove';
 
 const QuizSelector = (props) => {
 
+    /**
+    * Props
+    */
     const socket = props.socket
+
+    /**
+     * redux
+     */
+
+    const selectedAccueilli = useSelector((state) => state.accueilli.accueilliSelected)
+    const topicSelected = useSelector((state) => state.topic.topicSelected);
+
+    /**
+     * States
+     */
 
     const [loadingIndividual, setLoadingIndividual] = useState(true);
     const [loadingCollab, setLoadingCollab] = useState(true);
     const [individualQuiz, setIndividualQuiz] = useState(null);
     const [collabQuiz, setCollabQuiz] = useState(null);
-    const selectedAccueilli = useSelector((state) => state.accueilli.accueilliSelected)
-    const topicSelected = useSelector((state) => state.topic.topicSelected);
+
 
 
 

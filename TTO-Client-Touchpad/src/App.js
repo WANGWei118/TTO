@@ -17,49 +17,43 @@ import QuizSelectorCollab from './component/collaborative/QuizSelectorCollab';
 import SelectAccueilli from './component/SelectAccueilli';
 import ThemeSelector from './component/ThemeSelector';
 import { SERVER_URL } from './constants.js';
-import TouchBackend from 'react-dnd-touch-backend'
-import Backend from 'react-dnd-html5-backend'
-import { DndProvider, useDrag } from 'react-dnd'
-
 export const socket = openSocket(SERVER_URL);
 const App = () => {
     return (
-        <DndProvider backend={TouchBackend}>
 
-            <Provider store={store}>
-                <Router>
-                    <div className="appDiv">
-                        {/* A <Switch> looks through its children <Route>s and
+        <Provider store={store}>
+            <Router>
+                <div className="appDiv">
+                    {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
-                        <Switch>
-                            <Route path="/selectAccueilli">
-                                <SelectAccueilli socket={socket} />
-                            </Route>
-                            <Route path="/themes">
-                                <ThemeSelector socket={socket} />
-                            </Route>
-                            <Route path="/quiz">
-                                <QuizSelector socket={socket} />
-                            </Route>
-                            <Route path="/quizSelectorCollab">
-                                <QuizSelectorCollab socket={socket} />
-                            </Route>
-                            <Route path="/quizCollabSupervisor" render={(props) => <TableSupervisor {...props} socket={socket} />}>
-                            </Route>
-                            <Route
-                                path="/quizGame"
-                                render={(props) => <QuizGame {...props} isAuted={true} />} />
-                            <Route
-                                path="/quizGameCollab"
-                                render={(props) => <QuizGameCollab {...props} isAuted={true} />} />
-                            <Route path="/">
-                                <Menu socket={socket} />
-                            </Route>
-                        </Switch>
-                    </div>
-                </Router>
-            </Provider>
-        </DndProvider>
+                    <Switch>
+                        <Route path="/selectAccueilli">
+                            <SelectAccueilli socket={socket} />
+                        </Route>
+                        <Route path="/themes">
+                            <ThemeSelector socket={socket} />
+                        </Route>
+                        <Route path="/quiz">
+                            <QuizSelector socket={socket} />
+                        </Route>
+                        <Route path="/quizSelectorCollab">
+                            <QuizSelectorCollab socket={socket} />
+                        </Route>
+                        <Route path="/quizCollabSupervisor" render={(props) => <TableSupervisor {...props} socket={socket} />}>
+                        </Route>
+                        <Route
+                            path="/quizGame"
+                            render={(props) => <QuizGame {...props} isAuted={true} />} />
+                        <Route
+                            path="/quizGameCollab"
+                            render={(props) => <QuizGameCollab {...props} isAuted={true} />} />
+                        <Route path="/">
+                            <Menu socket={socket} />
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
+        </Provider>
 
     );
 

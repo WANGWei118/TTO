@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import { SERVER_URL } from '../../constants.js';
 
@@ -8,10 +7,21 @@ const QuizCardCollaborative = props => {
   const TANGIBLE = 'tangible'
   const NORMAL = 'normal'
 
+  /**
+   * Props or constants
+  */
   const history = useHistory()
   const quiz = props.quiz
   const quizName = quiz.name
   const topic = quiz.topic
+  /**
+   * redux
+   */
+
+  /**
+   * States
+   */
+
 
   const handleClick = (item) => {
     console.log(item)
@@ -48,6 +58,5 @@ const QuizCardCollaborative = props => {
   )
 }
 
-QuizCardCollaborative.propTypes = {}
 
 export default QuizCardCollaborative

@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import PropTypes from 'prop-types'
 import { Button, Result, Icon, Card, } from 'antd'
 import HeaderComponent from '../HeaderComponent'
-import TouchBackend from 'react-dnd-touch-backend';
-import { DndProvider } from 'react-dnd';
 import './TableSupervisor.css';
 import Meta from 'antd/lib/card/Meta';
 import { SERVER_URL } from '../../constants.js';
@@ -18,30 +15,50 @@ const TableSupervisor = props => {
   // const TANGIBLE = 'tangible'
   // const NORMAL = 'normal'
 
-  const [accueillisPlaying, setAccueillisPlaying] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [showFeedback, setShowFeedback] = useState(false);
-  const socket = props.socket
-  const [tempAccueilliAdded, setTempsAccueilliAdded] = useState(null);
+
+
   const dispatch = useDispatch();
-  const [selectedAccueilli, setSelectedAccueilli] = useState(null);
-  const [isAtLastQuestion, setIsAtLastQuestion] = useState(false);
-  const [quizStarted, setQuizStarted] = useState(false);
-
   const history = useHistory();
+  /**
+  * Props or constants
+  */
 
+  const socket = props.socket
   console.log(props.location.state);
   const quiz = props.location.state.quiz.item
   let questions = [];
+
   if (quiz.type !== 'music') {
     questions = quiz.questions
   }
 
+  /**
+   * States for the game played
+   * 
+   */
+
+  const [isAtLastQuestion, setIsAtLastQuestion] = useState(false);
+  const [quizStarted, setQuizStarted] = useState(false);
   const [index, setIndex] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[index])
+  const [currentQuestion, setCurrentQuestion] = useState(questions[0])
+
+  /**
+   * 
+   * States for accueilli monitoring
+   */
+
+  const [accueillisPlaying, setAccueillisPlaying] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [tempAccueilliAdded, setTempsAccueilliAdded] = useState(null);
+  const [selectedAccueilli, setSelectedAccueilli] = useState(null);
+
+
+
+
+
 
   // Tells if the current question is over in the table
-  const [isQuestionOver, setIsQuestionOver] = useState(false)
 
   const navigateToMenu = () => {
     history.push('/')
@@ -49,13 +66,13 @@ const TableSupervisor = props => {
 
   const restart = () => {
     setIndex(0);
-    setCurrentQuestion(questions[0]);
     setIsAtLastQuestion(false);
     setQuizStarted(false);
     setCurrentQuestion(questions[0]);
   }
 
-
+  console.log("CurrentQuestion : ")
+  console.log(currentQuestion)
 
   const handleNextQuestion = () => {
     if (questions.length > index) {
@@ -146,8 +163,6 @@ const TableSupervisor = props => {
     setShowModal(false);
   }
 
-
-
   return (
     <>
 
@@ -204,11 +219,9 @@ const TableSupervisor = props => {
         </div>
         {showModal ? <AccueilliModal onSelectionChange={(e) => onSelectionChange(e.target.value)} handleCancel={() => handleCancel()} handleOk={() => handleOk()} /> : <></>}
       </div>
-      {showFeedback ? <AccueilliFeedback accueilli={selectedAccueilli} images={currentQuestion.pictures} cancelFeedback={() => cancelFeedback()} okFeedback={() => okFeedback()} /> : <></>}
+      {showFeedback ? <AccueilliFeedback accueilli={selectedAccueilli} images={currentQuestion ? currentQuestion.pictures : []} cancelFeedback={() => cancelFeedback()} okFeedback={() => okFeedback()} /> : <></>}
     </>
   )
 }
-
-TableSupervisor.propTypes = {}
 
 export default TableSupervisor

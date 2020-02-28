@@ -10,6 +10,12 @@
      height: 50px;
  }
 
+.imageWithMargin {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}
+
 .buttonImage {
     width: 70px;
     height: 70px;
@@ -20,4 +26,18 @@
 .littleImage {
     width: 30px;
     height: 30px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+.column {
+    display: flex;
+    flex-direction: column;
+}
+
+.upload {
+    width: 300px;
+    margin-left: 10px;
 }

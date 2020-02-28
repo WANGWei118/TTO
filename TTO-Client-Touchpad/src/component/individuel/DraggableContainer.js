@@ -4,8 +4,20 @@ import { SERVER_URL } from '../../constants.js';
 
 const DraggableContainer = props => {
 
-  const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.80))
-  const [y, setY] = useState(1 + Math.random() * (window.innerHeight * 0.40) + (window.innerHeight * 0.50))
+  /**
+   * Props or constants
+   */
+
+  const [x, setX] = useState(1 + Math.random() * (window.innerWidth * 0.70))
+  const [y, setY] = useState(1 + Math.random() * (window.innerHeight * 0.30) + (window.innerHeight * 0.50))
+
+  /**
+   * redux
+   */
+
+  /**
+   * States
+   */
 
   const [previousCursorPosX, setPreviousCursorPosX] = useState(0)
   const [previousCursorPosY, setPreviousCursorPosY] = useState(0)

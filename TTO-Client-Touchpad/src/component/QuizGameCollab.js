@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import './QuizGameCollab.css'
 import DraggableContainer from './individuel/DraggableContainer';
 import { useHistory } from 'react-router-dom';
 import HeaderComponent from './HeaderComponent';
-const nextArrow = require('./../assets/right_arrow.png')
 const home_menu = require('./../assets/home_menu.png')
 const restarto = require('./../assets/reload_icon.jpg')
 
@@ -16,14 +14,26 @@ let nbRightAnswers = 0;
 
 const QuizGameCollab = props => {
 
+    /**
+    * Props or constants
+    */
+
     const quiz = props.location.state.quiz.item;
     const questions = quiz.questions;
     const history = useHistory();
+
+    /**
+     * redux
+     */
+
     const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
     const [centralDiv, setCentralDiv] = useState(undefined);
-    // const [nbRightAnswers, setNbRightAnswers] = useState(0);
     const [index, setIndex] = useState(0);
     const [isOver, setIsOver] = useState(false);
+
+    /**
+     * States
+     */
 
     const nextQuestion = () => {
 
@@ -142,10 +152,6 @@ const QuizGameCollab = props => {
 
         </div>
     );
-};
-
-QuizGameCollab.propTypes = {
-
 };
 
 export default QuizGameCollab;

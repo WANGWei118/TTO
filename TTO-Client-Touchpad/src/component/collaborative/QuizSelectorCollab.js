@@ -11,9 +11,21 @@ const QuizSelectorCollab = props => {
 
     const TANGIBLE = 'tangible';
     const NORMAL = 'normal';
-
     const history = useHistory();
+
+    /**
+    * Props
+    */
+
     const socket = props.socket;
+
+    /**
+     * redux
+     */
+
+    /**
+     * States
+     */
 
     const [loading, setLoading] = useState(true);
     const [collabQuizNormal, setCollabQuizNormal] = useState([]);

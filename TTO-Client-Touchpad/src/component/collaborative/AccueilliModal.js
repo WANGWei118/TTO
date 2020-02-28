@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import { Modal, Button, Radio, Card } from 'antd';
 import Meta from 'antd/lib/card/Meta';
 import { useSelector } from 'react-redux';
@@ -7,8 +6,25 @@ import { SERVER_URL } from '../../constants.js';
 
 const AccueilliModal = props => {
 
-    const [visible, setVisible] = useState(true);
+    /**
+     * Props
+    */
+
+    /**
+     * redux
+     */
+
     const accueilliList = useSelector((state) => state.accueilli.accueilliList)
+
+    /**
+     * States
+     */
+
+    const [visible, setVisible] = useState(true);
+
+
+
+
     const closeModal = () => {
         setVisible(false)
     }
