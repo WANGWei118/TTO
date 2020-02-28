@@ -1,6 +1,7 @@
 import React from 'react';
 import 'antd/dist/antd.css';
 import '../app.css';
+import './createQuiz.css'
 import {Layout, Menu, Icon, Tabs, List,Breadcrumb, Button, Input, Card} from 'antd';
 import {Link} from "react-router-dom";
 import openSocket from 'socket.io-client';
@@ -127,6 +128,9 @@ class QuizByTopic extends React.Component {
                                                       renderItem={item=>(
                                                           <List.Item>
                                                               <p>{item.description}</p>
+                                                              {item.answers.map((i)=>{
+                                                                  return <img src={url+i.src} className='imageWithMargin'/>
+                                                              })}
                                                           </List.Item>
                                                       )}
                                                 />
@@ -151,6 +155,9 @@ class QuizByTopic extends React.Component {
                                                       renderItem={item=>(
                                                           <List.Item>
                                                               <p>{item.description}</p>
+                                                              {item.pictures.map((i)=>{
+                                                                  return <img src={url+i.src} className='imageWithMargin'/>
+                                                              })}
                                                           </List.Item>
                                                       )}
                                                 />
@@ -175,6 +182,9 @@ class QuizByTopic extends React.Component {
                                                       renderItem={item=>(
                                                           <List.Item>
                                                               <p>{item.description}</p>
+                                                              {item.pictures.map((i)=>{
+                                                                  return <img src={url+i.src} className='imageWithMargin'/>
+                                                              })}
                                                           </List.Item>
                                                       )}
                                                 />
