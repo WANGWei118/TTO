@@ -1062,9 +1062,22 @@ class CreateQuiz extends React.Component {
             cover: this.state.musicImage,
             type: "music",
         };
-
-        console.log(newMusic);
-        this.socket.emit("add music",newMusic);
+        if (this.state.music === null || this.state.music === '') {
+            notification['warning']({
+                message: 'Entrez le nom',
+            });
+        } else if (this.state.fileList === null || this.state.fileList === '') {
+            notification['warning']({
+                message: 'Choisissez la musique',
+            });
+        } else if (this.state.musicImage === null || this.state.musicImage === '') {
+            notification['warning']({
+                message: 'Choisissez l\'image',
+            });
+        } else{
+            console.log(newMusic);
+            this.socket.emit("add music",newMusic);
+        }
     };
     onCollapse = collapsed => {
         console.log(collapsed);
