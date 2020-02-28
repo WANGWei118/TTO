@@ -1275,7 +1275,7 @@ class CreateQuiz extends React.Component {
         };
         return (
             <Layout style={{ minHeight: '100vh' }}>
-                <Sidebar default="1" />
+                <Sidebar default="2" />
                 <Layout>
                     <Header style={{ background: '#fff' }}>
                         <h2>Créer un quiz</h2>
