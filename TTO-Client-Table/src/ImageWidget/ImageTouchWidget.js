@@ -85,7 +85,7 @@ class ImageTouchWidget extends TUIOWidget {
           // this._domElem.css('display', `none`)
           // $('.testImage').remove()
           // this._domElem[0].className.
-          $('.' + this._domElem[0].className).fadeOut(1000)
+          $('.' + this._domElem[0].className).fadeOut(500)
           this.socket.sendValidedAction(true)
           this.vanished = true
           console.log('bravo')
@@ -97,14 +97,14 @@ class ImageTouchWidget extends TUIOWidget {
               .append(bravo)
           }
           setTimeout(() => {
-            $('.information0').fadeOut(1000)
-            $('.information1').fadeOut(1000)
-            $('.information2').fadeOut(1000)
-            $('.information3').fadeOut(1000)
-          }, 1000)
+            $('.information0').fadeOut(500)
+            $('.information1').fadeOut(500)
+            $('.information2').fadeOut(500)
+            $('.information3').fadeOut(500)
+          }, 500)
         } else {
           this.vanished = true
-          $('.' + this._domElem[0].className).fadeOut(1000)
+          $('.' + this._domElem[0].className).fadeOut(500)
           // $('.testImage').remove()
           this.socket.sendValidedAction(false)
           for (let i = 0; i < 4; i++) {
@@ -116,11 +116,11 @@ class ImageTouchWidget extends TUIOWidget {
           }
           console.log('essayez-encore')
           setTimeout(() => {
-            $('.information0').fadeOut(1000)
-            $('.information1').fadeOut(1000)
-            $('.information2').fadeOut(1000)
-            $('.information3').fadeOut(1000)
-          }, 1000)
+            $('.information0').fadeOut(500)
+            $('.information1').fadeOut(500)
+            $('.information2').fadeOut(500)
+            $('.information3').fadeOut(500)
+          }, 500)
         }
       }
     }

@@ -98,7 +98,7 @@ const QuizGameCollab = props => {
     }
 
     return (
-        <>
+        <div className="containers">
             {isOver ? <>
                 <div className="descriptionDiv">
                     <h1 className="bravoTitle">Bravo ! Tu as terminé !</h1>
@@ -140,7 +140,7 @@ const QuizGameCollab = props => {
                 </>
             }
 
-        </>
+        </div>
     );
 };
 

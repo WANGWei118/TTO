@@ -103,13 +103,13 @@ class ImageWidget extends TUIOWidget {
         this.vanished = true
         console.log('bravo')
         setTimeout(() => {
-          $('.' + this._domElem[0].className).fadeOut(1000)
+          $('.' + this._domElem[0].className).fadeOut(500)
           // $('.testImage').remove()
-          $('.information0').fadeOut(1000)
-          $('.information1').fadeOut(1000)
-          $('.information2').fadeOut(1000)
-          $('.information3').fadeOut(1000)
-        }, 3000)
+          $('.information0').fadeOut(500)
+          $('.information1').fadeOut(500)
+          $('.information2').fadeOut(500)
+          $('.information3').fadeOut(500)
+        }, 500)
       }
       if (this._x >= 499 && this._x <= 1428
         && this._y >= 283 && this._y <= 788 && this.isRight === false) {
@@ -124,13 +124,13 @@ class ImageWidget extends TUIOWidget {
         console.log('essayez-encore')
         this.vanished = true
         setTimeout(() => {
-          $('.' + this._domElem[0].className).fadeOut(1000)
+          $('.' + this._domElem[0].className).fadeOut(500)
           // $('.testImage').remove()
-          $('.information0').fadeOut(1000)
-          $('.information1').fadeOut(1000)
-          $('.information2').fadeOut(1000)
-          $('.information3').fadeOut(1000)
-        }, 3000)
+          $('.information0').fadeOut(500)
+          $('.information1').fadeOut(500)
+          $('.information2').fadeOut(500)
+          $('.information3').fadeOut(500)
+        }, 500)
       }
     }
   }

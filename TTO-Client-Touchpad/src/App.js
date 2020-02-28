@@ -22,7 +22,6 @@ import Backend from 'react-dnd-html5-backend'
 import { DndProvider, useDrag } from 'react-dnd'
 
 export const socket = openSocket(SERVER_URL);
-
 const App = () => {
     return (
         <DndProvider backend={TouchBackend}>

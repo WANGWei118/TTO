@@ -13,10 +13,14 @@
 */
 
 .quizGameCollab {
-    /* height: 100%; */
-    /* position: relative; */
-    /* overflow-y: hidden; */
+    /*overflow: auto;*/
+    /*-webkit-overflow-scrolling: touch;*/
+}
 
+.containers{
+    /*overflow: auto;*/
+    /*-webkit-overflow-scrolling: touch;*/
+    /*height: 100vh*/
 }
 
 .collabQuizDescription {

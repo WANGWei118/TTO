@@ -12,6 +12,7 @@ import ButtonWidget from './ButtonWidget/ButtonWidget'
 import DivWidget from './DivWidget/DivWidget'
 import { NEXT_QUESTION, QUIZ_FINISHED } from './SocketIOClient/constants'
 import ImageTouchWidget from './ImageWidget/ImageTouchWidget'
+import ImageElementWidget from './ImageWidget/ImageWidgetElement'
 
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
@@ -103,6 +104,7 @@ const buildApp = () => {
     $('#app').empty()
     // audio.play()
     audio.src = url + data.src
+    audio.muted = false
     isElse = false
     countNote = 0
     forConentration(data.src)
@@ -282,6 +284,35 @@ function imageDiv (picNum, pics, title) {
   return imageDiv
 }
 
+// function nonTangibleDiv (picNum, pic, title) {
+//   var nonTangibleDiv = document.createElement('div')
+//   var answerBox = document.createElement('div')
+//   var titleTop = document.createElement('h1')
+//   var titleBottom = document.createElement('h1')
+//   var titleLeft = document.createElement('h1')
+//   var titleRight = document.createElement('h1')
+//   titleTop.setAttribute('class', 'titleT')
+//   titleBottom.setAttribute('class', 'titleB')
+//   titleLeft.setAttribute('class', 'titleL')
+//   titleRight.setAttribute('class', 'titleR')
+//   nonTangibleDiv.setAttribute('class', 'nonTangibleDiv')
+//   answerBox.setAttribute('class', 'answerBox')
+//   titleTop.innerText = title
+//   titleBottom.innerText = title
+//   titleLeft.innerText = title
+//   titleRight.innerText = title
+//   randedPosition = getRandomPosition(picNum)
+//   console.log(pic)
+//   for (let i = 0; i < picNum; i++) {
+//     const imageWidget1 = new ImageWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, url + pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum, i)
+//     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
+//     $('#app').append(imageWidget1.domElem)
+//   }
+//   console.log($(window).width(), $(window).height())
+//   nonTangibleDiv.append(titleTop, titleBottom, titleLeft, titleRight, answerBox)
+//   return nonTangibleDiv
+// }
+
 function nonTangibleDiv (picNum, pic, title) {
   var nonTangibleDiv = document.createElement('div')
   var answerBox = document.createElement('div')
@@ -302,7 +333,7 @@ function nonTangibleDiv (picNum, pic, title) {
   randedPosition = getRandomPosition(picNum)
   console.log(pic)
   for (let i = 0; i < picNum; i++) {
-    const imageWidget1 = new ImageWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, url + pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum, i)
+    const imageWidget1 = new ImageElementWidget(positions[randedPosition[i]].x, positions[randedPosition[i]].y, 140, 140, random(0, 180), 1, url + pic[i].src, socketIOClient, pic[i].isAnswer, rightAnswersNum, i)
     imageWidget1.domElem[0].style.transform = 'rotate(' + random(0, 180) + 'deg)'
     $('#app').append(imageWidget1.domElem)
   }
@@ -336,10 +367,10 @@ function wait () {
   waitImage3.setAttribute('class', 'finishImage3')
   waitImage4.setAttribute('class', 'finishImage4')
   waitDiv.setAttribute('id', 'finishDiv')
-  titleTop.innerText = 'Jouons ensemble, les amis!'
-  titleBottom.innerText = 'Jouons ensemble, les amis!'
-  titleRight.innerText = 'Jouons ensemble, les amis!'
-  titleLeft.innerText = 'Jouons ensemble, les amis!'
+  titleTop.innerText = 'Jouons ensemble, les amis !'
+  titleBottom.innerText = 'Jouons ensemble, les amis !'
+  titleRight.innerText = 'Jouons ensemble, les amis !'
+  titleLeft.innerText = 'Jouons ensemble, les amis !'
   waitImage1.src = 'assets/quiz.png'
   waitImage2.src = 'assets/quiz.png'
   waitImage3.src = 'assets/quiz.png'
@@ -368,10 +399,10 @@ function finished () {
   finishImage3.setAttribute('class', 'finishImage3')
   finishImage4.setAttribute('class', 'finishImage4')
   finishDiv.setAttribute('id', 'finishDiv')
-  titleTop.innerText = ' Bravo! '
-  titleBottom.innerText = ' Bravo! '
-  titleRight.innerText = ' Bravo! '
-  titleLeft.innerText = ' Bravo! '
+  titleTop.innerText = ' Bravo ! '
+  titleBottom.innerText = ' Bravo ! '
+  titleRight.innerText = ' Bravo ! '
+  titleLeft.innerText = ' Bravo ! '
   finishImage1.src = 'assets/rate.png'
   finishImage2.src = 'assets/rate.png'
   finishImage3.src = 'assets/rate.png'
@@ -400,14 +431,14 @@ function lastPage () {
   lastImage3.setAttribute('class', 'finishImage3')
   lastImage4.setAttribute('class', 'finishImage4')
   lastDiv.setAttribute('id', 'finishDiv')
-  titleTop.innerText = ' Nous avons passés un bon moment! '
-  titleBottom.innerText = ' Nous avons passés un bon moment! '
-  titleRight.innerText = ' Nous avons passés un bon moment! '
-  titleLeft.innerText = ' Nous avons passés un bon moment! '
-  lastImage1.src = 'assets/finish.png'
-  lastImage2.src = 'assets/finish.png'
-  lastImage3.src = 'assets/finish.png'
-  lastImage4.src = 'assets/finish.png'
+  titleTop.innerText = ' Nous avons passé un bon moment ! '
+  titleBottom.innerText = ' Nous avons passé un bon moment ! '
+  titleRight.innerText = ' Nous avons passé un bon moment ! '
+  titleLeft.innerText = ' Nous avons passé un bon moment ! '
+  lastImage1.src = 'assets/ternimer.png'
+  lastImage2.src = 'assets/ternimer.png'
+  lastImage3.src = 'assets/ternimer.png'
+  lastImage4.src = 'assets/ternimer.png'
   lastDiv.append(lastImage1, lastImage2, lastImage3, lastImage4, titleTop, titleBottom, titleLeft, titleRight)
   $('#app').empty()
     .append(lastDiv)
