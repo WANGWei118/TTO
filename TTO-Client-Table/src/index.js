@@ -17,7 +17,7 @@ import ImageElementWidget from './ImageWidget/ImageWidgetElement'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
-const url = 'http://192.168.1.16:10000/'
+const url = 'http://192.168.182.41:10000/'
 var timer = null
 let timeout = setTimeout(() => {
 
@@ -435,10 +435,10 @@ function lastPage () {
   titleBottom.innerText = ' Nous avons passé un bon moment ! '
   titleRight.innerText = ' Nous avons passé un bon moment ! '
   titleLeft.innerText = ' Nous avons passé un bon moment ! '
-  lastImage1.src = 'assets/ternimer.png'
-  lastImage2.src = 'assets/ternimer.png'
-  lastImage3.src = 'assets/ternimer.png'
-  lastImage4.src = 'assets/ternimer.png'
+  lastImage1.src = 'assets/terminer.png'
+  lastImage2.src = 'assets/terminer.png'
+  lastImage3.src = 'assets/terminer.png'
+  lastImage4.src = 'assets/terminer.png'
   lastDiv.append(lastImage1, lastImage2, lastImage3, lastImage4, titleTop, titleBottom, titleLeft, titleRight)
   $('#app').empty()
     .append(lastDiv)

@@ -4,7 +4,7 @@ import { WINDOW_HEIGHT, WINDOW_WIDTH } from 'tuiomanager/core/constants'
 
 let des = ''
 let validedAnswers = 0
-const url = 'http://192.168.1.16:10000/'
+const url = 'http://192.168.182.41:10000/'
 let isTouched = false
 
 class DivWidget extends TUIOWidget {
