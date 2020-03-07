@@ -17,7 +17,7 @@ import ImageElementWidget from './ImageWidget/ImageWidgetElement'
 const windowsWidth = $(window).width()
 const windowsHeight = $(window).height()
 var played = false
-const url = 'http://192.168.182.41:10000/'
+const url = 'http://172.20.10.2:10000/'
 var timer = null
 let timeout = setTimeout(() => {
 

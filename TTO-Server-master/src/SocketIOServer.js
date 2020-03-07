@@ -20,7 +20,7 @@ import profileUpload from '../controller/profile-uploader'
 import topicUpload from '../controller/topic-uploader'
 
 const MongoClient = require('mongodb').MongoClient
-const urlDB = 'mongodb://192.168.182.41:27017/tto'
+const urlDB = 'mongodb://172.20.10.2:27017/tto'
 
 const database = require('./database/database')
 

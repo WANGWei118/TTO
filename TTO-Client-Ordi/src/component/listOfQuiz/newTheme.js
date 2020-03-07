@@ -28,6 +28,7 @@ import {BrowserRouter as Router,
 import openSocket from 'socket.io-client';
 import Sidebar from '../sidebar';
 import $ from "jquery";
+// import $ from "j"
 import '../config/config'
 
 const url = global.constants.url;

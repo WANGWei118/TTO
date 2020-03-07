@@ -8,10 +8,6 @@ import DetailTheme from './component/listOfQuiz/detailTheme'
 import DetailQuiz from './component/listOfQuiz/detailQuiz'
 import Profile from './component/profile/profile'
 import DetailProfile from './component/profile/detailProfile'
-import CreateProfile from './component/profile/createProfile'
-import QuizByTopic from './component/listOfQuiz/quizByTopic'
-import EditProfile from './component/profile/editProfile'
-import WrappedDynamicFieldSet from './component/test'
 
 import {
     BrowserRouter as Router,
@@ -19,20 +15,13 @@ import {
     Route,
 } from "react-router-dom";
 import openSocket from 'socket.io-client';
-export const socket = openSocket('http://172.20.10.2:10000');
+export const socket = openSocket('http://localhost:10000');
 
-
-let profileId = null;
-
-function handleId(val) {
-    profileId = val;
-}
 function App() {
-
-    return (
-        <Router>
-            <div>
-                {/* A <Switch> looks through its children <Route>s and
+  return (
+      <Router>
+          <div>
+              {/* A <Switch> looks through its children <Route>s and
                 renders the first one that matches the current URL. */}
               <Switch>
                   <Route path="/homepage">
@@ -59,26 +48,15 @@ function App() {
                   <Route path="/createQuiz">
                       <CreateQuiz socket = {socket}/>
                   </Route>
-                  <Route path="/detailProfile">
+                  <Route path={`/profile/:id`}>
                       <DetailProfile socket = {socket}/>
                   </Route>
                   <Route path="/profile">
                       <Profile socket = {socket}/>
                   </Route>
-                  <Route path="/createProfile">
-                      <CreateProfile socket = {socket}/>
-                  </Route>
-                  <Route path="/editProfile">
-                      <EditProfile socket = {socket}/>
-                  </Route>
-                  <Route path="/quizByTopic">
-                      <QuizByTopic socket = {socket}/>
-                  </Route>
 
-                  <Route exact path="/">
-                      <HomePage socket = {socket}/>
-                      {/*<WrappedDynamicFieldSet />*/}
-
+                  <Route path="/">
+                      <HomePage />
                   </Route>
               </Switch>
           </div>
